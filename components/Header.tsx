@@ -110,7 +110,7 @@ export default function Header() {
                   >
                     {item.name}
                     <span
-                      className={`text-[10px] transition-transform duration-300 ${
+                      className={`text-[11px] transition-transform duration-300 ${
                         desktopServicesOpen ? "rotate-180" : ""
                       }`}
                     >
