@@ -1,3 +1,7 @@
+import ResultsSection from "@/components/Homepage/ResultsSection";
+import ServiceLegacySection from "@/components/Homepage/ServiceLegacySection";
+import TreatmentCarousel from "@/components/Homepage/TreatmentCarousel";
+import WhatWeDoSection from "@/components/Homepage/WhatWeDoSection";
 import Image from "next/image";
 
 export default function Home() {
@@ -14,6 +18,14 @@ export default function Home() {
           className="h-auto w-full object-cover"
         />
       </section>
+      {/* {What We Do Section} */}
+      <WhatWeDoSection />
+      {/* {Treatement Carousel section} */}
+      <TreatmentCarousel />
+      {/* {Service section} */}
+      <ServiceLegacySection />
+      {/* {Result Section} */}
+      <ResultsSection />
     </main>
   );
 }
