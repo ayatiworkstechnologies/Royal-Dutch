@@ -1,7 +1,10 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+
+const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const slides = [
   {
@@ -46,7 +49,7 @@ export default function TreatmentCarousel() {
 
     const timer = setInterval(() => {
       nextSlide();
-    }, 2500);
+    }, 3500);
 
     return () => clearInterval(timer);
   }, [activeIndex, isPaused]);
@@ -59,36 +62,64 @@ export default function TreatmentCarousel() {
       onTouchStart={() => setIsPaused(true)}
       onTouchEnd={() => setIsPaused(false)}
     >
-      {/* Desktop / Laptop Background Image */}
-      <div className="absolute inset-0 hidden lg:block">
+      {/* Desktop / Laptop Background Image - first entry animation only */}
+      <motion.div
+        className="absolute inset-0 hidden overflow-hidden lg:block"
+        initial={{ opacity: 0, scale: 1.08 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 1.8,
+          ease: smoothEase,
+        }}
+        viewport={{ once: true, amount: 0.25 }}
+      >
         <Image
-          key={activeSlide.bgImage}
           src={activeSlide.bgImage}
           alt={activeSlide.title}
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center transition-all duration-700"
+          className="object-cover object-center transition-all duration-1000 ease-out"
         />
         <div className="absolute inset-0 bg-black/5" />
-      </div>
+      </motion.div>
 
       {/* Desktop / Laptop Layout */}
-      <div className="relative z-10 hidden min-h-[450px] xl:min-h-[600px] items-center justify-center px-4 py-8 lg:flex">
+      <div className="relative z-10 hidden min-h-[450px] items-center justify-center px-4 py-8 lg:flex xl:min-h-[600px]">
         <div className="relative w-full max-w-[1120px]">
-          {/* Main Card */}
-          <div className="mx-auto grid w-full max-w-[780px] overflow-hidden rounded-[5px] border-[6px] border-white shadow-[0_15px_45px_rgba(0,0,0,0.16)] md:grid-cols-[185px_1fr]">
-            {/* Left Content */}
-            <div className="relative z-10 flex min-h-[285px] flex-col justify-center bg-white px-5 py-7">
-              <h3 className="font-primary text-[62px] font-semibold leading-none text-[#8b1d72]">
+          {/* Main Card - first entry animation only */}
+          <motion.div
+            className="mx-auto grid w-full max-w-[780px] overflow-hidden rounded-[5px] border-[6px] border-white shadow-[0_15px_45px_rgba(0,0,0,0.16)] md:grid-cols-[185px_1fr]"
+            initial={{ opacity: 0, y: 70, scale: 0.96 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 1.45,
+              delay: 0.2,
+              ease: smoothEase,
+            }}
+            viewport={{ once: true, amount: 0.35 }}
+          >
+            {/* Left Content - first entry animation only */}
+            <motion.div
+              className="relative z-10 flex min-h-[425px] flex-col justify-center bg-white px-5 py-7"
+              initial={{ opacity: 0, x: -45 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 1.35,
+                delay: 0.45,
+                ease: smoothEase,
+              }}
+              viewport={{ once: true }}
+            >
+              <h3 className="font-primary text-[62px] font-semibold leading-none text-[#8b1d72] transition-all duration-500">
                 {activeSlide.number}
               </h3>
 
-              <h4 className="mt-7 max-w-[140px] font-primary text-[13px] font-semibold uppercase leading-[1.4] tracking-[3.5px] text-black">
+              <h4 className="mt-7 max-w-[140px] font-primary text-[14px] font-semibold uppercase leading-[1.4] tracking-[3.5px] text-black transition-all duration-500">
                 {activeSlide.title}
               </h4>
 
-              <p className="mt-5 max-w-[155px] font-secondary text-[10px] font-medium leading-[1.45] tracking-[1px] text-[#9a9a9a]">
+              <p className="mt-5 max-w-[155px] font-secondary text-[11px] font-medium leading-[1.45] tracking-[1px] text-[#9a9a9a] transition-all duration-500">
                 {activeSlide.description}
               </p>
 
@@ -100,7 +131,7 @@ export default function TreatmentCarousel() {
                     type="button"
                     onClick={() => setActiveIndex(index)}
                     aria-label={`Go to slide ${index + 1}`}
-                    className={`h-[2px] transition-all duration-300 ${
+                    className={`h-[2px] transition-all duration-500 ${
                       index === activeIndex
                         ? "w-7 bg-[#8b1d72]"
                         : "w-5 bg-[#e8e8e8]"
@@ -108,15 +139,25 @@ export default function TreatmentCarousel() {
                   />
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Right Transparent Box */}
-            <div className="relative min-h-[285px] bg-transparent p-[6px]">
+            {/* Right Transparent Box - first entry animation only */}
+            <motion.div
+              className="relative min-h-[285px] bg-transparent p-[6px]"
+              initial={{ opacity: 0, x: 45 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 1.35,
+                delay: 0.55,
+                ease: smoothEase,
+              }}
+              viewport={{ once: true }}
+            >
               <div className="h-full w-full rounded-[3px] border border-white/90 bg-transparent" />
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Desktop Arrows - equally aligned */}
+          {/* Desktop Arrows */}
           <button
             type="button"
             onClick={prevSlide}
@@ -143,7 +184,16 @@ export default function TreatmentCarousel() {
 
       {/* Tablet + Mobile Normal Carousel */}
       <div className="relative z-10 bg-white px-5 py-14 lg:hidden">
-        <div className="relative mx-auto max-w-[680px] overflow-hidden rounded-[14px] border border-[#eadce6] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.10)]">
+        <motion.div
+          className="relative mx-auto max-w-[680px] overflow-hidden rounded-[14px] border border-[#eadce6] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.10)]"
+          initial={{ opacity: 0, y: 60, scale: 0.96 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 1.45,
+            ease: smoothEase,
+          }}
+          viewport={{ once: true, amount: 0.35 }}
+        >
           {/* Top-right buttons */}
           <div className="absolute right-4 top-4 z-20 flex items-center gap-3">
             <button
@@ -171,15 +221,15 @@ export default function TreatmentCarousel() {
 
           {/* Content */}
           <div className="px-6 pb-8 pt-20 text-center sm:px-10">
-            <h3 className="font-primary text-[58px] font-semibold leading-none text-[#8b1d72] sm:text-[66px]">
+            <h3 className="font-primary text-[58px] font-semibold leading-none text-[#8b1d72] transition-all duration-500 sm:text-[66px]">
               {activeSlide.number}
             </h3>
 
-            <h4 className="mx-auto mt-5 max-w-[320px] font-primary text-[18px] font-semibold uppercase leading-[1.45] tracking-[4px] text-black">
+            <h4 className="mx-auto mt-5 max-w-[320px] font-primary text-[18px] font-semibold uppercase leading-[1.45] tracking-[4px] text-black transition-all duration-500">
               {activeSlide.title}
             </h4>
 
-            <p className="mx-auto mt-5 max-w-[520px] font-secondary text-[14px] font-medium leading-[1.7] tracking-[1px] text-[#8a8a8a]">
+            <p className="mx-auto mt-5 max-w-[520px] font-secondary text-[14px] font-medium leading-[1.7] tracking-[1px] text-[#8a8a8a] transition-all duration-500">
               {activeSlide.description}
             </p>
 
@@ -191,7 +241,7 @@ export default function TreatmentCarousel() {
                   type="button"
                   onClick={() => setActiveIndex(index)}
                   aria-label={`Go to slide ${index + 1}`}
-                  className={`h-[2px] transition-all duration-300 ${
+                  className={`h-[2px] transition-all duration-500 ${
                     index === activeIndex
                       ? "w-8 bg-[#8b1d72]"
                       : "w-6 bg-[#dedede]"
@@ -204,7 +254,6 @@ export default function TreatmentCarousel() {
           {/* Image below content */}
           <div className="relative h-[260px] w-full overflow-hidden sm:h-[360px] md:h-[430px]">
             <Image
-              key={activeSlide.bgImage}
               src={activeSlide.bgImage}
               alt={activeSlide.title}
               fill
@@ -212,7 +261,7 @@ export default function TreatmentCarousel() {
               className="object-cover object-center transition-all duration-700"
             />
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

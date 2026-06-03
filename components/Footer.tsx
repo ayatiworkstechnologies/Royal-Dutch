@@ -186,9 +186,22 @@ export default function Footer() {
         </div>
 
         {/* Bottom Copyright */}
-        <div className="mt-14 border-t border-white/15 pt-7 text-center text-[11px] leading-6 text-white/80">
-          Copyright ©2026 royaldutch - All right reserved | Designed & Developed
-          by Ayatiworks
+        <div className="mt-10 border-t border-white/15 px-4 pt-6 text-center font-secondary text-[12px] leading-6 text-white/75 sm:mt-14 sm:pt-7 sm:text-[14px]">
+          <p>
+            Copyright ©2026 RoyalDutch - All rights reserved
+            <span className="mx-2 hidden sm:inline">|</span>
+            <span className="block sm:inline">
+              Designed &amp; Developed by{" "}
+              <a
+                href="https://www.ayatiworks.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-white transition-colors duration-300 hover:text-[#D6B981]"
+              >
+                Ayatiworks
+              </a>
+            </span>
+          </p>
         </div>
       </div>
     </footer>

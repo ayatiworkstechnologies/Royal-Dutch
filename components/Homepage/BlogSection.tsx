@@ -1,8 +1,11 @@
 "use client";
 
+import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+
+const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const blogs = [
   {
@@ -34,6 +37,16 @@ const blogs = [
     href: "#",
   },
 ];
+
+const cardsWrapperVariants: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.18,
+      delayChildren: 0.45,
+    },
+  },
+};
 
 export default function BlogSection() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -72,7 +85,7 @@ export default function BlogSection() {
 
     const timer = setInterval(() => {
       scrollNext();
-    }, 2500);
+    }, 3000);
 
     return () => clearInterval(timer);
   }, [isPaused]);
@@ -82,71 +95,134 @@ export default function BlogSection() {
       <div className="mx-auto max-w-7xl">
         {/* Heading */}
         <div className="mb-9">
-          <p className="mb-4 font-secondary text-[11px] font-medium tracking-[2.5px] text-[#8b1d72]">
+          <motion.p
+            className="mb-4 font-secondary text-[11px] font-medium tracking-[2.5px] text-[#8b1d72]"
+            initial={{ opacity: 0, y: -18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1,
+              ease: smoothEase,
+            }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
             Our Blogs
-          </p>
+          </motion.p>
 
-          <h2 className="max-w-5xl font-primary text-[24px] font-medium uppercase leading-[1.35] tracking-[6px] text-black md:text-[30px]">
+          <motion.h2
+            className="max-w-5xl font-primary text-[24px] font-medium uppercase leading-[1.35] tracking-[6px] text-black md:text-[30px]"
+            initial={{ opacity: 0, x: -70 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{
+              duration: 1.45,
+              delay: 0.15,
+              ease: smoothEase,
+            }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
             Expert Insights For Healthy, Radiant Skin
-          </h2>
+          </motion.h2>
 
-          <p className="mt-5 max-w-6xl font-secondary text-[13px] leading-[1.65] tracking-[2px] text-[#8b8b8b] md:text-[14px]">
+          <motion.p
+            className="mt-5 max-w-6xl font-secondary text-[13px] leading-[1.65] tracking-[2px] text-[#8b8b8b] md:text-[14px]"
+            initial={{ opacity: 0, x: 70 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{
+              duration: 1.45,
+              delay: 0.3,
+              ease: smoothEase,
+            }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
             Stay updated with expert skincare tips, beauty treatments, and
             wellness insights from Royal Dutch Clinic. Explore helpful articles
             on advanced aesthetic care, skin health, laser treatments, facial
             therapies, and self-care guidance to help you feel confident inside
             and out.
-          </p>
+          </motion.p>
         </div>
 
         {/* Blog Cards Carousel */}
-        <div
+        <motion.div
           ref={scrollRef}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           onTouchStart={() => setIsPaused(true)}
           onTouchEnd={() => setIsPaused(false)}
           className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          variants={cardsWrapperVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
         >
-          {blogs.map((blog, index) => (
-            <article
-              key={index}
-              data-blog-card
-              className="snap-start shrink-0 basis-full sm:basis-[calc((100%-24px)/2)] lg:basis-[calc((100%-72px)/4)]"
-            >
-              <Link href={blog.href} className="group block">
-                {/* Image */}
-                <div className="relative h-[230px] w-full overflow-hidden rounded-[6px] bg-[#f2eeee] sm:h-[210px] lg:h-[190px]">
-                  <Image
-                    src={blog.image}
-                    alt={blog.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover object-center transition duration-700 group-hover:scale-105"
-                  />
-                </div>
+          {blogs.map((blog, index) => {
+            const isEven = index % 2 === 0;
 
-                {/* Content */}
-                <div className="pt-4">
-                  <h3 className="font-primary text-[15px] font-semibold uppercase leading-[1.35] tracking-[0.7px] text-black transition group-hover:text-[#8b1d72]">
-                    {blog.title}
-                  </h3>
+            return (
+              <motion.article
+                key={index}
+                data-blog-card
+                className="snap-start shrink-0 basis-full sm:basis-[calc((100%-24px)/2)] lg:basis-[calc((100%-72px)/4)]"
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    y: isEven ? 65 : -65,
+                    scale: 0.96,
+                  },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: {
+                      duration: 1.2,
+                      ease: smoothEase,
+                    },
+                  },
+                }}
+              >
+                <Link href={blog.href} className="group block">
+                  {/* Image */}
+                  <div className="relative h-[230px] w-full overflow-hidden rounded-[6px] bg-[#f2eeee] sm:h-[210px] lg:h-[190px]">
+                    <Image
+                      src={blog.image}
+                      alt={blog.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover object-center transition duration-700 group-hover:scale-105"
+                    />
+                  </div>
 
-                  <p className="mt-4 font-secondary text-[13px] leading-[1.55] tracking-[1.6px] text-[#aaa]">
-                    {blog.desc}
-                  </p>
+                  {/* Content */}
+                  <div className="pt-4">
+                    <h3 className="font-primary text-[15px] font-semibold uppercase leading-[1.35] tracking-[0.7px] text-black transition group-hover:text-[#8b1d72]">
+                      {blog.title}
+                    </h3>
 
-                  <span className="mt-6 inline-block font-primary text-[13px] font-semibold uppercase tracking-[2px] text-black transition group-hover:text-[#8b1d72]">
-                    Learn More
-                  </span>
-                </div>
-              </Link>
-            </article>
-          ))}
-        </div>
+                    <p className="mt-4 font-secondary text-[13px] leading-[1.55] tracking-[1.6px] text-[#aaa]">
+                      {blog.desc}
+                    </p>
+
+                    <span className="mt-6 inline-block font-primary text-[13px] font-semibold uppercase tracking-[2px] text-black transition group-hover:text-[#8b1d72]">
+                      Learn More
+                    </span>
+                  </div>
+                </Link>
+              </motion.article>
+            );
+          })}
+        </motion.div>
 
         {/* Mobile + Tablet Arrows */}
-        <div className="mt-6 flex justify-center gap-4 lg:hidden">
+        <motion.div
+          className="mt-6 flex justify-center gap-4 lg:hidden"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 1,
+            delay: 0.4,
+            ease: smoothEase,
+          }}
+          viewport={{ once: true }}
+        >
           <button
             type="button"
             onClick={scrollPrev}
@@ -168,17 +244,27 @@ export default function BlogSection() {
               ›
             </span>
           </button>
-        </div>
+        </motion.div>
 
         {/* More Blogs Button */}
-        <div className="mt-12 flex justify-center">
+        <motion.div
+          className="mt-12 flex justify-center"
+          initial={{ opacity: 0, y: 35 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 1,
+            delay: 0.55,
+            ease: smoothEase,
+          }}
+          viewport={{ once: true }}
+        >
           <Link
             href="#"
             className="rounded-full bg-[#b567a1] px-7 py-3 font-primary text-[12px] font-semibold uppercase tracking-[3px] text-white transition hover:bg-[#8b1d72]"
           >
             More Blogs
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
