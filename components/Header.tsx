@@ -72,7 +72,7 @@ export default function Header() {
       )}
 
       {/* Header Glass Box */}
-      <div className="relative z-20 flex h-[58px] w-full max-w-[850px] items-center justify-between rounded-[8px] border border-white/20 bg-[#200020]/60 px-5 shadow-[0_8px_28px_rgba(0,0,0,0.22)] backdrop-blur-md md:h-[64px] md:px-8 lg:h-[60px] lg:px-[56px]">
+      <div className="relative z-20 flex h-[58px] w-full max-w-[880px] items-center justify-between rounded-[8px] border border-white/20 bg-[#200020]/60 px-5 shadow-[0_8px_28px_rgba(0,0,0,0.22)] backdrop-blur-md md:h-[64px] md:px-8 lg:h-[65px] lg:px-[56px]">
         {/* Logo */}
         <Link href="/" className="flex shrink-0 items-center" onClick={closeMenu}>
           <Image
@@ -81,7 +81,7 @@ export default function Header() {
             width={155}
             height={42}
             priority
-            className="h-auto w-[145px] object-contain md:w-[160px] lg:w-[155px]"
+            className="h-auto w-[145px] object-contain md:w-[160px] lg:w-[185px]"
           />
         </Link>
 

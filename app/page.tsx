@@ -1,5 +1,8 @@
+import FloatingButtons from "@/components/FloatingButtons";
+import BlogSection from "@/components/Homepage/BlogSection";
 import ResultsSection from "@/components/Homepage/ResultsSection";
 import ServiceLegacySection from "@/components/Homepage/ServiceLegacySection";
+import TestimonialSection from "@/components/Homepage/TestimonialSection";
 import TreatmentCarousel from "@/components/Homepage/TreatmentCarousel";
 import WhatWeDoSection from "@/components/Homepage/WhatWeDoSection";
 import Image from "next/image";
@@ -26,6 +29,12 @@ export default function Home() {
       <ServiceLegacySection />
       {/* {Result Section} */}
       <ResultsSection />
+      {/* {testimonial section} */}
+      <TestimonialSection />
+      {/* {Blog section} */}
+      <BlogSection />
+      {/* {Floating icons} */}
+      <FloatingButtons />
     </main>
   );
 }

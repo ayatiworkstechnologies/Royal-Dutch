@@ -31,9 +31,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cinzel.variable} ${redHatDisplay.variable} h-full antialiased`}
+      className={`${cinzel.variable} ${redHatDisplay.variable} h-full overflow-x-hidden antialiased`}
     >
-      <body className="flex min-h-full flex-col font-secondary">
+      <body className="flex min-h-full w-full flex-col overflow-x-hidden bg-white font-secondary text-[#171717]">
         <Header />
         {children}
         <Footer />

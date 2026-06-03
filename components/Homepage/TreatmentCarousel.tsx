@@ -74,7 +74,7 @@ export default function TreatmentCarousel() {
       </div>
 
       {/* Desktop / Laptop Layout */}
-      <div className="relative z-10 hidden min-h-[450px] xl:min-h-[600px] items-center justify-center px-5 py-10 lg:flex">
+      <div className="relative z-10 hidden min-h-[450px] xl:min-h-[600px] items-center justify-center px-4 py-8 lg:flex">
         <div className="relative w-full max-w-[1120px]">
           {/* Main Card */}
           <div className="mx-auto grid w-full max-w-[780px] overflow-hidden rounded-[5px] border-[6px] border-white shadow-[0_15px_45px_rgba(0,0,0,0.16)] md:grid-cols-[185px_1fr]">

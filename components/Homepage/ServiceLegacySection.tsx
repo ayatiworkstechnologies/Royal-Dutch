@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function ServiceLegacySection() {
   return (
-    <section className="w-full bg-white py-16 md:py-20 lg:py-24">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 md:grid-cols-[0.9fr_1.4fr] md:px-8 lg:gap-16">
+    <section className="w-full bg-white py-8 md:py-10 lg:py-12">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 md:grid-cols-[0.9fr_1.4fr] md:px-6 lg:gap-16">
         {/* Left Image */}
         <div className="flex justify-center md:justify-start">
           <div className="relative w-full max-w-[285px] rounded-[12px] bg-white p-[7px] shadow-[0_10px_35px_rgba(0,0,0,0.16)] sm:max-w-[310px]">
