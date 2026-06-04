@@ -15,7 +15,7 @@ export default function Home() {
     <main className="min-h-screen w-full overflow-x-hidden bg-white">
       {/* Banner Section */}
       <motion.section
-        className="relative w-full overflow-hidden bg-[#571248]"
+        className="relative w-full overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -32,7 +32,7 @@ export default function Home() {
           }}
         >
           <Image
-            src="/images/homepage-banner.jpg"
+            src="/images/desktop-banner.png"
             alt="Royal Dutch Medical Centre Banner"
             width={1920}
             height={800}
