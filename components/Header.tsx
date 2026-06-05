@@ -247,9 +247,8 @@ const navLinks: NavLink[] = [
 function ChevronIcon({ open = false }: { open?: boolean }) {
   return (
     <svg
-      className={`h-[15px] w-[15px] transition-transform duration-300 ${
-        open ? "rotate-180" : ""
-      }`}
+      className={`h-[14px] w-[14px] transition-transform duration-300 ${open ? "rotate-180" : ""
+        }`}
       viewBox="0 0 24 24"
       fill="none"
       aria-hidden="true"
@@ -257,7 +256,7 @@ function ChevronIcon({ open = false }: { open?: boolean }) {
       <path
         d="M6 9L12 15L18 9"
         stroke="currentColor"
-        strokeWidth="2.2"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -277,11 +276,11 @@ function DesktopMegaMenu({
   const activeCategory = categories[activeIndex];
 
   return (
-    <div className="absolute left-1/2 top-[calc(100%+12px)] z-[999] hidden w-[calc(100vw-32px)] max-w-[1400px] -translate-x-1/2 rounded-[14px] bg-white px-8 py-7 shadow-[0_16px_45px_rgba(0,0,0,0.12)] lg:block">
-      <div className="grid min-h-[265px] grid-cols-[245px_1fr] gap-8">
+    <div className="absolute left-1/2 top-[calc(100%+12px)] z-[9999] hidden w-[calc(100vw-32px)] max-w-[1320px] -translate-x-1/2 rounded-[14px] bg-white px-8 py-8 shadow-[0_18px_45px_rgba(0,0,0,0.16)] lg:block">
+      <div className="grid min-h-[300px] grid-cols-[230px_1fr] gap-8">
         {/* Left Categories */}
         <div className="border-r border-black/10 pr-7">
-          <div className="flex flex-col gap-[24px] pt-4">
+          <div className="flex flex-col gap-[26px] pt-2">
             {categories.map((category, index) => {
               const isActive = activeIndex === index;
 
@@ -291,11 +290,10 @@ function DesktopMegaMenu({
                   type="button"
                   onMouseEnter={() => setActiveIndex(index)}
                   onFocus={() => setActiveIndex(index)}
-                  className={`text-left font-secondary text-[15px] leading-[1.25] transition-colors duration-200 xl:text-[16px] ${
-                    isActive
+                  className={`text-left font-secondary text-[15px] leading-[1.28] transition-colors duration-200 ${isActive
                       ? "font-semibold text-black"
-                      : "font-medium text-[#888888] hover:text-[#8b1d72]"
-                  }`}
+                      : "font-medium text-[#8b8b8b] hover:text-[#8b1d72]"
+                    }`}
                 >
                   {category.title}
                 </button>
@@ -312,7 +310,7 @@ function DesktopMegaMenu({
               href={item.path}
               className="group flex h-full flex-col"
             >
-              <h4 className="min-h-[52px] font-secondary text-[15px] font-medium leading-[1.35] text-[#777777] transition-colors duration-300 group-hover:text-[#8b1d72] xl:text-[16px]">
+              <h4 className="min-h-[58px] font-secondary text-[15px] font-medium leading-[1.35] text-[#777] transition-colors duration-300 group-hover:text-[#8b1d72]">
                 {item.name}
               </h4>
 
@@ -320,9 +318,9 @@ function DesktopMegaMenu({
                 <Image
                   src={item.image}
                   alt={item.name}
-                  width={310}
+                  width={290}
                   height={190}
-                  className="h-[135px] w-full object-cover object-center transition-transform duration-700 group-hover:scale-105 xl:h-[145px]"
+                  className="h-[155px] w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
             </Link>
@@ -357,9 +355,8 @@ function MobileAccordion({
       </button>
 
       <div
-        className={`grid overflow-hidden transition-all duration-300 ${
-          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-        }`}
+        className={`grid overflow-hidden transition-all duration-300 ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          }`}
       >
         <div className="min-h-0 pb-4">
           {categories.map((category, index) => {
@@ -382,11 +379,10 @@ function MobileAccordion({
                 </button>
 
                 <div
-                  className={`grid overflow-hidden transition-all duration-300 ${
-                    isActive
+                  className={`grid overflow-hidden transition-all duration-300 ${isActive
                       ? "grid-rows-[1fr] opacity-100"
                       : "grid-rows-[0fr] opacity-0"
-                  }`}
+                    }`}
                 >
                   <div className="min-h-0">
                     <ul className="space-y-3 px-4 pb-4">
@@ -463,31 +459,30 @@ export default function Header() {
   }, [mobileOpen]);
 
   const navLinkClass = (href: string) =>
-    `font-secondary text-[15px] font-semibold transition-colors duration-300 xl:text-[16px] ${
-      pathname === href
-        ? "text-[#8b1d72]"
-        : "text-[#111111] hover:text-[#8b1d72]"
+    `font-secondary text-[15px] font-medium transition-colors duration-300 ${pathname === href
+      ? "text-[#8b1d72]"
+      : "text-[#2f2f2f] hover:text-[#8b1d72]"
     }`;
 
   return (
-    <header className="relative z-[999] w-full bg-white">
+    <header className="fixed left-0 top-0 z-[99999] w-full bg-transparent px-2 pt-2 sm:px-3 lg:px-4">
       <div
-        className="relative mx-auto w-full max-w-[1920px]"
+        className="relative mx-auto max-w-[1440px]"
         onMouseEnter={clearCloseTimer}
         onMouseLeave={closeDesktopMenu}
       >
-        <nav className="w-full bg-white px-5 py-3 shadow-[0_6px_22px_rgba(0,0,0,0.04)] sm:px-8 lg:px-12 xl:px-5">
-          <div className="grid items-center gap-4 lg:grid-cols-[280px_1fr_130px] xl:grid-cols-[330px_1fr_150px]">
+        <nav className="rounded-[10px] bg-white px-4 py-2 shadow-[0_8px_28px_rgba(0,0,0,0.10)] lg:rounded-[12px] lg:px-5">
+          <div className="grid items-center gap-4 lg:grid-cols-[230px_1fr_110px] xl:grid-cols-[260px_1fr_118px]">
             {/* Logo */}
             <div className="flex items-center justify-between">
               <Link href="/" onClick={closeMobileMenu} className="inline-flex">
                 <Image
                   src="/icons/logo.svg"
                   alt="Royal Dutch Medical Centre"
-                  width={230}
-                  height={70}
+                  width={190}
+                  height={54}
                   priority
-                  className="h-auto w-[155px] sm:w-[180px] lg:w-[210px] xl:w-[235px]"
+                  className="h-auto w-[140px] sm:w-[160px] lg:w-[170px] xl:w-[190px]"
                 />
               </Link>
 
@@ -500,19 +495,16 @@ export default function Header() {
               >
                 <span className="relative h-4 w-5">
                   <span
-                    className={`absolute left-0 top-0 h-[2px] w-5 rounded-full bg-current transition ${
-                      mobileOpen ? "translate-y-[7px] rotate-45" : ""
-                    }`}
+                    className={`absolute left-0 top-0 h-[2px] w-5 rounded-full bg-current transition ${mobileOpen ? "translate-y-[7px] rotate-45" : ""
+                      }`}
                   />
                   <span
-                    className={`absolute left-0 top-[7px] h-[2px] w-5 rounded-full bg-current transition ${
-                      mobileOpen ? "opacity-0" : ""
-                    }`}
+                    className={`absolute left-0 top-[7px] h-[2px] w-5 rounded-full bg-current transition ${mobileOpen ? "opacity-0" : ""
+                      }`}
                   />
                   <span
-                    className={`absolute left-0 top-[14px] h-[2px] w-5 rounded-full bg-current transition ${
-                      mobileOpen ? "-translate-y-[7px] -rotate-45" : ""
-                    }`}
+                    className={`absolute left-0 top-[14px] h-[2px] w-5 rounded-full bg-current transition ${mobileOpen ? "-translate-y-[7px] -rotate-45" : ""
+                      }`}
                   />
                 </span>
               </button>
@@ -520,7 +512,7 @@ export default function Header() {
 
             {/* Desktop Nav */}
             <div className="hidden items-center justify-center lg:flex">
-              <div className="flex items-center justify-center gap-8 xl:gap-10 2xl:gap-12">
+              <div className="flex items-center justify-center gap-9 xl:gap-10">
                 {navLinks.map((link) => {
                   const isMega = link.type === "mega" && link.menuKey;
                   const isOpen = isMega && openMenu === link.menuKey;
@@ -532,11 +524,10 @@ export default function Header() {
                         type="button"
                         onMouseEnter={() => openDesktopMenu(link.menuKey!)}
                         onFocus={() => openDesktopMenu(link.menuKey!)}
-                        className={`flex items-center gap-1 font-secondary text-[15px] font-semibold transition-colors duration-300 xl:text-[16px] ${
-                          isOpen
-                            ? "text-black"
-                            : "text-[#111111] hover:text-[#8b1d72]"
-                        }`}
+                        className={`flex items-center gap-1 font-secondary text-[15px] transition-colors duration-300 ${isOpen
+                            ? "font-semibold text-black"
+                            : "font-medium text-[#2f2f2f] hover:text-[#8b1d72]"
+                          }`}
                       >
                         {link.name}
                         <ChevronIcon open={Boolean(isOpen)} />
@@ -557,11 +548,11 @@ export default function Header() {
               </div>
             </div>
 
-            {/* Assist Button */}
+            {/* CTA */}
             <div className="hidden justify-end lg:flex">
               <Link
                 href="/contact"
-                className="rounded-full border border-black/10 bg-[#f7f7f7] px-7 py-3 font-secondary text-[15px] font-semibold text-[#111] transition duration-300 hover:bg-[#8b1d72] hover:text-white xl:text-[16px]"
+                className="rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-7 py-2.5 font-secondary text-[15px] font-semibold text-black transition duration-300 hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72]"
               >
                 Assist
               </Link>
@@ -570,11 +561,10 @@ export default function Header() {
 
           {/* Mobile Menu */}
           <div
-            className={`lg:hidden ${
-              mobileOpen
+            className={`lg:hidden ${mobileOpen
                 ? "mt-4 max-h-[calc(100dvh-100px)] overflow-y-auto rounded-[14px] bg-[#35102f] px-4 py-4 opacity-100"
                 : "max-h-0 overflow-hidden opacity-0"
-            } transition-all duration-300`}
+              } transition-all duration-300`}
           >
             {navLinks.map((link) => {
               const isMega = link.type === "mega" && link.categories;
@@ -612,10 +602,12 @@ export default function Header() {
           </div>
         </nav>
 
-        {/* Absolute Mega Menu - opens over banner/image */}
+        {/* Desktop Mega Menu Overlay */}
         {openMenu && (
           <DesktopMegaMenu
-            categories={openMenu === "medical" ? medicalSpecialities : careServices}
+            categories={
+              openMenu === "medical" ? medicalSpecialities : careServices
+            }
             activeIndex={openMenu === "medical" ? medicalActive : careActive}
             setActiveIndex={
               openMenu === "medical" ? setMedicalActive : setCareActive
