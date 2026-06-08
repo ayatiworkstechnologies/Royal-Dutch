@@ -13,6 +13,7 @@ type SubMenuItem = {
 
 type SubMenuCategory = {
   title: string;
+  path: string;
   items: SubMenuItem[];
 };
 
@@ -26,186 +27,199 @@ type NavLink = {
 
 const submenuImage = "/images/treatment-bg-1.jpg";
 
+/* ================= MEDICAL SPECIALITIES ================= */
+
 const medicalSpecialities: SubMenuCategory[] = [
   {
     title: "Dermatology & Aesthetic Medicine",
+    path: "/medical-specialities/dermatology-aesthetic-medicine",
     items: [
       {
         name: "Medical dermatology",
-        path: "/services/medical-dermatology",
+        path: "/medical-specialities/dermatology-aesthetic-medicine/medical-dermatology",
         image: submenuImage,
       },
       {
         name: "Cosmetic injectables",
-        path: "/services/cosmetic-injectables",
+        path: "/medical-specialities/dermatology-aesthetic-medicine/cosmetic-injectables",
         image: submenuImage,
       },
       {
         name: "Laser and device based treatments",
-        path: "/services/laser-device-treatments",
+        path: "/medical-specialities/dermatology-aesthetic-medicine/laser-device-based-treatments",
         image: submenuImage,
       },
       {
         name: "Anti-aging and preventive skin programs",
-        path: "/services/anti-aging-preventive-skin-programs",
+        path: "/medical-specialities/dermatology-aesthetic-medicine/anti-aging-preventive-skin-programs",
         image: submenuImage,
       },
     ],
   },
   {
     title: "Dentistry Department",
+    path: "/medical-specialities/dentistry-department",
     items: [
       {
         name: "Preventive and general dentistry",
-        path: "/services/preventive-general-dentistry",
+        path: "/medical-specialities/dentistry-department/preventive-general-dentistry",
         image: submenuImage,
       },
       {
         name: "Cosmetic smile design and rehabilitation",
-        path: "/services/cosmetic-smile-design",
+        path: "/medical-specialities/dentistry-department/cosmetic-smile-design-rehabilitation",
         image: submenuImage,
       },
       {
         name: "Restorative dentistry",
-        path: "/services/restorative-dentistry",
+        path: "/medical-specialities/dentistry-department/restorative-dentistry",
         image: submenuImage,
       },
       {
         name: "Pediatric dentistry",
-        path: "/services/pediatric-dentistry",
+        path: "/medical-specialities/dentistry-department/pediatric-dentistry",
         image: submenuImage,
       },
     ],
   },
   {
     title: "General Medicine (GP Services)",
+    path: "/medical-specialities/general-medicine",
     items: [
       {
         name: "Diagnosis and treatment of acute conditions",
-        path: "/services/acute-condition-treatment",
+        path: "/medical-specialities/general-medicine/diagnosis-treatment-acute-conditions",
         image: submenuImage,
       },
       {
         name: "Chronic disease management",
-        path: "/services/chronic-disease-management",
+        path: "/medical-specialities/general-medicine/chronic-disease-management",
         image: submenuImage,
       },
       {
         name: "Preventive health screenings and check-ups",
-        path: "/services/preventive-health-screenings",
+        path: "/medical-specialities/general-medicine/preventive-health-screenings-checkups",
         image: submenuImage,
       },
       {
         name: "Family medicine and wellness care",
-        path: "/services/family-medicine-wellness",
+        path: "/medical-specialities/general-medicine/family-medicine-wellness-care",
         image: submenuImage,
       },
     ],
   },
   {
     title: "Physiotherapy & Rehabilitation",
+    path: "/medical-specialities/physiotherapy-rehabilitation",
     items: [
       {
         name: "Musculoskeletal and pain management therapy",
-        path: "/services/musculoskeletal-pain-management",
+        path: "/medical-specialities/physiotherapy-rehabilitation/musculoskeletal-pain-management",
         image: submenuImage,
       },
       {
         name: "Post-injury and post-operative rehabilitation",
-        path: "/services/post-injury-rehabilitation",
+        path: "/medical-specialities/physiotherapy-rehabilitation/post-injury-post-operative-rehabilitation",
         image: submenuImage,
       },
       {
         name: "Neurological physiotherapy",
-        path: "/services/neurological-physiotherapy",
+        path: "/medical-specialities/physiotherapy-rehabilitation/neurological-physiotherapy",
         image: submenuImage,
       },
       {
         name: "Home-based physiotherapy programs",
-        path: "/services/home-based-physiotherapy",
+        path: "/medical-specialities/physiotherapy-rehabilitation/home-based-physiotherapy-programs",
         image: submenuImage,
       },
     ],
   },
 ];
 
+/* ================= CARE SERVICES ================= */
+
 const careServices: SubMenuCategory[] = [
   {
     title: "Home Healthcare Division",
+    path: "/care-services/home-healthcare-division",
     items: [
       {
         name: "Doctor home consultations",
-        path: "/services/doctor-home-consultations",
+        path: "/care-services/home-healthcare-division/doctor-home-consultations",
         image: submenuImage,
       },
       {
         name: "Skilled nursing care",
-        path: "/services/skilled-nursing-care",
+        path: "/care-services/home-healthcare-division/skilled-nursing-care",
         image: submenuImage,
       },
       {
         name: "Elderly and assisted care services",
-        path: "/services/elderly-assisted-care",
+        path: "/care-services/home-healthcare-division/elderly-assisted-care-services",
         image: submenuImage,
       },
       {
         name: "Chronic condition monitoring",
-        path: "/services/chronic-condition-monitoring",
+        path: "/care-services/home-healthcare-division/chronic-condition-monitoring",
         image: submenuImage,
       },
     ],
   },
   {
     title: "Post-Surgical Care Programs",
+    path: "/care-services/post-surgical-care-programs",
     items: [
       {
         name: "Wound care and infection prevention",
-        path: "/services/wound-care",
+        path: "/care-services/post-surgical-care-programs/wound-care-infection-prevention",
         image: submenuImage,
       },
       {
         name: "Pain management protocols",
-        path: "/services/pain-management",
+        path: "/care-services/post-surgical-care-programs/pain-management-protocols",
         image: submenuImage,
       },
       {
         name: "Rehabilitation and mobility restoration",
-        path: "/services/rehabilitation-mobility",
+        path: "/care-services/post-surgical-care-programs/rehabilitation-mobility-restoration",
         image: submenuImage,
       },
       {
         name: "Long-term recovery and follow-up care",
-        path: "/services/long-term-recovery",
+        path: "/care-services/post-surgical-care-programs/long-term-recovery-follow-up-care",
         image: submenuImage,
       },
     ],
   },
   {
     title: "Integrated Care Model",
+    path: "/care-services/integrated-care-model",
     items: [
       {
         name: "Seamless coordination between departments",
-        path: "/services/seamless-coordination",
+        path: "/care-services/integrated-care-model/seamless-coordination-between-departments",
         image: submenuImage,
       },
       {
         name: "Continuity of care from consultation to recovery",
-        path: "/services/continuity-of-care",
+        path: "/care-services/integrated-care-model/continuity-of-care",
         image: submenuImage,
       },
       {
         name: "Personalized treatment pathways",
-        path: "/services/personalized-treatment-pathways",
+        path: "/care-services/integrated-care-model/personalized-treatment-pathways",
         image: submenuImage,
       },
       {
         name: "Improved clinical outcomes and patient satisfaction",
-        path: "/services/improved-clinical-outcomes",
+        path: "/care-services/integrated-care-model/improved-clinical-outcomes",
         image: submenuImage,
       },
     ],
   },
 ];
+
+/* ================= TOP NAV ================= */
 
 const navLinks: NavLink[] = [
   {
@@ -215,14 +229,14 @@ const navLinks: NavLink[] = [
   },
   {
     name: "Medical Specialities",
-    path: "/services",
+    path: "/medical-specialities",
     type: "mega",
     menuKey: "medical",
     categories: medicalSpecialities,
   },
   {
     name: "Care Services",
-    path: "/services",
+    path: "/care-services",
     type: "mega",
     menuKey: "care",
     categories: careServices,
@@ -247,8 +261,9 @@ const navLinks: NavLink[] = [
 function ChevronIcon({ open = false }: { open?: boolean }) {
   return (
     <svg
-      className={`h-[14px] w-[14px] transition-transform duration-300 ${open ? "rotate-180" : ""
-        }`}
+      className={`h-[14px] w-[14px] transition-transform duration-300 ${
+        open ? "rotate-180" : ""
+      }`}
       viewBox="0 0 24 24"
       fill="none"
       aria-hidden="true"
@@ -276,7 +291,7 @@ function DesktopMegaMenu({
   const activeCategory = categories[activeIndex];
 
   return (
-    <div className="absolute left-1/2 top-[calc(100%+12px)] z-[9999] hidden w-[calc(100vw-32px)] max-w-[1320px] -translate-x-1/2 rounded-[14px] bg-white px-8 py-8 shadow-[0_18px_45px_rgba(0,0,0,0.16)] lg:block">
+    <div className="absolute left-1/2 top-[calc(100%+14px)] z-[9999] hidden w-[calc(100vw-28px)] max-w-[1320px] -translate-x-1/2 rounded-[14px] bg-white px-8 py-8 shadow-[0_18px_45px_rgba(0,0,0,0.15)] lg:block">
       <div className="grid min-h-[300px] grid-cols-[230px_1fr] gap-8">
         {/* Left Categories */}
         <div className="border-r border-black/10 pr-7">
@@ -285,18 +300,19 @@ function DesktopMegaMenu({
               const isActive = activeIndex === index;
 
               return (
-                <button
+                <Link
                   key={category.title}
-                  type="button"
+                  href={category.path}
                   onMouseEnter={() => setActiveIndex(index)}
                   onFocus={() => setActiveIndex(index)}
-                  className={`text-left font-secondary text-[15px] leading-[1.28] transition-colors duration-200 ${isActive
+                  className={`text-left font-secondary text-[15px] leading-[1.28] transition-colors duration-200 ${
+                    isActive
                       ? "font-semibold text-black"
-                      : "font-medium text-[#8b8b8b] hover:text-[#8b1d72]"
-                    }`}
+                      : "font-normal text-[#8b8b8b] hover:text-[#8b1d72]"
+                  }`}
                 >
                   {category.title}
-                </button>
+                </Link>
               );
             })}
           </div>
@@ -310,7 +326,7 @@ function DesktopMegaMenu({
               href={item.path}
               className="group flex h-full flex-col"
             >
-              <h4 className="min-h-[58px] font-secondary text-[15px] font-medium leading-[1.35] text-[#777] transition-colors duration-300 group-hover:text-[#8b1d72]">
+              <h4 className="min-h-[58px] font-secondary text-[15px] font-normal leading-[1.35] text-[#7d7d7d] transition-colors duration-300 group-hover:text-[#8b1d72]">
                 {item.name}
               </h4>
 
@@ -355,8 +371,9 @@ function MobileAccordion({
       </button>
 
       <div
-        className={`grid overflow-hidden transition-all duration-300 ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-          }`}
+        className={`grid overflow-hidden transition-all duration-300 ${
+          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
       >
         <div className="min-h-0 pb-4">
           {categories.map((category, index) => {
@@ -379,12 +396,21 @@ function MobileAccordion({
                 </button>
 
                 <div
-                  className={`grid overflow-hidden transition-all duration-300 ${isActive
+                  className={`grid overflow-hidden transition-all duration-300 ${
+                    isActive
                       ? "grid-rows-[1fr] opacity-100"
                       : "grid-rows-[0fr] opacity-0"
-                    }`}
+                  }`}
                 >
                   <div className="min-h-0">
+                    <Link
+                      href={category.path}
+                      onClick={closeMobileMenu}
+                      className="block px-4 pb-3 font-secondary text-[13px] font-semibold leading-[1.5] text-[#D6B981]"
+                    >
+                      View {category.title}
+                    </Link>
+
                     <ul className="space-y-3 px-4 pb-4">
                       {category.items.map((item) => (
                         <li key={item.name}>
@@ -459,9 +485,10 @@ export default function Header() {
   }, [mobileOpen]);
 
   const navLinkClass = (href: string) =>
-    `font-secondary text-[15px] font-medium transition-colors duration-300 ${pathname === href
-      ? "text-[#8b1d72]"
-      : "text-[#2f2f2f] hover:text-[#8b1d72]"
+    `font-secondary text-[15px] font-medium transition-colors duration-300 ${
+      pathname === href
+        ? "text-[#8b1d72]"
+        : "text-[#2f2f2f] hover:text-[#8b1d72]"
     }`;
 
   return (
@@ -495,16 +522,19 @@ export default function Header() {
               >
                 <span className="relative h-4 w-5">
                   <span
-                    className={`absolute left-0 top-0 h-[2px] w-5 rounded-full bg-current transition ${mobileOpen ? "translate-y-[7px] rotate-45" : ""
-                      }`}
+                    className={`absolute left-0 top-0 h-[2px] w-5 rounded-full bg-current transition ${
+                      mobileOpen ? "translate-y-[7px] rotate-45" : ""
+                    }`}
                   />
                   <span
-                    className={`absolute left-0 top-[7px] h-[2px] w-5 rounded-full bg-current transition ${mobileOpen ? "opacity-0" : ""
-                      }`}
+                    className={`absolute left-0 top-[7px] h-[2px] w-5 rounded-full bg-current transition ${
+                      mobileOpen ? "opacity-0" : ""
+                    }`}
                   />
                   <span
-                    className={`absolute left-0 top-[14px] h-[2px] w-5 rounded-full bg-current transition ${mobileOpen ? "-translate-y-[7px] -rotate-45" : ""
-                      }`}
+                    className={`absolute left-0 top-[14px] h-[2px] w-5 rounded-full bg-current transition ${
+                      mobileOpen ? "-translate-y-[7px] -rotate-45" : ""
+                    }`}
                   />
                 </span>
               </button>
@@ -524,10 +554,11 @@ export default function Header() {
                         type="button"
                         onMouseEnter={() => openDesktopMenu(link.menuKey!)}
                         onFocus={() => openDesktopMenu(link.menuKey!)}
-                        className={`flex items-center gap-1 font-secondary text-[15px] transition-colors duration-300 ${isOpen
+                        className={`flex items-center gap-1 font-secondary text-[15px] transition-colors duration-300 ${
+                          isOpen
                             ? "font-semibold text-black"
                             : "font-medium text-[#2f2f2f] hover:text-[#8b1d72]"
-                          }`}
+                        }`}
                       >
                         {link.name}
                         <ChevronIcon open={Boolean(isOpen)} />
@@ -548,7 +579,7 @@ export default function Header() {
               </div>
             </div>
 
-            {/* CTA */}
+            {/* Assist */}
             <div className="hidden justify-end lg:flex">
               <Link
                 href="/contact"
@@ -561,10 +592,11 @@ export default function Header() {
 
           {/* Mobile Menu */}
           <div
-            className={`lg:hidden ${mobileOpen
+            className={`lg:hidden ${
+              mobileOpen
                 ? "mt-4 max-h-[calc(100dvh-100px)] overflow-y-auto rounded-[14px] bg-[#35102f] px-4 py-4 opacity-100"
                 : "max-h-0 overflow-hidden opacity-0"
-              } transition-all duration-300`}
+            } transition-all duration-300`}
           >
             {navLinks.map((link) => {
               const isMega = link.type === "mega" && link.categories;
@@ -602,7 +634,7 @@ export default function Header() {
           </div>
         </nav>
 
-        {/* Desktop Mega Menu Overlay */}
+        {/* Desktop Mega Menu */}
         {openMenu && (
           <DesktopMegaMenu
             categories={
