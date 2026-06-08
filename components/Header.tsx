@@ -258,6 +258,11 @@ const navLinks: NavLink[] = [
   },
 ];
 
+function cleanPath(path?: string | null) {
+  if (!path) return "/";
+  return path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
+}
+
 function ChevronIcon({ open = false }: { open?: boolean }) {
   return (
     <svg
@@ -279,16 +284,29 @@ function ChevronIcon({ open = false }: { open?: boolean }) {
   );
 }
 
+/* ================= DESKTOP MEGA MENU - NO DESIGN CHANGE ================= */
+
 function DesktopMegaMenu({
   categories,
   activeIndex,
   setActiveIndex,
+  currentPath,
+  closeDesktopMenuNow,
 }: {
   categories: SubMenuCategory[];
   activeIndex: number;
   setActiveIndex: (index: number) => void;
+  currentPath: string;
+  closeDesktopMenuNow: () => void;
 }) {
-  const activeCategory = categories[activeIndex];
+  const isExactActive = (path: string) => currentPath === cleanPath(path);
+
+  const isParentActive = (path: string) => {
+    const target = cleanPath(path);
+    return currentPath === target || currentPath.startsWith(`${target}/`);
+  };
+
+  const activeCategory = categories[activeIndex] || categories[0];
 
   return (
     <div className="absolute left-1/2 top-[calc(100%+14px)] z-[9999] hidden w-[calc(100vw-28px)] max-w-[1320px] -translate-x-1/2 rounded-[14px] bg-white px-8 py-8 shadow-[0_18px_45px_rgba(0,0,0,0.15)] lg:block">
@@ -297,7 +315,8 @@ function DesktopMegaMenu({
         <div className="border-r border-black/10 pr-7">
           <div className="flex flex-col gap-[26px] pt-2">
             {categories.map((category, index) => {
-              const isActive = activeIndex === index;
+              const isHovered = activeIndex === index;
+              const isCurrentParent = isParentActive(category.path);
 
               return (
                 <Link
@@ -305,8 +324,11 @@ function DesktopMegaMenu({
                   href={category.path}
                   onMouseEnter={() => setActiveIndex(index)}
                   onFocus={() => setActiveIndex(index)}
+                  onClick={closeDesktopMenuNow}
                   className={`text-left font-secondary text-[15px] leading-[1.28] transition-colors duration-200 ${
-                    isActive
+                    isCurrentParent
+                      ? "font-semibold text-[#8b1d72]"
+                      : isHovered
                       ? "font-semibold text-black"
                       : "font-normal text-[#8b8b8b] hover:text-[#8b1d72]"
                   }`}
@@ -320,51 +342,98 @@ function DesktopMegaMenu({
 
         {/* Right Items */}
         <div className="grid grid-cols-4 gap-8">
-          {activeCategory.items.map((item) => (
-            <Link
-              key={item.name}
-              href={item.path}
-              className="group flex h-full flex-col"
-            >
-              <h4 className="min-h-[58px] font-secondary text-[15px] font-normal leading-[1.35] text-[#7d7d7d] transition-colors duration-300 group-hover:text-[#8b1d72]">
-                {item.name}
-              </h4>
+          {activeCategory.items.map((item) => {
+            const itemActive = isExactActive(item.path);
 
-              <div className="mt-4 overflow-hidden rounded-[5px] bg-[#f5eef4]">
-                <Image
-                  src={item.image}
-                  alt={item.name}
-                  width={290}
-                  height={190}
-                  className="h-[155px] w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-            </Link>
-          ))}
+            return (
+              <Link
+                key={item.name}
+                href={item.path}
+                onClick={closeDesktopMenuNow}
+                className="group flex h-full flex-col"
+              >
+                <h4
+                  className={`min-h-[58px] font-secondary text-[15px] leading-[1.35] transition-colors duration-300 ${
+                    itemActive
+                      ? "font-semibold text-[#8b1d72]"
+                      : "font-normal text-[#7d7d7d] group-hover:text-[#8b1d72]"
+                  }`}
+                >
+                  {item.name}
+                </h4>
+
+                <div
+                  className={`mt-4 overflow-hidden rounded-[5px] bg-[#f5eef4] transition duration-300 ${
+                    itemActive
+                      ? "ring-2 ring-[#8b1d72] ring-offset-4 ring-offset-white"
+                      : ""
+                  }`}
+                >
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    width={290}
+                    height={190}
+                    className={`h-[155px] w-full object-cover object-center transition-transform duration-700 ${
+                      itemActive ? "scale-[1.03]" : "group-hover:scale-105"
+                    }`}
+                  />
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>
   );
 }
 
+/* ================= MOBILE MENU UPDATED ================= */
+
 function MobileAccordion({
   title,
   categories,
   closeMobileMenu,
+  currentPath,
 }: {
   title: string;
   categories: SubMenuCategory[];
   closeMobileMenu: () => void;
+  currentPath: string;
 }) {
-  const [open, setOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+  const isParentActive = (path: string) => {
+    const target = cleanPath(path);
+    return currentPath === target || currentPath.startsWith(`${target}/`);
+  };
+
+  const isExactActive = (path: string) => currentPath === cleanPath(path);
+
+  const activeCategoryIndex = categories.findIndex((category) =>
+    isParentActive(category.path)
+  );
+
+  const [open, setOpen] = useState(activeCategoryIndex >= 0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(
+    activeCategoryIndex >= 0 ? activeCategoryIndex : null
+  );
+
+  useEffect(() => {
+    if (activeCategoryIndex >= 0) {
+      setOpen(true);
+      setActiveIndex(activeCategoryIndex);
+    }
+  }, [activeCategoryIndex]);
 
   return (
     <div className="border-b border-white/10">
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="flex w-full items-center justify-between py-4 font-secondary text-[15px] font-semibold text-white"
+        className={`flex w-full items-center justify-between py-4 font-secondary text-[15px] font-semibold ${
+          categories.some((category) => isParentActive(category.path))
+            ? "text-[#D6B981]"
+            : "text-white"
+        }`}
       >
         {title}
         <ChevronIcon open={open} />
@@ -377,52 +446,59 @@ function MobileAccordion({
       >
         <div className="min-h-0 pb-4">
           {categories.map((category, index) => {
-            const isActive = activeIndex === index;
+            const isOpenCategory = activeIndex === index;
+            const categoryActive = isParentActive(category.path);
 
             return (
               <div
                 key={category.title}
-                className="mb-3 overflow-hidden rounded-[12px] bg-white/7"
+                className={`mb-3 overflow-hidden rounded-[12px] ${
+                  categoryActive ? "bg-white/15" : "bg-white/7"
+                }`}
               >
                 <button
                   type="button"
                   onClick={() =>
                     setActiveIndex((prev) => (prev === index ? null : index))
                   }
-                  className="flex w-full items-center justify-between px-4 py-3 text-left font-secondary text-[14px] font-semibold leading-5 text-white"
+                  className={`flex w-full items-center justify-between px-4 py-3 text-left font-secondary text-[14px] font-semibold leading-5 ${
+                    categoryActive ? "text-[#D6B981]" : "text-white"
+                  }`}
                 >
                   {category.title}
-                  <ChevronIcon open={isActive} />
+                  <ChevronIcon open={isOpenCategory} />
                 </button>
 
                 <div
                   className={`grid overflow-hidden transition-all duration-300 ${
-                    isActive
+                    isOpenCategory
                       ? "grid-rows-[1fr] opacity-100"
                       : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div className="min-h-0">
-                    <Link
-                      href={category.path}
-                      onClick={closeMobileMenu}
-                      className="block px-4 pb-3 font-secondary text-[13px] font-semibold leading-[1.5] text-[#D6B981]"
-                    >
-                      View {category.title}
-                    </Link>
+                    {/* Removed View Category Link */}
 
-                    <ul className="space-y-3 px-4 pb-4">
-                      {category.items.map((item) => (
-                        <li key={item.name}>
-                          <Link
-                            href={item.path}
-                            onClick={closeMobileMenu}
-                            className="block font-secondary text-[13px] leading-[1.5] text-white/75 transition hover:text-[#D6B981]"
-                          >
-                            {item.name}
-                          </Link>
-                        </li>
-                      ))}
+                    <ul className="space-y-2 px-4 pb-4 pt-1">
+                      {category.items.map((item) => {
+                        const itemActive = isExactActive(item.path);
+
+                        return (
+                          <li key={item.name}>
+                            <Link
+                              href={item.path}
+                              onClick={closeMobileMenu}
+                              className={`block rounded-[8px] px-3 py-2 font-secondary text-[13px] leading-[1.5] transition ${
+                                itemActive
+                                  ? "bg-[#8b1d72] font-semibold text-white"
+                                  : "text-white/75 hover:bg-white/10 hover:text-[#D6B981]"
+                              }`}
+                            >
+                              {item.name}
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 </div>
@@ -437,6 +513,7 @@ function MobileAccordion({
 
 export default function Header() {
   const pathname = usePathname();
+  const currentPath = cleanPath(pathname);
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<"medical" | "care" | null>(null);
@@ -444,6 +521,21 @@ export default function Header() {
   const [careActive, setCareActive] = useState(0);
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const isExactActive = (path: string) => currentPath === cleanPath(path);
+
+  const isParentActive = (path: string) => {
+    const target = cleanPath(path);
+    return currentPath === target || currentPath.startsWith(`${target}/`);
+  };
+
+  const getActiveCategoryIndex = (categories: SubMenuCategory[]) => {
+    const index = categories.findIndex((category) =>
+      isParentActive(category.path)
+    );
+
+    return index >= 0 ? index : 0;
+  };
 
   const clearCloseTimer = () => {
     if (closeTimer.current) {
@@ -457,9 +549,9 @@ export default function Header() {
     setOpenMenu(menu);
 
     if (menu === "medical") {
-      setMedicalActive(0);
+      setMedicalActive(getActiveCategoryIndex(medicalSpecialities));
     } else {
-      setCareActive(0);
+      setCareActive(getActiveCategoryIndex(careServices));
     }
   };
 
@@ -471,9 +563,19 @@ export default function Header() {
     }, 260);
   };
 
+  const closeDesktopMenuNow = () => {
+    clearCloseTimer();
+    setOpenMenu(null);
+  };
+
   const closeMobileMenu = () => {
     setMobileOpen(false);
   };
+
+  useEffect(() => {
+    setMedicalActive(getActiveCategoryIndex(medicalSpecialities));
+    setCareActive(getActiveCategoryIndex(careServices));
+  }, [currentPath]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -486,10 +588,14 @@ export default function Header() {
 
   const navLinkClass = (href: string) =>
     `font-secondary text-[15px] font-medium transition-colors duration-300 ${
-      pathname === href
+      isExactActive(href)
         ? "text-[#8b1d72]"
         : "text-[#2f2f2f] hover:text-[#8b1d72]"
     }`;
+
+  const isMegaActive = (link: NavLink) => {
+    return link.type === "mega" && isParentActive(link.path);
+  };
 
   return (
     <header className="fixed left-0 top-0 z-[99999] w-full bg-transparent px-2 pt-2 sm:px-3 lg:px-4">
@@ -546,6 +652,7 @@ export default function Header() {
                 {navLinks.map((link) => {
                   const isMega = link.type === "mega" && link.menuKey;
                   const isOpen = isMega && openMenu === link.menuKey;
+                  const activeMega = isMegaActive(link);
 
                   if (isMega) {
                     return (
@@ -555,13 +662,15 @@ export default function Header() {
                         onMouseEnter={() => openDesktopMenu(link.menuKey!)}
                         onFocus={() => openDesktopMenu(link.menuKey!)}
                         className={`flex items-center gap-1 font-secondary text-[15px] transition-colors duration-300 ${
-                          isOpen
+                          activeMega
+                            ? "font-semibold text-[#8b1d72]"
+                            : isOpen
                             ? "font-semibold text-black"
                             : "font-medium text-[#2f2f2f] hover:text-[#8b1d72]"
                         }`}
                       >
                         {link.name}
-                        <ChevronIcon open={Boolean(isOpen)} />
+                        <ChevronIcon open={Boolean(isOpen || activeMega)} />
                       </button>
                     );
                   }
@@ -608,6 +717,7 @@ export default function Header() {
                     title={link.name}
                     categories={link.categories!}
                     closeMobileMenu={closeMobileMenu}
+                    currentPath={currentPath}
                   />
                 );
               }
@@ -617,7 +727,9 @@ export default function Header() {
                   key={link.name}
                   href={link.path}
                   onClick={closeMobileMenu}
-                  className="block border-b border-white/10 py-4 font-secondary text-[15px] font-semibold text-white"
+                  className={`block border-b border-white/10 py-4 font-secondary text-[15px] font-semibold ${
+                    isExactActive(link.path) ? "text-[#D6B981]" : "text-white"
+                  }`}
                 >
                   {link.name}
                 </Link>
@@ -644,6 +756,8 @@ export default function Header() {
             setActiveIndex={
               openMenu === "medical" ? setMedicalActive : setCareActive
             }
+            currentPath={currentPath}
+            closeDesktopMenuNow={closeDesktopMenuNow}
           />
         )}
       </div>
