@@ -67,14 +67,14 @@ function buildRightLoopPath(offset: number) {
 function SectionLineBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <svg
+      {/* <svg
         className="absolute inset-0 h-full w-full"
         viewBox="0 0 1200 700"
         preserveAspectRatio="xMidYMid slice"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          {/* Slow travelling pink shine */}
+         
           <linearGradient
             id="royalTravelGlow"
             x1="-140%"
@@ -106,7 +106,6 @@ function SectionLineBackground() {
             />
           </linearGradient>
 
-          {/* Soft glitter sweep */}
           <linearGradient
             id="royalTravelGlowSoft"
             x1="-170%"
@@ -134,7 +133,6 @@ function SectionLineBackground() {
             />
           </linearGradient>
 
-          {/* Tiny sparkle glow */}
           <radialGradient id="sparkleGlow" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#e467e4" stopOpacity="1" />
             <stop offset="45%" stopColor="#e467e4" stopOpacity="0.55" />
@@ -142,7 +140,6 @@ function SectionLineBackground() {
           </radialGradient>
         </defs>
 
-        {/* Base Lines - pink only, no grey */}
         <g opacity="0.16">
           {topRings.map((r) => (
             <circle
@@ -194,7 +191,6 @@ function SectionLineBackground() {
           ))}
         </g>
 
-        {/* Slow Shine Overlay */}
         <g className="royal-line-glow" opacity="1">
           {topRings.map((r) => (
             <circle
@@ -246,7 +242,6 @@ function SectionLineBackground() {
           ))}
         </g>
 
-        {/* Glitter sparkles */}
         <g opacity="0.9">
           {sparkleDots.map((dot, index) => (
             <circle
@@ -273,9 +268,8 @@ function SectionLineBackground() {
             </circle>
           ))}
         </g>
-      </svg>
+      </svg> */}
 
-      {/* Very light overlay only */}
       <div className="absolute inset-0 bg-[#fbfaf8]/18" />
     </div>
   );

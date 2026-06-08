@@ -86,10 +86,10 @@ export default function TreatmentCarousel() {
 
       {/* Desktop / Laptop Layout */}
       <div className="relative z-10 hidden min-h-[450px] items-center justify-center px-4 py-8 lg:flex xl:min-h-[600px]">
-        <div className="relative w-full max-w-[1120px]">
+        <div className="relative w-full max-w-[1320px]">
           {/* Main Card - first entry animation only */}
           <motion.div
-            className="mx-auto grid w-full max-w-[780px] overflow-hidden rounded-[5px] border-[6px] border-white shadow-[0_15px_45px_rgba(0,0,0,0.16)] md:grid-cols-[185px_1fr]"
+            className="mx-auto grid w-full max-w-[850px] overflow-hidden rounded-[5px] border-[6px] border-white shadow-[0_15px_45px_rgba(0,0,0,0.16)] md:grid-cols-[205px_1fr]"
             initial={{ opacity: 0, y: 70, scale: 0.96 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             transition={{
@@ -162,7 +162,7 @@ export default function TreatmentCarousel() {
             type="button"
             onClick={prevSlide}
             aria-label="Previous slide"
-            className="absolute left-1/2 top-1/2 hidden h-9 w-9 -translate-x-[470px] -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/85 text-[#8b1d72] shadow-[0_8px_22px_rgba(0,0,0,0.16)] transition hover:bg-[#8b1d72] hover:text-white lg:flex"
+            className="absolute left-1/2 xl:-translate-x-[580px] top-1/2 hidden cursor-pointer h-9 w-9  -translate-x-[470px] -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/85 text-[#8b1d72] shadow-[0_8px_22px_rgba(0,0,0,0.16)] transition hover:bg-[#8b1d72] hover:text-white lg:flex"
           >
             <span className="flex h-full w-full items-center justify-center pb-[3px] text-[27px] leading-none">
               ‹
@@ -173,7 +173,7 @@ export default function TreatmentCarousel() {
             type="button"
             onClick={nextSlide}
             aria-label="Next slide"
-            className="absolute left-1/2 top-1/2 hidden h-9 w-9 translate-x-[470px] -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/85 text-[#8b1d72] shadow-[0_8px_22px_rgba(0,0,0,0.16)] transition hover:bg-[#8b1d72] hover:text-white lg:flex"
+            className="absolute left-1/2 xl:translate-x-[540px] top-1/2 hidden cursor-pointer h-9 w-9 translate-x-[470px] -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/85 text-[#8b1d72] shadow-[0_8px_22px_rgba(0,0,0,0.16)] transition hover:bg-[#8b1d72] hover:text-white lg:flex"
           >
             <span className="flex h-full w-full items-center justify-center pb-[3px] text-[27px] leading-none">
               ›
