@@ -10,27 +10,27 @@ const socialIcons = [
   {
     name: "Instagram",
     icon: "/icons/instagram.svg",
-    href: "#",
+    href: "https://www.instagram.com/royal_dutch_medical_centre",
   },
   {
     name: "X",
     icon: "/icons/x.svg",
-    href: "#",
+    href: "https://x.com/royal_dutch_ae",
   },
   {
     name: "Facebook",
     icon: "/icons/facebook.svg",
-    href: "#",
+    href: "https://www.facebook.com/royaldutchmedicalcentre",
   },
   {
     name: "LinkedIn",
     icon: "/icons/linkedin.svg",
-    href: "#",
+    href: "https://www.linkedin.com/company/royal-dutch-medical-centre",
   },
   {
     name: "YouTube",
     icon: "/icons/youtube.svg",
-    href: "#",
+    href: "https://www.youtube.com/@RoyalDutchMedicalCentre",
   },
 ];
 

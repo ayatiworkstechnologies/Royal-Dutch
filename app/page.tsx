@@ -1,6 +1,5 @@
 "use client";
 
-import FloatingButtons from "@/components/FloatingButtons";
 import BlogSection from "@/components/Homepage/BlogSection";
 import ResultsSection from "@/components/Homepage/ResultsSection";
 import ServiceLegacySection from "@/components/Homepage/ServiceLegacySection";
@@ -61,8 +60,7 @@ export default function Home() {
       {/* Blog Section */}
       <BlogSection />
 
-      {/* Floating Icons */}
-      <FloatingButtons />
+ 
     </main>
   );
 }

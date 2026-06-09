@@ -7,14 +7,14 @@ import BenefitRevealSection from "@/components/services/BenefitRevealSection";
 import FaqSection from "@/components/services/FaqSection";
 
 
-export default function CosmeticInjectablesPage() {
+export default function PreventiveGeneralDentistryPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
             <DynamicBanner image="/images/contact-banner.png" />
             {/* {Intro section} */}
             <IntroSection
-                title="Cosmetic injectables"
+                title="Preventive and general dentistry"
                 paragraphs={[
                     {
                         parts: [
@@ -22,7 +22,7 @@ export default function CosmeticInjectablesPage() {
                                 text: "Healthy, radiant skin begins with hydration, and ",
                             },
                             {
-                                text: "Cosmetic injectables",
+                                text: "Preventive and general dentistry",
                                 bold: true,
                             },
                             {

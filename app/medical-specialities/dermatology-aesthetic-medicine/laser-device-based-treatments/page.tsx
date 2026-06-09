@@ -7,7 +7,7 @@ import BenefitRevealSection from "@/components/services/BenefitRevealSection";
 import FaqSection from "@/components/services/FaqSection";
 
 
-export default function MedicalDermatologyPage() {
+export default function LaserAndDeviceBasedTreatmentsPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}

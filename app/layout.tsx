@@ -3,6 +3,7 @@ import { Cinzel, Red_Hat_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import FloatingButtons from "@/components/FloatingButtons";
 
 const cinzel = Cinzel({
   variable: "--font-cinzel",
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body className="flex min-h-full w-full flex-col overflow-x-hidden bg-white font-secondary text-[#171717]">
         <Header />
         {children}
+        <FloatingButtons />
         <Footer />
       </body>
     </html>
