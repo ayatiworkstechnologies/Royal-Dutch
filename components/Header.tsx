@@ -284,7 +284,15 @@ function ChevronIcon({ open = false }: { open?: boolean }) {
   );
 }
 
-/* ================= DESKTOP MEGA MENU - NO DESIGN CHANGE ================= */
+function AssistSparkle() {
+  return (
+    <span className="assist-glow-icon" aria-hidden="true">
+      ✦
+    </span>
+  );
+}
+
+/* ================= DESKTOP MEGA MENU ================= */
 
 function DesktopMegaMenu({
   categories,
@@ -388,7 +396,7 @@ function DesktopMegaMenu({
   );
 }
 
-/* ================= MOBILE MENU UPDATED ================= */
+/* ================= MOBILE MENU ================= */
 
 function MobileAccordion({
   title,
@@ -477,8 +485,6 @@ function MobileAccordion({
                   }`}
                 >
                   <div className="min-h-0">
-                    {/* Removed View Category Link */}
-
                     <ul className="space-y-2 px-4 pb-4 pt-1">
                       {category.items.map((item) => {
                         const itemActive = isExactActive(item.path);
@@ -692,8 +698,9 @@ export default function Header() {
             <div className="hidden justify-end lg:flex">
               <Link
                 href="/contact"
-                className="rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-7 py-2.5 font-secondary text-[15px] font-semibold text-black transition duration-300 hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72]"
+                className="group flex items-center gap-2 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-7 py-2.5 font-secondary text-[15px] font-semibold text-black transition duration-300 hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72]"
               >
+                <AssistSparkle />
                 Assist
               </Link>
             </div>
@@ -739,8 +746,9 @@ export default function Header() {
             <Link
               href="/contact"
               onClick={closeMobileMenu}
-              className="mt-5 flex w-full items-center justify-center rounded-[10px] bg-[#D6B981] px-5 py-3 font-secondary text-[15px] font-bold text-[#200020]"
+              className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] bg-[#D6B981] px-5 py-3 font-secondary text-[15px] font-bold text-[#200020]"
             >
+              <AssistSparkle />
               Assist
             </Link>
           </div>
