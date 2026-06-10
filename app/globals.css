@@ -158,3 +158,11 @@ body {
     filter: drop-shadow(0 0 3px rgba(139, 29, 114, 0.28));
   }
 }
+
+/* Blogs */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
