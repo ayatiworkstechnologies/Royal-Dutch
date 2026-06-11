@@ -266,9 +266,8 @@ function cleanPath(path?: string | null) {
 function ChevronIcon({ open = false }: { open?: boolean }) {
   return (
     <svg
-      className={`h-[14px] w-[14px] transition-transform duration-300 ${
-        open ? "rotate-180" : ""
-      }`}
+      className={`h-[14px] w-[14px] transition-transform duration-300 ${open ? "rotate-180" : ""
+        }`}
       viewBox="0 0 24 24"
       fill="none"
       aria-hidden="true"
@@ -319,7 +318,6 @@ function DesktopMegaMenu({
   return (
     <div className="absolute left-1/2 top-[calc(100%+14px)] z-[9999] hidden w-[calc(100vw-28px)] max-w-[1320px] -translate-x-1/2 rounded-[14px] bg-white px-8 py-8 shadow-[0_18px_45px_rgba(0,0,0,0.15)] lg:block">
       <div className="grid min-h-[300px] grid-cols-[230px_1fr] gap-8">
-        {/* Left Categories */}
         <div className="border-r border-black/10 pr-7">
           <div className="flex flex-col gap-[26px] pt-2">
             {categories.map((category, index) => {
@@ -333,13 +331,12 @@ function DesktopMegaMenu({
                   onMouseEnter={() => setActiveIndex(index)}
                   onFocus={() => setActiveIndex(index)}
                   onClick={closeDesktopMenuNow}
-                  className={`text-left font-secondary text-[15px] leading-[1.28] transition-colors duration-200 ${
-                    isCurrentParent
+                  className={`text-left font-secondary text-[15px] leading-[1.28] transition-colors duration-200 ${isCurrentParent
                       ? "font-semibold text-[#8b1d72]"
                       : isHovered
-                      ? "font-semibold text-black"
-                      : "font-normal text-[#8b8b8b] hover:text-[#8b1d72]"
-                  }`}
+                        ? "font-semibold text-black"
+                        : "font-normal text-[#8b8b8b] hover:text-[#8b1d72]"
+                    }`}
                 >
                   {category.title}
                 </Link>
@@ -348,7 +345,6 @@ function DesktopMegaMenu({
           </div>
         </div>
 
-        {/* Right Items */}
         <div className="grid grid-cols-4 gap-8">
           {activeCategory.items.map((item) => {
             const itemActive = isExactActive(item.path);
@@ -361,30 +357,27 @@ function DesktopMegaMenu({
                 className="group flex h-full flex-col"
               >
                 <h4
-                  className={`min-h-[58px] font-secondary text-[15px] leading-[1.35] transition-colors duration-300 ${
-                    itemActive
+                  className={`min-h-[58px] font-secondary text-[15px] leading-[1.35] transition-colors duration-300 ${itemActive
                       ? "font-semibold text-[#8b1d72]"
                       : "font-normal text-[#7d7d7d] group-hover:text-[#8b1d72]"
-                  }`}
+                    }`}
                 >
                   {item.name}
                 </h4>
 
                 <div
-                  className={`mt-4 overflow-hidden rounded-[5px] bg-[#f5eef4] transition duration-300 ${
-                    itemActive
+                  className={`mt-4 overflow-hidden rounded-[5px] bg-[#f5eef4] transition duration-300 ${itemActive
                       ? "ring-2 ring-[#8b1d72] ring-offset-4 ring-offset-white"
                       : ""
-                  }`}
+                    }`}
                 >
                   <Image
                     src={item.image}
                     alt={item.name}
                     width={290}
                     height={190}
-                    className={`h-[155px] w-full object-cover object-center transition-transform duration-700 ${
-                      itemActive ? "scale-[1.03]" : "group-hover:scale-105"
-                    }`}
+                    className={`h-[155px] w-full object-cover object-center transition-transform duration-700 ${itemActive ? "scale-[1.03]" : "group-hover:scale-105"
+                      }`}
                   />
                 </div>
               </Link>
@@ -437,20 +430,18 @@ function MobileAccordion({
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className={`flex w-full items-center justify-between py-4 font-secondary text-[15px] font-semibold ${
-          categories.some((category) => isParentActive(category.path))
+        className={`flex w-full items-center justify-between py-4 font-secondary text-[15px] font-semibold ${categories.some((category) => isParentActive(category.path))
             ? "text-[#D6B981]"
             : "text-white"
-        }`}
+          }`}
       >
         {title}
         <ChevronIcon open={open} />
       </button>
 
       <div
-        className={`grid overflow-hidden transition-all duration-300 ${
-          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-        }`}
+        className={`grid overflow-hidden transition-all duration-300 ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          }`}
       >
         <div className="min-h-0 pb-4">
           {categories.map((category, index) => {
@@ -460,29 +451,26 @@ function MobileAccordion({
             return (
               <div
                 key={category.title}
-                className={`mb-3 overflow-hidden rounded-[12px] ${
-                  categoryActive ? "bg-white/15" : "bg-white/7"
-                }`}
+                className={`mb-3 overflow-hidden rounded-[12px] ${categoryActive ? "bg-white/15" : "bg-white/7"
+                  }`}
               >
                 <button
                   type="button"
                   onClick={() =>
                     setActiveIndex((prev) => (prev === index ? null : index))
                   }
-                  className={`flex w-full items-center justify-between px-4 py-3 text-left font-secondary text-[14px] font-semibold leading-5 ${
-                    categoryActive ? "text-[#D6B981]" : "text-white"
-                  }`}
+                  className={`flex w-full items-center justify-between px-4 py-3 text-left font-secondary text-[14px] font-semibold leading-5 ${categoryActive ? "text-[#D6B981]" : "text-white"
+                    }`}
                 >
                   {category.title}
                   <ChevronIcon open={isOpenCategory} />
                 </button>
 
                 <div
-                  className={`grid overflow-hidden transition-all duration-300 ${
-                    isOpenCategory
+                  className={`grid overflow-hidden transition-all duration-300 ${isOpenCategory
                       ? "grid-rows-[1fr] opacity-100"
                       : "grid-rows-[0fr] opacity-0"
-                  }`}
+                    }`}
                 >
                   <div className="min-h-0">
                     <ul className="space-y-2 px-4 pb-4 pt-1">
@@ -494,11 +482,10 @@ function MobileAccordion({
                             <Link
                               href={item.path}
                               onClick={closeMobileMenu}
-                              className={`block rounded-[8px] px-3 py-2 font-secondary text-[13px] leading-[1.5] transition ${
-                                itemActive
+                              className={`block rounded-[8px] px-3 py-2 font-secondary text-[13px] leading-[1.5] transition ${itemActive
                                   ? "bg-[#8b1d72] font-semibold text-white"
                                   : "text-white/75 hover:bg-white/10 hover:text-[#D6B981]"
-                              }`}
+                                }`}
                             >
                               {item.name}
                             </Link>
@@ -525,6 +512,7 @@ export default function Header() {
   const [openMenu, setOpenMenu] = useState<"medical" | "care" | null>(null);
   const [medicalActive, setMedicalActive] = useState(0);
   const [careActive, setCareActive] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -592,11 +580,23 @@ export default function Header() {
     };
   }, [mobileOpen]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const navLinkClass = (href: string) =>
-    `font-secondary text-[15px] font-medium transition-colors duration-300 ${
-      isExactActive(href)
-        ? "text-[#8b1d72]"
-        : "text-[#2f2f2f] hover:text-[#8b1d72]"
+    `font-secondary text-[15px] font-medium transition-colors duration-300 ${isExactActive(href)
+      ? "text-[#8b1d72]"
+      : "text-[#2f2f2f] hover:text-[#8b1d72]"
     }`;
 
   const isMegaActive = (link: NavLink) => {
@@ -610,9 +610,13 @@ export default function Header() {
         onMouseEnter={clearCloseTimer}
         onMouseLeave={closeDesktopMenu}
       >
-        <nav className="rounded-[10px] bg-white px-4 py-2 shadow-[0_8px_28px_rgba(0,0,0,0.10)] lg:rounded-[12px] lg:px-5">
+        <nav
+          className={`rounded-[10px] bg-white px-4 py-2 transition-shadow duration-500 lg:rounded-[12px] lg:px-5 ${isScrolled
+              ? "shadow-[0_8px_28px_rgba(0,0,0,0.10)]"
+              : "shadow-none"
+            }`}
+        >
           <div className="grid items-center gap-4 lg:grid-cols-[230px_1fr_110px] xl:grid-cols-[260px_1fr_118px]">
-            {/* Logo */}
             <div className="flex items-center justify-between">
               <Link href="/" onClick={closeMobileMenu} className="inline-flex">
                 <Image
@@ -625,7 +629,6 @@ export default function Header() {
                 />
               </Link>
 
-              {/* Mobile Button */}
               <button
                 type="button"
                 onClick={() => setMobileOpen((prev) => !prev)}
@@ -634,25 +637,21 @@ export default function Header() {
               >
                 <span className="relative h-4 w-5">
                   <span
-                    className={`absolute left-0 top-0 h-[2px] w-5 rounded-full bg-current transition ${
-                      mobileOpen ? "translate-y-[7px] rotate-45" : ""
-                    }`}
+                    className={`absolute left-0 top-0 h-[2px] w-5 rounded-full bg-current transition ${mobileOpen ? "translate-y-[7px] rotate-45" : ""
+                      }`}
                   />
                   <span
-                    className={`absolute left-0 top-[7px] h-[2px] w-5 rounded-full bg-current transition ${
-                      mobileOpen ? "opacity-0" : ""
-                    }`}
+                    className={`absolute left-0 top-[7px] h-[2px] w-5 rounded-full bg-current transition ${mobileOpen ? "opacity-0" : ""
+                      }`}
                   />
                   <span
-                    className={`absolute left-0 top-[14px] h-[2px] w-5 rounded-full bg-current transition ${
-                      mobileOpen ? "-translate-y-[7px] -rotate-45" : ""
-                    }`}
+                    className={`absolute left-0 top-[14px] h-[2px] w-5 rounded-full bg-current transition ${mobileOpen ? "-translate-y-[7px] -rotate-45" : ""
+                      }`}
                   />
                 </span>
               </button>
             </div>
 
-            {/* Desktop Nav */}
             <div className="hidden items-center justify-center lg:flex">
               <div className="flex items-center justify-center gap-9 xl:gap-10">
                 {navLinks.map((link) => {
@@ -667,13 +666,12 @@ export default function Header() {
                         type="button"
                         onMouseEnter={() => openDesktopMenu(link.menuKey!)}
                         onFocus={() => openDesktopMenu(link.menuKey!)}
-                        className={`flex items-center gap-1 font-secondary text-[15px] transition-colors duration-300 ${
-                          activeMega
+                        className={`flex items-center gap-1 font-secondary text-[15px] transition-colors duration-300 ${activeMega
                             ? "font-semibold text-[#8b1d72]"
                             : isOpen
-                            ? "font-semibold text-black"
-                            : "font-medium text-[#2f2f2f] hover:text-[#8b1d72]"
-                        }`}
+                              ? "font-semibold text-black"
+                              : "font-medium text-[#2f2f2f] hover:text-[#8b1d72]"
+                          }`}
                       >
                         {link.name}
                         <ChevronIcon open={Boolean(isOpen || activeMega)} />
@@ -694,25 +692,22 @@ export default function Header() {
               </div>
             </div>
 
-            {/* Assist */}
             <div className="hidden justify-end lg:flex">
               <Link
                 href="/contact"
-                className="group flex items-center gap-2 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-7 py-2.5 font-secondary text-[15px] font-semibold text-black transition duration-300 hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72]"
+                className="group inline-flex h-[40px] min-w-[105px] items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-3 font-secondary text-[13px] font-semibold leading-none text-black transition duration-300 hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:min-w-[150px] xl:gap-2 xl:px-4 xl:text-[14px]"
               >
                 <AssistSparkle />
-                Assist
+                <span className="translate-y-[1px] whitespace-nowrap">Book Now</span>
               </Link>
             </div>
           </div>
 
-          {/* Mobile Menu */}
           <div
-            className={`lg:hidden ${
-              mobileOpen
+            className={`lg:hidden ${mobileOpen
                 ? "mt-4 max-h-[calc(100dvh-100px)] overflow-y-auto rounded-[14px] bg-[#35102f] px-4 py-4 opacity-100"
                 : "max-h-0 overflow-hidden opacity-0"
-            } transition-all duration-300`}
+              } transition-all duration-300`}
           >
             {navLinks.map((link) => {
               const isMega = link.type === "mega" && link.categories;
@@ -734,9 +729,8 @@ export default function Header() {
                   key={link.name}
                   href={link.path}
                   onClick={closeMobileMenu}
-                  className={`block border-b border-white/10 py-4 font-secondary text-[15px] font-semibold ${
-                    isExactActive(link.path) ? "text-[#D6B981]" : "text-white"
-                  }`}
+                  className={`block border-b border-white/10 py-4 font-secondary text-[15px] font-semibold ${isExactActive(link.path) ? "text-[#D6B981]" : "text-white"
+                    }`}
                 >
                   {link.name}
                 </Link>
@@ -749,12 +743,11 @@ export default function Header() {
               className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] bg-[#D6B981] px-5 py-3 font-secondary text-[15px] font-bold text-[#200020]"
             >
               <AssistSparkle />
-              Assist
+              Book Now
             </Link>
           </div>
         </nav>
 
-        {/* Desktop Mega Menu */}
         {openMenu && (
           <DesktopMegaMenu
             categories={
