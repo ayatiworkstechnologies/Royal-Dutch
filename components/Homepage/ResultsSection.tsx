@@ -5,35 +5,26 @@ import { useEffect, useRef, useState } from "react";
 
 const resultSlides = [
   {
-    title: "Skin Clarity",
-    before: "/images/result-before-1.jpg",
-    after: "/images/result-after-1.jpg",
+    title: "Acne",
+    before: "/images/result-before-acne.png",
+    after: "/images/result-after-acne.png",
   },
   {
-    title: "Facial Glow",
-    before: "/images/result-before-1.jpg",
-    after: "/images/result-after-1.jpg",
+    title: "Pigmentation",
+    before: "/images/result-before-pigmentation.png",
+    after: "/images/result-after-pigmentation.png",
   },
   {
-    title: "Tone Balance",
-    before: "/images/result-before-1.jpg",
-    after: "/images/result-after-1.jpg",
+    title: "Anti-aging",
+    before: "/images/result-before-anti-aging.png",
+    after: "/images/result-after-anti-aging.png",
   },
   {
-    title: "Texture Renewal",
-    before: "/images/result-before-1.jpg",
-    after: "/images/result-after-1.jpg",
+    title: "Cosmetic smile design ",
+    before: "/images/result-before-smile-design.png",
+    after: "/images/result-after-smile-design.png",
   },
-  {
-    title: "Radiance Boost",
-    before: "/images/result-before-1.jpg",
-    after: "/images/result-after-1.jpg",
-  },
-  {
-    title: "Visible Results",
-    before: "/images/result-before-1.jpg",
-    after: "/images/result-after-1.jpg",
-  },
+  
 ];
 
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -246,8 +237,8 @@ function BeforeAfterCard({
       data-result-card
       className="snap-start shrink-0 basis-full md:basis-[calc((100%-28px)/2)] lg:basis-[calc((100%-56px)/3)]"
     >
-      <div className="relative overflow-hidden rounded-[22px] border border-[#eadde4] bg-white p-[7px]">
-        <div className="group relative h-[430px] overflow-hidden rounded-[17px] border border-[#d4bdc8] bg-white sm:h-[480px] md:h-[530px]">
+      <div className="relative overflow-hidden rounded-[22px] bg-white p-[7px]">
+        <div className="group relative h-[430px] overflow-hidden rounded-[17px]  bg-white sm:h-[480px] md:h-[530px]">
           <div className="absolute inset-x-0 top-0 bottom-[118px] overflow-hidden">
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
@@ -339,7 +330,7 @@ function BeforeAfterCard({
             </div>
           </div>
 
-          <div className="pointer-events-none absolute inset-[8px] rounded-[14px] border border-white/65" />
+          <div className="pointer-events-none absolute inset-[8px] rounded-[14px] " />
         </div>
       </div>
     </article>

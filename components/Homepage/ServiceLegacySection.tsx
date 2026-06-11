@@ -34,7 +34,7 @@ export default function ServiceLegacySection() {
           >
             <div className="relative overflow-hidden rounded-[8px] border border-[#d6b981]/70">
               <Image
-                src="/images/service-legacy.jpg"
+                src="/images/service-home.png"
                 alt="Royal Dutch Dermatology and Aesthetics Service"
                 width={500}
                 height={680}
@@ -43,7 +43,7 @@ export default function ServiceLegacySection() {
               />
 
               {/* Inner Border */}
-              <div className="pointer-events-none absolute inset-[6px] rounded-[7px] border border-white/80" />
+              {/* <div className="pointer-events-none absolute inset-[6px] rounded-[7px] border border-white/80" /> */}
 
               {/* Soft Shine */}
               <motion.div

@@ -46,6 +46,12 @@ const testimonials = [
   },
 ];
 
+function QuoteIcon() {
+  return (
+    <img src="./icons/quote.png" alt="Quote" className="mx-auto w-5" />
+  );
+}
+
 export default function TestimonialSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -87,7 +93,6 @@ export default function TestimonialSection() {
       }}
       viewport={{ once: true, amount: 0.25 }}
     >
-      {/* Background image */}
       <motion.div
         className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.55]"
         style={{
@@ -104,7 +109,6 @@ export default function TestimonialSection() {
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <div className="relative mx-auto flex min-h-[360px] items-center justify-center">
-          {/* Left Arrow */}
           <motion.button
             type="button"
             onClick={prevSlide}
@@ -124,10 +128,9 @@ export default function TestimonialSection() {
             </span>
           </motion.button>
 
-          {/* Content */}
           <div className="mx-auto max-w-[720px] text-center">
             <motion.div
-              className="mb-7 font-primary text-[76px] font-semibold leading-none text-black md:mb-9"
+              className="mb-8 md:mb-10"
               initial={{ opacity: 0, y: -28, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
@@ -137,7 +140,7 @@ export default function TestimonialSection() {
               }}
               viewport={{ once: true }}
             >
-              “
+              <QuoteIcon />
             </motion.div>
 
             <AnimatePresence mode="wait">
@@ -181,7 +184,6 @@ export default function TestimonialSection() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Indicators */}
             <motion.div
               className="mt-10 flex items-center justify-center gap-4 md:mt-12"
               initial={{ opacity: 0, y: 18 }}
@@ -209,7 +211,6 @@ export default function TestimonialSection() {
             </motion.div>
           </div>
 
-          {/* Right Arrow */}
           <motion.button
             type="button"
             onClick={nextSlide}
@@ -230,7 +231,6 @@ export default function TestimonialSection() {
           </motion.button>
         </div>
 
-        {/* Mobile arrows */}
         <motion.div
           className="mt-6 flex justify-center gap-4 md:hidden"
           initial={{ opacity: 0, y: 24 }}
