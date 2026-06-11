@@ -37,22 +37,22 @@ const medicalSpecialities: SubMenuCategory[] = [
       {
         name: "Medical dermatology",
         path: "/medical-specialities/dermatology-aesthetic-medicine/medical-dermatology",
-        image: submenuImage,
+        image: "/images/da-1.png",
       },
       {
         name: "Cosmetic injectables",
         path: "/medical-specialities/dermatology-aesthetic-medicine/cosmetic-injectables",
-        image: submenuImage,
+        image: "/images/da-2.png",
       },
       {
         name: "Laser and device based treatments",
         path: "/medical-specialities/dermatology-aesthetic-medicine/laser-device-based-treatments",
-        image: submenuImage,
+        image: "/images/da-3.png",
       },
       {
         name: "Anti-aging and preventive skin programs",
         path: "/medical-specialities/dermatology-aesthetic-medicine/anti-aging-preventive-skin-programs",
-        image: submenuImage,
+        image: "/images/da-4.png",
       },
     ],
   },
@@ -63,22 +63,22 @@ const medicalSpecialities: SubMenuCategory[] = [
       {
         name: "Preventive and general dentistry",
         path: "/medical-specialities/dentistry-department/preventive-general-dentistry",
-        image: submenuImage,
+        image: "/images/dd-1.png",
       },
       {
         name: "Cosmetic smile design and rehabilitation",
         path: "/medical-specialities/dentistry-department/cosmetic-smile-design-rehabilitation",
-        image: submenuImage,
+        image: "/images/dd-2.png",
       },
       {
         name: "Restorative dentistry",
         path: "/medical-specialities/dentistry-department/restorative-dentistry",
-        image: submenuImage,
+        image: "/images/dd-3.png",
       },
       {
         name: "Pediatric dentistry",
         path: "/medical-specialities/dentistry-department/pediatric-dentistry",
-        image: submenuImage,
+        image: "/images/dd-4.png",
       },
     ],
   },
@@ -89,22 +89,22 @@ const medicalSpecialities: SubMenuCategory[] = [
       {
         name: "Diagnosis and treatment of acute conditions",
         path: "/medical-specialities/general-medicine/diagnosis-treatment-acute-conditions",
-        image: submenuImage,
+        image: "/images/gm-1.png",
       },
       {
         name: "Chronic disease management",
         path: "/medical-specialities/general-medicine/chronic-disease-management",
-        image: submenuImage,
+        image: "/images/gm-2.png",
       },
       {
         name: "Preventive health screenings and check-ups",
         path: "/medical-specialities/general-medicine/preventive-health-screenings-checkups",
-        image: submenuImage,
+        image: "/images/gm-3.png",
       },
       {
         name: "Family medicine and wellness care",
         path: "/medical-specialities/general-medicine/family-medicine-wellness-care",
-        image: submenuImage,
+        image: "/images/gm-4.png",
       },
     ],
   },
@@ -115,22 +115,22 @@ const medicalSpecialities: SubMenuCategory[] = [
       {
         name: "Musculoskeletal and pain management therapy",
         path: "/medical-specialities/physiotherapy-rehabilitation/musculoskeletal-pain-management",
-        image: submenuImage,
+        image: "/images/pr-1.png",
       },
       {
         name: "Post-injury and post-operative rehabilitation",
         path: "/medical-specialities/physiotherapy-rehabilitation/post-injury-post-operative-rehabilitation",
-        image: submenuImage,
+        image: "/images/pr-2.png",
       },
       {
         name: "Neurological physiotherapy",
         path: "/medical-specialities/physiotherapy-rehabilitation/neurological-physiotherapy",
-        image: submenuImage,
+        image: "/images/pr-3.png",
       },
       {
         name: "Home-based physiotherapy programs",
         path: "/medical-specialities/physiotherapy-rehabilitation/home-based-physiotherapy-programs",
-        image: submenuImage,
+        image: "/images/pr-4.png",
       },
     ],
   },
@@ -146,22 +146,22 @@ const careServices: SubMenuCategory[] = [
       {
         name: "Doctor home consultations",
         path: "/care-services/home-healthcare-division/doctor-home-consultations",
-        image: submenuImage,
+        image: "/images/hhd-1.png",
       },
       {
         name: "Skilled nursing care",
         path: "/care-services/home-healthcare-division/skilled-nursing-care",
-        image: submenuImage,
+        image: "/images/hhd-2.png",
       },
       {
         name: "Elderly and assisted care services",
         path: "/care-services/home-healthcare-division/elderly-assisted-care-services",
-        image: submenuImage,
+        image: "/images/hhd-3.png",
       },
       {
         name: "Chronic condition monitoring",
         path: "/care-services/home-healthcare-division/chronic-condition-monitoring",
-        image: submenuImage,
+        image: "/images/hhd-4.png",
       },
     ],
   },
@@ -172,22 +172,22 @@ const careServices: SubMenuCategory[] = [
       {
         name: "Wound care and infection prevention",
         path: "/care-services/post-surgical-care-programs/wound-care-infection-prevention",
-        image: submenuImage,
+        image: "/images/pscp-1.png",
       },
       {
         name: "Pain management protocols",
         path: "/care-services/post-surgical-care-programs/pain-management-protocols",
-        image: submenuImage,
+        image: "/images/pscp-2.png",
       },
       {
         name: "Rehabilitation and mobility restoration",
         path: "/care-services/post-surgical-care-programs/rehabilitation-mobility-restoration",
-        image: submenuImage,
+        image: "/images/pscp-3.png",
       },
       {
         name: "Long-term recovery and follow-up care",
         path: "/care-services/post-surgical-care-programs/long-term-recovery-follow-up-care",
-        image: submenuImage,
+        image: "/images/pscp-4.png",
       },
     ],
   },
@@ -376,7 +376,7 @@ function DesktopMegaMenu({
                     alt={item.name}
                     width={290}
                     height={190}
-                    className={`h-[155px] w-full object-cover object-center transition-transform duration-700 ${itemActive ? "scale-[1.03]" : "group-hover:scale-105"
+                    className={`h-[155px] xl:h-[210px] w-full object-cover object-center transition-transform duration-700 ${itemActive ? "scale-[1.03]" : "group-hover:scale-105"
                       }`}
                   />
                 </div>
