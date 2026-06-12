@@ -11,7 +11,11 @@ export default function MedicalDermatologyPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
+
             {/* {Intro section} */}
             <IntroSection
                 title="Medical dermatology"
@@ -19,29 +23,37 @@ export default function MedicalDermatologyPage() {
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Healthy, confident skin begins with expert care. Our  ",
                             },
                             {
                                 text: "Medical dermatology",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " ervices combine advanced medical expertise with innovative aesthetic treatments to address a wide range of skin, hair, and cosmetic concerns.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
+                                text: "From",
                             },
                             {
-                                text: "Ras Al Khaimah",
+                                text: "preventive skincare",
                                 bold: true,
                             },
                             {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: "and medical dermatology to non-surgical aesthetic enhancements, we provide personalized solutions designed to restore skin health, improve appearance, and enhance natural beauty.",
                             },
+                        ],
+                    },
+                    {
+                        parts: [
+                            {
+                                text: "Whether you are seeking treatment for acne, pigmentation, aging concerns, hair loss, or overall skin rejuvenation, our specialists deliver safe, evidence-based care tailored to your unique needs. ",
+                            },
+
                         ],
                     },
                 ]}
@@ -49,107 +61,117 @@ export default function MedicalDermatologyPage() {
             {/* {Treatement offers} */}
             <TreatmentOffers
                 eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                title="Why Choose Medical Dermatology "
+                description="Unlike conventional beauty treatments, our dermatology and aesthetic solutions are backed by medical science, ensuring both safety and long-lasting results."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-dermatology.png"
+                imageAlt="Dermatology Treatment"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "PERSONALIZED SKIN ASSESSMENT:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Comprehensive evaluation to identify your skin concerns and goals. ",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "ADVANCED DERMATOLOGICAL CARE:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Treatment for acne, eczema, pigmentation, rosacea, and other skin conditions. ",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "NON-SURGICAL AESTHETIC SOLUTIONS:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Enhance facial harmony and skin quality without invasive procedures.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "SKIN REJUVENATION: ",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Improve texture, tone, hydration, and overall radiance.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "ANTI-AGING TREATMENTS:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Reduce fine lines, wrinkles, and signs of premature aging.",
                     },
                 ]} />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Dermatology Works"
+                description="Our dermatology specialists identify the underlying skin condition and recommend the most suitable treatment approach for optimal results."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Consultation & Skin Analysis",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "Our specialists assess your skin condition, medical history, lifestyle factors, and aesthetic goals to create a personalized treatment plan.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Diagnosis & Treatment Planning",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "Advanced diagnostic techniques help identify underlying concerns and determine the most effective treatment approach.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Targeted Treatment",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Medical dermatology procedures and aesthetic treatments are performed using modern technologies and clinically proven techniques.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Maintenance & Follow-Up",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Ongoing care and expert guidance help maintain results and support long-term skin health.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
+                title="Who Can Benefit From Dermatology Medicine"
+                subtitle="Comprehensive diagnosis, treatment, and management of skin, hair, and nail conditions to promote healthier skin and long-term wellness."
                 sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/benefits-dermatology.png"
+                imageAlt="Dermatology Treatment"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Want healthier, clearer, and more radiant skin" },
+                    { text: "Experience acne, pigmentation, rosacea, or chronic skin concerns" },
+                    { text: "Notice signs of aging such as wrinkles, fine lines, or loss of firmness" },
+                    { text: "Seek solutions for hair thinning or hair loss" },
+                    { text: "Want professional guidance for maintaining long-term skin health" },
+                    { text: "Are looking for non-surgical aesthetic enhancements" },
                 ]}
+
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "Is Dermatology & Aesthetic Medicine suitable for all skin types?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Yes. Treatments are customized according to your skin type, concerns, and medical history to ensure safe and effective results.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "How long does a consultation take?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "A typical consultation lasts between 20–45 minutes, depending on the complexity of your concerns and treatment requirements.",
                     },
                     {
                         question: "When can I see results?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Results vary based on the treatment performed. Some procedures provide visible improvements immediately, while others may require multiple sessions for optimal outcomes.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Is there any downtime after treatment?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Many aesthetic procedures involve little to no downtime. Your dermatologist will explain any recovery requirements specific to your treatment plan.",
+                    },
+                    {
+                        question: "How often should I visit a dermatologist?",
+                        answer:
+                            "Regular visits are recommended for preventive skin care, monitoring chronic conditions, and maintaining long-term skin health and appearance.",
                     },
                 ]}
+            
             />
 
         </main>

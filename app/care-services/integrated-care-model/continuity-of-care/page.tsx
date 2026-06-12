@@ -11,7 +11,10 @@ export default function ContinuityOfCarePage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
                 title="Continuity of care from consultation to recovery"

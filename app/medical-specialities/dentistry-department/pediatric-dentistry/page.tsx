@@ -11,7 +11,10 @@ export default function PediatricDentistryPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
                 title="Pediatric dentistry"
@@ -19,28 +22,21 @@ export default function PediatricDentistryPage() {
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Healthy smiles begin early, and ",
                             },
                             {
-                                text: "Pediatric dentistry",
+                                text: "Pediatric Dentistry",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " focuses on providing specialized dental care for infants, children, and adolescents in a safe, comfortable, and child-friendly environment.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
-                            },
-                            {
-                                text: "Ras Al Khaimah",
-                                bold: true,
-                            },
-                            {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: "Our approach emphasizes preventive care, early diagnosis, and age-appropriate treatments that support healthy oral development while helping children build positive dental habits for life. From routine check-ups to restorative care, we are committed to protecting your child's smile at every stage of growth.",
                             },
                         ],
                     },
@@ -48,106 +44,120 @@ export default function PediatricDentistryPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Treatment Benefits"
+                title="Why Choose Pediatric Dentistry"
+                description="Early dental care plays a vital role in maintaining healthy teeth, gums, and proper oral development."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-pediatric-dentistry.png"
+                imageAlt="Pediatric Dentistry"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Preventive Oral Care:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Helps protect children's teeth from cavities and common dental diseases.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Early Detection:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Identifies potential dental concerns before they become more serious.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Growth Monitoring:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Tracks tooth eruption, jaw development, and bite alignment.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Child-Friendly Care:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Provides a comfortable and positive dental experience for young patients.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Oral Health Education:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Encourages healthy brushing, flossing, and dietary habits from an early age.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Pediatric Dentistry Works"
+                description="Comprehensive dental care designed to support healthy oral development throughout childhood."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Child Dental Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A thorough examination evaluates your child's teeth, gums, oral development, and overall dental health.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Preventive Care Planning",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "Personalized recommendations are provided based on age, oral health needs, and risk factors.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Gentle Dental Treatment",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Preventive and restorative procedures are performed using child-friendly techniques focused on comfort and safety.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Ongoing Monitoring",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Regular dental visits help track oral development and reinforce healthy dental habits as your child grows.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Pediatric Dentistry"
+                subtitle="Pediatric dentistry supports healthy oral development from infancy through adolescence."
+                sectionTitle="Ideal for:"
+                image="/images/who-pediatric-dentistry.png"
+                imageAlt="Pediatric Dentistry"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Infants and toddlers beginning their oral health journey" },
+                    { text: "Children requiring routine dental examinations and preventive care" },
+                    { text: "Young patients with cavities or dental concerns" },
+                    { text: "Children undergoing tooth eruption and jaw development" },
+                    { text: "Parents seeking guidance on oral hygiene and nutrition" },
+                    { text: "Adolescents requiring ongoing dental care and monitoring" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description="Find answers to common questions about pediatric dental care and oral health for children."
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "When should my child first visit a dentist?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "It is recommended that children have their first dental visit by their first birthday or within six months of their first tooth erupting.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "How often should children have dental check-ups?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Most children should visit the dentist every six months for routine examinations and professional cleanings.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "Why are baby teeth important?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Baby teeth help with chewing, speech development, and maintaining space for permanent teeth. Keeping them healthy is essential for proper oral development.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "How can I help prevent cavities in my child?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Regular brushing, flossing, a balanced diet, limiting sugary snacks, and routine dental visits can significantly reduce the risk of cavities.",
+                    },
+                    {
+                        question: "Are pediatric dental treatments safe?",
+                        answer:
+                            "Yes. Pediatric dental treatments are specifically designed to be safe, effective, and appropriate for children's developing teeth and oral structures.",
+                    },
+                    {
+                        question: "What if my child is afraid of the dentist?",
+                        answer:
+                            "Our child-friendly approach focuses on creating a comfortable and positive experience through gentle care, clear communication, and a welcoming environment that helps children feel at ease.",
                     },
                 ]}
             />

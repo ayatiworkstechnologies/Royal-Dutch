@@ -11,7 +11,10 @@ export default function DiagnosisTreatmentAcuteConditionsPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
                 title="Diagnosis and treatment of acute conditions"
@@ -19,28 +22,21 @@ export default function DiagnosisTreatmentAcuteConditionsPage() {
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Acute conditions are sudden illnesses or injuries that require prompt medical attention, and ",
                             },
                             {
-                                text: "Diagnosis and treatment of acute conditions",
+                                text: "Diagnosis and Treatment of Acute Conditions",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " focuses on providing rapid assessment, accurate diagnosis, and effective treatment to support a safe and speedy recovery.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
-                            },
-                            {
-                                text: "Ras Al Khaimah",
-                                bold: true,
-                            },
-                            {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: "Using advanced diagnostic tools and evidence-based medical care, our healthcare professionals identify the underlying cause of symptoms and create personalized treatment plans to address immediate health concerns while helping prevent complications.",
                             },
                         ],
                     },
@@ -48,106 +44,132 @@ export default function DiagnosisTreatmentAcuteConditionsPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Acute Care Services"
+                title="Why Choose Diagnosis and Treatment of Acute Conditions"
+                description="Our acute care services are designed to provide fast, accurate, and effective treatment for a wide range of sudden illnesses and injuries."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-diagnosis.png"
+                imageAlt="Acute Care Treatment"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Rapid Diagnosis:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Quick assessments and diagnostic testing help identify the cause of symptoms promptly.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Immediate Treatment:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Timely medical intervention helps relieve symptoms and prevent complications.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Personalized Care Plans:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Treatment is tailored to each patient’s condition, medical history, and recovery needs.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Comprehensive Monitoring:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Ongoing observation and follow-up care support effective recovery.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Experienced Medical Team:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Skilled healthcare professionals provide expert care for a variety of acute conditions.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
-                eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                eyebrow="Treatment Process"
+                title="How Diagnosis and Treatment of Acute Conditions Works"
+                description="A structured approach designed to ensure accurate diagnosis, timely treatment, and optimal recovery."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Medical Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "Our doctors perform a detailed evaluation of symptoms, medical history, and overall health status.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Diagnostic Testing",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "Laboratory tests, imaging studies, or other investigations may be performed to confirm the diagnosis.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Treatment Initiation",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Appropriate medications, therapies, or procedures are provided based on the diagnosed condition.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Monitoring & Follow-Up",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Recovery is monitored closely, with follow-up consultations to ensure effective treatment outcomes.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Diagnosis and Treatment of Acute Conditions"
+                subtitle="Prompt diagnosis and treatment can help prevent complications and support faster recovery."
+                sectionTitle="This service is ideal for individuals who:"
+                image="/images/who-diagnosis.png"
+                imageAlt="Acute Medical Care"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Experience sudden fever, infections, or flu-like symptoms" },
+                    { text: "Develop respiratory conditions such as cough, cold, or breathing difficulties" },
+                    { text: "Suffer from acute pain, inflammation, or minor injuries" },
+                    { text: "Require immediate medical attention for unexpected health concerns" },
+                    { text: "Experience digestive issues such as vomiting, diarrhea, or abdominal discomfort" },
+                    { text: "Need prompt diagnosis and treatment to prevent worsening symptoms" },
+                    { text: "Seek professional evaluation for new or unexplained health conditions" },
+                    { text: "Require short-term treatment and recovery support" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What are acute conditions?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Acute conditions are illnesses or injuries that develop suddenly and usually require prompt medical attention, such as infections, fever, respiratory illnesses, or minor injuries.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "When should I seek treatment for an acute condition?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "You should seek medical care if symptoms appear suddenly, worsen quickly, or interfere with your daily activities and overall well-being.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "How is an acute condition diagnosed?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Diagnosis may involve a physical examination, medical history review, laboratory tests, imaging studies, or other diagnostic procedures depending on the symptoms.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Can acute conditions be treated on the same day?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Many acute conditions can be diagnosed and treated during the same visit, allowing patients to begin recovery as soon as possible.",
+                    },
+                    {
+                        question: "What types of acute conditions do you treat?",
+                        answer:
+                            "We manage a wide range of conditions, including infections, fever, respiratory illnesses, digestive issues, minor injuries, inflammation, and other sudden health concerns.",
+                    },
+                    {
+                        question: "Will I need follow-up appointments?",
+                        answer:
+                            "Some conditions may require follow-up visits to monitor recovery and ensure the treatment is working effectively.",
+                    },
+                    {
+                        question: "Can children and elderly patients receive acute care services?",
+                        answer:
+                            "Yes. Our medical team provides diagnosis and treatment services for patients of all ages, including children, adults, and seniors.",
+                    },
+                    {
+                        question: "How quickly can I book an appointment?",
+                        answer:
+                            "Appointments can usually be scheduled promptly, ensuring timely access to medical care when urgent health concerns arise.",
                     },
                 ]}
             />

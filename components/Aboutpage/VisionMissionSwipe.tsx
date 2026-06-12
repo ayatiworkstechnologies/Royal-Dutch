@@ -11,12 +11,12 @@ const cards = [
   {
     title: "Our Vision",
     text: "To be the leading multi-center dermatology and aesthetic brand in the UAE, known for innovation, integrity, and international clinical standards.",
-    image: "/images/vision.png",
+    image: "/images/our-vision.png",
   },
   {
     title: "Our Mission",
     text: "To empower individuals by enhancing their confidence and wellness through world-class skin, hair, and body treatments — guided by medical expertise and fueled by passion for care.",
-    image: "/images/mission.png",
+    image: "/images/our-mission.png",
   },
 ];
 

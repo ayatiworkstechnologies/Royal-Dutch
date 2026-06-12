@@ -11,36 +11,46 @@ export default function LaserAndDeviceBasedTreatmentsPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
-                title="Laser and device based treatments"
+                title="Laser & Device-Based Treatments"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Experience advanced skin rejuvenation with ",
                             },
                             {
-                                text: "Laser and device based treatments",
+                                text: "Laser & Device-Based Treatments",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " designed to address a wide range of skin, hair, and aesthetic concerns with precision and minimal downtime.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
+                                text: "Using cutting-edge technology, these treatments target specific concerns such as pigmentation, acne scars, unwanted hair, skin laxity, vascular lesions, and signs of aging. Our specialists customize each treatment plan to deliver safe, effective, and long-lasting results tailored to your unique skin needs.",
+                            },
+                        ],
+                    },
+                    {
+                        parts: [
+                            {
+                                text: "Whether your goal is smoother skin, improved texture, enhanced firmness, or a more youthful appearance, ",
                             },
                             {
-                                text: "Ras Al Khaimah",
+                                text: "Laser & Device-Based Treatments",
                                 bold: true,
                             },
                             {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: " provide clinically proven solutions for visible transformation and long-term skin improvement.",
                             },
                         ],
                     },
@@ -49,105 +59,119 @@ export default function LaserAndDeviceBasedTreatmentsPage() {
             {/* {Treatement offers} */}
             <TreatmentOffers
                 eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                title="Why Choose Laser & Device-Based Treatments"
+                description="Modern laser and energy-based technologies provide targeted treatments with greater precision, comfort, and effectiveness."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-laser.png"
+                imageAlt="Laser & Device-Based Treatments"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Skin Rejuvenation:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Improves skin texture, tone, and overall radiance for a healthier, refreshed appearance.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Pigmentation Correction:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Targets sun damage, dark spots, and uneven skin tone to promote a clearer complexion.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Scar & Acne Mark Reduction:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Helps minimize the appearance of acne scars and other skin imperfections for smoother skin.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Skin Tightening:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Stimulates collagen production to enhance firmness and achieve younger-looking skin.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Hair Reduction Solutions:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Provides long-term reduction of unwanted hair growth with advanced laser technology.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Laser & Device-Based Treatments Work"
+                description="Laser and energy-based treatments use advanced technology to target specific skin and aesthetic concerns with precision and minimal downtime."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Consultation & Skin Evaluation",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A comprehensive assessment is performed to understand your concerns, skin condition, and treatment goals.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Customized Treatment Planning",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "The most suitable laser or device technology is selected based on your skin type and desired outcomes.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Targeted Procedure",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Advanced laser or energy-based devices precisely treat the selected areas while protecting surrounding tissues.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Recovery & Results",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Post-treatment care is provided to support healing, optimize results, and maintain long-term skin health.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Laser & Device-Based Treatments"
+                subtitle="Laser & Device-Based Treatments are suitable for individuals seeking advanced, non-surgical solutions for a wide range of skin and aesthetic concerns."
+                sectionTitle="Ideal for individuals who"
+                image="/images/who-laser.png"
+                imageAlt="Laser & Device-Based Treatments"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Have pigmentation, sun damage, or uneven skin tone" },
+                    { text: "Want to improve skin texture and overall complexion" },
+                    { text: "Experience acne scars or other skin imperfections" },
+                    { text: "Seek non-surgical skin tightening and rejuvenation" },
+                    { text: "Desire long-term reduction of unwanted hair" },
+                    { text: "Want to address early signs of aging with advanced technology" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "Are Laser & Device-Based Treatments safe?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Yes. These treatments are performed using clinically approved technologies and are customized according to your skin type and condition for maximum safety and effectiveness.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "How long does a session take?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Treatment duration varies depending on the procedure and treatment area but typically ranges from 20 to 60 minutes.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "When will I see results?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Some patients notice improvements after a single session, while optimal results often develop gradually over multiple treatments.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Is there any downtime?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Downtime depends on the specific treatment performed. Many procedures require little to no recovery time, while others may involve temporary redness or mild sensitivity.",
+                    },
+                    {
+                        question: "How many sessions will I need?",
+                        answer:
+                            "The number of sessions varies based on your concerns, treatment goals, and the technology being used. A personalized plan will be recommended during consultation.",
+                    },
+                    {
+                        question: "Are the results long-lasting?",
+                        answer:
+                            "Results can be long-lasting when combined with proper skincare, sun protection, and recommended maintenance treatments.",
                     },
                 ]}
             />

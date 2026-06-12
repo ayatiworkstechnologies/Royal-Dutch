@@ -11,36 +11,39 @@ export default function PreventiveGeneralDentistryPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
-                title="Preventive and general dentistry"
+                title="Preventive & General Dentistry"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "A healthy smile begins with ",
                             },
                             {
-                                text: "Preventive and general dentistry",
+                                text: "Preventive & General Dentistry",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " focused on maintaining optimal oral health, preventing dental problems before they develop, and providing comprehensive care for patients of all ages.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
+                                text: "Through regular dental examinations, professional cleanings, early diagnosis, and personalized treatment plans, we help protect your teeth, gums, and overall oral health while preserving your natural smile.",
                             },
+                        ],
+                    },
+                    {
+                        parts: [
                             {
-                                text: "Ras Al Khaimah",
-                                bold: true,
-                            },
-                            {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: "Whether you require routine dental care, treatment for common oral concerns, or guidance on maintaining excellent oral hygiene, our experienced dental team is committed to providing comfortable and effective care.",
                             },
                         ],
                     },
@@ -48,106 +51,120 @@ export default function PreventiveGeneralDentistryPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Treatment Benefits"
+                title="Why Choose Preventive & General Dentistry"
+                description="Preventive dental care is the foundation of a healthy smile and helps reduce the risk of future dental complications."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-preventive.png"
+                imageAlt="Preventive & General Dentistry"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Comprehensive Oral Examinations:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Early detection of dental issues before they become more serious.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Professional Teeth Cleaning:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Removes plaque and tartar buildup to maintain healthy teeth and gums.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Cavity Prevention:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Protects teeth from decay through preventive treatments and education.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Gum Health Management:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Supports healthy gums and helps prevent periodontal disease.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Personalized Oral Care Guidance:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Customized recommendations for maintaining optimal oral hygiene at home.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Preventive & General Dentistry Works"
+                description="Regular preventive care and professional dental treatment help maintain healthy teeth, gums, and long-term oral wellness."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Dental Consultation & Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A thorough examination of your teeth, gums, bite, and overall oral health is conducted to identify any concerns.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Diagnosis & Preventive Planning",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "Our dental team develops a personalized care plan based on your oral health needs and risk factors.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Professional Dental Care",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Routine treatments such as cleanings, fillings, preventive procedures, and oral health maintenance are performed as needed.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Follow-Up & Long-Term Maintenance",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Regular check-ups and ongoing care help maintain a healthy smile and prevent future dental problems.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Preventive & General Dentistry"
+                subtitle="Preventive and general dentistry helps patients of all ages maintain healthy teeth, gums, and long-term oral health."
+                sectionTitle="Ideal for individuals who"
+                image="/images/who-preventive.png"
+                imageAlt="Preventive & General Dentistry"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Want to maintain healthy teeth and gums" },
+                    { text: "Require routine dental check-ups and cleanings" },
+                    { text: "Wish to prevent cavities and gum disease" },
+                    { text: "Experience tooth sensitivity or minor dental concerns" },
+                    { text: "Need early detection and management of oral health issues" },
+                    { text: "Want long-term dental wellness for themselves and their families" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "How often should I visit the dentist?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Most patients should schedule a dental check-up and professional cleaning every six months. However, your dentist may recommend more frequent visits based on your oral health needs.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "Are professional teeth cleanings necessary?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Yes. Professional cleanings remove plaque and tartar buildup that cannot be eliminated through regular brushing and flossing alone.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "What happens during a routine dental examination?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Your dentist will assess your teeth, gums, bite, and overall oral health while checking for cavities, gum disease, and other dental concerns.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Can preventive dentistry help avoid major treatments?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Yes. Early detection and preventive care can significantly reduce the need for more extensive and costly dental procedures in the future.",
+                    },
+                    {
+                        question: "Is general dentistry suitable for children and adults?",
+                        answer:
+                            "Absolutely. Preventive and general dentistry services are designed to support oral health for patients of all ages.",
+                    },
+                    {
+                        question: "What can I do to maintain good oral health?",
+                        answer:
+                            "Brushing twice daily, flossing regularly, maintaining a balanced diet, and attending routine dental visits are essential for long-term oral health.",
                     },
                 ]}
             />

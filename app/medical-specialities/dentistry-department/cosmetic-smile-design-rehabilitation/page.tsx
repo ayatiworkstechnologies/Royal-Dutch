@@ -11,36 +11,39 @@ export default function CosmeticSmileDesignRehabilitationPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
-                title="Cosmetic smile design and rehabilitation"
+                title="Cosmetic Smile Design & Rehabilitation"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Transform your smile with advanced ",
                             },
                             {
-                                text: "Cosmetic smile design and rehabilitation",
+                                text: "Cosmetic Smile Design & Rehabilitation",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " solutions that enhance both aesthetics and functionality. Our personalized approach combines artistry, precision, and modern dental technology to create naturally beautiful smiles that complement your facial features.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
+                                text: "Whether you are looking to improve the appearance of discolored, chipped, misaligned, worn, or missing teeth, our smile rehabilitation treatments are designed to restore confidence while improving oral health and function.",
                             },
+                        ],
+                    },
+                    {
+                        parts: [
                             {
-                                text: "Ras Al Khaimah",
-                                bold: true,
-                            },
-                            {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: "From subtle cosmetic enhancements to comprehensive smile makeovers, we create customized treatment plans that help you achieve a balanced, healthy, and radiant smile.",
                             },
                         ],
                     },
@@ -48,106 +51,120 @@ export default function CosmeticSmileDesignRehabilitationPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Treatment Benefits"
+                title="Why Choose Cosmetic Smile Design & Rehabilitation"
+                description="A beautiful smile can significantly improve confidence, appearance, and overall quality of life."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-choose-cosmetic.png"
+                imageAlt="Cosmetic Smile Design & Rehabilitation"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Personalized Smile Makeovers:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Customized treatment plans designed around your facial aesthetics and dental needs.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Enhanced Smile Aesthetics:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Improves tooth shape, size, color, alignment, and overall smile harmony.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Restoration Of Function:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Addresses worn, damaged, or missing teeth to improve chewing and speaking ability.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Natural-Looking Results:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Advanced techniques ensure seamless, aesthetically pleasing outcomes.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Long-Term Oral Health Benefits:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Combines cosmetic improvements with functional dental rehabilitation.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Cosmetic Smile Design & Rehabilitation Works"
+                description="A customized smile makeover process designed to improve both dental aesthetics and oral function."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Consultation & Smile Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A comprehensive evaluation of your teeth, gums, facial features, and smile goals is conducted to understand your needs.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Digital Smile Planning",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "Advanced diagnostic tools and smile analysis techniques are used to design a personalized treatment plan.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Customized Treatment",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "A combination of cosmetic and restorative procedures may be performed to enhance both appearance and function.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Final Refinement & Maintenance",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Your new smile is carefully evaluated, and personalized care recommendations are provided to maintain long-term results.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Cosmetic Smile Design & Rehabilitation"
+                subtitle="Cosmetic smile rehabilitation is ideal for individuals seeking to enhance the appearance, function, and overall health of their smile."
+                sectionTitle="Ideal for individuals who"
+                image="/images/who-choose-cosmetic.png"
+                imageAlt="Cosmetic Smile Design & Rehabilitation"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Want a brighter, more attractive smile" },
+                    { text: "Have stained, chipped, cracked, or worn teeth" },
+                    { text: "Experience gaps or minor alignment concerns" },
+                    { text: "Need restoration of damaged or missing teeth" },
+                    { text: "Wish to improve smile symmetry and facial harmony" },
+                    { text: "Seek a comprehensive smile makeover solution" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description="Find answers to common questions about cosmetic smile design, smile makeovers, and dental rehabilitation."
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What is Smile Design?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Smile Design is a customized dental approach that combines aesthetic and restorative treatments to improve the appearance, balance, and functionality of your smile.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "What treatments may be included?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Depending on individual needs, treatments may include teeth whitening, veneers, crowns, bridges, dental implants, orthodontics, and other restorative procedures.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "How long does a smile rehabilitation take?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "The duration varies based on the complexity of the treatment plan. Some procedures can be completed in a few visits, while comprehensive rehabilitations may require multiple appointments.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Will my new smile look natural?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Yes. Every treatment is carefully planned to complement your facial features, ensuring a natural and harmonious appearance.",
+                    },
+                    {
+                        question: "Is smile design only cosmetic?",
+                        answer:
+                            "No. In addition to improving aesthetics, smile rehabilitation can restore dental function, oral health, and overall comfort.",
+                    },
+                    {
+                        question: "How long do the results last?",
+                        answer:
+                            "With proper oral hygiene, regular dental check-ups, and good maintenance habits, the results can remain beautiful and functional for many years.",
                     },
                 ]}
             />

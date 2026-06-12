@@ -11,36 +11,39 @@ export default function PostinjuryAndPostoperativeRehabilitationPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
-                title="Post-injury and post-operative rehabilitation"
+                title="Post-Injury & Post-Operative Rehabilitation"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Recover safely and regain your strength with our specialized ",
                             },
                             {
-                                text: "Post-injury and post-operative rehabilitation",
+                                text: "Post-Injury & Post-Operative Rehabilitation",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " programs. Designed to support healing after injuries, surgeries, and orthopedic procedures, our rehabilitation services focus on restoring mobility, reducing pain, and helping you return to daily activities with confidence.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
+                                text: "At ",
                             },
                             {
-                                text: "Ras Al Khaimah",
+                                text: "Royal Dutch Medical Centre",
                                 bold: true,
                             },
                             {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: ", our physiotherapists develop personalized recovery plans using therapeutic exercises, manual therapy, and functional training to optimize healing, improve movement, and reduce the risk of future complications.",
                             },
                         ],
                     },
@@ -48,106 +51,120 @@ export default function PostinjuryAndPostoperativeRehabilitationPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Benefits"
+                title="Why Choose Post-Injury & Post-Operative Rehabilitation"
+                description="A structured rehabilitation program helps accelerate recovery, restore function, and support long-term physical wellness after injury or surgery."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/who-post-injury.png"
+                imageAlt="Post-Injury Rehabilitation"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Faster Recovery Support:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Promotes safe healing and helps patients return to normal activities sooner.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Pain & Swelling Management:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Reduces discomfort and supports the recovery process.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Restoration of Mobility:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Improves joint movement, flexibility, and range of motion.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Strength Rebuilding:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Helps regain muscle strength and physical stability after injury or surgery.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Injury Prevention:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Reduces the risk of complications, re-injury, and long-term functional limitations.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Post-Injury & Post-Operative Rehabilitation Works"
+                description="Our rehabilitation programs follow a structured recovery pathway designed to restore movement, strength, and function safely."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Comprehensive Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A detailed evaluation is conducted to understand your injury, surgical procedure, physical condition, and recovery goals.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Personalized Rehabilitation Plan",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "A customized treatment program is developed based on your stage of recovery and functional requirements.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Therapeutic Rehabilitation",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Targeted exercises, mobility training, manual therapy, and recovery techniques are implemented to restore function and strength.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Progress Monitoring & Functional Recovery",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Recovery milestones are monitored closely, and treatment plans are adjusted to ensure optimal long-term outcomes.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Post-Injury & Post-Operative Rehabilitation"
+                subtitle="Rehabilitation programs are designed for individuals recovering from injuries, surgeries, and mobility-related conditions."
+                sectionTitle="It's Ideal For Those Who"
+                image="/images/who-post-injury.png"
+                imageAlt="Post-Injury Rehabilitation"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Are recovering from orthopedic or general surgical procedures" },
+                    { text: "Have sustained sports injuries, fractures, or ligament injuries" },
+                    { text: "Underwent joint replacement surgery" },
+                    { text: "Experience reduced mobility following injury or surgery" },
+                    { text: "Need support rebuilding strength and functional movement" },
+                    { text: "Want a structured recovery program to return to daily activities safely" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "Why is rehabilitation important after surgery?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Rehabilitation helps restore strength, mobility, and function while reducing the risk of complications, stiffness, and delayed recovery.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "When should I start rehabilitation after surgery?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "The timing depends on the type of surgery and your surgeon's recommendations. Many rehabilitation programs begin shortly after the procedure.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "How long will my rehabilitation take?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Recovery timelines vary depending on the nature of the injury or surgery, your overall health, and individual recovery goals.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Can physiotherapy help reduce post-surgical pain?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Yes. Physiotherapy techniques are designed to manage pain, reduce swelling, improve mobility, and support healing.",
+                    },
+                    {
+                        question: "Will my rehabilitation program be customized?",
+                        answer:
+                            "Absolutely. Every rehabilitation plan is tailored to your condition, recovery stage, physical abilities, and treatment objectives.",
+                    },
+                    {
+                        question: "Can rehabilitation help me return to sports or work?",
+                        answer:
+                            "Yes. Rehabilitation programs focus on restoring the strength, mobility, and functional skills needed to safely return to work, sports, and daily activities.",
                     },
                 ]}
             />

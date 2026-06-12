@@ -11,36 +11,39 @@ export default function NeurologicalPhysiotherapyPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
-                title="Neurological physiotherapy"
+                title="Neurological Physiotherapy"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Regain independence, improve mobility, and enhance quality of life with our specialized ",
                             },
                             {
-                                text: "Neurological physiotherapy",
+                                text: "Neurological Physiotherapy",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " services. Designed for individuals affected by neurological conditions, our rehabilitation programs focus on restoring movement, improving balance, and maximizing functional abilities through evidence-based therapeutic approaches.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
+                                text: "At ",
                             },
                             {
-                                text: "Ras Al Khaimah",
+                                text: "Royal Dutch Medical Centre",
                                 bold: true,
                             },
                             {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: ", our experienced physiotherapists create personalized treatment plans that address each patient's unique challenges while promoting recovery, adaptation, and long-term well-being.",
                             },
                         ],
                     },
@@ -48,106 +51,120 @@ export default function NeurologicalPhysiotherapyPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Benefits"
+                title="Why Choose Neurological Physiotherapy"
+                description="Targeted neurological rehabilitation helps improve physical function, mobility, and confidence in everyday life."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-neurological.png"
+                imageAlt="Neurological Physiotherapy"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Improved Mobility & Movement Control:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Enhances walking ability, coordination, and overall movement patterns.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Balance & Fall Prevention:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Improves stability and reduces the risk of falls and injuries.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Muscle Strengthening:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Supports muscle activation, endurance, and functional performance.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Enhanced Independence:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Promotes greater confidence and ability in daily activities.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Long-Term Functional Recovery:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Supports ongoing rehabilitation and adaptation to neurological conditions.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Neurological Physiotherapy Works"
+                description="Our rehabilitation approach is designed to improve movement, function, and independence through structured neurological therapy."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Comprehensive Neurological Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A detailed evaluation is conducted to assess strength, balance, mobility, coordination, posture, and functional abilities.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Individualized Rehabilitation Planning",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "A customized therapy program is developed based on your diagnosis, symptoms, and rehabilitation goals.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Targeted Neurological Therapy",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Specialized exercises, balance training, gait training, and functional rehabilitation techniques are used to improve movement and independence.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Continuous Progress Monitoring",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Treatment plans are regularly reviewed and adjusted to support ongoing improvement and long-term functional outcomes.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Neurological Physiotherapy"
+                subtitle="Neurological physiotherapy is suitable for individuals experiencing mobility, balance, and functional challenges caused by neurological conditions."
+                sectionTitle="It's Ideal For Those Who"
+                image="/images/who-neurological.png"
+                imageAlt="Neurological Physiotherapy"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Are recovering from a stroke" },
+                    { text: "Have neurological conditions affecting movement and coordination" },
+                    { text: "Experience balance problems or frequent falls" },
+                    { text: "Have muscle weakness due to neurological disorders" },
+                    { text: "Need assistance improving walking ability and functional independence" },
+                    { text: "Require long-term rehabilitation to maintain mobility and quality of life" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What conditions can neurological physiotherapy help treat?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Neurological physiotherapy can support individuals with stroke, Parkinson’s disease, multiple sclerosis, spinal cord injuries, traumatic brain injuries, peripheral nerve disorders, and other neurological conditions.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "How does neurological physiotherapy differ from general physiotherapy?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Neurological physiotherapy specifically focuses on conditions affecting the brain, spinal cord, and nervous system, with treatments aimed at improving movement, coordination, balance, and functional independence.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "Can physiotherapy help after a stroke?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Yes. Stroke rehabilitation is one of the most common applications of neurological physiotherapy and can help improve strength, mobility, balance, and daily functioning.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "How long will rehabilitation take?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "The duration varies depending on the condition, severity of symptoms, and individual goals. Rehabilitation is often a gradual process with ongoing progress over time.",
+                    },
+                    {
+                        question: "Will the treatment plan be customized?",
+                        answer:
+                            "Absolutely. Every patient receives a personalized rehabilitation program tailored to their neurological condition, physical abilities, and recovery objectives.",
+                    },
+                    {
+                        question: "Can neurological physiotherapy improve quality of life?",
+                        answer:
+                            "Yes. By enhancing mobility, independence, balance, and functional abilities, neurological physiotherapy can significantly improve overall quality of life and day-to-day confidence.",
                     },
                 ]}
             />

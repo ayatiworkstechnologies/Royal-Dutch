@@ -11,36 +11,32 @@ export default function MusculoskeletalPainManagementPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
-                title="Musculoskeletal and pain management therapy"
+                title="Musculoskeletal & Pain Management Therapy"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Restore movement, reduce pain, and improve quality of life with our comprehensive ",
                             },
                             {
-                                text: "Musculoskeletal and pain management therapy",
+                                text: "Musculoskeletal & Pain Management Therapy",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: ". Our treatments are designed to address conditions affecting muscles, joints, bones, ligaments, and tendons while helping patients regain strength, mobility, and function.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
-                            },
-                            {
-                                text: "Ras Al Khaimah",
-                                bold: true,
-                            },
-                            {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: "Whether you are recovering from an injury, managing chronic pain, or experiencing movement limitations, our physiotherapy specialists provide personalized rehabilitation programs tailored to your individual needs, lifestyle, and recovery goals.",
                             },
                         ],
                     },
@@ -48,106 +44,120 @@ export default function MusculoskeletalPainManagementPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Why Choose Us"
+                title="Why Choose Musculoskeletal & Pain Management Therapy"
+                description="Targeted physiotherapy helps relieve pain, restore mobility, and support long-term physical well-being."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-musculoskeletal-pain.png"
+                imageAlt="Musculoskeletal & Pain Management Therapy"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Pain Relief & Management:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Helps reduce acute and chronic pain affecting muscles, joints, and connective tissues.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Improved Mobility:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Enhances flexibility, range of motion, and overall physical function.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Injury Recovery Support:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Promotes safe and effective rehabilitation following injuries and physical strain.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Posture & Movement Correction:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Improves body mechanics and addresses movement dysfunctions.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Strength & Functional Restoration:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Builds strength, stability, and endurance for long-term physical health.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Musculoskeletal & Pain Management Therapy Works"
+                description="A structured rehabilitation process designed to reduce pain, restore movement, and improve physical performance."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Physical Assessment & Diagnosis",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A detailed evaluation is performed to understand symptoms, mobility limitations, posture, and functional challenges.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Personalized Treatment Planning",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "A customized therapy program is created based on your condition, pain levels, and recovery goals.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Therapeutic Intervention",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Evidence-based physiotherapy techniques, exercises, and manual therapies are used to restore movement and reduce discomfort.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Recovery & Long-Term Management",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Progress is monitored regularly, and treatment plans are adjusted to support sustainable recovery and injury prevention.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Musculoskeletal & Pain Management Therapy"
+                subtitle="This therapy is suitable for individuals experiencing pain, injuries, or movement-related challenges."
+                sectionTitle="It's Ideal For Those Who"
+                image="/images/who-musculoskeletal-pain.png"
+                imageAlt="Musculoskeletal & Pain Management Therapy"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Experience neck, back, shoulder, knee, or joint pain" },
+                    { text: "Are recovering from sports injuries or physical trauma" },
+                    { text: "Suffer from chronic musculoskeletal conditions" },
+                    { text: "Have reduced mobility, stiffness, or muscle weakness" },
+                    { text: "Require rehabilitation following orthopedic procedures" },
+                    { text: "Want to improve posture, movement efficiency, and physical function" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What conditions can musculoskeletal physiotherapy treat?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "It can help manage back pain, neck pain, joint disorders, sports injuries, muscle strains, ligament injuries, arthritis, and other musculoskeletal conditions.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "How many therapy sessions will I need?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "The number of sessions depends on your condition, symptom severity, and recovery goals. Your physiotherapist will recommend a personalized treatment plan.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "Is physiotherapy effective for chronic pain?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Yes. Physiotherapy helps manage chronic pain by improving strength, mobility, flexibility, and overall physical function.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Will the treatment be painful?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Treatment is designed to be safe and comfortable. Some techniques may cause mild temporary discomfort, but therapy is always tailored to your tolerance and recovery needs.",
+                    },
+                    {
+                        question: "Can physiotherapy help prevent future injuries?",
+                        answer:
+                            "Absolutely. Physiotherapy improves posture, movement patterns, flexibility, and strength, helping reduce the risk of future injuries.",
+                    },
+                    {
+                        question: "Do I need a referral to start physiotherapy?",
+                        answer:
+                            "In many cases, a referral is not required. However, requirements may vary depending on your healthcare provider and specific condition.",
                     },
                 ]}
             />

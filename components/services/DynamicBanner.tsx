@@ -4,40 +4,58 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 type DynamicBannerProps = {
-  image: string;
+  desktopImage: string;
+  mobileImage: string;
   imageAlt?: string;
-  heightClass?: string;
   priority?: boolean;
 };
 
-const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
 export default function DynamicBanner({
-  image,
+  desktopImage,
+  mobileImage,
   imageAlt = "Royal Dutch Medical Centre Banner",
-  heightClass = "h-[420px] sm:h-[500px] lg:h-[600px]",
   priority = true,
 }: DynamicBannerProps) {
   return (
-    <section className={`relative w-full overflow-hidden ${heightClass}`}>
+    <motion.section
+      className="relative w-full overflow-hidden bg-white"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        duration: 0.8,
+        ease: "easeOut",
+      }}
+    >
       <motion.div
-        className="absolute inset-0"
-        initial={{ scale: 1.08, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
+        initial={{ scale: 1.03 }}
+        animate={{ scale: 1 }}
         transition={{
-          duration: 1.4,
-          ease: smoothEase,
+          duration: 1.5,
+          ease: [0.22, 1, 0.36, 1],
         }}
       >
+        {/* Mobile Banner */}
         <Image
-          src={image}
+          src={mobileImage}
           alt={imageAlt}
-          fill
+          width={768}
+          height={900}
           priority={priority}
           sizes="100vw"
-          className="object-cover object-center"
+          className="block h-auto w-full object-contain md:hidden"
+        />
+
+        {/* Tablet / Laptop / Desktop Banner */}
+        <Image
+          src={desktopImage}
+          alt={imageAlt}
+          width={1920}
+          height={800}
+          priority={priority}
+          sizes="100vw"
+          className="hidden h-auto w-full object-contain md:block"
         />
       </motion.div>
-    </section>
+    </motion.section>
   );
 }

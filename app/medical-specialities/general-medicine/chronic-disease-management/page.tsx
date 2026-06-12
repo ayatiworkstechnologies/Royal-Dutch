@@ -11,7 +11,10 @@ export default function ChronicDiseaseManagementPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
                 title="Chronic disease management"
@@ -19,28 +22,21 @@ export default function ChronicDiseaseManagementPage() {
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Living with a long-term health condition requires continuous care, monitoring, and support. ",
                             },
                             {
-                                text: "Chronic disease management",
+                                text: "Chronic Disease Management",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " focuses on helping patients effectively manage ongoing medical conditions, improve quality of life, and reduce the risk of future complications through personalized and proactive healthcare.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
-                            },
-                            {
-                                text: "Ras Al Khaimah",
-                                bold: true,
-                            },
-                            {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: "Our multidisciplinary team provides comprehensive care plans, regular health assessments, medication management, and lifestyle guidance to support long-term wellness. Whether you are managing diabetes, hypertension, asthma, heart disease, thyroid disorders, or other chronic conditions, we are committed to helping you achieve better health outcomes and maintain optimal well-being.",
                             },
                         ],
                     },
@@ -48,106 +44,120 @@ export default function ChronicDiseaseManagementPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Treatment Benefits"
+                title="Why Choose Chronic Disease Management"
+                description="Chronic Disease Management focuses on long-term health maintenance, prevention, and continuous monitoring to keep medical conditions under control."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-chronic.png"
+                imageAlt="Chronic Disease Management"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Personalized Care Plans:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Tailored treatment strategies based on your specific health condition and goals.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Regular Health Monitoring:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Continuous tracking of key health indicators to detect changes early.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Medication Management:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Ensures medications remain effective and appropriate for your condition.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Lifestyle Counseling:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Guidance on nutrition, exercise, stress management, and healthy habits.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Complication Prevention:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Reduces the risk of hospitalizations and disease-related complications.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Chronic Disease Management Works"
+                description="A structured care pathway helps patients manage chronic conditions effectively while promoting long-term wellness."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Initial Health Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A comprehensive evaluation of your medical history, symptoms, medications, lifestyle factors, and health risks is conducted.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Personalized Care Plan",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "An individualized management plan is created, including treatment goals, medications, monitoring schedules, and lifestyle recommendations.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Regular Monitoring & Follow-Up",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Routine check-ups, screenings, and progress reviews help ensure your condition remains well controlled.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Education & Ongoing Support",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Patients receive practical guidance and resources to confidently manage their condition and maintain long-term health.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Chronic Disease Management"
+                subtitle="Chronic Disease Management is designed for individuals living with long-term medical conditions that require ongoing monitoring and care."
+                sectionTitle="It's ideal for those who"
+                image="/images/who-chronic.png"
+                imageAlt="Chronic Disease Management"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Have diabetes or pre-diabetes" },
+                    { text: "Live with high blood pressure (hypertension)" },
+                    { text: "Manage heart disease or cardiovascular conditions" },
+                    { text: "Experience asthma or chronic respiratory disorders" },
+                    { text: "Have thyroid disorders requiring regular monitoring" },
+                    { text: "Need long-term medication management and preventive care" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What is Chronic Disease Management?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Chronic Disease Management is a structured healthcare approach that helps individuals manage long-term medical conditions through ongoing monitoring, treatment, education, and preventive care.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "Which conditions can be managed through this program?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Common conditions include diabetes, hypertension, heart disease, asthma, thyroid disorders, chronic kidney disease, arthritis, and other long-term health conditions.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "How often will I need follow-up appointments?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "The frequency depends on your condition and treatment plan. Some patients may require monthly reviews, while others may need quarterly or annual assessments.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Can Chronic Disease Management prevent complications?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Yes. Regular monitoring and early intervention help reduce the risk of complications, hospitalizations, and disease progression.",
+                    },
+                    {
+                        question: "Will I receive lifestyle and nutrition guidance?",
+                        answer:
+                            "Absolutely. Lifestyle counseling, dietary recommendations, exercise guidance, and preventive health education are integral parts of the program.",
+                    },
+                    {
+                        question: "Can this program improve my quality of life?",
+                        answer:
+                            "Yes. Effective management can help control symptoms, improve daily functioning, enhance overall well-being, and support long-term health goals.",
                     },
                 ]}
             />

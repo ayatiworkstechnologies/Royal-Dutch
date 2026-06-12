@@ -11,36 +11,39 @@ export default function FamilyMedicineAndWellnessCarePage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
-                title="Family medicine and wellness care"
+                title="Family Medicine & Wellness Care"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Family Medicine & Wellness Care focuses on providing comprehensive healthcare for individuals and families at every stage of life. ",
                             },
                             {
-                                text: "Family medicine and wellness care",
+                                text: "Family Medicine & Wellness Care",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " combines preventive care, early diagnosis, chronic disease management, and wellness support to help patients achieve and maintain optimal health.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
+                                text: "At ",
                             },
                             {
-                                text: "Ras Al Khaimah",
+                                text: "Royal Dutch Medical Centre",
                                 bold: true,
                             },
                             {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: ", our experienced physicians provide personalized healthcare plans, routine check-ups, and long-term medical support to promote healthier lives for individuals and families of all ages.",
                             },
                         ],
                     },
@@ -48,106 +51,120 @@ export default function FamilyMedicineAndWellnessCarePage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Why Choose Us"
+                title="Why Choose Family Medicine & Wellness Care"
+                description="Family Medicine provides continuous, patient-centered healthcare that focuses on prevention, treatment, and long-term wellness."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-family.png"
+                imageAlt="Family Medicine & Wellness Care"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Comprehensive Healthcare:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Provides medical care for children, adults, and seniors under one roof.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Preventive Screenings:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Helps detect health concerns early through routine check-ups and assessments.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Chronic Disease Management:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Supports the effective management of conditions such as diabetes, hypertension, and asthma.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Personalized Wellness Plans:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Tailored guidance to improve lifestyle habits and long-term health outcomes.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Continuity of Care:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Builds lasting doctor-patient relationships for ongoing healthcare support.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Family Medicine & Wellness Care Works"
+                description="A structured approach focused on prevention, early intervention, and lifelong health management."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Health Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A comprehensive evaluation of your medical history, lifestyle, risk factors, and current health concerns is conducted.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Preventive Screening",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "Routine examinations, laboratory investigations, and health screenings help identify potential issues early.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Wellness & Treatment Plan",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "A personalized care plan is developed, including treatment recommendations, lifestyle guidance, and preventive strategies.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Ongoing Monitoring & Support",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Regular follow-ups ensure your health goals are achieved while providing continuous medical guidance and care.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Family Medicine & Wellness Care"
+                subtitle="Family Medicine services are designed for individuals and families seeking comprehensive healthcare and long-term wellness support."
+                sectionTitle="It's Ideal For Those Who"
+                image="/images/who-family.png"
+                imageAlt="Family Medicine & Wellness Care"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Want regular health check-ups and preventive care" },
+                    { text: "Need management for chronic medical conditions" },
+                    { text: "Seek personalized wellness and lifestyle guidance" },
+                    { text: "Require healthcare support for the entire family" },
+                    { text: "Want early detection and monitoring of health risks" },
+                    { text: "Are focused on maintaining long-term health and well-being" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What is Family Medicine?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Family Medicine is a medical specialty that provides comprehensive healthcare for individuals and families of all ages, focusing on prevention, diagnosis, treatment, and long-term wellness.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "How often should I schedule a wellness check-up?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Most adults benefit from an annual wellness examination, although your physician may recommend more frequent visits based on your health condition and risk factors.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "Can Family Medicine help manage chronic diseases?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Yes. Family physicians routinely manage chronic conditions such as diabetes, hypertension, asthma, thyroid disorders, and high cholesterol.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "What happens during a wellness consultation?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Your physician reviews your medical history, lifestyle habits, family health background, current concerns, and may recommend preventive screenings or diagnostic tests.",
+                    },
+                    {
+                        question: "Is Family Medicine suitable for children and seniors?",
+                        answer:
+                            "Yes. Family Medicine provides healthcare services for all age groups, from children and adolescents to adults and elderly patients.",
+                    },
+                    {
+                        question: "Do I need a wellness visit if I feel healthy?",
+                        answer:
+                            "Absolutely. Preventive care helps identify potential health issues before symptoms appear, supporting better long-term health outcomes.",
                     },
                 ]}
             />

@@ -37,17 +37,15 @@ export default function TreatmentOffers({
       <div className="pointer-events-none absolute left-1/2 top-0 h-px w-[86%] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#d6b981]/45 to-transparent" />
 
       <div
-        className={`mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 md:gap-12 lg:gap-16 ${
-          reverse
+        className={`mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 md:gap-12 lg:gap-16 ${reverse
             ? "lg:grid-cols-[1.35fr_0.85fr]"
             : "lg:grid-cols-[0.85fr_1.35fr]"
-        }`}
+          }`}
       >
         {/* Image */}
         <motion.div
-          className={`flex justify-center ${
-            reverse ? "lg:order-2" : "lg:order-1"
-          }`}
+          className={`flex justify-center ${reverse ? "lg:order-2" : "lg:order-1"
+            }`}
           initial={{
             opacity: 0,
             y: 70,
@@ -77,7 +75,7 @@ export default function TreatmentOffers({
             {/* Gold glow border */}
             <div className="pointer-events-none absolute -inset-[1px] rounded-[17px] bg-gradient-to-br from-[#d6b981]/70 via-white to-[#8b1d72]/20" />
 
-            <div className="relative overflow-hidden rounded-[11px] border border-[#d6b981]/80 bg-[#f7f1f5]">
+            <div className="relative overflow-hidden rounded-[16px] border border-[#d6b981]/80 bg-[#f7f1f5]">
               <motion.div
                 initial={{ scale: 1.12 }}
                 whileInView={{ scale: 1 }}
@@ -86,27 +84,26 @@ export default function TreatmentOffers({
                   ease: smoothEase,
                 }}
                 viewport={{ once: true, amount: 0.3 }}
-                className="relative h-[390px] w-full sm:h-[440px] md:h-[470px] lg:h-[455px]"
+                className="relative h-[390px] w-full overflow-hidden rounded-[16px] sm:h-[440px] md:h-[470px] lg:h-[455px]"
               >
                 <Image
                   src={image}
                   alt={imageAlt}
                   fill
                   sizes="(max-width: 768px) 90vw, (max-width: 1024px) 45vw, 360px"
-                  className="object-cover object-center"
+                  className="rounded-[16px] object-cover object-center"
                 />
               </motion.div>
 
-              <div className="pointer-events-none absolute inset-[7px] rounded-[8px] border border-white/85" />
+              <div className="pointer-events-none absolute inset-[7px] rounded-[12px] border border-white/85" />
             </div>
           </motion.div>
         </motion.div>
 
         {/* Content */}
         <motion.div
-          className={`text-center lg:text-left ${
-            reverse ? "lg:order-1" : "lg:order-2"
-          }`}
+          className={`text-center lg:text-left ${reverse ? "lg:order-1" : "lg:order-2"
+            }`}
           initial={{
             opacity: 0,
             y: 65,

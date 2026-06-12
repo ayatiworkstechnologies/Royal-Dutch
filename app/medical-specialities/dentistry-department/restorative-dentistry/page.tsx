@@ -11,143 +11,163 @@ export default function RestorativeDentistryPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
-                title="Restorative dentistry"
+                title="Restorative Dentistry"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Restore the health, function, and appearance of your smile with comprehensive ",
                             },
                             {
-                                text: "Restorative dentistry",
+                                text: "Restorative Dentistry",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " solutions. Our treatments are designed to repair damaged teeth, replace missing teeth, and rebuild oral function while maintaining a natural and aesthetically pleasing appearance.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
+                                text: "Whether you are dealing with tooth decay, fractures, worn teeth, or tooth loss, our restorative dental services help improve chewing ability, speech, comfort, and overall oral health.",
                             },
+                        ],
+                    },
+                    {
+                        parts: [
                             {
-                                text: "Ras Al Khaimah",
-                                bold: true,
-                            },
-                            {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: "Using advanced materials and modern techniques, we provide durable and personalized solutions tailored to your individual needs while preserving long-term dental wellness and functionality.",
                             },
                         ],
                     },
                 ]}
             />
+
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Treatment Benefits"
+                title="Why Choose Restorative Dentistry"
+                description="Restorative dentistry focuses on repairing and replacing damaged teeth to improve both oral health and quality of life."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-restorative-dentistry.png"
+                imageAlt="Restorative Dentistry"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Tooth Repair & Reconstruction:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Restores damaged, fractured, or decayed teeth to optimal function.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Replacement Of Missing Teeth:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Provides solutions that improve appearance, comfort, and chewing efficiency.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Improved Oral Function:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Enhances biting, chewing, and speaking capabilities.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Natural-Looking Restorations:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Modern materials are designed to blend seamlessly with natural teeth.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Long-Term Dental Health:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Prevents further complications and supports overall oral wellness.",
                     },
-                ]} />
+                ]}
+            />
+
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Restorative Dentistry Works"
+                description="A personalized restorative approach designed to repair damaged teeth, replace missing teeth, and restore oral health."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Consultation & Oral Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A comprehensive evaluation of your teeth, gums, bite, and oral health is performed to identify restorative needs.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Diagnosis & Treatment Planning",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "A personalized treatment plan is created based on the extent of tooth damage, tooth loss, and functional requirements.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Restorative Procedures",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Appropriate restorative treatments are performed to repair, strengthen, or replace affected teeth while restoring function and aesthetics.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Follow-Up & Maintenance",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Regular reviews and preventive care help maintain the longevity and performance of your restorations.",
                     },
-                ]} />
+                ]}
+            />
+
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Restorative Dentistry"
+                subtitle="Restorative dentistry helps rebuild oral health, function, and confidence through customized dental solutions."
+                sectionTitle="Ideal for individuals who"
+                image="/images/who-restorative-dentistry.png"
+                imageAlt="Restorative Dentistry"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Have decayed, damaged, or fractured teeth" },
+                    { text: "Experience missing teeth or tooth loss" },
+                    { text: "Want to improve chewing and speaking function" },
+                    { text: "Need replacement of old or worn dental restorations" },
+                    { text: "Wish to restore the appearance and health of their smile" },
+                    { text: "Seek long-term solutions for dental damage and tooth replacement" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What is Restorative Dentistry?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Restorative dentistry focuses on repairing damaged teeth and replacing missing teeth to restore oral function, health, and appearance.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "What types of treatments are included?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Depending on your needs, restorative dentistry may include fillings, crowns, bridges, inlays, onlays, dentures, dental implants, and other tooth restoration procedures.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "Can restorative dentistry improve appearance as well as function?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Yes. Modern restorative treatments are designed to restore both the aesthetics and functionality of your smile.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "How long do dental restorations last?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "The lifespan of restorations varies depending on the treatment, oral hygiene practices, and regular dental care. Many restorations can last for several years with proper maintenance.",
+                    },
+                    {
+                        question: "Is restorative dentistry painful?",
+                        answer:
+                            "Most restorative procedures are performed using modern techniques and anesthesia to ensure patient comfort throughout treatment.",
+                    },
+                    {
+                        question: "How can I maintain my restorations?",
+                        answer:
+                            "Good oral hygiene, routine dental check-ups, and following your dentist's recommendations are essential for maintaining long-lasting results.",
                     },
                 ]}
             />

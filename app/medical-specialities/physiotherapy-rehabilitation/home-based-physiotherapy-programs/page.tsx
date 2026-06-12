@@ -11,22 +11,25 @@ export default function HomebasedPhysiotherapyProgramsPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
-                title="Home-based physiotherapy programs"
+                title="Home-Based Physiotherapy Programs"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Receive professional rehabilitation care in the comfort of your own home with ",
                             },
                             {
-                                text: "Home-based physiotherapy programs",
+                                text: "Home-Based Physiotherapy Programs",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: ". These personalized services are designed for individuals who require physiotherapy support but may have difficulty visiting a clinic due to mobility limitations, recovery needs, or convenience.",
                             },
                         ],
                     },
@@ -40,7 +43,7 @@ export default function HomebasedPhysiotherapyProgramsPage() {
                                 bold: true,
                             },
                             {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: ", our home physiotherapy programs provide expert assessment, targeted treatment, and continuous recovery support, helping patients improve mobility, regain independence, and achieve better health outcomes from the comfort of their homes.",
                             },
                         ],
                     },
@@ -48,106 +51,120 @@ export default function HomebasedPhysiotherapyProgramsPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Program Benefits"
+                title="Why Choose Home-Based Physiotherapy Programs"
+                description="Home physiotherapy combines professional rehabilitation with the convenience and comfort of receiving care in your own environment."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-home-based.png"
+                imageAlt="Home-Based Physiotherapy"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Convenient Home Care:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Receive expert physiotherapy treatment without the need to travel.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Personalized Treatment:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Programs are tailored to your condition, mobility level, and recovery goals.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Enhanced Comfort:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Recover in a familiar environment that supports confidence and well-being.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Improved Mobility:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Helps restore strength, balance, movement, and daily function.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Ongoing Progress Monitoring:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Regular assessments ensure optimal recovery and long-term results.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
-                eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                eyebrow="Treatment Process"
+                title="How Home-Based Physiotherapy Works"
+                description="Our structured home physiotherapy program delivers professional rehabilitation directly to your doorstep."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Initial Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A physiotherapist evaluates your condition, mobility, medical history, and rehabilitation needs.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Personalized Care Plan",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "A customized treatment program is developed based on your health goals and recovery requirements.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Home Therapy Sessions",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Scheduled visits include therapeutic exercises, mobility training, pain management, and rehabilitation techniques.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Progress Monitoring",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Recovery is tracked regularly and treatment plans are adjusted to maximize outcomes.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Home-Based Physiotherapy Programs"
+                subtitle="Home physiotherapy is suitable for individuals who require rehabilitation, mobility support, or ongoing physiotherapy care."
+                sectionTitle="It's ideal for those who"
+                image="/images/who-home-based.png"
+                imageAlt="Home-Based Physiotherapy"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Have difficulty traveling to a clinic" },
+                    { text: "Are recovering from surgery or hospitalization" },
+                    { text: "Need rehabilitation after injury or illness" },
+                    { text: "Require neurological or orthopedic physiotherapy" },
+                    { text: "Experience chronic pain or mobility challenges" },
+                    { text: "Prefer treatment in a comfortable home environment" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What conditions can be treated through home-based physiotherapy?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Home physiotherapy can help manage post-surgical recovery, musculoskeletal pain, neurological conditions, mobility limitations, arthritis, and injury rehabilitation.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "Is home physiotherapy as effective as clinic-based treatment?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Yes. Home-based physiotherapy can be highly effective when delivered through a personalized treatment plan by qualified physiotherapists.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "How often will the physiotherapist visit?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "The frequency of visits depends on your condition, rehabilitation goals, and treatment requirements determined during the assessment.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Do I need special equipment at home?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Most sessions use simple exercises and available household space. If additional equipment is needed, your physiotherapist will provide recommendations.",
+                    },
+                    {
+                        question: "Can elderly patients benefit from home physiotherapy?",
+                        answer:
+                            "Absolutely. Home physiotherapy is particularly beneficial for older adults who require mobility support, rehabilitation, or fall-prevention programs.",
+                    },
+                    {
+                        question: "How is recovery progress monitored?",
+                        answer:
+                            "Your physiotherapist regularly evaluates strength, mobility, pain levels, and functional abilities to ensure continuous improvement and adjust treatment when necessary.",
                     },
                 ]}
             />

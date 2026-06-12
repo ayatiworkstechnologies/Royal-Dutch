@@ -10,37 +10,48 @@ import FaqSection from "@/components/services/FaqSection";
 export default function AntiagingpreventiveSkinProgramsPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
+
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
-                title="Anti-aging and preventive skin programs"
+                title="Anti-Aging & Preventive Skin Programs"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Maintain healthy, youthful skin with personalized ",
                             },
                             {
-                                text: "Anti-aging and preventive skin programs",
+                                text: "Anti-Aging & Preventive Skin Programs",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " designed to protect, restore, and preserve your skin at every stage of life.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
+                                text: "Our comprehensive approach combines medical expertise, advanced aesthetic treatments, and customized skincare strategies to address early signs of aging before they become more prominent. By focusing on prevention and long-term skin health, we help you achieve naturally radiant, resilient, and youthful-looking skin.",
+                            },
+                        ],
+                    },
+                    {
+                        parts: [
+                            {
+                                text: "Whether you are noticing fine lines, loss of firmness, uneven skin tone, or simply want to maintain healthy skin for years to come, our ",
                             },
                             {
-                                text: "Ras Al Khaimah",
+                                text: "Anti-Aging & Preventive Skin Programs",
                                 bold: true,
                             },
                             {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: " provide proactive solutions that support lasting skin health, confidence, and a refreshed appearance.",
                             },
                         ],
                     },
@@ -49,105 +60,119 @@ export default function AntiagingpreventiveSkinProgramsPage() {
             {/* {Treatement offers} */}
             <TreatmentOffers
                 eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                title="Why Choose Anti-Aging & Preventive Skin Programs"
+                description="A proactive skincare approach helps slow visible aging, maintain skin quality, and support long-term skin health."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-antiaging.png"
+                imageAlt="Anti-Aging & Preventive Skin Programs"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Early Aging Prevention:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Addresses initial signs of aging before they become more noticeable, helping preserve youthful skin.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Collagen Stimulation:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Supports natural collagen production to improve skin firmness, elasticity, and overall resilience.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Skin Rejuvenation:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Enhances skin texture, hydration, and radiance for a healthier, refreshed appearance.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Personalized Skincare Plans:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Customized programs designed around your skin type, concerns, goals, and lifestyle.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Long-Term Skin Health:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Promotes healthier, stronger, and more resilient skin while supporting lasting results.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Anti-Aging & Preventive Skin Programs Work"
+                description="Our personalized anti-aging programs combine preventive care, advanced treatments, and expert guidance to support long-term skin health and youthful-looking skin."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Consultation & Skin Analysis",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A detailed assessment of your skin condition, aging concerns, lifestyle factors, and long-term goals is performed.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Personalized Program Design",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "A customized treatment and skincare plan is created to address your unique needs and future skin health goals.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Targeted Treatments & Skincare",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Advanced dermatological and aesthetic treatments are combined with professional skincare recommendations for optimal results.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Ongoing Monitoring & Maintenance",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Regular reviews and treatment adjustments help maintain results and support healthy aging over time.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Anti-Aging & Preventive Skin Programs"
+                subtitle="Anti-Aging & Preventive Skin Programs are designed for individuals who want to maintain healthy, youthful skin and proactively manage the effects of aging."
+                sectionTitle="Ideal for individuals who"
+                image="/images/who-antiaging.png"
+                imageAlt="Anti-Aging & Preventive Skin Programs"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Want to maintain youthful, healthy-looking skin" },
+                    { text: "Notice early signs of aging such as fine lines or dullness" },
+                    { text: "Wish to improve skin firmness and elasticity" },
+                    { text: "Want to prevent premature aging caused by environmental factors" },
+                    { text: "Seek a personalized long-term skincare strategy" },
+                    { text: "Desire proactive skin health management rather than corrective treatments alone" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "When should I start an Anti-Aging Program?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Preventive skincare can begin as early as your twenties and thirties. Starting early helps maintain skin quality and delay visible signs of aging.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "Are these programs suitable for all skin types?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Yes. Each program is customized based on your skin type, age, concerns, and individual goals.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "What treatments may be included?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Programs may include professional skincare treatments, collagen-stimulating procedures, skin rejuvenation therapies, and personalized home-care recommendations.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "How soon will I see results?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Many individuals notice improvements in skin texture, hydration, and radiance within a few weeks, while long-term benefits develop gradually with continued care.",
+                    },
+                    {
+                        question: "How often will I need treatments?",
+                        answer:
+                            "The frequency depends on your skin condition, age, and treatment plan. Your specialist will recommend a schedule tailored to your needs.",
+                    },
+                    {
+                        question: "Can preventive treatments replace surgical procedures?",
+                        answer:
+                            "Preventive programs can significantly delay and reduce visible signs of aging, helping many individuals maintain youthful skin without invasive procedures for longer periods.",
                     },
                 ]}
             />

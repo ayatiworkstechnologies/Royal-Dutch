@@ -11,7 +11,10 @@ export default function PreventiveHealthScreeningsAndCheckupsPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
-            <DynamicBanner image="/images/contact-banner.png" />
+            <DynamicBanner
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
                 title="Preventive health screenings and check-ups"
@@ -19,28 +22,21 @@ export default function PreventiveHealthScreeningsAndCheckupsPage() {
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Your health is your most valuable asset, and prevention is the key to maintaining it. ",
                             },
                             {
-                                text: "Preventive health screenings and check-ups",
+                                text: "Preventive Health Screenings & Check-Ups",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " are designed to identify potential health concerns before symptoms appear, enabling early intervention and better long-term health outcomes.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
-                            },
-                            {
-                                text: "Ras Al Khaimah",
-                                bold: true,
-                            },
-                            {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: "Our comprehensive assessments include vital health evaluations, laboratory investigations, lifestyle risk assessments, and personalized medical recommendations. Regular screenings help you stay informed about your health status and take proactive steps toward a healthier future.",
                             },
                         ],
                     },
@@ -48,106 +44,120 @@ export default function PreventiveHealthScreeningsAndCheckupsPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Health Benefits"
+                title="Why Choose Preventive Health Screenings & Check-Ups"
+                description="Preventive screenings help identify health risks early and support proactive healthcare for long-term wellness."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/who-preventive-health.png"
+                imageAlt="Preventive Health Screening"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Early Disease Detection:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Identifies health conditions at their earliest and most treatable stages.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Personalized Health Insights:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Provides a detailed understanding of your health status and risk factors.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Chronic Disease Prevention:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Helps reduce the risk of diabetes, hypertension, heart disease, and other conditions.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Peace of Mind:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Offers reassurance through regular monitoring and professional guidance.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Improved Long-Term Health:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Supports healthier lifestyle choices and better overall well-being.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
-                eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                eyebrow="Screening Process"
+                title="How Preventive Health Screenings & Check-Ups Work"
+                description="A structured assessment process provides a complete overview of your health and wellness."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Health Consultation",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A healthcare professional reviews your medical history, lifestyle habits, family history, and current health concerns.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Comprehensive Screening",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "Diagnostic tests may include blood tests, blood pressure checks, cholesterol screening, diabetes screening, BMI assessment, and other evaluations.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Results & Risk Assessment",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Your results are carefully analyzed to identify potential health risks and areas requiring attention.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Personalized Health Plan",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Based on your findings, tailored recommendations and preventive strategies are provided to support long-term wellness.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Preventive Health Screenings & Check-Ups"
+                subtitle="Preventive screenings are suitable for adults of all ages and help support long-term health and wellness."
+                sectionTitle="It's ideal for those who"
+                image="/images/who-preventive-health.png"
+                imageAlt="Preventive Health Screening"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Want to monitor their overall health regularly" },
+                    { text: "Have a family history of diabetes, heart disease, or chronic illnesses" },
+                    { text: "Experience lifestyle-related risk factors such as stress or inactivity" },
+                    { text: "Are over 40 and require routine age-related health assessments" },
+                    { text: "Wish to detect potential health concerns before symptoms develop" },
+                    { text: "Want personalized guidance for maintaining long-term wellness" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "Why are preventive health screenings important?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Preventive screenings help identify potential health issues early, often before symptoms appear, improving treatment outcomes and reducing health risks.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "How often should I have a health check-up?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "The frequency depends on your age, medical history, and risk factors. Most adults benefit from an annual preventive health assessment.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "What tests are included in a preventive health screening?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Tests may include blood pressure monitoring, cholesterol testing, diabetes screening, blood tests, BMI assessment, and other evaluations based on individual needs.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Do I need a screening if I feel healthy?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Yes. Many health conditions develop silently without symptoms. Regular screenings help detect issues early and support ongoing wellness.",
+                    },
+                    {
+                        question: "How long does a preventive health check-up take?",
+                        answer:
+                            "Depending on the screening package and tests required, appointments typically take between 30 minutes and 2 hours.",
+                    },
+                    {
+                        question: "Can preventive screenings help prevent serious illnesses?",
+                        answer:
+                            "While screenings do not prevent diseases directly, they help identify risks early, allowing timely intervention and lifestyle modifications.",
                     },
                 ]}
             />
