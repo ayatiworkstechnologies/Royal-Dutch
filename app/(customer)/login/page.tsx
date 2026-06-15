@@ -37,6 +37,11 @@ export default function CustomerLoginPage() {
       });
 
       const user = userRes.data;
+
+      if (user.role !== 'customer') {
+        throw new Error('This login is for customers only. Staff members must use the Admin Portal.');
+      }
+
       login(access_token, user);
       
       router.push('/customer/dashboard');

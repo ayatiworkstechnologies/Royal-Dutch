@@ -38,8 +38,9 @@ export default function AdminLoginPage() {
 
       const user = userRes.data;
 
-      // Removed strict role check to allow successful backend logins
-      // The backend token verifies identity.
+      if (user.role === 'customer') {
+        throw new Error('This login is for staff only. Customers must use the main Login page.');
+      }
 
       login(access_token, user);
       router.push('/admin/dashboard');

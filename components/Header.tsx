@@ -698,7 +698,7 @@ export default function Header() {
             </div>
 
             <div className="hidden justify-end lg:flex lg:gap-3 lg:items-center">
-              {user ? (
+              {user?.role === 'customer' ? (
                 <Link
                   href="/customer/dashboard"
                   className="flex h-[40px] px-4 items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] font-secondary text-[13px] font-semibold text-black transition hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:text-[14px]"
@@ -760,7 +760,7 @@ export default function Header() {
               );
             })}
 
-            {user ? (
+            {user?.role === 'customer' ? (
               <Link
                 href="/customer/dashboard"
                 onClick={closeMobileMenu}
