@@ -1,23 +1,20 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Cinzel, Red_Hat_Display } from "next/font/google";
+import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
 
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import FloatingButtons from "@/components/FloatingButtons";
-
-const cinzel = Cinzel({
-  variable: "--font-cinzel",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const redHatDisplay = Red_Hat_Display({
-  variable: "--font-red-hat",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -34,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cinzel.variable} ${redHatDisplay.variable} h-full overflow-x-hidden antialiased`}
+      className={`${outfit.variable} ${inter.variable} h-full overflow-x-hidden antialiased`}
     >
       <body className="flex min-h-full w-full flex-col overflow-x-hidden bg-white font-secondary text-[#171717]">
         <Script id="scroll-top-before-navigation" strategy="beforeInteractive">
@@ -98,11 +95,9 @@ export default function RootLayout({
             });
           `}
         </Script>
-
-        <Header />
-        {children}
-        <FloatingButtons />
-        <Footer />
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

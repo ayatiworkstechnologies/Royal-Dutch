@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useBookingModal } from "@/context/BookingModalContext";
+import { useAuth } from "@/hooks/useAuth";
+import { User as UserIcon } from "lucide-react";
 
 type SubMenuItem = {
   name: string;
@@ -332,10 +335,10 @@ function DesktopMegaMenu({
                   onFocus={() => setActiveIndex(index)}
                   onClick={closeDesktopMenuNow}
                   className={`text-left font-secondary text-[15px] leading-[1.28] transition-colors duration-200 ${isCurrentParent
-                      ? "font-semibold text-[#8b1d72]"
-                      : isHovered
-                        ? "font-semibold text-black"
-                        : "font-normal text-[#8b8b8b] hover:text-[#8b1d72]"
+                    ? "font-semibold text-[#8b1d72]"
+                    : isHovered
+                      ? "font-semibold text-black"
+                      : "font-normal text-[#8b8b8b] hover:text-[#8b1d72]"
                     }`}
                 >
                   {category.title}
@@ -358,8 +361,8 @@ function DesktopMegaMenu({
               >
                 <h4
                   className={`min-h-[58px] font-secondary text-[15px] leading-[1.35] transition-colors duration-300 ${itemActive
-                      ? "font-semibold text-[#8b1d72]"
-                      : "font-normal text-[#7d7d7d] group-hover:text-[#8b1d72]"
+                    ? "font-semibold text-[#8b1d72]"
+                    : "font-normal text-[#7d7d7d] group-hover:text-[#8b1d72]"
                     }`}
                 >
                   {item.name}
@@ -367,8 +370,8 @@ function DesktopMegaMenu({
 
                 <div
                   className={`mt-4 overflow-hidden rounded-[5px] bg-[#f5eef4] transition duration-300 ${itemActive
-                      ? "ring-2 ring-[#8b1d72] ring-offset-4 ring-offset-white"
-                      : ""
+                    ? "ring-2 ring-[#8b1d72] ring-offset-4 ring-offset-white"
+                    : ""
                     }`}
                 >
                   <Image
@@ -431,8 +434,8 @@ function MobileAccordion({
         type="button"
         onClick={() => setOpen((prev) => !prev)}
         className={`flex w-full items-center justify-between py-4 font-secondary text-[15px] font-semibold ${categories.some((category) => isParentActive(category.path))
-            ? "text-[#D6B981]"
-            : "text-white"
+          ? "text-[#D6B981]"
+          : "text-white"
           }`}
       >
         {title}
@@ -468,8 +471,8 @@ function MobileAccordion({
 
                 <div
                   className={`grid overflow-hidden transition-all duration-300 ${isOpenCategory
-                      ? "grid-rows-[1fr] opacity-100"
-                      : "grid-rows-[0fr] opacity-0"
+                    ? "grid-rows-[1fr] opacity-100"
+                    : "grid-rows-[0fr] opacity-0"
                     }`}
                 >
                   <div className="min-h-0">
@@ -483,8 +486,8 @@ function MobileAccordion({
                               href={item.path}
                               onClick={closeMobileMenu}
                               className={`block rounded-[8px] px-3 py-2 font-secondary text-[13px] leading-[1.5] transition ${itemActive
-                                  ? "bg-[#8b1d72] font-semibold text-white"
-                                  : "text-white/75 hover:bg-white/10 hover:text-[#D6B981]"
+                                ? "bg-[#8b1d72] font-semibold text-white"
+                                : "text-white/75 hover:bg-white/10 hover:text-[#D6B981]"
                                 }`}
                             >
                               {item.name}
@@ -507,6 +510,8 @@ function MobileAccordion({
 export default function Header() {
   const pathname = usePathname();
   const currentPath = cleanPath(pathname);
+  const { openModal } = useBookingModal();
+  const { user } = useAuth();
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<"medical" | "care" | null>(null);
@@ -612,8 +617,8 @@ export default function Header() {
       >
         <nav
           className={`rounded-[10px] bg-white px-4 py-2 transition-shadow duration-500 lg:rounded-[12px] lg:px-5 ${isScrolled
-              ? "shadow-[0_8px_28px_rgba(0,0,0,0.10)]"
-              : "shadow-none"
+            ? "shadow-[0_8px_28px_rgba(0,0,0,0.10)]"
+            : "shadow-none"
             }`}
         >
           <div className="grid items-center gap-4 lg:grid-cols-[230px_1fr_110px] xl:grid-cols-[260px_1fr_118px]">
@@ -667,10 +672,10 @@ export default function Header() {
                         onMouseEnter={() => openDesktopMenu(link.menuKey!)}
                         onFocus={() => openDesktopMenu(link.menuKey!)}
                         className={`flex items-center gap-1 font-secondary text-[15px] transition-colors duration-300 ${activeMega
-                            ? "font-semibold text-[#8b1d72]"
-                            : isOpen
-                              ? "font-semibold text-black"
-                              : "font-medium text-[#2f2f2f] hover:text-[#8b1d72]"
+                          ? "font-semibold text-[#8b1d72]"
+                          : isOpen
+                            ? "font-semibold text-black"
+                            : "font-medium text-[#2f2f2f] hover:text-[#8b1d72]"
                           }`}
                       >
                         {link.name}
@@ -692,21 +697,39 @@ export default function Header() {
               </div>
             </div>
 
-            <div className="hidden justify-end lg:flex">
-              <Link
-                href="/contact"
+            <div className="hidden justify-end lg:flex lg:gap-3 lg:items-center">
+              {user ? (
+                <Link
+                  href="/customer/dashboard"
+                  className="flex h-[40px] px-4 items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] font-secondary text-[13px] font-semibold text-black transition hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:text-[14px]"
+                  title="Dashboard"
+                >
+                  <UserIcon className="w-4 h-4 xl:w-5 xl:h-5" />
+                  <span className="whitespace-nowrap hidden lg:inline">{user.first_name || user.name || "Dashboard"}</span>
+                </Link>
+              ) : (
+                <Link
+                  href="/login"
+                  className="flex h-[40px] px-4 items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] font-secondary text-[13px] font-semibold text-black transition hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:text-[14px]"
+                >
+                  <UserIcon className="w-4 h-4 xl:w-5 xl:h-5" />
+                  <span className="whitespace-nowrap hidden lg:inline">Login</span>
+                </Link>
+              )}
+              <button
+                onClick={() => openModal()}
                 className="group inline-flex h-[40px] min-w-[105px] items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-3 font-secondary text-[13px] font-semibold leading-none text-black transition duration-300 hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:min-w-[150px] xl:gap-2 xl:px-4 xl:text-[14px]"
               >
                 <AssistSparkle />
                 <span className="translate-y-[1px] whitespace-nowrap">Book Now</span>
-              </Link>
+              </button>
             </div>
           </div>
 
           <div
             className={`lg:hidden ${mobileOpen
-                ? "mt-4 max-h-[calc(100dvh-100px)] overflow-y-auto rounded-[14px] bg-[#35102f] px-4 py-4 opacity-100"
-                : "max-h-0 overflow-hidden opacity-0"
+              ? "mt-4 max-h-[calc(100dvh-100px)] overflow-y-auto rounded-[14px] bg-[#35102f] px-4 py-4 opacity-100"
+              : "max-h-0 overflow-hidden opacity-0"
               } transition-all duration-300`}
           >
             {navLinks.map((link) => {
@@ -737,14 +760,36 @@ export default function Header() {
               );
             })}
 
-            <Link
-              href="/contact"
-              onClick={closeMobileMenu}
+            {user ? (
+              <Link
+                href="/customer/dashboard"
+                onClick={closeMobileMenu}
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black border border-gray-200"
+              >
+                <UserIcon className="w-5 h-5" />
+                {user.first_name || user.name || "Dashboard"}
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                onClick={closeMobileMenu}
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black border border-gray-200"
+              >
+                <UserIcon className="w-5 h-5" />
+                Login
+              </Link>
+            )}
+
+            <button
+              onClick={() => {
+                closeMobileMenu();
+                openModal();
+              }}
               className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] bg-[#D6B981] px-5 py-3 font-secondary text-[15px] font-bold text-[#200020]"
             >
               <AssistSparkle />
               Book Now
-            </Link>
+            </button>
           </div>
         </nav>
 
