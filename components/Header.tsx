@@ -705,7 +705,7 @@ export default function Header() {
                   title="Dashboard"
                 >
                   <UserIcon className="w-4 h-4 xl:w-5 xl:h-5" />
-                  <span className="whitespace-nowrap hidden lg:inline">{user.first_name || user.name || "Dashboard"}</span>
+                  <span className="whitespace-nowrap hidden lg:inline">{user.first_name || "Dashboard"}</span>
                 </Link>
               ) : (
                 <Link
@@ -767,7 +767,7 @@ export default function Header() {
                 className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black border border-gray-200"
               >
                 <UserIcon className="w-5 h-5" />
-                {user.first_name || user.name || "Dashboard"}
+                {user.first_name || "Dashboard"}
               </Link>
             ) : (
               <Link
