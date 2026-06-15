@@ -22,14 +22,14 @@ export default function SkilledNursingCarePage() {
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Skilled Nursing Care provides professional medical support for patients who require ongoing monitoring, treatment, and recovery assistance at home. ",
                             },
                             {
-                                text: "Skilled nursing care",
+                                text: "Skilled Nursing Care",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " is delivered by qualified nurses who provide hospital-quality healthcare in a safe and comfortable home environment.",
                             },
                         ],
                     },
@@ -43,7 +43,7 @@ export default function SkilledNursingCarePage() {
                                 bold: true,
                             },
                             {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: ", our nursing services include medication administration, wound care, post-surgical support, chronic disease management, and continuous health monitoring. We focus on improving recovery, promoting independence, and delivering compassionate, personalized care.",
                             },
                         ],
                     },
@@ -51,106 +51,130 @@ export default function SkilledNursingCarePage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Benefits"
+                title="Why Choose Skilled Nursing Care"
+                description="Unlike basic caregiving services, Skilled Nursing Care is delivered by licensed healthcare professionals trained to provide advanced medical support and monitoring at home."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-skilled.png"
+                imageAlt="Skilled Nursing Care"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Medication Management:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Ensures medications are administered correctly and on schedule.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Wound Care:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Professional dressing changes and wound monitoring to support healing.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Post-Surgical Support:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Assistance during recovery to reduce complications and improve outcomes.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Health Monitoring:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Regular assessment of vital signs and overall patient condition.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Chronic Disease Management:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Ongoing support for diabetes, hypertension, respiratory conditions, and more.",
                     },
-                ]} />
+                    {
+                        label: "Personalized Care Plans:",
+                        description:
+                            "Customized nursing services tailored to individual healthcare needs.",
+                    },
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
-                eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                eyebrow="Care Process"
+                title="How Skilled Nursing Care Works"
+                description="Our nursing care process is designed to provide safe, effective, and personalized healthcare support at home."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Initial Health Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A qualified nurse evaluates the patient's condition, treatment requirements, and healthcare goals to create a personalized care plan.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Care Plan Implementation",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "Medical services such as medication administration, wound care, injections, and patient monitoring are provided according to the treatment plan.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Ongoing Monitoring & Support",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Regular assessments help track progress, adjust care when needed, and ensure optimal recovery and well-being.",
                     },
-                    {
-                        title: "Extraction",
-                        description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
-                    },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Skilled Nursing Care"
+                subtitle="Skilled Nursing Care is suitable for patients who require professional medical assistance, monitoring, or recovery support at home."
+                sectionTitle="It's ideal for those who"
+                image="/images/who-skilled.png"
+                imageAlt="Skilled Nursing Care"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Are recovering after surgery or hospitalization" },
+                    { text: "Require regular medication administration or injections" },
+                    { text: "Need professional wound care and dressing changes" },
+                    { text: "Live with chronic conditions such as diabetes or hypertension" },
+                    { text: "Need elderly care with medical supervision" },
+                    { text: "Require rehabilitation and long-term nursing support" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What is Skilled Nursing Care?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Skilled Nursing Care involves professional medical services provided by licensed nurses to support recovery, manage health conditions, and deliver specialized care at home.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "Who provides the nursing care?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Our services are delivered by qualified and experienced registered nurses trained in a variety of medical and healthcare procedures.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "Can nursing care be provided at home?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Yes. Skilled Nursing Care is specifically designed to bring professional healthcare services directly to the patient's home.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "What conditions can be managed through Skilled Nursing Care?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Our nurses assist with post-surgical recovery, chronic disease management, wound care, medication administration, elderly care, and rehabilitation support.",
+                    },
+                    {
+                        question: "How often can a nurse visit?",
+                        answer:
+                            "Visit frequency depends on the patient's condition and treatment plan. Services can be arranged daily, weekly, or as required.",
+                    },
+                    {
+                        question: "Is Skilled Nursing Care suitable for elderly patients?",
+                        answer:
+                            "Yes. Elderly individuals who require medical supervision, medication support, or chronic condition management can benefit greatly from skilled nursing services.",
+                    },
+                    {
+                        question: "How do I arrange Skilled Nursing Care?",
+                        answer:
+                            "You can contact Royal Dutch Medical Centre to schedule an assessment and discuss a personalized nursing care plan based on your healthcare needs.",
+                    },
+                    {
+                        question: "What are the benefits of home nursing services?",
+                        answer:
+                            "Home nursing offers comfort, convenience, personalized attention, reduced hospital visits, and continuous professional medical support in a familiar environment.",
                     },
                 ]}
             />

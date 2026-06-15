@@ -12,38 +12,38 @@ export default function LongtermRecoveryandFollowupCarePage() {
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
             <DynamicBanner
-                            mobileImage="/images/medical-dermatology-desktop-mobile.png"
-                            desktopImage="/images/medical-dermatology-desktop-banner.png"
-                        />
+                mobileImage="/images/medical-dermatology-desktop-mobile.png"
+                desktopImage="/images/medical-dermatology-desktop-banner.png"
+            />
             {/* {Intro section} */}
             <IntroSection
-                title="Long-term recovery and follow-up care"
+                title="Long-Term Recovery and Follow-Up Care"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Recovery doesn't end when treatment is completed. At ",
                             },
                             {
-                                text: "Long-term recovery and follow-up care",
+                                text: "Royal Dutch Medical Centre",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: ", our Long-Term Recovery and Follow-Up Care program ensures patients receive continuous support, monitoring, and guidance throughout their healing journey.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
+                                text: "Whether recovering from surgery, injury, chronic illness, neurological conditions, or rehabilitation programs, our multidisciplinary team provides personalized care plans designed to promote optimal recovery, prevent complications, and improve quality of life.",
                             },
+                        ],
+                    },
+                    {
+                        parts: [
                             {
-                                text: "Ras Al Khaimah",
-                                bold: true,
-                            },
-                            {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: "Through regular assessments, progress tracking, medication management, and lifestyle guidance, we help patients regain confidence, independence, and long-term wellness.",
                             },
                         ],
                     },
@@ -51,106 +51,146 @@ export default function LongtermRecoveryandFollowupCarePage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Treatment Benefits"
+                title="Why Choose Long-Term Recovery and Follow-Up Care"
+                description="Unlike short-term treatment plans that focus only on immediate recovery, long-term follow-up care provides continuous medical supervision to ensure sustained health improvements and prevent setbacks."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-longterm.png"
+                imageAlt="Long-Term Recovery and Follow-Up Care"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Personalized Recovery Plans:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Tailored care programs based on individual health needs and recovery goals.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Regular Health Monitoring:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Ongoing assessments help track progress and detect concerns early.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Medication Management:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Ensures treatments remain effective while minimizing side effects.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Rehabilitation Support:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Continuous physiotherapy and therapeutic guidance for improved mobility and function.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Prevention of Complications:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Early intervention reduces the risk of relapses or secondary health issues.",
                     },
-                ]} />
+                    {
+                        label: "Patient and Family Education:",
+                        description:
+                            "Provides valuable guidance for long-term self-care and disease management.",
+                    },
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
-                eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                eyebrow="Treatment Process"
+                title="How Long-Term Recovery and Follow-Up Care Works"
+                description="Our comprehensive recovery program follows a structured approach to support patients at every stage of their healing process."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Initial Recovery Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A thorough evaluation is conducted to understand the patient's condition, recovery status, medical history, and long-term healthcare needs.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Personalized Care Plan",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "Our specialists develop a customized recovery strategy that may include medical reviews, rehabilitation sessions, lifestyle recommendations, and medication management.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Regular Follow-Up Visits",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Scheduled consultations help monitor progress, adjust treatments when necessary, and address any new concerns promptly.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Rehabilitation & Support",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Patients receive ongoing physiotherapy, counseling, nutritional guidance, and supportive care to enhance recovery outcomes.",
                     },
-                ]} />
+                    {
+                        title: "Long-Term Wellness Management",
+                        description:
+                            "Continuous monitoring and preventive healthcare strategies help patients maintain health, independence, and quality of life.",
+                    },
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Long-Term Recovery and Follow-Up Care"
+                subtitle="Long-Term Recovery and Follow-Up Care is beneficial for individuals requiring ongoing medical supervision, rehabilitation, and support after treatment."
+                sectionTitle="It's Ideal For Those Who"
+                image="/images/who-longterm.png"
+                imageAlt="Long-Term Recovery and Follow-Up Care"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Recovering from surgery or major medical procedures" },
+                    {
+                        text: "Managing chronic illnesses such as diabetes, heart disease, or respiratory conditions",
+                    },
+                    { text: "Recovering from neurological disorders or stroke" },
+                    { text: "Requiring long-term physiotherapy or rehabilitation" },
+                    { text: "Experiencing mobility challenges or reduced independence" },
+                    { text: "Needing continuous medication monitoring and adjustment" },
+                    { text: "Seeking preventive care to avoid complications or relapses" },
+                    {
+                        text: "Looking for professional guidance throughout their recovery journey",
+                    },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What is long-term recovery and follow-up care?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Long-term recovery and follow-up care is a structured healthcare program that provides ongoing medical monitoring, rehabilitation, and support after treatment or hospitalization.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "Who needs follow-up care?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Patients recovering from surgery, chronic illnesses, injuries, neurological conditions, or extended hospital stays often benefit from follow-up care.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "How often are follow-up appointments scheduled?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "The frequency depends on the patient's condition and recovery plan. Appointments may be weekly, monthly, or scheduled as needed by the healthcare team.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Can follow-up care be provided at home?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Yes. Depending on the patient's needs, home visits, teleconsultations, and home-based rehabilitation services may be available.",
+                    },
+                    {
+                        question: "What services are included in follow-up care?",
+                        answer:
+                            "Services may include medical reviews, physiotherapy, medication management, nutritional guidance, chronic disease monitoring, and wellness counseling.",
+                    },
+                    {
+                        question: "Does follow-up care help prevent complications?",
+                        answer:
+                            "Yes. Regular monitoring allows healthcare professionals to identify potential issues early and take preventive action before complications develop.",
+                    },
+                    {
+                        question: "Can family members be involved in the recovery plan?",
+                        answer:
+                            "Absolutely. Family education and caregiver support are important components of successful long-term recovery.",
+                    },
+                    {
+                        question: "How do I get started with long-term recovery care?",
+                        answer:
+                            "Simply schedule a consultation with our medical team. We will assess your condition and create a personalized recovery plan tailored to your needs.",
                     },
                 ]}
             />

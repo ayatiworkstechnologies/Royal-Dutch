@@ -17,19 +17,26 @@ export default function RehabilitationAndMobilityRestorationPage() {
             />
             {/* {Intro section} */}
             <IntroSection
-                title="Rehabilitation and mobility restoration"
+                title="Rehabilitation and Mobility Restoration"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Rehabilitation and mobility restoration focuses on helping patients regain strength, balance, flexibility, and confidence after injury, surgery, pain, or reduced movement.",
+                            },
+                        ],
+                    },
+                    {
+                        parts: [
+                            {
+                                text: "At ",
                             },
                             {
-                                text: "Rehabilitation and mobility restoration",
+                                text: "Royal Dutch Medical Centre",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: ", our rehabilitation approach combines guided physiotherapy, therapeutic exercises, mobility training, and personalized recovery plans to support safe and lasting improvement.",
                             },
                         ],
                     },
@@ -43,7 +50,7 @@ export default function RehabilitationAndMobilityRestorationPage() {
                                 bold: true,
                             },
                             {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: ", this service helps patients move better, reduce discomfort, improve daily function, and return to an active lifestyle with professional care.",
                             },
                         ],
                     },
@@ -51,106 +58,120 @@ export default function RehabilitationAndMobilityRestorationPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Treatment Benefits"
+                title="Why Choose Rehabilitation and Mobility Restoration"
+                description="Unlike general exercise programs, rehabilitation is clinically guided and tailored to each patient’s condition, recovery stage, and mobility goals."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-rehabilitation.png"
+                imageAlt="Rehabilitation and Mobility Restoration"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Pain Relief:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Helps reduce joint, muscle, and movement-related discomfort.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Improved Mobility:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Restores range of motion, flexibility, and body movement.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Strength Recovery:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Builds muscle support after injury, surgery, or weakness.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Balance & Coordination:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Improves stability and reduces the risk of falls.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Personalized Care:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Each treatment plan is designed based on your body's needs and recovery goals.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
-                eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                eyebrow="Treatment Process"
+                title="How Rehabilitation and Mobility Restoration Works"
+                description="Rehabilitation is a step-by-step process that supports recovery, movement correction, and long-term functional improvement."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Assessment & Diagnosis",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "Our specialist evaluates your pain, mobility, posture, strength, balance, and functional limitations.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Personalized Treatment Plan",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "A recovery plan is created based on your condition, goals, lifestyle, and current mobility level.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Guided Therapy & Exercises",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Targeted physiotherapy, stretching, strengthening, and mobility exercises are performed under expert supervision.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Progressive Mobility Training",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Your movement, balance, walking ability, and daily activity performance are gradually improved.",
                     },
-                ]} />
+                    {
+                        title: "Long-Term Recovery Support",
+                        description:
+                            "Home exercises and lifestyle guidance help maintain results and prevent future movement problems.",
+                    },
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Rehabilitation and Mobility Restoration"
+                subtitle="Rehabilitation and mobility restoration is suitable for patients who need support in recovering movement, strength, and physical independence."
+                sectionTitle="It's Ideal For Those Who"
+                image="/images/who-rehabilitation.png"
+                imageAlt="Rehabilitation and Mobility Restoration"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Recovering after surgery or injury" },
+                    { text: "Have joint, back, neck, or muscle pain" },
+                    { text: "Experience stiffness or reduced flexibility" },
+                    { text: "Need help improving walking or balance" },
+                    { text: "Have weakness after illness or inactivity" },
+                    { text: "Want to return safely to daily activities" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "Is rehabilitation painful?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Rehabilitation is designed to be safe and progressive. Some mild discomfort may occur during movement, but therapy is adjusted to your comfort level.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "How many sessions will I need?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "The number of sessions depends on your condition, recovery goals, and progress after assessment.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "Can rehabilitation help after surgery?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Yes. It supports safe recovery, improves strength, restores mobility, and helps patients return to daily activities.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Is this suitable for elderly patients?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Yes. Mobility restoration can help improve balance, strength, walking confidence, and fall prevention in older adults.",
+                    },
+                    {
+                        question: "Do I need a doctor's referral?",
+                        answer:
+                            "A referral may be helpful, but our team can assess your condition and guide you on the right treatment plan.",
                     },
                 ]}
             />

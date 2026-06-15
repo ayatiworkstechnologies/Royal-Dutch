@@ -17,33 +17,33 @@ export default function WoundCareAndInfectionPreventionPage() {
             />
             {/* {Intro section} */}
             <IntroSection
-                title="Wound care and infection prevention"
+                title="Wound Care & Infection Prevention"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Proper wound care is essential for promoting healing, preventing complications, and reducing the risk of infection. At ",
                             },
                             {
-                                text: "Wound care and infection prevention",
+                                text: "Royal Dutch Medical Centre",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: ", our wound care specialists provide comprehensive assessment, cleaning, dressing, and monitoring of acute and chronic wounds using evidence-based medical practices.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
+                                text: "Whether recovering from surgery, injury, burns, diabetic ulcers, or chronic skin conditions, our team ensures every wound receives the right treatment to support faster healing and improved outcomes.",
                             },
+                        ],
+                    },
+                    {
+                        parts: [
                             {
-                                text: "Ras Al Khaimah",
-                                bold: true,
-                            },
-                            {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: "Our personalized approach focuses on infection prevention, pain management, tissue protection, and continuous monitoring to help patients recover safely and comfortably.",
                             },
                         ],
                     },
@@ -51,106 +51,142 @@ export default function WoundCareAndInfectionPreventionPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Treatment Benefits"
+                title="Why Choose Professional Wound Care"
+                description="Unlike basic home treatment, professional wound care involves expert evaluation, advanced dressings, and infection control measures that accelerate healing and minimize complications."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-wound.png"
+                imageAlt="Wound Care & Infection Prevention"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Thorough Wound Assessment:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Identifies the severity, depth, and healing requirements of the wound.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Infection Prevention:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Reduces the risk of bacterial contamination and complications.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Advanced Dressing Techniques:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Protects wounds while maintaining an optimal healing environment.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Pain Management:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Minimizes discomfort during treatment and recovery.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Faster Healing:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Supports tissue regeneration and reduces healing time.",
                     },
-                ]} />
+                    {
+                        label: "Continuous Monitoring:",
+                        description:
+                            "Tracks healing progress and adjusts treatment when necessary.",
+                    },
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
-                eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                eyebrow="Treatment Process"
+                title="How Wound Care & Infection Prevention Works"
+                description="Wound care follows a structured treatment process designed to clean, protect, and support the body's natural healing mechanisms."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Wound Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "Our healthcare professionals evaluate the wound's size, depth, cause, and signs of infection to create a personalized treatment plan.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Cleaning & Debridement",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "The wound is carefully cleaned to remove dirt, bacteria, and damaged tissue, helping create a healthy environment for healing.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Dressing Application",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Specialized dressings are applied to protect the wound, maintain moisture balance, and prevent contamination.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Infection Management",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "If needed, appropriate antimicrobial treatments are used to control infection and prevent further complications.",
                     },
-                ]} />
+                    {
+                        title: "Healing Monitoring",
+                        description:
+                            "Regular follow-up assessments ensure proper healing progress and allow timely adjustments to treatment.",
+                    },
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Wound Care & Infection Prevention"
+                subtitle="Professional wound care services are suitable for individuals with acute and chronic wounds requiring specialized medical attention."
+                sectionTitle="It's Ideal For Those Who"
+                image="/images/who-wound.png"
+                imageAlt="Wound Care Treatment"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Have cuts, lacerations, or traumatic injuries" },
+                    { text: "Are recovering from surgery and need wound monitoring" },
+                    { text: "Experience diabetic foot ulcers or slow-healing wounds" },
+                    { text: "Have pressure sores or bedsores" },
+                    { text: "Suffer from burns, skin tears, or abrasions" },
+                    { text: "Show signs of wound infection such as redness, swelling, or discharge" },
+                    { text: "Require specialized wound management for chronic conditions" },
+                    { text: "Need professional guidance for safe healing and infection prevention" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "Why is professional wound care important?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Professional wound care helps prevent infection, promotes faster healing, and reduces the risk of complications that may arise from improper treatment.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "How often should wound dressings be changed?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "The frequency depends on the type and condition of the wound. Our healthcare professionals will recommend an appropriate dressing schedule.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "Can wound infections be prevented?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Yes. Proper cleaning, dressing, hygiene practices, and timely medical intervention significantly reduce the risk of infection.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Do diabetic wounds require special care?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Yes. Diabetic wounds often heal more slowly and require specialized monitoring and treatment to prevent serious complications.",
+                    },
+                    {
+                        question: "When should I seek medical attention for a wound?",
+                        answer:
+                            "You should seek medical care if the wound is deep, painful, not healing, bleeding excessively, or showing signs of infection such as redness, swelling, warmth, or pus.",
+                    },
+                    {
+                        question: "Is wound care painful?",
+                        answer:
+                            "Most wound care procedures are designed to minimize discomfort. Our team uses gentle techniques and pain-management strategies whenever necessary.",
+                    },
+                    {
+                        question: "How long does wound healing take?",
+                        answer:
+                            "Healing time varies depending on the wound type, severity, overall health, and underlying medical conditions. Regular monitoring helps optimize recovery.",
+                    },
+                    {
+                        question: "Can home care be combined with professional wound treatment?",
+                        answer:
+                            "Yes. Patients are often provided with home care instructions to support healing between clinic visits while maintaining infection prevention measures.",
                     },
                 ]}
             />

@@ -17,19 +17,26 @@ export default function ChronicConditionMonitoringPage() {
             />
             {/* {Intro section} */}
             <IntroSection
-                title="Chronic condition monitoring"
+                title="Chronic Condition Monitoring"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Chronic Condition Monitoring is a continuous healthcare service designed to help patients manage long-term health conditions with regular medical supervision, timely follow-ups, and personalized care plans.",
+                            },
+                        ],
+                    },
+                    {
+                        parts: [
+                            {
+                                text: "At ",
                             },
                             {
-                                text: "Chronic condition monitoring",
+                                text: "Royal Dutch Medical Centre",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: ", our doctors monitor your health progress, review symptoms, track vital signs, adjust medications when required, and guide you toward better long-term wellness.",
                             },
                         ],
                     },
@@ -43,7 +50,7 @@ export default function ChronicConditionMonitoringPage() {
                                 bold: true,
                             },
                             {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: ", this service is ideal for patients who require ongoing medical attention for conditions such as diabetes, hypertension, heart disease, asthma, thyroid disorders, and other chronic illnesses.",
                             },
                         ],
                     },
@@ -51,106 +58,126 @@ export default function ChronicConditionMonitoringPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Treatment Benefits"
+                title="Why Choose Chronic Condition Monitoring"
+                description="Unlike one-time consultations, Chronic Condition Monitoring focuses on consistent follow-up and preventive care to reduce complications and improve quality of life."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-chronic-monitoring.png"
+                imageAlt="Chronic Condition Monitoring"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Regular Health Tracking:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Monitors symptoms, reports, vital signs, and treatment progress.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Personalized Care Plans:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Treatment guidance based on your condition, lifestyle, and medical history.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Medication Review:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Doctors assess medication effectiveness and make adjustments when needed.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Early Detection:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Helps identify warning signs before conditions become severe.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Better Long-Term Control:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Supports stable health and reduces emergency hospital visits.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
-                eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                eyebrow="Treatment Process"
+                title="How Chronic Condition Monitoring Works"
+                description="Chronic Condition Monitoring is a structured process that helps patients stay in control of their health."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Initial Consultation",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "The doctor reviews your medical history, current symptoms, medications, and previous reports.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Health Assessment",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "Vital signs, lab reports, lifestyle factors, and condition-specific risks are evaluated.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Care Plan Creation",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "A personalized monitoring and treatment plan is prepared based on your health needs.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Regular Follow-Ups",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Progress is reviewed through scheduled consultations, report analysis, and symptom tracking.",
                     },
-                ]} />
+                    {
+                        title: "Ongoing Guidance",
+                        description:
+                            "Medication, diet, lifestyle, and preventive care advice are updated as needed.",
+                    },
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Chronic Condition Monitoring"
+                subtitle="Chronic Condition Monitoring is suitable for patients who need continuous medical guidance and long-term health supervision."
+                sectionTitle="It's Ideal For Those Who"
+                image="/images/who-chronic-monitoring.png"
+                imageAlt="Chronic Condition Monitoring"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Have diabetes or high blood sugar" },
+                    { text: "Struggle with high blood pressure" },
+                    { text: "Have heart-related conditions" },
+                    { text: "Experience asthma or respiratory issues" },
+                    { text: "Need thyroid or hormonal monitoring" },
+                    { text: "Require regular medication review" },
+                    {
+                        text: "Have recurring symptoms or lifestyle-related conditions",
+                    },
+                    {
+                        text: "Want preventive care and better health control",
+                    },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What is Chronic Condition Monitoring?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "It is regular medical supervision for long-term health conditions to track progress, prevent complications, and improve treatment outcomes.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "Who needs this service?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Patients with diabetes, hypertension, heart disease, asthma, thyroid disorders, or other long-term conditions can benefit from this service.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "How often should I visit the doctor?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "The frequency depends on your condition. Your doctor will recommend follow-ups based on your health status.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Can my medications be adjusted during monitoring?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Yes. The doctor may review and adjust medications if required to ensure optimal disease control.",
+                    },
+                    {
+                        question: "Is this service only for elderly patients?",
+                        answer:
+                            "No. It is suitable for adults of all ages who need ongoing care for chronic health conditions.",
                     },
                 ]}
             />

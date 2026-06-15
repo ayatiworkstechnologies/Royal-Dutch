@@ -17,33 +17,26 @@ export default function ElderlyAndAssistedCareServicesPage() {
             />
             {/* {Intro section} */}
             <IntroSection
-                title="Elderly and assisted care services"
+                title="Elderly and Assisted Care Services"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Healthy ageing begins with compassionate support, dignity, and trusted medical care. ",
                             },
                             {
-                                text: "Elderly and assisted care services",
+                                text: "Elderly and Assisted Care Services",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " at Royal Dutch Medical Centre are designed to help seniors live safely, comfortably, and independently with professional healthcare assistance.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
-                            },
-                            {
-                                text: "Ras Al Khaimah",
-                                bold: true,
-                            },
-                            {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: "Our care team supports elderly patients with daily living needs, medical monitoring, mobility assistance, medication reminders, recovery support, and emotional companionship — all delivered with patience, respect, and personalized attention.",
                             },
                         ],
                     },
@@ -51,106 +44,127 @@ export default function ElderlyAndAssistedCareServicesPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Treatment Benefits"
+                title="Why Choose Elderly and Assisted Care"
+                description="Unlike general caregiving, our elderly care service combines medical supervision, personal assistance, and emotional support to ensure seniors receive complete care based on their health condition and lifestyle needs."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-elderly.png"
+                imageAlt="Elderly and Assisted Care Services"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Personalized Care:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Care plans designed according to each patient's medical and daily needs.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Medical Monitoring:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Regular observation of health conditions, vitals, and medication schedules.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Daily Living Support:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Assistance with mobility, hygiene, meals, and routine activities.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Post-Hospital Care:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Support during recovery after surgery, illness, or hospitalization.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Companionship:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Emotional support to reduce loneliness and improve overall wellbeing.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
-                eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                eyebrow="Care Process"
+                title="How Elderly and Assisted Care Works"
+                description="Elderly care is a structured support process that ensures comfort, safety, and continuous wellbeing."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Initial Assessment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "Our team evaluates the senior's health condition, mobility, daily routine, medication needs, and level of assistance required.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Personalized Care Plan",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "A customized care plan is created based on medical needs, lifestyle preferences, family expectations, and safety requirements.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Daily Assistance",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Trained caregivers provide support with personal care, movement, meals, medication reminders, and routine activities.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Health Monitoring",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Vital signs, symptoms, medication adherence, and overall condition are regularly monitored and reported when needed.",
                     },
-                ]} />
+                    {
+                        title: "Family Updates",
+                        description:
+                            "Families are kept informed about the patient's progress, comfort, and any changes in health status.",
+                    },
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Elderly and Assisted Care Services"
+                subtitle="Elderly and Assisted Care Services are suitable for seniors who need extra medical, physical, or emotional support."
+                sectionTitle="It's Ideal For Those Who"
+                image="/images/who-elderly.png"
+                imageAlt="Elderly and Assisted Care Services"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Need assistance with daily activities" },
+                    { text: "Have difficulty walking or moving safely" },
+                    { text: "Require medication reminders and monitoring" },
+                    { text: "Are recovering after surgery or hospitalization" },
+                    { text: "Live alone and need companionship" },
+                    { text: "Have age-related weakness or chronic health conditions" },
+                    { text: "Need support with hygiene, meals, and routine care" },
+                    { text: "Require safe, supervised care at home" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What is Elderly and Assisted Care?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "Elderly and Assisted Care is a professional support service for seniors who need help with daily activities, health monitoring, mobility, medication reminders, and personal care.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "Is this service suitable for seniors living alone?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Yes. It is ideal for elderly individuals who live alone and need regular support, supervision, companionship, or medical assistance.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "Can caregivers help with medication?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Yes. Caregivers can remind patients to take medicines on time and monitor basic health routines as guided by the doctor.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Is elderly care available after hospitalization?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Yes. Post-hospital care support helps seniors recover safely after surgery, illness, injury, or hospital discharge.",
+                    },
+                    {
+                        question: "Can the care plan be customized?",
+                        answer:
+                            "Yes. Every care plan is personalized based on the patient's health condition, daily needs, mobility level, and family preferences.",
+                    },
+                    {
+                        question: "Is this service available at home?",
+                        answer:
+                            "Yes. Elderly and Assisted Care can be arranged at home for comfort, safety, and convenience.",
                     },
                 ]}
             />

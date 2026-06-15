@@ -17,19 +17,19 @@ export default function PainManagementProtocolsPage() {
             />
             {/* {Intro section} */}
             <IntroSection
-                title="Pain management protocols"
+                title="Pain Management Protocols"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
+                                text: "Pain management protocols are designed to reduce discomfort, improve mobility, and restore daily function through safe, personalized medical care. ",
                             },
                             {
-                                text: "Pain management protocols",
+                                text: "Pain Management Protocols",
                                 bold: true,
                             },
                             {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: " focus on identifying the root cause of pain and providing effective treatment solutions for long-term relief.",
                             },
                         ],
                     },
@@ -43,7 +43,7 @@ export default function PainManagementProtocolsPage() {
                                 bold: true,
                             },
                             {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: ", our pain management services combine medical evaluation, targeted therapies, rehabilitation support, and patient education to help individuals move comfortably and improve their quality of life.",
                             },
                         ],
                     },
@@ -51,106 +51,125 @@ export default function PainManagementProtocolsPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Treatment Benefits"
+                title="Why Choose Pain Management Protocols"
+                description="Unlike temporary pain relief methods, structured pain management focuses on treating the underlying condition while preventing pain from becoming chronic."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-pain-management.png"
+                imageAlt="Pain Management Protocols"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
+                        label: "Targeted Pain Relief:",
                         description:
-                            "Removes dead skin cells and impurities with precision.",
+                            "Helps reduce pain from muscles, joints, nerves, and injuries.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Personalized Care Plans:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Treatment is tailored based on your symptoms, condition, and lifestyle.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Improved Mobility:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "Supports better movement, flexibility, and physical function.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Non-Surgical Approach:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Focuses on safe and conservative treatment options whenever possible.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Long-Term Wellness:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Helps prevent recurring pain through rehabilitation and guided care.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
                 eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                title="How Pain Management Protocols Work"
+                description="Pain management is a step-by-step process that begins with diagnosis and continues with customized treatment and recovery support."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Assessment & Diagnosis",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "A detailed consultation helps identify the source, type, and severity of pain.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Personalized Treatment Plan",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "Our specialists create a care plan based on your condition, medical history, and recovery goals.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Pain Relief Therapies",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Targeted therapies help reduce inflammation, stiffness, nerve irritation, and discomfort.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Rehabilitation Support",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Guided exercises and physiotherapy improve strength, mobility, and function.",
                     },
-                ]} />
+                    {
+                        title: "Follow-Up & Prevention",
+                        description:
+                            "Progress is monitored, and lifestyle guidance is provided to reduce future pain episodes.",
+                    },
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Pain Management Protocols"
+                subtitle="Pain management protocols are suitable for patients experiencing acute, recurring, or chronic pain."
+                sectionTitle="It's ideal for those who"
+                image="/images/who-pain-management.png"
+                imageAlt="Pain Management Protocols"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Suffer from back, neck, shoulder, or joint pain" },
+                    { text: "Experience arthritis-related pain or stiffness" },
+                    { text: "Have sports injuries or muscle strain" },
+                    { text: "Deal with nerve pain, sciatica, or radiating pain" },
+                    { text: "Experience post-injury or post-surgical discomfort" },
+                    { text: "Want non-surgical pain relief and mobility improvement" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "Is pain management only for chronic pain?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "No. Pain management can help with both acute pain and long-term pain conditions.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "Will I need surgery?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Most pain management plans focus on non-surgical methods before considering surgical options.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "How soon can I feel relief?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Some patients may experience improvement quickly, while others benefit from a structured treatment plan over multiple sessions.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Is the treatment safe?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Yes. All treatments are planned after a comprehensive medical assessment and customized to your condition.",
+                    },
+                    {
+                        question: "Do I need physiotherapy with pain management?",
+                        answer:
+                            "In many cases, physiotherapy helps improve mobility, strength, and long-term recovery.",
+                    },
+                    {
+                        question: "Can pain return after treatment?",
+                        answer:
+                            "Pain may return if the underlying cause is not managed. Follow-up care, exercises, and lifestyle guidance help reduce recurrence.",
                     },
                 ]}
             />

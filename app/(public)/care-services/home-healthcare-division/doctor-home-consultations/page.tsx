@@ -17,33 +17,40 @@ export default function DoctorHomeConsultationsPage() {
             />
             {/* {Intro section} */}
             <IntroSection
-                title="Doctor home consultations"
+                title="Doctor Home Consultations"
                 paragraphs={[
                     {
                         parts: [
                             {
-                                text: "Healthy, radiant skin begins with hydration, and ",
-                            },
-                            {
-                                text: "Doctor home consultations",
-                                bold: true,
-                            },
-                            {
-                                text: " is the gold standard for achieving it. This advanced, non-invasive treatment cleanses, exfoliates, extracts, and deeply hydrates your skin in one seamless session.",
+                                text: "Quality medical care, delivered to the comfort of your home.",
                             },
                         ],
                     },
                     {
                         parts: [
                             {
-                                text: "Offered in ",
+                                text: "Doctor Home Consultations by ",
+                            },
+                            {
+                                text: "Royal Dutch Medical Centre",
+                                bold: true,
+                            },
+                            {
+                                text: " are designed for patients who prefer safe, convenient, and personalized medical attention without visiting the clinic.",
+                            },
+                        ],
+                    },
+                    {
+                        parts: [
+                            {
+                                text: "Our experienced doctors provide professional assessment, diagnosis, treatment advice, and follow-up care at your doorstep in ",
                             },
                             {
                                 text: "Ras Al Khaimah",
                                 bold: true,
                             },
                             {
-                                text: ", this facial combines technology with gentle care to deliver visible, immediate results. Whether your skin feels dry, congested, or tired, the Hydra Facial restores balance, smoothness, and a lasting glow.",
+                                text: ".",
                             },
                         ],
                     },
@@ -51,106 +58,114 @@ export default function DoctorHomeConsultationsPage() {
             />
             {/* {Treatement offers} */}
             <TreatmentOffers
-                eyebrow="Treatment Steps"
-                title="Why Choose a Hydra Facial"
-                description="Unlike traditional facials that rely on manual techniques, the Hydra Facial uses a medical-grade device to perform multiple functions simultaneously."
+                eyebrow="Treatment Benefits"
+                title="Why Choose Doctor Home Consultations"
+                description="Doctor home consultations offer comfort, privacy, and timely medical support for patients who need expert care without travel."
                 sectionTitle="It Offers:"
-                image="/images/service-legacy.jpg"
-                imageAlt="Hydra Facial Treatment"
+                image="/images/why-doctor.png"
+                imageAlt="Doctor Home Consultations"
                 offers={[
                     {
-                        label: "Deep Cleansing:",
-                        description:
-                            "Removes dead skin cells and impurities with precision.",
+                        label: "Comfortable Care:",
+                        description: "Receive medical attention in your own home environment.",
                     },
                     {
-                        label: "Painless Extractions:",
+                        label: "Time-Saving Access:",
                         description:
-                            "Vacuum-powered suction clears blackheads and unclogs pores.",
+                            "Avoid waiting rooms, travel delays, and clinic queues.",
                     },
                     {
-                        label: "Intense Hydration:",
+                        label: "Personalized Attention:",
                         description:
-                            "Infuses skin with nourishing serums and antioxidants.",
+                            "One-on-one consultation focused on your health needs.",
                     },
                     {
-                        label: "Brightening Effect:",
+                        label: "Safe For Elderly Patients:",
                         description:
-                            "Evens out skin tone and restores radiance.",
+                            "Ideal for seniors, bedridden patients, and limited-mobility individuals.",
                     },
                     {
-                        label: "Anti-Aging Benefits:",
+                        label: "Continuity Of Care:",
                         description:
-                            "Improves firmness and minimizes fine lines.",
+                            "Get follow-up guidance, prescriptions, and health monitoring support.",
                     },
-                ]} />
+                ]}
+            />
 
             {/* {Timeline Steps } */}
             <TimelineSteps
-                eyebrow="Treatment Steps"
-                title="How Hydra Facial Works"
-                description="The Hydra Facial is a multi-step process that revitalizes your skin from within."
+                eyebrow="Treatment Process"
+                title="How Doctor Home Consultations Work"
+                description="Doctor home consultation is a simple process designed to bring reliable medical care directly to you."
                 steps={[
                     {
-                        title: "Cleansing & Exfoliation",
+                        title: "Book Appointment",
                         description:
-                            "A gentle cleanser removes impurities, while mild exfoliation smooths the surface and prepares the skin for hydration.",
+                            "Schedule your home consultation through phone, WhatsApp, or online enquiry.",
                     },
                     {
-                        title: "Acid Peel",
+                        title: "Doctor Visit",
                         description:
-                            "A light, non-irritating peel loosens debris from pores and softens dead skin cells for easy removal.",
+                            "Our doctor visits your home at the confirmed time for evaluation and consultation.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Medical Assessment",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "The doctor reviews symptoms, checks vitals, and provides diagnosis or treatment advice.",
                     },
                     {
-                        title: "Extraction",
+                        title: "Prescription & Follow-Up",
                         description:
-                            "The patented vacuum technology painlessly extracts blackheads, whiteheads, and excess oil, leaving pores clean and refined.",
+                            "Receive medication guidance, referrals, or follow-up care recommendations if required.",
                     },
-                ]} />
+                ]}
+            />
             {/* {Benefits Section} */}
             <BenefitRevealSection
-                title="Who Can Benefit From Hydra Facial"
-                subtitle="Hydra Facial is suitable for all skin types, including sensitive, oily, or dry skin."
-                sectionTitle="It’s ideal for those who"
-                image="/images/vision.png"
-                imageAlt="Hydra Facial Treatment"
+                title="Who Can Benefit From Doctor Home Consultations"
+                subtitle="Doctor Home Consultations are suitable for patients who need convenient medical care at home."
+                sectionTitle="It's Ideal For Those Who"
+                image="/images/who-doctor.png"
+                imageAlt="Doctor Home Consultations"
                 benefits={[
-                    { text: "Want instant hydration and glow" },
-                    { text: "Struggle with dull, uneven skin tone" },
-                    { text: "Have enlarged pores or blackheads" },
-                    { text: "Experience dryness, flakiness, or fine lines" },
+                    { text: "Need medical care without visiting the clinic" },
+                    { text: "Are elderly or have limited mobility" },
+                    { text: "Require fever, cold, cough, or general illness consultation" },
+                    { text: "Need post-hospitalization follow-up care" },
+                    { text: "Prefer private and comfortable medical support" },
+                    { text: "Need routine checkups or chronic condition monitoring" },
                 ]}
             />
 
             {/* {FAQ section} */}
             <FaqSection
                 title="FAQs"
-                description="Find answers to common questions about Hydra Facial treatment, results, and aftercare."
+                description=""
                 faqs={[
                     {
-                        question: "Is Hydra Facial suitable for sensitive skin?",
+                        question: "What is a doctor home consultation?",
                         answer:
-                            "Yes. Hydra Facial is generally suitable for sensitive skin because it uses a gentle, non-invasive process. The treatment can also be adjusted based on your skin type and concern.",
+                            "A doctor home consultation is a medical visit where a qualified doctor comes to your home to assess your health and provide treatment advice.",
                     },
                     {
-                        question: "How long does a Hydra Facial session take?",
+                        question: "Who can request a home doctor visit?",
                         answer:
-                            "A typical Hydra Facial session takes around 30 to 45 minutes, depending on the skin condition and treatment plan.",
+                            "Anyone who needs convenient medical care at home, especially elderly patients, children, busy professionals, and patients with mobility issues.",
                     },
                     {
-                        question: "When can I see results?",
+                        question: "Can the doctor provide prescriptions?",
                         answer:
-                            "Many clients notice improved hydration, glow, and smoothness immediately after the session. Results may continue to improve with regular treatments.",
+                            "Yes. After assessment, the doctor can provide medication guidance and prescription if required.",
                     },
                     {
-                        question: "Is there any downtime after Hydra Facial?",
+                        question: "Is this suitable for emergencies?",
                         answer:
-                            "There is usually no downtime. Most clients can return to normal activities immediately after the treatment.",
+                            "Doctor home consultation is suitable for non-emergency medical needs. For serious emergencies, please visit the nearest hospital or call emergency services.",
+                    },
+                    {
+                        question: "Do you provide home consultations in Ras Al Khaimah?",
+                        answer:
+                            "Yes, Royal Dutch Medical Centre offers doctor home consultation services in Ras Al Khaimah.",
                     },
                 ]}
             />
