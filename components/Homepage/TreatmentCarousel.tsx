@@ -138,7 +138,7 @@ export default function TreatmentCarousel() {
       <div className="relative z-10 hidden min-h-[450px] items-center justify-center px-4 py-8 lg:flex xl:min-h-[600px]">
         <div className="relative w-full max-w-[1320px]">
           <motion.div
-            className="mx-auto grid w-full max-w-[850px] overflow-hidden rounded-[5px] border-[6px] border-white shadow-[0_15px_45px_rgba(0,0,0,0.16)] md:grid-cols-[230px_1fr]"
+            className="mx-auto grid w-full max-w-[850px] overflow-hidden rounded-[5px] border-[6px] border-white shadow-[0_15px_45px_rgba(0,0,0,0.16)] md:grid-cols-[280px_1fr]"
             initial={{ opacity: 0, y: 70, scale: 0.96 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 1.45, delay: 0.2, ease: smoothEase }}
@@ -151,15 +151,15 @@ export default function TreatmentCarousel() {
               transition={{ duration: 1.35, delay: 0.45, ease: smoothEase }}
               viewport={{ once: true }}
             >
-              <h3 className="font-primary text-[62px] font-semibold leading-none text-[#8b1d72]">
+              <h3 className="font-primary text-[62px] lg:text-[72px] font-semibold leading-none text-[#8b1d72]">
                 {activeSlide.number}
               </h3>
 
-              <h4 className="mt-7 max-w-[170px] font-primary text-[14px] font-semibold uppercase leading-[1.4] tracking-[3.5px] text-black">
+              <h4 className="mt-7 max-w-[170px] lg:max-w-[220px] font-primary text-[14px] lg:text-[17px] font-semibold uppercase leading-[1.4] tracking-[3.5px] text-black">
                 {activeSlide.title}
               </h4>
 
-              <ul className="mt-5 max-w-[180px] space-y-2 font-secondary text-[11px] font-medium leading-[1.45] tracking-[0.7px] text-[#8f8f8f]">
+              <ul className="mt-5 max-w-[180px] lg:max-w-[250px] space-y-2 font-secondary text-[11px] lg:text-[13px] font-medium leading-[1.45] tracking-[0.7px] text-[#8f8f8f]">
                 {activeSlide.points.map((point) => (
                   <li key={point} className="flex items-start gap-2">
                     <span className="mt-[7px] h-[4px] w-[4px] shrink-0 rounded-full bg-[#8b1d72]" />

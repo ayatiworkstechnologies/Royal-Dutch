@@ -113,7 +113,7 @@ export default function TestimonialSection() {
             type="button"
             onClick={prevSlide}
             aria-label="Previous testimonial"
-            className="absolute left-0 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition hover:bg-[#8b1d72] hover:text-white md:flex"
+            className="absolute cursor-pointer left-0 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition hover:bg-[#8b1d72] hover:text-white md:flex"
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{
@@ -185,7 +185,7 @@ export default function TestimonialSection() {
             </AnimatePresence>
 
             <motion.div
-              className="mt-10 flex items-center justify-center gap-4 md:mt-12"
+              className="mt-10  flex items-center justify-center gap-4 md:mt-12"
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{
@@ -215,7 +215,7 @@ export default function TestimonialSection() {
             type="button"
             onClick={nextSlide}
             aria-label="Next testimonial"
-            className="absolute right-0 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition hover:bg-[#8b1d72] hover:text-white md:flex"
+            className="absolute cursor-pointer right-0 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition hover:bg-[#8b1d72] hover:text-white md:flex"
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{
@@ -246,7 +246,7 @@ export default function TestimonialSection() {
             type="button"
             onClick={prevSlide}
             aria-label="Previous testimonial"
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition hover:bg-[#8b1d72] hover:text-white"
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition hover:bg-[#8b1d72] hover:text-white"
           >
             <span className="flex h-full w-full items-center justify-center pb-[3px] text-[34px] leading-none">
               ‹
@@ -257,7 +257,7 @@ export default function TestimonialSection() {
             type="button"
             onClick={nextSlide}
             aria-label="Next testimonial"
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition hover:bg-[#8b1d72] hover:text-white"
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition hover:bg-[#8b1d72] hover:text-white"
           >
             <span className="flex h-full w-full items-center justify-center pb-[3px] text-[34px] leading-none">
               ›
