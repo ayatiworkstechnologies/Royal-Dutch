@@ -12,8 +12,8 @@ export default function LaserAndDeviceBasedTreatmentsPage() {
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
             <DynamicBanner
-                mobileImage="/images/medical-dermatology-desktop-mobile.png"
-                desktopImage="/images/medical-dermatology-desktop-banner.png"
+                mobileImage="/images/laser-device-based-treatements-mobile.png"
+                desktopImage="/images/laser-device-based-treatements-desktop.png"
             />
             {/* {Intro section} */}
             <IntroSection

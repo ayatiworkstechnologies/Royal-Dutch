@@ -12,8 +12,8 @@ export default function CosmeticInjectablesPage() {
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
             <DynamicBanner
-                mobileImage="/images/medical-dermatology-desktop-mobile.png"
-                desktopImage="/images/medical-dermatology-desktop-banner.png"
+                mobileImage="/images/cosmetic-injectables-mobile.png"
+                desktopImage="/images/cosmetic-injectables-desktop.png"
             />
             {/* {Intro section} */}
             <IntroSection

@@ -12,8 +12,8 @@ export default function MusculoskeletalPainManagementPage() {
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
             <DynamicBanner
-                mobileImage="/images/medical-dermatology-desktop-mobile.png"
-                desktopImage="/images/medical-dermatology-desktop-banner.png"
+                mobileImage="/images/musculoskeletal-pain-management-mobile.png"
+                desktopImage="/images/musculoskeletal-pain-management-desktop.png"
             />
             {/* {Intro section} */}
             <IntroSection

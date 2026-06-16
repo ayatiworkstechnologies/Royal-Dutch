@@ -12,8 +12,8 @@ export default function PreventiveHealthScreeningsAndCheckupsPage() {
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
             <DynamicBanner
-                mobileImage="/images/medical-dermatology-desktop-mobile.png"
-                desktopImage="/images/medical-dermatology-desktop-banner.png"
+                mobileImage="/images/preventive-health-screenings-mobile.png"
+                desktopImage="/images/preventive-health-screenings-desktop.png"
             />
             {/* {Intro section} */}
             <IntroSection

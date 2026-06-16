@@ -12,8 +12,8 @@ export default function HomebasedPhysiotherapyProgramsPage() {
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
             <DynamicBanner
-                mobileImage="/images/medical-dermatology-desktop-mobile.png"
-                desktopImage="/images/medical-dermatology-desktop-banner.png"
+                mobileImage="/images/home-based-physiotherapy-programs-mobile.png"
+                desktopImage="/images/home-based-physiotherapy-programs-desktop.png"
             />
             {/* {Intro section} */}
             <IntroSection

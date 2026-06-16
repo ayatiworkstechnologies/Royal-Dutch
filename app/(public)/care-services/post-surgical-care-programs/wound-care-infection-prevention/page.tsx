@@ -12,8 +12,8 @@ export default function WoundCareAndInfectionPreventionPage() {
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
             <DynamicBanner
-                mobileImage="/images/medical-dermatology-desktop-mobile.png"
-                desktopImage="/images/medical-dermatology-desktop-banner.png"
+                mobileImage="/images/wound-care-infection-prevention-mobile.png"
+                desktopImage="/images/wound-care-infection-prevention-desktop.png"
             />
             {/* {Intro section} */}
             <IntroSection

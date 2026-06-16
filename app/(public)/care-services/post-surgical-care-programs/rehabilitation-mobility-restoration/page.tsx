@@ -12,8 +12,8 @@ export default function RehabilitationAndMobilityRestorationPage() {
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
             <DynamicBanner
-                mobileImage="/images/medical-dermatology-desktop-mobile.png"
-                desktopImage="/images/medical-dermatology-desktop-banner.png"
+                mobileImage="/images/rehabilitation-mobility-restoration-mobile.png"
+                desktopImage="/images/rehabilitation-mobility-restoration-desktop.png"
             />
             {/* {Intro section} */}
             <IntroSection

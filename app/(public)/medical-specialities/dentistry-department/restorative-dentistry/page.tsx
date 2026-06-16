@@ -12,8 +12,8 @@ export default function RestorativeDentistryPage() {
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
             <DynamicBanner
-                mobileImage="/images/medical-dermatology-desktop-mobile.png"
-                desktopImage="/images/medical-dermatology-desktop-banner.png"
+                mobileImage="/images/restorative-dentistry-mobile.png"
+                desktopImage="/images/restorative-dentistry-desktop.png"
             />
             {/* {Intro section} */}
             <IntroSection

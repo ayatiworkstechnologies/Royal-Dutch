@@ -49,17 +49,46 @@ export default function BlogPage() {
   return (
     <main className="min-h-screen bg-[#fbf7fa]">
       {/* Banner */}
-      <section className="relative w-full overflow-hidden">
-        <Image
-          src="/images/contact-banner.png"
-          alt="Royal Dutch Medical Centre Blog Banner"
-          width={1920}
-          height={800}
-          priority
-          sizes="100vw"
-          className="block h-[600px] w-full object-cover object-center"
-        />
-      </section>
+      <motion.section
+              className="relative w-full overflow-hidden bg-white"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 0.8,
+                ease: "easeOut",
+              }}
+            >
+              <motion.div
+                initial={{ scale: 1.03 }}
+                animate={{ scale: 1 }}
+                transition={{
+                  duration: 1.5,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                {/* Mobile Banner */}
+                <Image
+                  src="/images/blog-banner-mobile.png"
+                  alt="Royal Dutch Medical Centre Mobile Banner"
+                  width={768}
+                  height={900}
+                  priority
+                  sizes="100vw"
+                  className="block h-auto w-full object-contain md:hidden"
+                />
+      
+                {/* Tablet / Laptop / Desktop Banner */}
+                <Image
+                  src="/images/blog-banner-desktop.png"
+                  alt="Royal Dutch Medical Centre Banner"
+                  width={1920}
+                  height={800}
+                  priority
+                  sizes="100vw"
+                  className="hidden h-auto w-full object-contain md:block"
+                />
+              </motion.div>
+            </motion.section>
 
       {/* Blog Section */}
       <section className="relative overflow-visible px-4 py-14 sm:px-6 lg:px-8 lg:py-20">

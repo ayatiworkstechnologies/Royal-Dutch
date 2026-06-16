@@ -12,8 +12,8 @@ export default function DoctorHomeConsultationsPage() {
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
             <DynamicBanner
-                mobileImage="/images/medical-dermatology-desktop-mobile.png"
-                desktopImage="/images/medical-dermatology-desktop-banner.png"
+                mobileImage="/images/doctor-home-consultations-mobile.png"
+                desktopImage="/images/doctor-home-consultations-desktop.png"
             />
             {/* {Intro section} */}
             <IntroSection

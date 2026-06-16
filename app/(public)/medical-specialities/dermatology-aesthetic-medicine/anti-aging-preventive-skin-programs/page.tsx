@@ -13,8 +13,8 @@ export default function AntiagingpreventiveSkinProgramsPage() {
 
             {/* Banner Section */}
             <DynamicBanner
-                mobileImage="/images/medical-dermatology-desktop-mobile.png"
-                desktopImage="/images/medical-dermatology-desktop-banner.png"
+                mobileImage="/images/anti-aging-mobile.png"
+                desktopImage="/images/anti-aging-desktop.png"
             />
             {/* {Intro section} */}
             <IntroSection

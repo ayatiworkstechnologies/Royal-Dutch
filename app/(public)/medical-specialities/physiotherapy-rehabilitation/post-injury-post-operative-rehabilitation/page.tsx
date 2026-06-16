@@ -12,8 +12,8 @@ export default function PostinjuryAndPostoperativeRehabilitationPage() {
         <main className="min-h-screen w-full overflow-x-hidden bg-white">
             {/* Banner Section */}
             <DynamicBanner
-                mobileImage="/images/medical-dermatology-desktop-mobile.png"
-                desktopImage="/images/medical-dermatology-desktop-banner.png"
+                mobileImage="/images/post-injury-post-operative-rehabilitation-mobile.png"
+                desktopImage="/images/post-injury-post-operative-rehabilitation-desktop.png"
             />
             {/* {Intro section} */}
             <IntroSection
