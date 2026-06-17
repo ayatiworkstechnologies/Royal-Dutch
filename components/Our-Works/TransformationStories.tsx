@@ -22,59 +22,59 @@ type TransformationStoriesProps = {
 const defaultTransformations: TransformationItem[] = [
   {
     id: 1,
-    title: "Tone Balance",
+    title: "Acne",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-1.jpg",
-    afterImage: "/images/result-after-1.jpg",
+    beforeImage: "/images/result-before-acne.png",
+    afterImage: "/images/result-after-acne.png",
   },
   {
     id: 2,
-    title: "Tone Balance",
+    title: "Pigmentation",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-1.jpg",
-    afterImage: "/images/result-after-1.jpg",
+    beforeImage: "/images/result-before-pigmentation.png",
+    afterImage: "/images/result-after-pigmentation.png",
   },
   {
     id: 3,
-    title: "Tone Balance",
+    title: "Anti-aging",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-1.jpg",
-    afterImage: "/images/result-after-1.jpg",
+    beforeImage: "/images/result-before-anti-aging.png",
+    afterImage: "/images/result-after-anti-aging.png",
   },
   {
     id: 4,
-    title: "Tone Balance",
+    title: "Cosmetic smile",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-1.jpg",
-    afterImage: "/images/result-after-1.jpg",
+    beforeImage: "/images/result-before-smile-design.png",
+    afterImage: "/images/result-after-smile-design.png",
   },
   {
     id: 5,
-    title: "Tone Balance",
+    title: "Diagnosis Treatment",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-1.jpg",
-    afterImage: "/images/result-after-1.jpg",
+    beforeImage: "/images/result-before-diagnosis-treatment.png",
+    afterImage: "/images/result-after-diagnosis-treatment.png",
   },
   {
     id: 6,
-    title: "Tone Balance",
+    title: "Infection prevention",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-1.jpg",
-    afterImage: "/images/result-after-1.jpg",
+    beforeImage: "/images/result-before-infection-prevention.png",
+    afterImage: "/images/result-after-infection-prevention.png",
   },
   {
     id: 7,
-    title: "Tone Balance",
+    title: "Pediatric Dentistry",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-1.jpg",
-    afterImage: "/images/result-after-1.jpg",
+    beforeImage: "/images/result-before-pediatric.png",
+    afterImage: "/images/result-after-pediatric.png",
   },
   {
     id: 8,
-    title: "Tone Balance",
+    title: "Restorative dentistry ",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-1.jpg",
-    afterImage: "/images/result-after-1.jpg",
+    beforeImage: "/images/result-before-restorative.png",
+    afterImage: "/images/result-after-restorative.png",
   },
 ];
 
@@ -108,7 +108,7 @@ export default function TransformationStories({
             {eyebrow}
           </p>
 
-          <h2 className="mt-4 font-primary text-[24px] font-medium uppercase leading-[1.2] tracking-[7px] text-[#171717] sm:text-[32px] md:text-[40px]">
+          <h2 className="mt-4 font-primary text-[24px] font-medium uppercase leading-[1.2] tracking-[6px] text-[#171717] sm:text-[32px] md:text-[38px]">
             {title}
           </h2>
 
@@ -118,7 +118,7 @@ export default function TransformationStories({
         </motion.div>
 
         {/* Compact Grid */}
-        <div className="mx-auto grid max-w-[1120px] grid-cols-1 gap-x-9 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto grid max-w-[1220px] grid-cols-1 gap-x-9 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((item, index) => (
             <TransformationCard key={item.id} item={item} index={index} />
           ))}
@@ -135,7 +135,7 @@ function TransformationCard({
   item: TransformationItem;
   index: number;
 }) {
-  const [position, setPosition] = useState(50);
+  const [position, setPosition] = useState(80);
 
   const showBeforeLabel = position > 12;
   const showAfterLabel = position < 88;
@@ -156,7 +156,7 @@ function TransformationCard({
       }}
       transition={{
         duration: 0.9,
-        delay: index % 4 * 0.06,
+        delay: (index % 4) * 0.06,
         ease: smoothEase,
       }}
       viewport={{
@@ -193,9 +193,6 @@ function TransformationCard({
               className="object-cover object-center"
             />
           </div>
-
-          {/* Inner border */}
-          <div className="pointer-events-none absolute inset-2 rounded-[13px] border border-white/70" />
 
           {/* Labels */}
           <div
@@ -270,8 +267,6 @@ function TransformationCard({
               <span className="relative text-[13px] leading-none">✦</span>
             </div>
           </div>
-
-          {/* <div className="mt-3 h-px w-full bg-white/25" /> */}
 
           <div className="mt-2.5 h-[2px] w-full rounded-full bg-white/20">
             <div

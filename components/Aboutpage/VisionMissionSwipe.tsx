@@ -11,12 +11,16 @@ const cards = [
   {
     title: "Our Vision",
     text: "To be the leading multi-center dermatology and aesthetic brand in the UAE, known for innovation, integrity, and international clinical standards.",
-    image: "/images/our-vision.png",
+    image: "/images/our-vision-1.png", // laptop / desktop same
+    tabImage: "/images/our-vision-1.png",
+    mobileImage: "/images/our-vision-mobile.png",
   },
   {
     title: "Our Mission",
     text: "To empower individuals by enhancing their confidence and wellness through world-class skin, hair, and body treatments — guided by medical expertise and fueled by passion for care.",
-    image: "/images/our-mission.png",
+    image: "/images/our-mission-1.png", // laptop / desktop same
+    tabImage: "/images/our-mission-1.png",
+    mobileImage: "/images/our-mission-mobile.png",
   },
 ];
 
@@ -32,10 +36,12 @@ export default function VisionMissionStack() {
       const firstCard = cardItems[0];
       const secondCard = cardItems[1];
 
+      if (!firstCard || !secondCard) return;
+
       const firstContent = firstCard.querySelector(".vm-content");
-      const firstImage = firstCard.querySelector(".vm-image");
+      const firstImage = firstCard.querySelectorAll(".vm-image");
       const secondContent = secondCard.querySelector(".vm-content");
-      const secondImage = secondCard.querySelector(".vm-image");
+      const secondImage = secondCard.querySelectorAll(".vm-image");
 
       gsap.set(firstCard, {
         yPercent: 0,
@@ -150,7 +156,6 @@ export default function VisionMissionStack() {
           key={item.title}
           className="vm-card absolute inset-0 grid h-screen w-full grid-cols-1 overflow-hidden bg-white md:grid-cols-2"
         >
-          {/* Left Content */}
           <div className="vm-content flex flex-col justify-center bg-white px-6 py-12 text-center md:px-16 md:text-left lg:px-24 xl:px-28">
             <div className="mx-auto max-w-[560px] md:mx-0">
               <div className="mb-8 flex items-center justify-center gap-4 md:justify-start">
@@ -176,15 +181,32 @@ export default function VisionMissionStack() {
             </div>
           </div>
 
-          {/* Right Image */}
           <div className="relative h-[360px] w-full overflow-hidden md:h-screen">
+            <Image
+              src={item.mobileImage}
+              alt={item.title}
+              fill
+              priority={index === 0}
+              sizes="100vw"
+              className="vm-image block object-cover object-center md:hidden"
+            />
+
+            <Image
+              src={item.tabImage}
+              alt={item.title}
+              fill
+              priority={index === 0}
+              sizes="50vw"
+              className="vm-image hidden object-cover object-center md:block lg:hidden"
+            />
+
             <Image
               src={item.image}
               alt={item.title}
               fill
               priority={index === 0}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="vm-image object-cover object-center"
+              sizes="50vw"
+              className="vm-image hidden object-cover object-center lg:block"
             />
 
             <div className="pointer-events-none absolute inset-0 bg-black/5" />

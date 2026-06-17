@@ -269,8 +269,9 @@ function cleanPath(path?: string | null) {
 function ChevronIcon({ open = false }: { open?: boolean }) {
   return (
     <svg
-      className={`h-[14px] w-[14px] transition-transform duration-300 ${open ? "rotate-180" : ""
-        }`}
+      className={`h-[14px] w-[14px] transition-transform duration-300 ${
+        open ? "rotate-180" : ""
+      }`}
       viewBox="0 0 24 24"
       fill="none"
       aria-hidden="true"
@@ -334,12 +335,13 @@ function DesktopMegaMenu({
                   onMouseEnter={() => setActiveIndex(index)}
                   onFocus={() => setActiveIndex(index)}
                   onClick={closeDesktopMenuNow}
-                  className={`text-left font-secondary text-[15px] leading-[1.28] transition-colors duration-200 ${isCurrentParent
-                    ? "font-semibold text-[#8b1d72]"
-                    : isHovered
+                  className={`text-left font-secondary text-[15px] leading-[1.28] transition-colors duration-200 ${
+                    isCurrentParent
+                      ? "font-semibold text-[#8b1d72]"
+                      : isHovered
                       ? "font-semibold text-black"
                       : "font-normal text-[#8b8b8b] hover:text-[#8b1d72]"
-                    }`}
+                  }`}
                 >
                   {category.title}
                 </Link>
@@ -360,27 +362,30 @@ function DesktopMegaMenu({
                 className="group flex h-full flex-col"
               >
                 <h4
-                  className={`min-h-[58px] font-secondary text-[15px] leading-[1.35] transition-colors duration-300 ${itemActive
-                    ? "font-semibold text-[#8b1d72]"
-                    : "font-normal text-[#7d7d7d] group-hover:text-[#8b1d72]"
-                    }`}
+                  className={`min-h-[58px] font-secondary text-[15px] leading-[1.35] transition-colors duration-300 ${
+                    itemActive
+                      ? "font-semibold text-[#8b1d72]"
+                      : "font-normal text-[#7d7d7d] group-hover:text-[#8b1d72]"
+                  }`}
                 >
                   {item.name}
                 </h4>
 
                 <div
-                  className={`mt-4 overflow-hidden rounded-[5px] bg-[#f5eef4] transition duration-300 ${itemActive
-                    ? "ring-2 ring-[#8b1d72] ring-offset-4 ring-offset-white"
-                    : ""
-                    }`}
+                  className={`mt-4 overflow-hidden rounded-[5px] bg-[#f5eef4] transition duration-300 ${
+                    itemActive
+                      ? "ring-2 ring-[#8b1d72] ring-offset-4 ring-offset-white"
+                      : ""
+                  }`}
                 >
                   <Image
                     src={item.image}
                     alt={item.name}
                     width={290}
                     height={190}
-                    className={`h-[155px] xl:h-[210px] w-full object-cover object-center transition-transform duration-700 ${itemActive ? "scale-[1.03]" : "group-hover:scale-105"
-                      }`}
+                    className={`h-[155px] w-full object-cover object-center transition-transform duration-700 xl:h-[210px] ${
+                      itemActive ? "scale-[1.03]" : "group-hover:scale-105"
+                    }`}
                   />
                 </div>
               </Link>
@@ -433,18 +438,20 @@ function MobileAccordion({
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className={`flex w-full items-center justify-between py-4 font-secondary text-[15px] font-semibold ${categories.some((category) => isParentActive(category.path))
-          ? "text-[#D6B981]"
-          : "text-white"
-          }`}
+        className={`flex w-full items-center justify-between py-4 font-secondary text-[15px] font-semibold ${
+          categories.some((category) => isParentActive(category.path))
+            ? "text-[#D6B981]"
+            : "text-white"
+        }`}
       >
         {title}
         <ChevronIcon open={open} />
       </button>
 
       <div
-        className={`grid overflow-hidden transition-all duration-300 ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-          }`}
+        className={`grid overflow-hidden transition-all duration-300 ${
+          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
       >
         <div className="min-h-0 pb-4">
           {categories.map((category, index) => {
@@ -454,26 +461,29 @@ function MobileAccordion({
             return (
               <div
                 key={category.title}
-                className={`mb-3 overflow-hidden rounded-[12px] ${categoryActive ? "bg-white/15" : "bg-white/7"
-                  }`}
+                className={`mb-3 overflow-hidden rounded-[12px] ${
+                  categoryActive ? "bg-white/15" : "bg-white/7"
+                }`}
               >
                 <button
                   type="button"
                   onClick={() =>
                     setActiveIndex((prev) => (prev === index ? null : index))
                   }
-                  className={`flex w-full items-center justify-between px-4 py-3 text-left font-secondary text-[14px] font-semibold leading-5 ${categoryActive ? "text-[#D6B981]" : "text-white"
-                    }`}
+                  className={`flex w-full items-center justify-between px-4 py-3 text-left font-secondary text-[14px] font-semibold leading-5 ${
+                    categoryActive ? "text-[#D6B981]" : "text-white"
+                  }`}
                 >
                   {category.title}
                   <ChevronIcon open={isOpenCategory} />
                 </button>
 
                 <div
-                  className={`grid overflow-hidden transition-all duration-300 ${isOpenCategory
-                    ? "grid-rows-[1fr] opacity-100"
-                    : "grid-rows-[0fr] opacity-0"
-                    }`}
+                  className={`grid overflow-hidden transition-all duration-300 ${
+                    isOpenCategory
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
                 >
                   <div className="min-h-0">
                     <ul className="space-y-2 px-4 pb-4 pt-1">
@@ -485,10 +495,11 @@ function MobileAccordion({
                             <Link
                               href={item.path}
                               onClick={closeMobileMenu}
-                              className={`block rounded-[8px] px-3 py-2 font-secondary text-[13px] leading-[1.5] transition ${itemActive
-                                ? "bg-[#8b1d72] font-semibold text-white"
-                                : "text-white/75 hover:bg-white/10 hover:text-[#D6B981]"
-                                }`}
+                              className={`block rounded-[8px] px-3 py-2 font-secondary text-[13px] leading-[1.5] transition ${
+                                itemActive
+                                  ? "bg-[#8b1d72] font-semibold text-white"
+                                  : "text-white/75 hover:bg-white/10 hover:text-[#D6B981]"
+                              }`}
                             >
                               {item.name}
                             </Link>
@@ -599,9 +610,10 @@ export default function Header() {
   }, []);
 
   const navLinkClass = (href: string) =>
-    `font-secondary text-[15px] font-medium transition-colors duration-300 ${isExactActive(href)
-      ? "text-[#8b1d72]"
-      : "text-[#2f2f2f] hover:text-[#8b1d72]"
+    `font-secondary text-[15px] font-medium transition-colors duration-300 ${
+      isExactActive(href)
+        ? "text-[#8b1d72]"
+        : "text-[#2f2f2f] hover:text-[#8b1d72]"
     }`;
 
   const isMegaActive = (link: NavLink) => {
@@ -616,10 +628,11 @@ export default function Header() {
         onMouseLeave={closeDesktopMenu}
       >
         <nav
-          className={`rounded-[10px] bg-white px-4 py-2 transition-shadow duration-500 lg:rounded-[12px] lg:px-5 ${isScrolled
-            ? "shadow-[0_8px_28px_rgba(0,0,0,0.10)]"
-            : "shadow-none"
-            }`}
+          className={`rounded-[10px] bg-white px-4 py-2 transition-shadow duration-500 lg:rounded-[12px] lg:px-5 ${
+            isScrolled
+              ? "shadow-[0_8px_28px_rgba(0,0,0,0.10)]"
+              : "shadow-none"
+          }`}
         >
           <div className="grid items-center gap-4 lg:grid-cols-[230px_1fr_110px] xl:grid-cols-[260px_1fr_118px]">
             <div className="flex items-center justify-between">
@@ -642,16 +655,19 @@ export default function Header() {
               >
                 <span className="relative h-4 w-5">
                   <span
-                    className={`absolute left-0 top-0 h-[2px] w-5 rounded-full bg-current transition ${mobileOpen ? "translate-y-[7px] rotate-45" : ""
-                      }`}
+                    className={`absolute left-0 top-0 h-[2px] w-5 rounded-full bg-current transition ${
+                      mobileOpen ? "translate-y-[7px] rotate-45" : ""
+                    }`}
                   />
                   <span
-                    className={`absolute left-0 top-[7px] h-[2px] w-5 rounded-full bg-current transition ${mobileOpen ? "opacity-0" : ""
-                      }`}
+                    className={`absolute left-0 top-[7px] h-[2px] w-5 rounded-full bg-current transition ${
+                      mobileOpen ? "opacity-0" : ""
+                    }`}
                   />
                   <span
-                    className={`absolute left-0 top-[14px] h-[2px] w-5 rounded-full bg-current transition ${mobileOpen ? "-translate-y-[7px] -rotate-45" : ""
-                      }`}
+                    className={`absolute left-0 top-[14px] h-[2px] w-5 rounded-full bg-current transition ${
+                      mobileOpen ? "-translate-y-[7px] -rotate-45" : ""
+                    }`}
                   />
                 </span>
               </button>
@@ -671,12 +687,13 @@ export default function Header() {
                         type="button"
                         onMouseEnter={() => openDesktopMenu(link.menuKey!)}
                         onFocus={() => openDesktopMenu(link.menuKey!)}
-                        className={`flex items-center gap-1 font-secondary text-[15px] transition-colors duration-300 ${activeMega
-                          ? "font-semibold text-[#8b1d72]"
-                          : isOpen
+                        className={`flex items-center gap-1 font-secondary text-[15px] transition-colors duration-300 ${
+                          activeMega
+                            ? "font-semibold text-[#8b1d72]"
+                            : isOpen
                             ? "font-semibold text-black"
                             : "font-medium text-[#2f2f2f] hover:text-[#8b1d72]"
-                          }`}
+                        }`}
                       >
                         {link.name}
                         <ChevronIcon open={Boolean(isOpen || activeMega)} />
@@ -688,6 +705,8 @@ export default function Header() {
                     <Link
                       key={link.name}
                       href={link.path}
+                      onMouseEnter={closeDesktopMenuNow}
+                      onFocus={closeDesktopMenuNow}
                       className={navLinkClass(link.path)}
                     >
                       {link.name}
@@ -697,40 +716,54 @@ export default function Header() {
               </div>
             </div>
 
-            <div className="hidden justify-end lg:flex lg:gap-3 lg:items-center">
-              {user?.role === 'customer' ? (
+            <div className="hidden justify-end lg:flex lg:items-center lg:gap-3">
+              {user?.role === "customer" ? (
                 <Link
                   href="/customer/dashboard"
-                  className="flex h-[40px] px-4 items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] font-secondary text-[13px] font-semibold text-black transition hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:text-[14px]"
+                  onMouseEnter={closeDesktopMenuNow}
+                  onFocus={closeDesktopMenuNow}
+                  className="flex h-[40px] items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-4 font-secondary text-[13px] font-semibold text-black transition hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:text-[14px]"
                   title="Dashboard"
                 >
-                  <UserIcon className="w-4 h-4 xl:w-5 xl:h-5" />
-                  <span className="whitespace-nowrap hidden lg:inline">{user.first_name || "Dashboard"}</span>
+                  <UserIcon className="h-4 w-4 xl:h-5 xl:w-5" />
+                  <span className="hidden whitespace-nowrap lg:inline">
+                    {user.first_name || "Dashboard"}
+                  </span>
                 </Link>
               ) : (
                 <Link
                   href="/login"
-                  className="flex h-[40px] px-4 items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] font-secondary text-[13px] font-semibold text-black transition hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:text-[14px]"
+                  onMouseEnter={closeDesktopMenuNow}
+                  onFocus={closeDesktopMenuNow}
+                  className="flex h-[40px] items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-4 font-secondary text-[13px] font-semibold text-black transition hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:text-[14px]"
                 >
-                  <UserIcon className="w-4 h-4 xl:w-5 xl:h-5" />
-                  <span className="whitespace-nowrap hidden lg:inline">Login</span>
+                  <UserIcon className="h-4 w-4 xl:h-5 xl:w-5" />
+                  <span className="hidden whitespace-nowrap lg:inline">
+                    Login
+                  </span>
                 </Link>
               )}
+
               <button
+                onMouseEnter={closeDesktopMenuNow}
+                onFocus={closeDesktopMenuNow}
                 onClick={() => openModal()}
                 className="group inline-flex h-[40px] min-w-[105px] items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-3 font-secondary text-[13px] font-semibold leading-none text-black transition duration-300 hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:min-w-[150px] xl:gap-2 xl:px-4 xl:text-[14px]"
               >
                 <AssistSparkle />
-                <span className="translate-y-[1px] whitespace-nowrap">Book Now</span>
+                <span className="translate-y-[1px] whitespace-nowrap">
+                  Book Now
+                </span>
               </button>
             </div>
           </div>
 
           <div
-            className={`lg:hidden ${mobileOpen
-              ? "mt-4 max-h-[calc(100dvh-100px)] overflow-y-auto rounded-[14px] bg-[#35102f] px-4 py-4 opacity-100"
-              : "max-h-0 overflow-hidden opacity-0"
-              } transition-all duration-300`}
+            className={`lg:hidden ${
+              mobileOpen
+                ? "mt-4 max-h-[calc(100dvh-100px)] overflow-y-auto rounded-[14px] bg-[#35102f] px-4 py-4 opacity-100"
+                : "max-h-0 overflow-hidden opacity-0"
+            } transition-all duration-300`}
           >
             {navLinks.map((link) => {
               const isMega = link.type === "mega" && link.categories;
@@ -752,30 +785,31 @@ export default function Header() {
                   key={link.name}
                   href={link.path}
                   onClick={closeMobileMenu}
-                  className={`block border-b border-white/10 py-4 font-secondary text-[15px] font-semibold ${isExactActive(link.path) ? "text-[#D6B981]" : "text-white"
-                    }`}
+                  className={`block border-b border-white/10 py-4 font-secondary text-[15px] font-semibold ${
+                    isExactActive(link.path) ? "text-[#D6B981]" : "text-white"
+                  }`}
                 >
                   {link.name}
                 </Link>
               );
             })}
 
-            {user?.role === 'customer' ? (
+            {user?.role === "customer" ? (
               <Link
                 href="/customer/dashboard"
                 onClick={closeMobileMenu}
-                className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black border border-gray-200"
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
               >
-                <UserIcon className="w-5 h-5" />
+                <UserIcon className="h-5 w-5" />
                 {user.first_name || "Dashboard"}
               </Link>
             ) : (
               <Link
                 href="/login"
                 onClick={closeMobileMenu}
-                className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black border border-gray-200"
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
               >
-                <UserIcon className="w-5 h-5" />
+                <UserIcon className="h-5 w-5" />
                 Login
               </Link>
             )}
