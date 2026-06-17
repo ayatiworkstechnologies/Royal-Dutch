@@ -107,12 +107,12 @@ export default function Footer() {
               Explore
             </h3>
 
-            <ul className="space-y-5">
+            <ul className="space-y-4">
               {exploreLinks.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="font-serif text-[16px] uppercase tracking-[4px] text-white transition duration-300 hover:text-white/70"
+                    className="font-serif text-[14px] uppercase tracking-[3px] text-white transition duration-300 hover:text-white/70"
                   >
                     {item.name}
                   </Link>
