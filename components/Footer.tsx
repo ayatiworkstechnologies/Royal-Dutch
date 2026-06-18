@@ -186,9 +186,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom Copyright */}
-        <div className="mt-10 border-t border-white/15 px-4 pt-6 text-center font-secondary text-[12px] leading-6 text-white/75 sm:mt-14 sm:pt-7 sm:text-[14px]">
+        <div className="mt-10 border-t border-white/15 px-4 pt-6 text-center font-secondary text-[11px] leading-6 text-white/75 sm:mt-14 sm:pt-7 sm:text-[10px] md:text-[14px]">
           <p>
-            Copyright ©2026 RoyalDutch - All rights reserved
+            Copyright ©2026 Royal Dutch Medical Centre - All rights reserved
             <span className="mx-2 hidden sm:inline">|</span>
             <span className="block sm:inline">
               Designed &amp; Developed by{" "}

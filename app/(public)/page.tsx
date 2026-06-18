@@ -43,7 +43,7 @@ export default function Home() {
 
           {/* Tablet / Laptop / Desktop Banner */}
           <Image
-            src="/images/desktop-banner-1.png"
+            src="/images/desktop-banner-2.png"
             alt="Royal Dutch Medical Centre Banner"
             width={1920}
             height={800}

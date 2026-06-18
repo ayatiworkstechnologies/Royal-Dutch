@@ -13,7 +13,7 @@ export default function MusculoskeletalPainManagementPage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/musculoskeletal-pain-management-mobile.png"
-                desktopImage="/images/musculoskeletal-pain-management-desktop.png"
+                desktopImage="/images/musculoskeletal-pain-management-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection

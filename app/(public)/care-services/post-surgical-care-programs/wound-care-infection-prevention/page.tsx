@@ -13,7 +13,7 @@ export default function WoundCareAndInfectionPreventionPage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/wound-care-infection-prevention-mobile.png"
-                desktopImage="/images/wound-care-infection-prevention-desktop.png"
+                desktopImage="/images/wound-care-infection-prevention-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection

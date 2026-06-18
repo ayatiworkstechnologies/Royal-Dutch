@@ -13,7 +13,7 @@ export default function ChronicConditionMonitoringPage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/chronic-condition-monitoring-mobile.png"
-                desktopImage="/images/chronic-condition-monitoring-desktop.png"
+                desktopImage="/images/chronic-condition-monitoring-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection

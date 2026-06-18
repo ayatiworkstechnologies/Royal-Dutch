@@ -13,7 +13,7 @@ export default function DoctorHomeConsultationsPage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/doctor-home-consultations-mobile.png"
-                desktopImage="/images/doctor-home-consultations-desktop.png"
+                desktopImage="/images/doctor-home-consultations-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection

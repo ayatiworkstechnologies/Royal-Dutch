@@ -13,7 +13,7 @@ export default function PreventiveGeneralDentistryPage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/preventive-general-dentistry-mobile.png"
-                desktopImage="/images/preventive-general-dentistry-desktop.png"
+                desktopImage="/images/preventive-general-dentistry-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection

@@ -13,7 +13,7 @@ export default function FamilyMedicineAndWellnessCarePage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/family-medicine-wellness-care-mobile.png"
-                desktopImage="/images/family-medicine-wellness-care-desktop.png"
+                desktopImage="/images/family-medicine-wellness-care-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection

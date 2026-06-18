@@ -13,7 +13,7 @@ export default function ChronicDiseaseManagementPage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/chronic-disease-management-mobile.png"
-                desktopImage="/images/chronic-disease-management-desktop.png"
+                desktopImage="/images/chronic-disease-management-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection

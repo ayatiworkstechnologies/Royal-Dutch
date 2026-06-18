@@ -13,7 +13,7 @@ export default function PreventiveHealthScreeningsAndCheckupsPage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/preventive-health-screenings-mobile.png"
-                desktopImage="/images/preventive-health-screenings-desktop.png"
+                desktopImage="/images/preventive-health-screenings-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection

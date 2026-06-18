@@ -13,7 +13,7 @@ export default function PostinjuryAndPostoperativeRehabilitationPage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/post-injury-post-operative-rehabilitation-mobile.png"
-                desktopImage="/images/post-injury-post-operative-rehabilitation-desktop.png"
+                desktopImage="/images/post-injury-post-operative-rehabilitation-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection

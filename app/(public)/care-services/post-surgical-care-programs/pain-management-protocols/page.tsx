@@ -13,7 +13,7 @@ export default function PainManagementProtocolsPage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/pain-management-protocols-mobile.png"
-                desktopImage="/images/pain-management-protocols-desktop.png"
+                desktopImage="/images/pain-management-protocols-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection

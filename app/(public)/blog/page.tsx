@@ -79,7 +79,7 @@ export default function BlogPage() {
       
                 {/* Tablet / Laptop / Desktop Banner */}
                 <Image
-                  src="/images/blog-banner-desktop.png"
+                  src="/images/blog-banner-desktop-1.png"
                   alt="Royal Dutch Medical Centre Banner"
                   width={1920}
                   height={800}

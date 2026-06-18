@@ -13,7 +13,7 @@ export default function PediatricDentistryPage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/pediatric-dentistry-mobile.png"
-                desktopImage="/images/pediatric-dentistry-desktop.png"
+                desktopImage="/images/pediatric-dentistry-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection

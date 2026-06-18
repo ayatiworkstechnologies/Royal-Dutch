@@ -13,7 +13,7 @@ export default function RestorativeDentistryPage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/restorative-dentistry-mobile.png"
-                desktopImage="/images/restorative-dentistry-desktop.png"
+                desktopImage="/images/restorative-dentistry-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection

@@ -13,7 +13,7 @@ export default function ElderlyAndAssistedCareServicesPage() {
             {/* Banner Section */}
             <DynamicBanner
                 mobileImage="/images/elderly-assisted-care-services-mobile.png"
-                desktopImage="/images/elderly-assisted-care-services-desktop.png"
+                desktopImage="/images/elderly-assisted-care-services-desktop-1.png"
             />
             {/* {Intro section} */}
             <IntroSection
