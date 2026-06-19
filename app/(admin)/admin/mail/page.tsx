@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Trash2, Search, Send, CheckCircle, XCircle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -18,6 +19,7 @@ interface Mail {
 
 export default function AdminMailPage() {
   const { user } = useAdminAuth();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [mails, setMails] = useState<Mail[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -61,11 +63,11 @@ export default function AdminMailPage() {
     setProcessingQueue(true);
     try {
       const response = await api.post('/api/mail/send-queued');
-      alert(`Sent: ${response.data.sent_count}, Failed: ${response.data.failed_count}`);
+      toastInfo('Queue Processed', `Sent: ${response.data.sent_count}, Failed: ${response.data.failed_count}`);
       fetchMails();
     } catch (error: any) {
       console.error('Failed to process queue', error);
-      alert(error.response?.data?.detail || 'Failed to process queue');
+      toastError('Error', error.response?.data?.detail || 'Failed to process queue');
     } finally {
       setProcessingQueue(false);
     }
@@ -75,21 +77,20 @@ export default function AdminMailPage() {
     try {
       await api.post(`/api/mail/${id}/send`);
       fetchMails();
-      alert('Mail sent successfully!');
+      toastSuccess('Mail Sent', 'The mail was sent successfully.');
     } catch (error: any) {
       console.error('Failed to send mail', error);
-      alert(error.response?.data?.detail || 'Failed to send mail');
+      toastError('Error', error.response?.data?.detail || 'Failed to send mail');
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this mail record?')) {
-      try {
-        await api.delete(`/api/mail/${id}`);
-        fetchMails();
-      } catch (error) {
-        console.error('Failed to delete mail', error);
-      }
+    if (!(await confirmDialog({ title: 'Delete Mail', message: 'Are you sure you want to delete this mail record?', danger: true, confirmLabel: 'Delete' }))) return;
+    try {
+      await api.delete(`/api/mail/${id}`);
+      fetchMails();
+    } catch (error) {
+      console.error('Failed to delete mail', error);
     }
   };
 

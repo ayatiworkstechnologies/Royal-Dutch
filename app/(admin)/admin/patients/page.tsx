@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Plus, Edit2, Trash2, Search, FileText, Users, Activity, UserPlus, FileArchive } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -22,6 +23,7 @@ interface Patient {
 
 export default function AdminPatientsPage() {
   const { user } = useAdminAuth();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [patients, setPatients] = useState<Patient[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -90,18 +92,17 @@ export default function AdminPatientsPage() {
       fetchPatients();
     } catch (error: any) {
       console.error('Failed to save patient', error);
-      alert(error.response?.data?.detail || 'An error occurred');
+      toastError('Error', error.response?.data?.detail || 'An error occurred');
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this patient?')) {
-      try {
-        await api.delete(`/api/patients/${id}`);
-        fetchPatients();
-      } catch (error) {
-        console.error('Failed to delete patient', error);
-      }
+    if (!(await confirmDialog({ title: 'Delete Patient', message: 'This will permanently remove the patient record.', danger: true, confirmLabel: 'Delete' }))) return;
+    try {
+      await api.delete(`/api/patients/${id}`);
+      fetchPatients();
+    } catch (error) {
+      console.error('Failed to delete patient', error);
     }
   };
 
@@ -222,17 +223,18 @@ export default function AdminPatientsPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2 opacity-80 group-hover:opacity-100 transition-opacity">
-                      <button 
-                        onClick={() => setDocsModalPatient(patient)} 
-                        className="text-blue-600 hover:text-blue-800 bg-blue-50 p-2 rounded-lg transition-colors" 
+                      <button
+                        type="button"
+                        onClick={() => setDocsModalPatient(patient)}
+                        className="text-blue-600 hover:text-blue-800 bg-blue-50 p-2 rounded-lg transition-colors"
                         title="View Medical Documents"
                       >
                         <FileArchive className="w-4 h-4 inline-block" />
                       </button>
-                      <button onClick={() => handleOpenModal(patient)} className="text-(--primary-plum) hover:text-white hover:bg-(--primary-plum) bg-(--primary-plum)/10 p-2 rounded-lg transition-colors" title="Edit Patient">
+                      <button type="button" onClick={() => handleOpenModal(patient)} className="text-(--primary-plum) hover:text-white hover:bg-(--primary-plum) bg-(--primary-plum)/10 p-2 rounded-lg transition-colors" title="Edit Patient">
                         <Edit2 className="w-4 h-4 inline-block" />
                       </button>
-                      <button onClick={() => handleDelete(patient.id)} className="text-red-600 hover:text-red-900 bg-red-50 p-2 rounded-lg transition-colors" title="Delete">
+                      <button type="button" onClick={() => handleDelete(patient.id)} className="text-red-600 hover:text-red-900 bg-red-50 p-2 rounded-lg transition-colors" title="Delete">
                         <Trash2 className="w-4 h-4 inline-block" />
                       </button>
                     </td>
@@ -277,6 +279,7 @@ export default function AdminPatientsPage() {
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1 font-secondary">Gender</label>
               <select
+                title="Gender"
                 className="w-full rounded-xl border border-slate-200/60 bg-white/60 px-4 py-2.5 text-slate-700 text-sm focus:border-(--primary-gold) focus:ring-1 focus:ring-(--primary-gold) outline-none transition-all shadow-sm"
                 value={formData.gender}
                 onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
@@ -298,6 +301,8 @@ export default function AdminPatientsPage() {
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-1 font-secondary">Notes / Medical Context</label>
             <textarea
+              title="Notes / Medical Context"
+              placeholder="Add any relevant medical notes or context..."
               className="w-full rounded-xl border border-slate-200/60 bg-white/60 px-4 py-3 text-slate-700 text-sm focus:border-(--primary-gold) focus:ring-1 focus:ring-(--primary-gold) outline-none transition-all shadow-sm resize-none"
               rows={3}
               value={formData.notes}

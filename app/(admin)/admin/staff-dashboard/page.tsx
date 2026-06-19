@@ -140,7 +140,7 @@ export default function StaffDashboardPage() {
         <div>
           <h1 className="text-4xl font-bold text-slate-900 font-primary tracking-tight">My Schedule</h1>
           <p className="text-slate-500 font-secondary mt-1">
-            {user.full_name || user.name} — {format(new Date(), 'EEEE, MMMM d yyyy')}
+            {user.full_name || user.first_name} — {format(new Date(), 'EEEE, MMMM d yyyy')}
           </p>
         </div>
         <button

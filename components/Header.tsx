@@ -518,7 +518,9 @@ function MobileAccordion({
   );
 }
 
-function UserDropdown({ user, logout }: { user: any, logout: () => void }) {
+import { AuthModal, AuthView } from "@/components/ui/AuthModal";
+
+function UserDropdown({ user, logout, openAuth }: { user: any, logout: () => void, openAuth: (view: AuthView) => void }) {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -547,10 +549,10 @@ function UserDropdown({ user, logout }: { user: any, logout: () => void }) {
           {user ? (
             <>
               <div className="mb-1 border-b border-gray-100 px-3 py-2 pb-3 font-secondary text-[14px] font-bold text-gray-800">
-                {user.full_name || user.first_name || user.name || "User"}
+                {user.full_name || user.first_name || "User"}
               </div>
               <Link
-                href={user.role === 'customer' ? "/customer/dashboard" : "/admin"}
+                href={user.role === 'customer' ? "/customer/dashboard" : "/admin/dashboard"}
                 className="block rounded-[8px] px-3 py-2 font-secondary text-[14px] font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-[#8b1d72]"
                 onClick={() => setOpen(false)}
               >
@@ -568,20 +570,24 @@ function UserDropdown({ user, logout }: { user: any, logout: () => void }) {
             </>
           ) : (
             <>
-              <Link
-                href="/login"
-                className="block rounded-[8px] px-3 py-2 font-secondary text-[14px] font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-[#8b1d72]"
-                onClick={() => setOpen(false)}
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  openAuth('patient_login');
+                }}
+                className="block w-full text-left rounded-[8px] px-3 py-2 font-secondary text-[14px] font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-[#8b1d72]"
               >
                 Patient Login
-              </Link>
-              <Link
-                href="/admin/login"
-                className="block rounded-[8px] px-3 py-2 font-secondary text-[14px] font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-[#8b1d72]"
-                onClick={() => setOpen(false)}
+              </button>
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  openAuth('staff_login');
+                }}
+                className="block w-full text-left rounded-[8px] px-3 py-2 font-secondary text-[14px] font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-[#8b1d72]"
               >
                 Staff Login
-              </Link>
+              </button>
             </>
           )}
         </div>
@@ -589,6 +595,7 @@ function UserDropdown({ user, logout }: { user: any, logout: () => void }) {
     </div>
   );
 }
+
 export default function Header() {
   const pathname = usePathname();
   const currentPath = cleanPath(pathname);
@@ -600,6 +607,14 @@ export default function Header() {
   const [medicalActive, setMedicalActive] = useState(0);
   const [careActive, setCareActive] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalView, setAuthModalView] = useState<AuthView>('patient_login');
+
+  const openAuth = (view: AuthView) => {
+    setAuthModalView(view);
+    setAuthModalOpen(true);
+  };
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -788,7 +803,7 @@ export default function Header() {
             </div>
 
             <div className="hidden justify-end lg:flex lg:items-center lg:gap-3">
-              <UserDropdown user={user} logout={logout} />
+              <UserDropdown user={user} logout={logout} openAuth={openAuth} />
 
               <button
                 onMouseEnter={closeDesktopMenuNow}
@@ -848,7 +863,7 @@ export default function Header() {
                   className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
                 >
                   <UserIcon className="h-5 w-5" />
-                  {user.full_name || user.first_name || user.name || "Dashboard"}
+                  {user.full_name || user.first_name || "Dashboard"}
                 </Link>
                 <button
                   onClick={() => {
@@ -862,22 +877,26 @@ export default function Header() {
               </>
             ) : (
               <>
-                <Link
-                  href="/login"
-                  onClick={closeMobileMenu}
+                <button
+                  onClick={() => {
+                    closeMobileMenu();
+                    openAuth('patient_login');
+                  }}
                   className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
                 >
                   <UserIcon className="h-5 w-5" />
                   Patient Login
-                </Link>
-                <Link
-                  href="/admin/login"
-                  onClick={closeMobileMenu}
+                </button>
+                <button
+                  onClick={() => {
+                    closeMobileMenu();
+                    openAuth('staff_login');
+                  }}
                   className="mt-3 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
                 >
                   <UserIcon className="h-5 w-5" />
                   Staff Login
-                </Link>
+                </button>
               </>
             )}
 
@@ -908,6 +927,11 @@ export default function Header() {
           />
         )}
       </div>
+      <AuthModal 
+        isOpen={authModalOpen} 
+        onClose={() => setAuthModalOpen(false)} 
+        initialView={authModalView} 
+      />
     </header>
   );
 }

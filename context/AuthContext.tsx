@@ -13,6 +13,7 @@ export interface User {
   first_name?: string;
   last_name?: string;
   full_name?: string;
+  staff_id?: number | null;
   is_active: boolean;
 }
 
@@ -66,11 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     removeToken();
     setUser(null);
-    if (window.location.pathname.startsWith('/admin')) {
-      window.location.href = '/admin/login';
-    } else {
-      window.location.href = '/login';
-    }
+    window.location.href = '/';
   };
 
   return (

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Plus, Edit2, Trash2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -20,6 +21,7 @@ interface EmailTemplate {
 
 export default function AdminEmailTemplatesPage() {
   const { user } = useAdminAuth();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [templates, setTemplates] = useState<EmailTemplate[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -91,18 +93,17 @@ export default function AdminEmailTemplatesPage() {
       fetchTemplates();
     } catch (error: any) {
       console.error('Failed to save template', error);
-      alert(error.response?.data?.detail || 'An error occurred');
+      toastError('Error', error.response?.data?.detail || 'An error occurred');
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this template?')) {
-      try {
-        await api.delete(`/api/email-templates/${id}`);
-        fetchTemplates();
-      } catch (error) {
-        console.error('Failed to delete template', error);
-      }
+    if (!(await confirmDialog({ title: 'Delete Template', message: 'Are you sure you want to delete this email template?', danger: true, confirmLabel: 'Delete' }))) return;
+    try {
+      await api.delete(`/api/email-templates/${id}`);
+      fetchTemplates();
+    } catch (error) {
+      console.error('Failed to delete template', error);
     }
   };
 

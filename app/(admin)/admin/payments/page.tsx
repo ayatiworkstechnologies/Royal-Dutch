@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Plus, Edit2, Trash2, Search, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -28,6 +29,7 @@ interface Invoice {
 
 export default function AdminPaymentsPage() {
   const { user } = useAdminAuth();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [payments, setPayments] = useState<Payment[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
@@ -133,30 +135,29 @@ export default function AdminPaymentsPage() {
       fetchInvoices(); // Refresh balances
     } catch (error: any) {
       console.error('Failed to save payment', error);
-      alert(error.response?.data?.detail || 'An error occurred');
+      toastError('Error', error.response?.data?.detail || 'An error occurred');
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this payment? It may affect invoice balances.')) {
-      try {
-        await api.delete(`/api/payments/${id}`);
-        fetchPayments();
-        fetchInvoices();
-      } catch (error) {
-        console.error('Failed to delete payment', error);
-        alert('Failed to delete payment');
-      }
+    if (!(await confirmDialog({ title: 'Delete Payment', message: 'This may affect invoice balances. This action cannot be undone.', danger: true, confirmLabel: 'Delete' }))) return;
+    try {
+      await api.delete(`/api/payments/${id}`);
+      fetchPayments();
+      fetchInvoices();
+    } catch (error) {
+      console.error('Failed to delete payment', error);
+      toastError('Error', 'Failed to delete payment.');
     }
   };
 
   const handleQueueEmail = async (id: number) => {
     try {
       await api.post(`/api/payments/${id}/mail/payment`);
-      alert('Payment receipt email queued successfully!');
+      toastSuccess('Email Queued', 'Payment receipt has been queued for delivery.');
     } catch (error) {
       console.error('Failed to queue email', error);
-      alert('Failed to queue email');
+      toastError('Error', 'Failed to queue email.');
     }
   };
 

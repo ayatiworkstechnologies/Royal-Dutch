@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Plus, Edit2, Trash2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -21,6 +22,7 @@ interface Staff {
 
 export default function AdminStaffPage() {
   const { user } = useAdminAuth();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [staffList, setStaffList] = useState<Staff[]>([]);
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -94,7 +96,7 @@ export default function AdminStaffPage() {
     e.preventDefault();
     
     if (!editingStaff && formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match');
+      toastWarning('Validation', 'Passwords do not match.');
       return;
     }
     
@@ -103,26 +105,25 @@ export default function AdminStaffPage() {
         const { password, confirmPassword, ...updateData } = formData;
         await api.patch(`/api/staff/${editingStaff.id}`, updateData);
       } else {
-        const { confirmPassword, ...createData } = formData;
-        if (!createData.password) delete createData.password; // Don't send empty string if no password
+        const { confirmPassword, password, ...rest } = formData;
+        const createData = password ? { ...rest, password } : rest;
         await api.post('/api/staff', createData);
       }
       setIsModalOpen(false);
       fetchStaff();
     } catch (error: any) {
       console.error('Failed to save staff', error);
-      alert(error.response?.data?.detail || 'An error occurred');
+      toastError('Error', error.response?.data?.detail || 'An error occurred');
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this staff member?')) {
-      try {
-        await api.delete(`/api/staff/${id}`);
-        fetchStaff();
-      } catch (error) {
-        console.error('Failed to delete staff', error);
-      }
+    if (!(await confirmDialog({ title: 'Delete Staff', message: 'Are you sure you want to remove this staff member?', danger: true, confirmLabel: 'Delete' }))) return;
+    try {
+      await api.delete(`/api/staff/${id}`);
+      fetchStaff();
+    } catch (error) {
+      console.error('Failed to delete staff', error);
     }
   };
 

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Plus, Edit2, Trash2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -18,6 +19,7 @@ interface Category {
 
 export default function AdminCategoriesPage() {
   const { user } = useAdminAuth();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -86,18 +88,17 @@ export default function AdminCategoriesPage() {
       fetchCategories();
     } catch (error: any) {
       console.error('Failed to save category', error);
-      alert(error.response?.data?.detail || 'An error occurred');
+      toastError('Error', error.response?.data?.detail || 'An error occurred');
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this category?')) {
-      try {
-        await api.delete(`/api/categories/${id}`);
-        fetchCategories();
-      } catch (error) {
-        console.error('Failed to delete category', error);
-      }
+    if (!(await confirmDialog({ title: 'Delete Category', message: 'Are you sure you want to delete this category?', danger: true, confirmLabel: 'Delete' }))) return;
+    try {
+      await api.delete(`/api/categories/${id}`);
+      fetchCategories();
+    } catch (error) {
+      console.error('Failed to delete category', error);
     }
   };
 

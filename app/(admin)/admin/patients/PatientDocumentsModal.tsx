@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -28,6 +29,7 @@ interface PatientDocumentsModalProps {
 
 export function PatientDocumentsModal({ isOpen, onClose, patient }: PatientDocumentsModalProps) {
   const [documents, setDocuments] = useState<PatientDocument[]>([]);
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [loading, setLoading] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
 
@@ -68,19 +70,18 @@ export function PatientDocumentsModal({ isOpen, onClose, patient }: PatientDocum
       fetchDocuments();
     } catch (error: any) {
       console.error('Failed to add document', error);
-      alert(error.response?.data?.detail || 'An error occurred while adding the document');
+      toastError('Error', error.response?.data?.detail || 'An error occurred while adding the document');
     }
   };
 
   const handleDelete = async (docId: number) => {
     if (!patient) return;
-    if (window.confirm('Are you sure you want to delete this document record?')) {
-      try {
-        await api.delete(`/api/patients/${patient.id}/documents/${docId}`);
-        fetchDocuments();
-      } catch (error) {
-        console.error('Failed to delete document', error);
-      }
+    if (!(await confirmDialog({ title: 'Delete Document', message: 'Are you sure you want to remove this document?', danger: true, confirmLabel: 'Delete' }))) return;
+    try {
+      await api.delete(`/api/patients/${patient.id}/documents/${docId}`);
+      fetchDocuments();
+    } catch (error) {
+      console.error('Failed to delete document', error);
     }
   };
 
@@ -106,7 +107,8 @@ export function PatientDocumentsModal({ isOpen, onClose, patient }: PatientDocum
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Document Type</label>
-                <select 
+                <select
+                  title="Document Type"
                   className="w-full border-slate-200/50 bg-white/40 rounded-md shadow-sm focus:ring-(--primary-plum) focus:border-(--primary-plum) sm:text-sm transition-colors"
                   value={formData.document_type}
                   onChange={e => setFormData({...formData, document_type: e.target.value})}
@@ -186,7 +188,8 @@ export function PatientDocumentsModal({ isOpen, onClose, patient }: PatientDocum
                           <ExternalLink className="w-4 h-4" />
                         </a>
                       )}
-                      <button 
+                      <button
+                        type="button"
                         onClick={() => handleDelete(doc.id)}
                         className="text-red-500 hover:text-red-700 transition-colors"
                         title="Delete Record"

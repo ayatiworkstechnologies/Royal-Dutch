@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Trash2, Search, Bell, MessageSquare, Mail, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -19,6 +20,7 @@ interface Notification {
 
 export default function AdminNotificationsPage() {
   const { user } = useAdminAuth();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -42,13 +44,12 @@ export default function AdminNotificationsPage() {
   }, [user]);
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this notification?')) {
-      try {
-        await api.delete(`/api/notifications/${id}`);
-        fetchNotifications();
-      } catch (error) {
-        console.error('Failed to delete notification', error);
-      }
+    if (!(await confirmDialog({ title: 'Delete Notification', message: 'Are you sure you want to delete this notification?', danger: true, confirmLabel: 'Delete' }))) return;
+    try {
+      await api.delete(`/api/notifications/${id}`);
+      fetchNotifications();
+    } catch (error) {
+      console.error('Failed to delete notification', error);
     }
   };
 

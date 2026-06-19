@@ -28,6 +28,7 @@ import {
   Briefcase,
   ClipboardList,
   CalendarDays,
+  BookUser,
 } from 'lucide-react';
 
 // ─── Nav definitions ─────────────────────────────────────────────────────────
@@ -46,6 +47,7 @@ const ALL_NAV: NavItem[] = [
   { name: 'Mail',            href: '/admin/mail',            icon: Mail },
   { name: 'Email Templates', href: '/admin/email-templates', icon: FileText },
   { name: 'Notifications',   href: '/admin/notifications',   icon: Bell },
+  { name: 'Contacts',        href: '/admin/contacts',        icon: BookUser },
   { name: 'Settings',        href: '/admin/settings',        icon: Settings },
 ];
 

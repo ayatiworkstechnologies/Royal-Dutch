@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Save, RefreshCcw } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -30,41 +31,59 @@ function EmailListInput({
   value: string;
   onChange: (val: string) => void;
 }) {
-  const emails = value ? value.split(',').map(e => e.trim()).filter(e => e) : [];
+  const parse = (v: string) => v ? v.split(',').map(e => e.trim()).filter(Boolean) : [];
+
+  // Local items array allows empty strings (rows being typed into)
+  const [items, setItems] = useState<string[]>(() => parse(value));
+
+  // Sync from parent only when the committed (non-empty) value changes
+  const prevValue = useRef(value);
+  useEffect(() => {
+    if (prevValue.current !== value) {
+      prevValue.current = value;
+      setItems(parse(value));
+    }
+  }, [value]);
+
+  const commit = (next: string[]) => {
+    onChange(next.filter(Boolean).join(','));
+  };
 
   const handleAdd = () => {
-    onChange([...emails, ''].join(','));
+    setItems(prev => [...prev, '']);
   };
 
-  const handleRemove = (index: number) => {
-    const newEmails = [...emails];
-    newEmails.splice(index, 1);
-    onChange(newEmails.join(','));
+  const handleRemove = (i: number) => {
+    const next = items.filter((_, idx) => idx !== i);
+    setItems(next);
+    commit(next);
   };
 
-  const handleChange = (index: number, val: string) => {
-    const newEmails = [...emails];
-    newEmails[index] = val;
-    onChange(newEmails.join(','));
+  const handleChange = (i: number, val: string) => {
+    const next = items.map((item, idx) => idx === i ? val : item);
+    setItems(next);
+    commit(next);
   };
 
   return (
     <div className="space-y-2">
-      <label className="block text-sm font-medium text-gray-700">{label}</label>
-      {emails.map((email, i) => (
+      <label className="block text-sm font-semibold text-slate-700 font-secondary">{label}</label>
+      {items.length === 0 && (
+        <p className="text-xs text-slate-400 italic">No emails added yet.</p>
+      )}
+      {items.map((email, i) => (
         <div key={i} className="flex items-center gap-2">
           <Input
             id={`${label}-${i}`}
             type="email"
             value={email}
             onChange={(e) => handleChange(i, e.target.value)}
-            className="flex-1"
-            placeholder="Enter email address"
+            placeholder="email@example.com"
           />
           <button
             type="button"
             onClick={() => handleRemove(i)}
-            className="p-2 text-red-500 hover:bg-red-50 rounded-md transition"
+            className="shrink-0 p-2 text-red-500 hover:bg-red-50 rounded-xl transition"
             aria-label="Remove email"
           >
             <Trash2 className="w-4 h-4" />
@@ -74,7 +93,7 @@ function EmailListInput({
       <button
         type="button"
         onClick={handleAdd}
-        className="flex items-center gap-1 text-sm font-medium text-[#8b1d72] hover:text-[#D6B981] transition"
+        className="flex items-center gap-1.5 text-sm font-semibold text-(--primary-plum) hover:text-(--primary-gold) transition-colors"
       >
         <Plus className="w-4 h-4" /> Add Email
       </button>
@@ -84,6 +103,7 @@ function EmailListInput({
 
 export default function AdminSettingsPage() {
   const { user } = useAdminAuth();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [settings, setSettings] = useState<ClinicSettings | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -121,10 +141,10 @@ export default function AdminSettingsPage() {
     try {
       const response = await api.patch('/api/settings', cleanedSettings);
       setSettings(response.data);
-      alert('Settings saved successfully!');
+      toastSuccess('Settings Saved', 'Settings have been updated successfully.');
     } catch (error: any) {
       console.error('Failed to save settings', error);
-      alert(error.response?.data?.detail || 'An error occurred');
+      toastError('Error', error.response?.data?.detail || 'An error occurred');
     } finally {
       setSaving(false);
     }
@@ -190,7 +210,7 @@ export default function AdminSettingsPage() {
                 required
               />
             </div>
-            <div className="space-y-4 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
               <EmailListInput
                 label="CC Emails"
                 value={settings.clinic_email_cc || ''}
@@ -207,6 +227,8 @@ export default function AdminSettingsPage() {
             <label className="block text-sm font-medium text-gray-700 mb-1">Clinic Address</label>
             <textarea
               name="clinic_address"
+              title="Clinic Address"
+              placeholder="Enter clinic address..."
               className="w-full rounded-md border-slate-200/50 bg-white/40 shadow-sm focus:border-(--primary-gold) focus:ring-(--primary-gold) sm:text-sm"
               rows={3}
               value={settings.clinic_address}

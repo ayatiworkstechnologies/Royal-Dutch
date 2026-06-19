@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Plus, Edit2, Trash2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -28,6 +29,7 @@ interface Category {
 
 export default function AdminServicesPage() {
   const { user } = useAdminAuth();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [services, setServices] = useState<Service[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -124,18 +126,17 @@ export default function AdminServicesPage() {
       fetchData(); // refresh table
     } catch (error: any) {
       console.error('Failed to save service', error);
-      alert(error.response?.data?.detail || 'An error occurred');
+      toastError('Error', error.response?.data?.detail || 'An error occurred');
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this service?')) {
-      try {
-        await api.delete(`/api/services/${id}`);
-        fetchData();
-      } catch (error) {
-        console.error('Failed to delete service', error);
-      }
+    if (!(await confirmDialog({ title: 'Delete Service', message: 'Are you sure you want to delete this service?', danger: true, confirmLabel: 'Delete' }))) return;
+    try {
+      await api.delete(`/api/services/${id}`);
+      fetchData();
+    } catch (error) {
+      console.error('Failed to delete service', error);
     }
   };
 

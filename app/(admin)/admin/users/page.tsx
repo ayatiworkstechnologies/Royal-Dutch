@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { ROLE_LABELS } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Plus, Edit2, Trash2, ShieldCheck, UserCog } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -19,6 +20,7 @@ interface AdminUser {
 
 export default function AdminUsersPage() {
   const { user } = useAdminAuth();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -93,19 +95,18 @@ export default function AdminUsersPage() {
       fetchUsers();
     } catch (error: any) {
       console.error('Failed to save user', error);
-      alert(error.response?.data?.detail || 'An error occurred');
+      toastError('Error', error.response?.data?.detail || 'An error occurred');
     }
   };
 
   const handleDeactivate = async (id: number) => {
-    if (window.confirm('Are you sure you want to deactivate this user? They will no longer be able to log in.')) {
-      try {
-        await api.delete(`/api/admin/users/${id}`);
-        fetchUsers();
-      } catch (error) {
-        console.error('Failed to deactivate user', error);
-        alert('Failed to deactivate user');
-      }
+    if (!(await confirmDialog({ title: 'Deactivate User', message: 'This user will no longer be able to log in.', danger: true, confirmLabel: 'Deactivate' }))) return;
+    try {
+      await api.delete(`/api/admin/users/${id}`);
+      fetchUsers();
+    } catch (error) {
+      console.error('Failed to deactivate user', error);
+      toastError('Error', 'Failed to deactivate user.');
     }
   };
 

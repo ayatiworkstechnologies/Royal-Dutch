@@ -35,6 +35,7 @@ export const ROLE_ALLOWED_PATHS: Record<string, string[]> = {
     '/admin/patients',
     '/admin/billing',
     '/admin/payments',
+    '/admin/contacts',
   ],
   doctor:           ['/admin/dashboard', ...STAFF_DASHBOARD_PATHS],
   nurse:            ['/admin/dashboard', ...STAFF_DASHBOARD_PATHS],
@@ -73,13 +74,13 @@ export const useAdminAuth = (allowedRoles?: string[]) => {
 
     // Not logged in → login page
     if (!user) {
-      router.push('/admin/login');
+      router.push('/');
       return;
     }
 
     // Not an admin-panel role → login page
     if (!ADMIN_ROLES.includes(user.role)) {
-      router.push('/admin/login');
+      router.push('/');
       return;
     }
 

@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { AlertProvider } from "@/context/AlertContext";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -33,9 +34,11 @@ export default function RootLayout({
       lang="en"
       className={`${outfit.variable} ${inter.variable} h-full overflow-x-hidden antialiased`}
     >
-      <body className="flex min-h-full w-full flex-col overflow-x-hidden bg-white font-secondary text-[#171717]">
-        <Script id="scroll-top-before-navigation" strategy="beforeInteractive">
-          {`
+      <head>
+        <script
+          id="scroll-top-before-navigation"
+          dangerouslySetInnerHTML={{
+            __html: `
             if ("scrollRestoration" in history) {
               history.scrollRestoration = "manual";
             }
@@ -93,10 +96,15 @@ export default function RootLayout({
             window.addEventListener("popstate", function () {
               scrollTopInstant();
             });
-          `}
-        </Script>
+          `
+          }}
+        />
+      </head>
+      <body className="flex min-h-full w-full flex-col overflow-x-hidden bg-white font-secondary text-[#171717]">
         <AuthProvider>
-          {children}
+          <AlertProvider>
+            {children}
+          </AlertProvider>
         </AuthProvider>
       </body>
     </html>

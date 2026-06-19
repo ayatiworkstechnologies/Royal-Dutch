@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -22,6 +23,7 @@ interface WhatsAppModalProps {
 
 export function WhatsAppModal({ isOpen, onClose, booking }: WhatsAppModalProps) {
   const [message, setMessage] = useState('');
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -47,7 +49,7 @@ export function WhatsAppModal({ isOpen, onClose, booking }: WhatsAppModalProps) 
       }, 2000);
     } catch (error: any) {
       console.error('Failed to send WhatsApp message', error);
-      alert(error.response?.data?.detail || 'An error occurred while sending the message');
+      toastError('Error', error.response?.data?.detail || 'An error occurred while sending the message');
     } finally {
       setLoading(false);
     }

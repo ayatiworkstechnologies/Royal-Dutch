@@ -3,8 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { format } from 'date-fns';
-import { Eye, Check, X, Calendar as CalendarIcon, MessageSquare, CalendarCheck, Clock, CheckSquare, List, User, Phone, FileText, Activity } from 'lucide-react';
+import { Eye, Check, X, Calendar as CalendarIcon, MessageSquare, CalendarCheck, Clock, CheckSquare, List, User, Phone, FileText, Activity, UserCheck } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { WhatsAppModal } from './WhatsAppModal';
 
@@ -18,6 +19,7 @@ interface Booking {
   };
   service_name: string;
   staff_name?: string;
+  staff_id?: number;
   booking_date: string;
   booking_time: string;
   status: 'pending' | 'confirmed' | 'completed' | 'cancelled' | 'rescheduled';
@@ -26,6 +28,7 @@ interface Booking {
 
 export default function AdminBookingsPage() {
   const { user } = useAdminAuth();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState('');
@@ -35,6 +38,7 @@ export default function AdminBookingsPage() {
   const [whatsappModalBooking, setWhatsappModalBooking] = useState<Booking | null>(null);
   const [viewModalBooking, setViewModalBooking] = useState<Booking | null>(null);
   const [assignModalBooking, setAssignModalBooking] = useState<Booking | null>(null);
+  const [assignMode, setAssignMode] = useState<'confirm' | 'reassign'>('confirm');
   
   // Staff list for assignment
   const [staffList, setStaffList] = useState<any[]>([]);
@@ -88,7 +92,7 @@ export default function AdminBookingsPage() {
       fetchBookings();
     } catch (error) {
       console.error('Failed to update status', error);
-      alert('Failed to update status');
+      toastError('Error', 'Failed to update booking status.');
     }
   };
 
@@ -193,6 +197,7 @@ export default function AdminBookingsPage() {
                   <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider font-secondary">Patient</th>
                   <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider font-secondary">Service</th>
                   <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider font-secondary">Date & Time</th>
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider font-secondary">Doctor / Staff</th>
                   <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider font-secondary">Status</th>
                   <th scope="col" className="px-6 py-4 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider font-secondary">Actions</th>
                 </tr>
@@ -200,11 +205,11 @@ export default function AdminBookingsPage() {
               <tbody className="bg-white/20 divide-y divide-slate-100/60">
                 {loading ? (
                   <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-slate-500 font-secondary">Loading bookings...</td>
+                    <td colSpan={7} className="px-6 py-12 text-center text-slate-500 font-secondary">Loading bookings...</td>
                   </tr>
                 ) : bookings.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-slate-500 font-secondary">No bookings found</td>
+                    <td colSpan={7} className="px-6 py-12 text-center text-slate-500 font-secondary">No bookings found</td>
                   </tr>
                 ) : (
                   paginatedBookings.map((booking, index) => (
@@ -217,6 +222,18 @@ export default function AdminBookingsPage() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-secondary">
                         {booking.booking_date} <span className="mx-1 text-slate-300">•</span> <span className="font-medium text-slate-700">{booking.booking_time}</span>
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        {booking.staff_name ? (
+                          <span className="flex items-center gap-1.5 text-slate-700 font-medium">
+                            <UserCheck className="w-3.5 h-3.5 text-green-500 shrink-0" />
+                            {booking.staff_name}
+                          </span>
+                        ) : (
+                          <span className="text-xs text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full font-semibold">
+                            Unassigned
+                          </span>
+                        )}
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full capitalize ${getStatusColor(booking.status)}`}>
                           {booking.status}
@@ -224,17 +241,21 @@ export default function AdminBookingsPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right">
                         <div className="flex items-center justify-end gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
-                          <button 
-                            onClick={() => setWhatsappModalBooking(booking as any)} 
-                            className="text-emerald-600 hover:text-white hover:bg-emerald-500 bg-emerald-50 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm" 
+                          <button
+                            onClick={() => setWhatsappModalBooking(booking as any)}
+                            className="text-emerald-600 hover:text-white hover:bg-emerald-500 bg-emerald-50 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm"
                             title="Send WhatsApp"
                           >
                             <MessageSquare className="h-4 w-4" />
                           </button>
-                          
+
                           {booking.status === 'pending' && (
                             <>
-                              <button onClick={() => setAssignModalBooking(booking as any)} className="text-blue-600 hover:text-white hover:bg-blue-500 bg-blue-50 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm" title="Confirm & Assign Staff">
+                              <button
+                                onClick={() => { setAssignMode('confirm'); setAssignModalBooking(booking); }}
+                                className="text-blue-600 hover:text-white hover:bg-blue-500 bg-blue-50 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm"
+                                title="Assign Doctor & Confirm"
+                              >
                                 <Check className="h-4 w-4" />
                               </button>
                               <button onClick={() => handleStatusChange(booking.id, 'cancelled')} className="text-red-600 hover:text-white hover:bg-red-500 bg-red-50 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm" title="Cancel">
@@ -244,6 +265,13 @@ export default function AdminBookingsPage() {
                           )}
                           {booking.status === 'confirmed' && (
                             <>
+                              <button
+                                onClick={() => { setAssignMode('reassign'); setAssignModalBooking(booking); }}
+                                className="text-purple-600 hover:text-white hover:bg-purple-500 bg-purple-50 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm"
+                                title="Reassign Doctor"
+                              >
+                                <UserCheck className="h-4 w-4" />
+                              </button>
                               <button onClick={() => handleStatusChange(booking.id, 'completed')} className="text-green-600 hover:text-white hover:bg-green-500 bg-green-50 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm" title="Mark Completed">
                                 <Check className="h-4 w-4" />
                               </button>
@@ -408,23 +436,27 @@ export default function AdminBookingsPage() {
         </div>
       )}
 
-      {/* Assign Staff & Confirm Modal */}
+      {/* Assign / Reassign Staff Modal */}
       {assignModalBooking && (
         <AssignStaffModal
           booking={assignModalBooking}
           staffList={staffList}
+          mode={assignMode}
           onClose={() => setAssignModalBooking(null)}
           onConfirm={async (staffId) => {
             try {
               if (staffId) {
                 await api.patch(`/api/bookings/${assignModalBooking.id}`, { staff_id: parseInt(staffId) });
               }
-              await api.patch(`/api/bookings/${assignModalBooking.id}/status`, { status: 'confirmed' });
+              if (assignMode === 'confirm') {
+                await api.patch(`/api/bookings/${assignModalBooking.id}/status`, { status: 'confirmed' });
+              }
+              toastSuccess('Done', assignMode === 'confirm' ? 'Booking confirmed and doctor assigned.' : 'Doctor reassigned successfully.');
               fetchBookings();
               setAssignModalBooking(null);
             } catch (error) {
-              console.error('Failed to assign and confirm', error);
-              alert('Failed to assign and confirm booking');
+              console.error('Failed to assign staff', error);
+              toastError('Error', 'Failed to assign doctor to booking.');
             }
           }}
         />
@@ -433,9 +465,18 @@ export default function AdminBookingsPage() {
   );
 }
 
-function AssignStaffModal({ booking, staffList, onClose, onConfirm }: { booking: Booking; staffList: any[]; onClose: () => void; onConfirm: (staffId: string) => void }) {
-  const [selectedStaff, setSelectedStaff] = useState('');
+function AssignStaffModal({
+  booking, staffList, mode, onClose, onConfirm,
+}: {
+  booking: Booking;
+  staffList: any[];
+  mode: 'confirm' | 'reassign';
+  onClose: () => void;
+  onConfirm: (staffId: string) => void;
+}) {
+  const [selectedStaff, setSelectedStaff] = useState(booking.staff_id ? String(booking.staff_id) : '');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isConfirm = mode === 'confirm';
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -447,41 +488,54 @@ function AssignStaffModal({ booking, staffList, onClose, onConfirm }: { booking:
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
       <div className="bg-white rounded-3xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between p-6 border-b border-slate-100 bg-slate-50/50">
-          <h3 className="text-xl font-bold font-primary text-slate-900">Confirm Booking</h3>
+          <h3 className="text-xl font-bold font-primary text-slate-900">
+            {isConfirm ? 'Confirm & Assign Doctor' : 'Reassign Doctor'}
+          </h3>
           <button onClick={onClose} disabled={isSubmitting} className="text-slate-400 hover:text-slate-600 bg-white hover:bg-slate-100 w-8 h-8 rounded-full flex items-center justify-center transition-colors border border-slate-200">
             <X className="w-5 h-5" />
           </button>
         </div>
-        
+
         <div className="p-6 md:p-8 space-y-6">
           <div className="bg-(--primary-plum)/5 border border-(--primary-plum)/10 rounded-2xl p-4">
-            <p className="text-xs font-bold text-(--primary-plum) uppercase tracking-widest font-secondary mb-1">Booking Request</p>
+            <p className="text-xs font-bold text-(--primary-plum) uppercase tracking-widest font-secondary mb-1">
+              {isConfirm ? 'Booking Request' : 'Booking'}
+            </p>
             <p className="text-sm font-semibold text-slate-900">{booking.patient?.full_name}</p>
             <p className="text-sm text-slate-600">{booking.service_name}</p>
             <p className="text-sm text-slate-500 mt-2 font-secondary">{booking.booking_date} at {booking.booking_time}</p>
+            {booking.staff_name && (
+              <p className="text-xs text-slate-400 mt-1">Currently: <span className="font-semibold text-slate-600">{booking.staff_name}</span></p>
+            )}
           </div>
 
           <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-500 uppercase tracking-widest font-secondary">Assign Staff (Doctor / Specialist)</label>
+            <label className="text-xs font-bold text-slate-500 uppercase tracking-widest font-secondary">
+              {isConfirm ? 'Assign Doctor / Specialist' : 'Reassign to Doctor / Specialist'}
+            </label>
             <select
+              title="Select staff"
               value={selectedStaff}
               onChange={(e) => setSelectedStaff(e.target.value)}
               className="w-full glass-panel border-slate-200 bg-white px-4 py-3 rounded-xl shadow-sm focus:ring-2 focus:ring-(--primary-gold) focus:border-transparent outline-none text-sm font-medium transition-all"
             >
-              <option value="">Any available staff (No specific assignment)</option>
+              <option value="">{isConfirm ? 'Auto-assign (system picks best available)' : '— Remove assignment —'}</option>
               {staffList.map((staff) => (
-                <option key={staff.id} value={staff.id}>{staff.name} ({staff.role})</option>
+                <option key={staff.id} value={staff.id}>{staff.name} — {staff.role}</option>
               ))}
             </select>
+            {isConfirm && (
+              <p className="text-xs text-slate-400">If no doctor is selected, the system will auto-assign the most available specialist for this service.</p>
+            )}
           </div>
         </div>
-        
+
         <div className="p-6 bg-slate-50 border-t border-slate-100 flex justify-end gap-3">
           <Button onClick={onClose} variant="outline" disabled={isSubmitting} className="px-6 rounded-xl font-secondary tracking-wide bg-white">
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={isSubmitting} className="px-6 rounded-xl font-secondary tracking-wide bg-(--primary-plum) hover:bg-[#632052] text-white shadow-md">
-            {isSubmitting ? 'Confirming...' : 'Confirm Booking'}
+            {isSubmitting ? 'Saving...' : isConfirm ? 'Confirm Booking' : 'Save Assignment'}
           </Button>
         </div>
       </div>

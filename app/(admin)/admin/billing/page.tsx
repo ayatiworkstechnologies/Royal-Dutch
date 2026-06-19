@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { useAlert } from '@/context/AlertContext';
 import { Plus, Edit2, Trash2, Search, Download, Mail, Eye, DollarSign, FileText, CheckCircle, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -44,6 +45,7 @@ interface Patient {
 
 export default function AdminBillingPage() {
   const { user } = useAdminAuth();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [patients, setPatients] = useState<Patient[]>([]);
   const [loading, setLoading] = useState(true);
@@ -165,19 +167,18 @@ export default function AdminBillingPage() {
       fetchInvoices();
     } catch (error: any) {
       console.error('Failed to save invoice', error);
-      alert(error.response?.data?.detail || 'An error occurred');
+      toastError('Error', error.response?.data?.detail || 'An error occurred');
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this invoice?')) {
-      try {
-        await api.delete(`/api/billing/${id}`);
-        fetchInvoices();
-      } catch (error) {
-        console.error('Failed to delete invoice', error);
-        alert('Failed to delete invoice');
-      }
+    if (!(await confirmDialog({ title: 'Delete Invoice', message: 'This action cannot be undone.', danger: true, confirmLabel: 'Delete' }))) return;
+    try {
+      await api.delete(`/api/billing/${id}`);
+      fetchInvoices();
+    } catch (error) {
+      console.error('Failed to delete invoice', error);
+      toastError('Error', 'Failed to delete invoice.');
     }
   };
 
@@ -193,17 +194,17 @@ export default function AdminBillingPage() {
       link.parentNode?.removeChild(link);
     } catch (error) {
       console.error('Failed to download invoice', error);
-      alert('Failed to generate PDF');
+      toastError('Error', 'Failed to generate PDF.');
     }
   };
 
   const handleQueueEmail = async (id: number) => {
     try {
       await api.post(`/api/billing/${id}/mail/invoice`);
-      alert('Invoice email queued successfully!');
+      toastSuccess('Email Queued', 'Invoice email has been queued for delivery.');
     } catch (error) {
       console.error('Failed to queue email', error);
-      alert('Failed to queue email');
+      toastError('Error', 'Failed to queue email.');
     }
   };
 
