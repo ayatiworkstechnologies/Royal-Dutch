@@ -178,10 +178,10 @@ export function BookingModal() {
       <div className="flex justify-center items-center space-x-2 sm:space-x-4 mb-6 pt-4">
         {[1, 2, 3, 4].map((s) => (
           <React.Fragment key={s}>
-            <div className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-semibold transition-colors ${step >= s ? 'bg-[var(--primary-plum)] text-white' : 'bg-gray-200 text-gray-500'}`}>
+            <div className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-semibold transition-colors ${step >= s ? 'bg-(--primary-plum) text-white' : 'bg-gray-200 text-gray-500'}`}>
               {s}
             </div>
-            {s < 4 && <div className={`w-8 sm:w-12 h-1 rounded-full transition-colors ${step > s ? 'bg-[var(--primary-plum)]' : 'bg-gray-200'}`}></div>}
+            {s < 4 && <div className={`w-8 sm:w-12 h-1 rounded-full transition-colors ${step > s ? 'bg-(--primary-plum)' : 'bg-gray-200'}`}></div>}
           </React.Fragment>
         ))}
       </div>
@@ -210,13 +210,13 @@ export function BookingModal() {
               <button
                 key={cat.id}
                 onClick={() => handleSelectCategory(cat)}
-                className="flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-[var(--primary-plum)] hover:shadow-md transition-all text-left group bg-white"
+                className="flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-(--primary-plum) hover:shadow-md transition-all text-left group bg-white"
               >
                 <div>
-                  <h4 className="font-semibold text-gray-900 group-hover:text-[var(--primary-plum)] transition-colors">{cat.name}</h4>
+                  <h4 className="font-semibold text-gray-900 group-hover:text-(--primary-plum) transition-colors">{cat.name}</h4>
                   <p className="text-xs text-gray-500 mt-1 line-clamp-2">{cat.description || 'Explore our expert services'}</p>
                 </div>
-                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[var(--primary-plum)] transition-colors" />
+                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-(--primary-plum) transition-colors" />
               </button>
             ))}
           </div>
@@ -243,10 +243,10 @@ export function BookingModal() {
                 <button
                   key={s.id}
                   onClick={() => { setSelectedServiceId(s.id); setStep(3); }}
-                  className="flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-[var(--primary-plum)] hover:bg-[var(--primary-plum)]/5 transition-all text-left group bg-white"
+                  className="flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-(--primary-plum) hover:bg-(--primary-plum)/5 transition-all text-left group bg-white"
                 >
                   <span className="font-medium text-gray-800">{s.name}</span>
-                  <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[var(--primary-plum)] transition-colors" />
+                  <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-(--primary-plum) transition-colors" />
                 </button>
               ))}
             </div>
@@ -276,7 +276,7 @@ export function BookingModal() {
                 setSelectedDate(e.target.value);
                 setSelectedSlot('');
               }}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-[var(--primary-plum)] focus:border-[var(--primary-plum)]"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-(--primary-plum) focus:border-(--primary-plum)"
             />
           </div>
 
@@ -294,8 +294,8 @@ export function BookingModal() {
                       onClick={() => setSelectedSlot(slot.start_time)}
                       className={`py-2 px-3 text-sm font-medium rounded-lg transition-colors ${
                         !slot.available ? 'bg-gray-100 text-gray-400 cursor-not-allowed' :
-                        selectedSlot === slot.start_time ? 'bg-[var(--primary-plum)] text-white shadow-md' :
-                        'bg-white text-gray-700 border border-gray-200 hover:border-[var(--primary-plum)] hover:text-[var(--primary-plum)]'
+                        selectedSlot === slot.start_time ? 'bg-(--primary-plum) text-white shadow-md' :
+                        'bg-white text-gray-700 border border-gray-200 hover:border-(--primary-plum) hover:text-(--primary-plum)'
                       }`}
                     >
                       {slot.start_time}
@@ -359,7 +359,7 @@ export function BookingModal() {
             <label className="block text-sm font-medium text-gray-700 mb-1">Additional Notes (Optional)</label>
             <textarea
               rows={3}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-[var(--primary-plum)] focus:border-[var(--primary-plum)]"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-(--primary-plum) focus:border-(--primary-plum)"
               value={patientDetails.notes}
               onChange={(e) => setPatientDetails({...patientDetails, notes: e.target.value})}
               placeholder="Any specific symptoms or requests?"
@@ -381,7 +381,7 @@ export function BookingModal() {
           <p className="text-gray-600 mb-6 text-lg">Your appointment has been successfully scheduled.</p>
           <div className="bg-gray-50 rounded-xl p-6 mb-8 max-w-sm mx-auto border border-gray-200">
             <p className="text-sm text-gray-500 mb-1 uppercase tracking-wider font-semibold">Booking Reference</p>
-            <p className="text-2xl font-mono font-bold text-[var(--primary-plum)]">{bookingCode}</p>
+            <p className="text-2xl font-mono font-bold text-(--primary-plum)">{bookingCode}</p>
           </div>
           <Button onClick={closeModal} variant="outline" className="w-full sm:w-auto">
             Close & Return

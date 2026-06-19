@@ -169,13 +169,13 @@ export default function AdminPaymentsPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-        <h1 className="text-2xl font-bold text-gray-900 font-cinzel">Payments</h1>
+        <h1 className="text-4xl font-bold text-slate-900 font-primary tracking-tight mb-2">Payments</h1>
         <Button onClick={() => handleOpenModal()} className="flex items-center gap-2">
           <Plus className="w-4 h-4" /> Record Payment
         </Button>
       </div>
 
-      <div className="bg-white p-4 rounded-xl shadow-sm ring-1 ring-gray-900/5 flex items-center gap-2">
+      <div className="glass-panel p-6 rounded-3xl shadow-soft flex items-center gap-2">
         <Search className="w-5 h-5 text-gray-400" />
         <input
           type="text"
@@ -186,59 +186,59 @@ export default function AdminPaymentsPage() {
         />
       </div>
 
-      <div className="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl overflow-hidden">
+      <div className="glass-panel shadow-soft rounded-3xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-slate-50/50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & TXN</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Linked To</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Method & Status</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Date & TXN</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Linked To</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Amount</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Method & Status</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white/20 divide-y divide-slate-100/60">
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-gray-500">Loading payments...</td>
+                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">Loading payments...</td>
                 </tr>
               ) : filteredPayments.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-gray-500">No payments found</td>
+                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">No payments found</td>
                 </tr>
               ) : (
                 filteredPayments.map((payment) => (
-                  <tr key={payment.id} className="hover:bg-gray-50">
+                  <tr key={payment.id} className="hover:bg-white/60 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{new Date(payment.created_at).toLocaleString()}</div>
-                      <div className="text-xs text-gray-500 font-mono mt-1">{payment.transaction_id || 'N/A'}</div>
+                      <div className="text-sm text-slate-800">{new Date(payment.created_at).toLocaleString()}</div>
+                      <div className="text-xs text-slate-500 font-mono mt-1">{payment.transaction_id || 'N/A'}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-800">
                       {payment.invoice_id && <div>Inv #{payment.invoice_id}</div>}
                       {payment.booking_id && <div>Booking #{payment.booking_id}</div>}
                       {!payment.invoice_id && !payment.booking_id && <span className="text-gray-400">Unlinked</span>}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-bold text-gray-900">{Number(payment.amount || 0).toFixed(2)}</div>
+                      <div className="text-sm font-bold text-slate-800">{Number(payment.amount || 0).toFixed(2)}</div>
                       {Number(payment.refund_amount || 0) > 0 && (
                         <div className="text-xs text-red-500">Refunded: {Number(payment.refund_amount || 0).toFixed(2)}</div>
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 capitalize">{payment.payment_method.replace(/_/g, ' ')}</div>
+                      <div className="text-sm text-slate-800 capitalize">{payment.payment_method.replace(/_/g, ' ')}</div>
                       <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium capitalize mt-1
-                        ${payment.payment_status === 'paid' ? 'bg-green-100 text-green-800' : 
-                          payment.payment_status === 'refunded' ? 'bg-purple-100 text-purple-800' : 
-                          'bg-yellow-100 text-yellow-800'}`}>
+                        ${payment.payment_status === 'paid' ? 'bg-green-100/80 text-green-800 border border-green-200' : 
+                          payment.payment_status === 'refunded' ? 'bg-purple-100/80 text-purple-800 border border-purple-200' : 
+                          'bg-yellow-100/80 text-yellow-800 border border-yellow-200'}`}>
                         {payment.payment_status.replace(/_/g, ' ')}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                      <button onClick={() => handleQueueEmail(payment.id)} className="text-gray-500 hover:text-blue-600" title="Email Receipt">
+                      <button onClick={() => handleQueueEmail(payment.id)} className="text-slate-500 hover:text-blue-600" title="Email Receipt">
                         <Mail className="w-5 h-5" />
                       </button>
-                      <button onClick={() => handleOpenModal(payment)} className="text-indigo-600 hover:text-indigo-900" title="Edit">
+                      <button onClick={() => handleOpenModal(payment)} className="text-(--primary-plum) hover:text-(--primary-plum-light)" title="Edit">
                         <Edit2 className="w-5 h-5" />
                       </button>
                       <button onClick={() => handleDelete(payment.id)} className="text-red-600 hover:text-red-900" title="Delete">
@@ -263,7 +263,7 @@ export default function AdminPaymentsPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Link Invoice</label>
               <select
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#B48F57] focus:ring-[#B48F57] sm:text-sm"
+                className="w-full rounded-md border-slate-200/50 bg-white/40 shadow-sm focus:border-(--primary-gold) focus:ring-(--primary-gold) sm:text-sm"
                 value={formData.invoice_id}
                 onChange={(e) => handleInvoiceSelect(e.target.value)}
               >
@@ -308,7 +308,7 @@ export default function AdminPaymentsPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Method *</label>
               <select
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#B48F57] focus:ring-[#B48F57] sm:text-sm"
+                className="w-full rounded-md border-slate-200/50 bg-white/40 shadow-sm focus:border-(--primary-gold) focus:ring-(--primary-gold) sm:text-sm"
                 value={formData.payment_method}
                 onChange={(e) => setFormData({ ...formData, payment_method: e.target.value })}
                 required
@@ -322,7 +322,7 @@ export default function AdminPaymentsPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Status *</label>
               <select
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#B48F57] focus:ring-[#B48F57] sm:text-sm"
+                className="w-full rounded-md border-slate-200/50 bg-white/40 shadow-sm focus:border-(--primary-gold) focus:ring-(--primary-gold) sm:text-sm"
                 value={formData.payment_status}
                 onChange={(e) => setFormData({ ...formData, payment_status: e.target.value })}
                 required

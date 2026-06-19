@@ -71,8 +71,8 @@ export default function AdminAuditLogsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 font-cinzel">System Audit Logs</h1>
-          <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+          <h1 className="text-4xl font-bold text-slate-900 font-primary tracking-tight mb-2">System Audit Logs</h1>
+          <p className="text-sm text-slate-500 mt-1 flex items-center gap-1">
             <ShieldAlert className="w-4 h-4" /> Super Admin access required. Logs are read-only.
           </p>
         </div>
@@ -81,7 +81,7 @@ export default function AdminAuditLogsPage() {
           <select
             value={actionFilter}
             onChange={(e) => setActionFilter(e.target.value)}
-            className="border-gray-300 rounded-md shadow-sm focus:ring-[#B48F57] focus:border-[#B48F57] sm:text-sm"
+            className="border-slate-200/50 bg-white/40 rounded-md shadow-sm focus:ring-(--primary-gold) focus:border-(--primary-gold) sm:text-sm transition-colors"
           >
             <option value="">All Actions</option>
             <option value="create">Create</option>
@@ -100,7 +100,7 @@ export default function AdminAuditLogsPage() {
         </div>
       ) : (
         <>
-          <div className="bg-white p-4 rounded-xl shadow-sm ring-1 ring-gray-900/5 flex items-center gap-2">
+          <div className="glass-panel p-6 rounded-3xl shadow-soft flex items-center gap-2">
             <Search className="w-5 h-5 text-gray-400" />
             <input
               type="text"
@@ -111,65 +111,65 @@ export default function AdminAuditLogsPage() {
             />
           </div>
 
-          <div className="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl overflow-hidden">
+          <div className="glass-panel shadow-soft rounded-3xl overflow-hidden">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+                <thead className="bg-slate-50/50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamp</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actor</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action & Entity</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">IP / Context</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Timestamp</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Actor</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Action & Entity</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">IP / Context</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Details</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white/20 divide-y divide-slate-100/60">
                   {loading ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center text-gray-500">Loading audit logs...</td>
+                      <td colSpan={5} className="px-6 py-12 text-center text-slate-500">Loading audit logs...</td>
                     </tr>
                   ) : filteredLogs.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center text-gray-500">No logs found</td>
+                      <td colSpan={5} className="px-6 py-12 text-center text-slate-500">No logs found</td>
                     </tr>
                   ) : (
                     filteredLogs.map((log) => (
-                      <tr key={log.id} className="hover:bg-gray-50">
+                      <tr key={log.id} className="hover:bg-white/60 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">{new Date(log.created_at).toLocaleString()}</div>
-                          <div className="text-xs text-gray-500 font-mono mt-1">ID: {log.id}</div>
+                          <div className="text-sm font-medium text-slate-800">{new Date(log.created_at).toLocaleString()}</div>
+                          <div className="text-xs text-slate-500 font-mono mt-1">ID: {log.id}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center space-x-2">
                             <User className="w-4 h-4 text-gray-400" />
                             <div>
-                              <div className="text-sm font-medium text-gray-900">{log.user?.name || `User ID: ${log.user_id}`}</div>
-                              {log.user?.email && <div className="text-xs text-gray-500">{log.user.email}</div>}
+                              <div className="text-sm font-medium text-slate-800">{log.user?.name || `User ID: ${log.user_id}`}</div>
+                              {log.user?.email && <div className="text-xs text-slate-500">{log.user.email}</div>}
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center space-x-2">
                             <Activity className="w-4 h-4 text-[#B48F57]" />
-                            <span className="text-sm font-bold capitalize text-gray-900">{log.action}</span>
+                            <span className="text-sm font-bold capitalize text-slate-800">{log.action}</span>
                           </div>
-                          <div className="text-sm text-gray-500 mt-1">
+                          <div className="text-sm text-slate-500 mt-1">
                             {log.entity_type} {log.entity_id ? `(#${log.entity_id})` : ''}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center space-x-2 text-sm text-gray-900">
+                          <div className="flex items-center space-x-2 text-sm text-slate-800">
                             <Globe className="w-4 h-4 text-gray-400" />
                             <span>{log.ip_address || 'N/A'}</span>
                           </div>
                           {log.user_agent && (
-                            <div className="text-xs text-gray-500 mt-1 truncate max-w-[150px]" title={log.user_agent}>
+                            <div className="text-xs text-slate-500 mt-1 truncate max-w-[150px]" title={log.user_agent}>
                               {log.user_agent.split(' ')[0]}
                             </div>
                           )}
                         </td>
                         <td className="px-6 py-4">
-                          <div className="text-xs font-mono text-gray-500 max-h-24 overflow-y-auto max-w-xs whitespace-pre-wrap break-words bg-gray-50 p-2 rounded border border-gray-100">
+                          <div className="text-xs font-mono text-slate-500 max-h-24 overflow-y-auto max-w-xs whitespace-pre-wrap break-words bg-gray-50 p-2 rounded border border-gray-100">
                             {log.new_value && <div><span className="font-semibold text-gray-700">Changes:</span> {JSON.stringify(log.new_value)}</div>}
                             {!log.new_value && !log.old_value && <span>No data payload</span>}
                             {log.old_value && !log.new_value && <div><span className="font-semibold text-gray-700">Deleted Data:</span> {JSON.stringify(log.old_value)}</div>}

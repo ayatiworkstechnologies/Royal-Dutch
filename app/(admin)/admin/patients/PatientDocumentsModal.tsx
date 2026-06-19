@@ -107,7 +107,7 @@ export function PatientDocumentsModal({ isOpen, onClose, patient }: PatientDocum
               <div>
                 <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Document Type</label>
                 <select 
-                  className="w-full border-gray-300 rounded-md shadow-sm focus:ring-[var(--primary-plum)] focus:border-[var(--primary-plum)] sm:text-sm"
+                  className="w-full border-slate-200/50 bg-white/40 rounded-md shadow-sm focus:ring-(--primary-plum) focus:border-(--primary-plum) sm:text-sm transition-colors"
                   value={formData.document_type}
                   onChange={e => setFormData({...formData, document_type: e.target.value})}
                 >
@@ -142,9 +142,9 @@ export function PatientDocumentsModal({ isOpen, onClose, patient }: PatientDocum
             <p className="text-slate-500 font-secondary">No medical documents found for this patient.</p>
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="glass-panel rounded-3xl shadow-soft border-0 overflow-hidden">
             <table className="min-w-full divide-y divide-slate-200">
-              <thead className="bg-slate-50">
+              <thead className="bg-slate-50/50">
                 <tr>
                   <th className="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase">Document</th>
                   <th className="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase">Type</th>
@@ -152,13 +152,13 @@ export function PatientDocumentsModal({ isOpen, onClose, patient }: PatientDocum
                   <th className="px-4 py-3 text-right text-xs font-bold text-slate-500 uppercase">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="bg-white/20 divide-y divide-slate-100/60">
                 {documents.map(doc => (
                   <tr key={doc.id} className="hover:bg-slate-50">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="p-2 bg-[var(--primary-plum)]/10 rounded-lg">
-                          <FileText className="w-4 h-4 text-[var(--primary-plum)]" />
+                        <div className="p-2 bg-(--primary-plum)/10 rounded-lg">
+                          <FileText className="w-4 h-4 text-(--primary-plum)" />
                         </div>
                         <div>
                           <p className="text-sm font-bold text-slate-900">{doc.title}</p>
@@ -180,7 +180,7 @@ export function PatientDocumentsModal({ isOpen, onClose, patient }: PatientDocum
                           href={doc.external_url} 
                           target="_blank" 
                           rel="noreferrer"
-                          className="text-[var(--primary-plum)] hover:text-plum-800 transition-colors inline-block"
+                          className="text-(--primary-plum) hover:text-plum-800 transition-colors inline-block"
                           title="Open Document"
                         >
                           <ExternalLink className="w-4 h-4" />

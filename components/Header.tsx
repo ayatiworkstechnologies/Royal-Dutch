@@ -518,11 +518,82 @@ function MobileAccordion({
   );
 }
 
+function UserDropdown({ user, logout }: { user: any, logout: () => void }) {
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex h-[40px] w-[40px] items-center justify-center rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] text-black transition hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:w-[46px]"
+        aria-label="User menu"
+      >
+        <UserIcon className="h-4 w-4 xl:h-5 xl:w-5" />
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-[calc(100%+8px)] z-[99999] min-w-[200px] rounded-[12px] border border-gray-100 bg-white p-2 shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+          {user ? (
+            <>
+              <div className="mb-1 border-b border-gray-100 px-3 py-2 pb-3 font-secondary text-[14px] font-bold text-gray-800">
+                {user.full_name || user.first_name || user.name || "User"}
+              </div>
+              <Link
+                href={user.role === 'customer' ? "/customer/dashboard" : "/admin"}
+                className="block rounded-[8px] px-3 py-2 font-secondary text-[14px] font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-[#8b1d72]"
+                onClick={() => setOpen(false)}
+              >
+                Dashboard
+              </Link>
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  logout();
+                }}
+                className="mt-1 w-full rounded-[8px] px-3 py-2 text-left font-secondary text-[14px] font-medium text-red-600 transition-colors hover:bg-red-50"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="block rounded-[8px] px-3 py-2 font-secondary text-[14px] font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-[#8b1d72]"
+                onClick={() => setOpen(false)}
+              >
+                Patient Login
+              </Link>
+              <Link
+                href="/admin/login"
+                className="block rounded-[8px] px-3 py-2 font-secondary text-[14px] font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-[#8b1d72]"
+                onClick={() => setOpen(false)}
+              >
+                Staff Login
+              </Link>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 export default function Header() {
   const pathname = usePathname();
   const currentPath = cleanPath(pathname);
   const { openModal } = useBookingModal();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<"medical" | "care" | null>(null);
@@ -717,32 +788,7 @@ export default function Header() {
             </div>
 
             <div className="hidden justify-end lg:flex lg:items-center lg:gap-3">
-              {user?.role === "customer" ? (
-                <Link
-                  href="/customer/dashboard"
-                  onMouseEnter={closeDesktopMenuNow}
-                  onFocus={closeDesktopMenuNow}
-                  className="flex h-[40px] items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-4 font-secondary text-[13px] font-semibold text-black transition hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:text-[14px]"
-                  title="Dashboard"
-                >
-                  <UserIcon className="h-4 w-4 xl:h-5 xl:w-5" />
-                  <span className="hidden whitespace-nowrap lg:inline">
-                    {user.first_name || "Dashboard"}
-                  </span>
-                </Link>
-              ) : (
-                <Link
-                  href="/login"
-                  onMouseEnter={closeDesktopMenuNow}
-                  onFocus={closeDesktopMenuNow}
-                  className="flex h-[40px] items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-4 font-secondary text-[13px] font-semibold text-black transition hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:text-[14px]"
-                >
-                  <UserIcon className="h-4 w-4 xl:h-5 xl:w-5" />
-                  <span className="hidden whitespace-nowrap lg:inline">
-                    Login
-                  </span>
-                </Link>
-              )}
+              <UserDropdown user={user} logout={logout} />
 
               <button
                 onMouseEnter={closeDesktopMenuNow}
@@ -794,24 +840,45 @@ export default function Header() {
               );
             })}
 
-            {user?.role === "customer" ? (
-              <Link
-                href="/customer/dashboard"
-                onClick={closeMobileMenu}
-                className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
-              >
-                <UserIcon className="h-5 w-5" />
-                {user.first_name || "Dashboard"}
-              </Link>
+            {user ? (
+              <>
+                <Link
+                  href={user.role === 'customer' ? "/customer/dashboard" : "/admin"}
+                  onClick={closeMobileMenu}
+                  className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
+                >
+                  <UserIcon className="h-5 w-5" />
+                  {user.full_name || user.first_name || user.name || "Dashboard"}
+                </Link>
+                <button
+                  onClick={() => {
+                    closeMobileMenu();
+                    logout();
+                  }}
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-[10px] border border-red-200 bg-red-50 px-5 py-3 font-secondary text-[15px] font-bold text-red-600"
+                >
+                  Logout
+                </button>
+              </>
             ) : (
-              <Link
-                href="/login"
-                onClick={closeMobileMenu}
-                className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
-              >
-                <UserIcon className="h-5 w-5" />
-                Login
-              </Link>
+              <>
+                <Link
+                  href="/login"
+                  onClick={closeMobileMenu}
+                  className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
+                >
+                  <UserIcon className="h-5 w-5" />
+                  Patient Login
+                </Link>
+                <Link
+                  href="/admin/login"
+                  onClick={closeMobileMenu}
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
+                >
+                  <UserIcon className="h-5 w-5" />
+                  Staff Login
+                </Link>
+              </>
             )}
 
             <button

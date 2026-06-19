@@ -147,13 +147,13 @@ export default function AdminServicesPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-        <h1 className="text-2xl font-bold text-gray-900 font-cinzel">Services</h1>
+        <h1 className="text-4xl font-bold text-slate-900 font-primary tracking-tight mb-2">Services</h1>
         <Button onClick={() => handleOpenModal()} className="flex items-center gap-2">
           <Plus className="w-4 h-4" /> Add Service
         </Button>
       </div>
 
-      <div className="bg-white p-4 rounded-xl shadow-sm ring-1 ring-gray-900/5 flex items-center gap-2">
+      <div className="glass-panel p-6 rounded-3xl shadow-soft flex items-center gap-2">
         <Search className="w-5 h-5 text-gray-400" />
         <input
           type="text"
@@ -164,48 +164,48 @@ export default function AdminServicesPage() {
         />
       </div>
 
-      <div className="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl overflow-hidden">
+      <div className="glass-panel shadow-soft rounded-3xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-slate-50/50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration / Price</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Service Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Category</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Duration / Price</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white/20 divide-y divide-slate-100/60">
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-gray-500">Loading services...</td>
+                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">Loading services...</td>
                 </tr>
               ) : filteredServices.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-gray-500">No services found</td>
+                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">No services found</td>
                 </tr>
               ) : (
                 filteredServices.map((service) => (
-                  <tr key={service.id} className="hover:bg-gray-50">
+                  <tr key={service.id} className="hover:bg-white/60 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{service.name}</div>
-                      <div className="text-xs text-gray-500 font-mono mt-1">{service.slug}</div>
+                      <div className="text-sm font-medium text-slate-800">{service.name}</div>
+                      <div className="text-xs text-slate-500 font-mono mt-1">{service.slug}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{service.category_name || `ID: ${service.category_id}`}</div>
+                      <div className="text-sm text-slate-500">{service.category_name || `ID: ${service.category_id}`}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{service.duration_minutes ? `${service.duration_minutes} mins` : '-'}</div>
-                      <div className="text-sm text-gray-500">{service.price ? `${service.price} ${service.currency}` : '-'}</div>
+                      <div className="text-sm text-slate-800">{service.duration_minutes ? `${service.duration_minutes} mins` : '-'}</div>
+                      <div className="text-sm text-slate-500">{service.price ? `${service.price} ${service.currency}` : '-'}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${service.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${service.status === 'active' ? 'bg-green-100/80 text-green-800 border border-green-200' : 'bg-red-100/80 text-red-800 border border-red-200'}`}>
                         {service.status}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
-                      <button onClick={() => handleOpenModal(service)} className="text-indigo-600 hover:text-indigo-900 inline-flex items-center">
+                      <button onClick={() => handleOpenModal(service)} className="text-(--primary-plum) hover:text-(--primary-plum-light) inline-flex items-center">
                         <Edit2 className="w-4 h-4 mr-1" /> Edit
                       </button>
                       <button onClick={() => handleDelete(service.id)} className="text-red-600 hover:text-red-900 inline-flex items-center">
@@ -247,7 +247,7 @@ export default function AdminServicesPage() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Category *</label>
             <select
-              className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#B48F57] focus:ring-[#B48F57] sm:text-sm"
+              className="w-full rounded-md border-slate-200/50 bg-white/40 shadow-sm focus:border-(--primary-gold) focus:ring-(--primary-gold) sm:text-sm"
               value={formData.category_id}
               onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
               required
@@ -280,7 +280,7 @@ export default function AdminServicesPage() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
             <textarea
-              className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#B48F57] focus:ring-[#B48F57] sm:text-sm"
+              className="w-full rounded-md border-slate-200/50 bg-white/40 shadow-sm focus:border-(--primary-gold) focus:ring-(--primary-gold) sm:text-sm"
               rows={3}
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -290,7 +290,7 @@ export default function AdminServicesPage() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
             <select
-              className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#B48F57] focus:ring-[#B48F57] sm:text-sm"
+              className="w-full rounded-md border-slate-200/50 bg-white/40 shadow-sm focus:border-(--primary-gold) focus:ring-(--primary-gold) sm:text-sm"
               value={formData.status}
               onChange={(e) => setFormData({ ...formData, status: e.target.value })}
             >

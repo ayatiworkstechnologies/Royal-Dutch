@@ -102,7 +102,7 @@ export default function AdminMailPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-        <h1 className="text-2xl font-bold text-gray-900 font-cinzel">Mail Queue</h1>
+        <h1 className="text-4xl font-bold text-slate-900 font-primary tracking-tight mb-2">Mail Queue</h1>
         <div className="flex space-x-3">
           <Button variant="outline" onClick={checkSmtp} isLoading={testingSmtp}>
             <RefreshCw className="w-4 h-4 mr-2" /> Test SMTP
@@ -123,7 +123,7 @@ export default function AdminMailPage() {
         </div>
       )}
 
-      <div className="bg-white p-4 rounded-xl shadow-sm ring-1 ring-gray-900/5 flex items-center gap-2">
+      <div className="glass-panel p-6 rounded-3xl shadow-soft flex items-center gap-2">
         <Search className="w-5 h-5 text-gray-400" />
         <input
           type="text"
@@ -134,42 +134,42 @@ export default function AdminMailPage() {
         />
       </div>
 
-      <div className="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl overflow-hidden">
+      <div className="glass-panel shadow-soft rounded-3xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-slate-50/50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recipient</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status / Error</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Recipient</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Subject</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status / Error</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white/20 divide-y divide-slate-100/60">
               {loading ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-12 text-center text-gray-500">Loading mail queue...</td>
+                  <td colSpan={4} className="px-6 py-12 text-center text-slate-500">Loading mail queue...</td>
                 </tr>
               ) : filteredMails.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-12 text-center text-gray-500">Queue is empty</td>
+                  <td colSpan={4} className="px-6 py-12 text-center text-slate-500">Queue is empty</td>
                 </tr>
               ) : (
                 filteredMails.map((mail) => (
-                  <tr key={mail.id} className="hover:bg-gray-50">
+                  <tr key={mail.id} className="hover:bg-white/60 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{mail.recipient_email}</div>
-                      <div className="text-xs text-gray-500">{new Date(mail.created_at).toLocaleString()}</div>
+                      <div className="text-sm font-medium text-slate-800">{mail.recipient_email}</div>
+                      <div className="text-xs text-slate-500">{new Date(mail.created_at).toLocaleString()}</div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900 line-clamp-1">{mail.subject}</div>
+                      <div className="text-sm text-slate-800 line-clamp-1">{mail.subject}</div>
                     </td>
                     <td className="px-6 py-4">
                       <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize
-                        ${mail.status === 'sent' ? 'bg-green-100 text-green-800' : 
-                          mail.status === 'failed' ? 'bg-red-100 text-red-800' : 
-                          mail.status === 'queued' ? 'bg-yellow-100 text-yellow-800' : 
-                          'bg-gray-100 text-gray-800'}`}>
+                        ${mail.status === 'sent' ? 'bg-green-100/80 text-green-800 border border-green-200' : 
+                          mail.status === 'failed' ? 'bg-red-100/80 text-red-800 border border-red-200' : 
+                          mail.status === 'queued' ? 'bg-yellow-100/80 text-yellow-800 border border-yellow-200' : 
+                          'bg-gray-100/80 text-gray-800 border border-gray-200'}`}>
                         {mail.status}
                       </span>
                       {mail.status === 'failed' && mail.error_message && (
@@ -178,7 +178,7 @@ export default function AdminMailPage() {
                         </div>
                       )}
                       {mail.retry_count > 0 && (
-                        <div className="text-xs text-gray-500 mt-1">Retries: {mail.retry_count}</div>
+                        <div className="text-xs text-slate-500 mt-1">Retries: {mail.retry_count}</div>
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">

@@ -115,13 +115,13 @@ export default function AdminEmailTemplatesPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-        <h1 className="text-2xl font-bold text-gray-900 font-cinzel">Email Templates</h1>
+        <h1 className="text-4xl font-bold text-slate-900 font-primary tracking-tight mb-2">Email Templates</h1>
         <Button onClick={() => handleOpenModal()} className="flex items-center gap-2">
           <Plus className="w-4 h-4" /> Add Template
         </Button>
       </div>
 
-      <div className="bg-white p-4 rounded-xl shadow-sm ring-1 ring-gray-900/5 flex items-center gap-2">
+      <div className="glass-panel p-6 rounded-3xl shadow-soft flex items-center gap-2">
         <Search className="w-5 h-5 text-gray-400" />
         <input
           type="text"
@@ -132,44 +132,44 @@ export default function AdminEmailTemplatesPage() {
         />
       </div>
 
-      <div className="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl overflow-hidden">
+      <div className="glass-panel shadow-soft rounded-3xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-slate-50/50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Template Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Template Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Subject</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white/20 divide-y divide-slate-100/60">
               {loading ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-12 text-center text-gray-500">Loading templates...</td>
+                  <td colSpan={4} className="px-6 py-12 text-center text-slate-500">Loading templates...</td>
                 </tr>
               ) : filteredTemplates.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-12 text-center text-gray-500">No templates found</td>
+                  <td colSpan={4} className="px-6 py-12 text-center text-slate-500">No templates found</td>
                 </tr>
               ) : (
                 filteredTemplates.map((template) => (
-                  <tr key={template.id} className="hover:bg-gray-50">
+                  <tr key={template.id} className="hover:bg-white/60 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{template.name}</div>
-                      <div className="text-xs text-gray-500 font-mono mt-1">{template.slug}</div>
+                      <div className="text-sm font-medium text-slate-800">{template.name}</div>
+                      <div className="text-xs text-slate-500 font-mono mt-1">{template.slug}</div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900">{template.subject}</div>
-                      <div className="text-xs text-gray-500 line-clamp-1">{template.description || '-'}</div>
+                      <div className="text-sm text-slate-800">{template.subject}</div>
+                      <div className="text-xs text-slate-500 line-clamp-1">{template.description || '-'}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${template.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${template.status === 'active' ? 'bg-green-100/80 text-green-800 border border-green-200' : 'bg-red-100/80 text-red-800 border border-red-200'}`}>
                         {template.status}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
-                      <button onClick={() => handleOpenModal(template)} className="text-indigo-600 hover:text-indigo-900 inline-flex items-center">
+                      <button onClick={() => handleOpenModal(template)} className="text-(--primary-plum) hover:text-(--primary-plum-light) inline-flex items-center">
                         <Edit2 className="w-4 h-4 mr-1" /> Edit
                       </button>
                       <button onClick={() => handleDelete(template.id)} className="text-red-600 hover:text-red-900 inline-flex items-center">
@@ -226,19 +226,19 @@ export default function AdminEmailTemplatesPage() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email Body (HTML) *</label>
             <textarea
-              className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#B48F57] focus:ring-[#B48F57] sm:text-sm font-mono"
+              className="w-full rounded-md border-slate-200/50 bg-white/40 shadow-sm focus:border-(--primary-gold) focus:ring-(--primary-gold) sm:text-sm font-mono"
               rows={8}
               value={formData.body}
               onChange={(e) => setFormData({ ...formData, body: e.target.value })}
               required
             />
-            <p className="text-xs text-gray-500 mt-1">Use HTML tags to format your email. You can use variables like {'{{name}}'} or {'{{booking_date}}'} depending on context.</p>
+            <p className="text-xs text-slate-500 mt-1">Use HTML tags to format your email. You can use variables like {'{{name}}'} or {'{{booking_date}}'} depending on context.</p>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
             <select
-              className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#B48F57] focus:ring-[#B48F57] sm:text-sm"
+              className="w-full rounded-md border-slate-200/50 bg-white/40 shadow-sm focus:border-(--primary-gold) focus:ring-(--primary-gold) sm:text-sm"
               value={formData.status}
               onChange={(e) => setFormData({ ...formData, status: e.target.value })}
             >

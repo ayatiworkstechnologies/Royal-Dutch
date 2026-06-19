@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { ROLE_LABELS } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
 import { Plus, Edit2, Trash2, ShieldCheck, UserCog } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -121,16 +122,16 @@ export default function AdminUsersPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-        <h1 className="text-3xl font-bold text-slate-900 font-primary tracking-tight">System Users</h1>
+        <h1 className="text-4xl font-bold text-slate-900 font-primary tracking-tight mb-2">System Users</h1>
         <Button onClick={() => handleOpenModal()} className="flex items-center gap-2">
           <Plus className="w-4 h-4" /> Add User
         </Button>
       </div>
 
-      <div className="bg-white shadow-soft ring-1 ring-slate-900/5 rounded-2xl overflow-hidden hover-lift transition-all">
+      <div className="glass-panel shadow-soft rounded-3xl overflow-hidden hover-lift transition-all">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-slate-200">
-            <thead className="bg-slate-50">
+            <thead className="bg-slate-50/50">
               <tr>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider font-secondary">Name</th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider font-secondary">Email</th>
@@ -139,7 +140,7 @@ export default function AdminUsersPage() {
                 <th className="px-6 py-4 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider font-secondary">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-slate-100">
+            <tbody className="bg-white/20 divide-y divide-slate-100/60">
               {loading ? (
                 <tr>
                   <td colSpan={5} className="px-6 py-12 text-center text-slate-500 font-secondary">Loading users...</td>
@@ -150,31 +151,31 @@ export default function AdminUsersPage() {
                 </tr>
               ) : (
                 users.map((u) => (
-                  <tr key={u.id} className="hover:bg-slate-50 transition-colors">
+                  <tr key={u.id} className="hover:bg-white/60 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="h-8 w-8 rounded-full bg-[var(--primary-plum)]/10 flex items-center justify-center mr-3">
-                          <UserCog className="h-4 w-4 text-[var(--primary-plum)]" />
+                        <div className="h-8 w-8 rounded-full bg-(--primary-plum)/10 flex items-center justify-center mr-3">
+                          <UserCog className="h-4 w-4 text-(--primary-plum)" />
                         </div>
-                        <div className="text-sm font-medium text-gray-900">{u.name}</div>
+                        <div className="text-sm font-medium text-slate-800">{u.name}</div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
                       {u.email}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-slate-100 text-slate-800 capitalize border border-slate-200">
-                        {u.role.replace('_', ' ')}
+                        {ROLE_LABELS[u.role] ?? u.role.replace('_', ' ')}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize 
-                        ${u.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                        ${u.is_active ? 'bg-green-100/80 text-green-800 border border-green-200' : 'bg-red-100/80 text-red-800 border border-red-200'}`}>
                         {u.is_active ? 'Active' : 'Inactive'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
-                      <button onClick={() => handleOpenModal(u)} className="text-indigo-600 hover:text-indigo-900 transition-colors" title="Edit User">
+                      <button onClick={() => handleOpenModal(u)} className="text-(--primary-plum) hover:text-(--primary-plum-light) transition-colors" title="Edit User">
                         <Edit2 className="w-4 h-4 inline-block" />
                       </button>
                       <button 
@@ -223,7 +224,7 @@ export default function AdminUsersPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1 font-secondary">
-              Password {editingUser && <span className="text-xs text-gray-500 font-normal">(Leave blank to keep existing)</span>}
+              Password {editingUser && <span className="text-xs text-slate-500 font-normal">(Leave blank to keep existing)</span>}
             </label>
             <Input
               type="password"
@@ -238,12 +239,13 @@ export default function AdminUsersPage() {
             <label className="block text-sm font-medium text-gray-700 mb-1 font-secondary">Role</label>
             <select
               required
-              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-[var(--primary-plum)] focus:border-[var(--primary-plum)] sm:text-sm rounded-md"
+              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-slate-200/50 bg-white/40 focus:outline-none focus:ring-(--primary-plum) focus:border-(--primary-plum) sm:text-sm rounded-md"
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}
             >
-              <option value="admin">Admin</option>
-              <option value="receptionist">Receptionist</option>
+              <option value="super_admin">Admin (Full Access)</option>
+              <option value="admin">Manager (View + Update)</option>
+              <option value="receptionist">Receptionist (Booking + Billing)</option>
               <option value="doctor">Doctor</option>
               <option value="accountant">Accountant</option>
               <option value="marketing">Marketing</option>
@@ -255,11 +257,11 @@ export default function AdminUsersPage() {
               <input
                 type="checkbox"
                 id="is_active"
-                className="h-4 w-4 text-[var(--primary-plum)] focus:ring-[var(--primary-plum)] border-gray-300 rounded"
+                className="h-4 w-4 text-(--primary-plum) focus:ring-(--primary-plum) border-slate-200/50 bg-white/40 rounded"
                 checked={formData.is_active}
                 onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
               />
-              <label htmlFor="is_active" className="ml-2 block text-sm text-gray-900 font-secondary">
+              <label htmlFor="is_active" className="ml-2 block text-sm text-slate-800 font-secondary">
                 Account Active
               </label>
             </div>

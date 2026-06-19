@@ -115,7 +115,7 @@ export function WhatsAppModal({ isOpen, onClose, booking }: WhatsAppModalProps) 
                 value={message}
                 onChange={e => setMessage(e.target.value)}
                 placeholder="Type your WhatsApp message here..."
-                className="w-full border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm p-3 resize-none"
+                className="w-full border-slate-200/50 bg-white/40 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm p-3 resize-none"
               />
             </div>
 

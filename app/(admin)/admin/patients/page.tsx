@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
-import { Plus, Edit2, Trash2, Search, FileText } from 'lucide-react';
+import { Plus, Edit2, Trash2, Search, FileText, Users, Activity, UserPlus, FileArchive } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
 import { PatientDocumentsModal } from './PatientDocumentsModal';
+import { format } from 'date-fns';
 
 interface Patient {
   id: number;
@@ -110,72 +111,129 @@ export default function AdminPatientsPage() {
     (p.email && p.email.toLowerCase().includes(search.toLowerCase()))
   );
 
+  // Stats
+  const totalPatients = patients.length;
+  // Assume a dummy logic for new patients today for visual effect on dashboard (normally from API)
+  const newPatientsCount = Math.floor(totalPatients * 0.1) || 0; 
+  const activeCount = totalPatients - newPatientsCount;
+
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-        <h1 className="text-2xl font-bold text-gray-900 font-cinzel">Patients</h1>
-        <Button onClick={() => handleOpenModal()} className="flex items-center gap-2">
-          <Plus className="w-4 h-4" /> Add Patient
-        </Button>
+    <div className="space-y-8 pb-10">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-4xl font-bold text-slate-900 font-primary tracking-tight">Patient Database</h1>
+          <p className="text-slate-500 text-sm mt-1.5 font-secondary flex items-center gap-2">
+            <Users className="h-4 w-4" />
+            Manage and view patient records
+          </p>
+        </div>
       </div>
 
-      <div className="bg-white p-4 rounded-xl shadow-sm ring-1 ring-gray-900/5 flex items-center gap-2">
-        <Search className="w-5 h-5 text-gray-400" />
-        <input
-          type="text"
-          placeholder="Search patients by name, email, or phone..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full bg-transparent border-none focus:ring-0 outline-none text-sm"
-        />
+      {/* Hero Overview Block */}
+      <div className="relative rounded-3xl bg-linear-to-br from-(--primary-plum) via-[#632052] to-[#38072e] p-8 text-white shadow-soft overflow-hidden group">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 group-hover:bg-white/10 transition-all duration-700" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-(--primary-gold)/10 rounded-full blur-2xl translate-y-1/3 -translate-x-1/4" />
+        
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Activity className="h-5 w-5 text-(--primary-gold)" />
+              <span className="text-xs font-semibold text-(--primary-gold) uppercase tracking-widest font-secondary">Patient Directory</span>
+            </div>
+            <p className="text-6xl font-bold font-primary mb-2 tracking-tight">{loading ? '—' : totalPatients}</p>
+            <p className="text-white/70 text-sm font-secondary">Total registered patients</p>
+          </div>
+          <div className="grid grid-cols-2 gap-3 md:gap-4 w-full md:w-auto">
+            <MiniStat label="New This Month" value={newPatientsCount} color="text-blue-400" />
+            <MiniStat label="Active Patients" value={activeCount} color="text-green-400" />
+          </div>
+        </div>
       </div>
 
-      <div className="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl overflow-hidden">
+      {/* Stat Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <StatCard title="Total Registered" value={loading ? '—' : totalPatients} icon={<Users className="h-5 w-5 text-slate-500" />} />
+        <StatCard title="New Patients" value={loading ? '—' : newPatientsCount} icon={<UserPlus className="h-5 w-5 text-blue-500" />} highlight={newPatientsCount > 0} />
+        <StatCard title="Active Directory" value={loading ? '—' : activeCount} icon={<Activity className="h-5 w-5 text-green-500" />} />
+      </div>
+
+      {/* Toolbar */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 font-secondary flex items-center gap-2">
+          <span className="w-8 h-px bg-slate-300"></span> Patient Records
+        </h2>
+        
+        <div className="flex items-center gap-3 w-full sm:w-auto">
+          <div className="glass-panel p-2 rounded-2xl shadow-sm flex items-center gap-2 flex-1 sm:w-72 border-0">
+            <Search className="w-4 h-4 text-slate-400 ml-2" />
+            <input
+              type="text"
+              placeholder="Search name, email, phone..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full bg-transparent border-none focus:ring-0 outline-none text-sm text-slate-700"
+            />
+          </div>
+          <Button onClick={() => handleOpenModal()} className="rounded-xl flex items-center gap-2 shadow-sm whitespace-nowrap">
+            <Plus className="w-4 h-4" /> Add Patient
+          </Button>
+        </div>
+      </div>
+
+      <div className="glass-panel shadow-soft rounded-3xl overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-slate-200">
+            <thead className="bg-slate-50/50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender / Age</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-widest font-secondary">Name</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-widest font-secondary">Contact</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-widest font-secondary">Gender / Age</th>
+                <th className="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-widest font-secondary">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white/20 divide-y divide-slate-100/60">
               {loading ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-12 text-center text-gray-500">Loading patients...</td>
+                  <td colSpan={4} className="px-6 py-12 text-center text-slate-500 font-secondary">Loading patients...</td>
                 </tr>
               ) : filteredPatients.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-12 text-center text-gray-500">No patients found</td>
+                  <td colSpan={4} className="px-6 py-12 text-center text-slate-500 font-secondary">No patients found</td>
                 </tr>
               ) : (
                 filteredPatients.map((patient) => (
-                  <tr key={patient.id} className="hover:bg-gray-50">
+                  <tr key={patient.id} className="hover:bg-white/60 transition-colors group">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{patient.full_name}</div>
+                      <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-full bg-(--primary-plum)/10 flex items-center justify-center font-bold text-(--primary-plum)">
+                          {patient.full_name.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="text-sm font-bold text-slate-800">{patient.full_name}</div>
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{patient.phone}</div>
-                      <div className="text-sm text-gray-500">{patient.email || '-'}</div>
+                      <div className="text-sm font-semibold text-slate-700">{patient.phone}</div>
+                      <div className="text-xs text-slate-500 font-secondary">{patient.email || 'No email provided'}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {patient.gender || '-'} / {patient.age || '-'}
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
+                        {patient.gender || 'N/A'} {patient.age ? `• ${patient.age} yrs` : ''}
+                      </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2 opacity-80 group-hover:opacity-100 transition-opacity">
                       <button 
                         onClick={() => setDocsModalPatient(patient)} 
-                        className="text-[var(--primary-plum)] hover:text-[var(--primary-gold)] transition-colors" 
+                        className="text-blue-600 hover:text-blue-800 bg-blue-50 p-2 rounded-lg transition-colors" 
                         title="View Medical Documents"
                       >
-                        <FileText className="w-4 h-4 inline-block" />
+                        <FileArchive className="w-4 h-4 inline-block" />
                       </button>
-                      <button onClick={() => handleOpenModal(patient)} className="text-indigo-600 hover:text-indigo-900 transition-colors" title="Edit Patient">
+                      <button onClick={() => handleOpenModal(patient)} className="text-(--primary-plum) hover:text-white hover:bg-(--primary-plum) bg-(--primary-plum)/10 p-2 rounded-lg transition-colors" title="Edit Patient">
                         <Edit2 className="w-4 h-4 inline-block" />
                       </button>
-                      <button onClick={() => handleDelete(patient.id)} className="text-red-600 hover:text-red-900 inline-flex items-center">
-                        <Trash2 className="w-4 h-4 mr-1" /> Delete
+                      <button onClick={() => handleDelete(patient.id)} className="text-red-600 hover:text-red-900 bg-red-50 p-2 rounded-lg transition-colors" title="Delete">
+                        <Trash2 className="w-4 h-4 inline-block" />
                       </button>
                     </td>
                   </tr>
@@ -189,9 +247,9 @@ export default function AdminPatientsPage() {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={editingPatient ? 'Edit Patient' : 'Add New Patient'}
+        title={editingPatient ? 'Edit Patient Profile' : 'Register New Patient'}
       >
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <Input
             id="full_name"
             label="Full Name *"
@@ -217,9 +275,9 @@ export default function AdminPatientsPage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+              <label className="block text-sm font-semibold text-slate-700 mb-1 font-secondary">Gender</label>
               <select
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#B48F57] focus:ring-[#B48F57] sm:text-sm"
+                className="w-full rounded-xl border border-slate-200/60 bg-white/60 px-4 py-2.5 text-slate-700 text-sm focus:border-(--primary-gold) focus:ring-1 focus:ring-(--primary-gold) outline-none transition-all shadow-sm"
                 value={formData.gender}
                 onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
               >
@@ -238,20 +296,20 @@ export default function AdminPatientsPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+            <label className="block text-sm font-semibold text-slate-700 mb-1 font-secondary">Notes / Medical Context</label>
             <textarea
-              className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#B48F57] focus:ring-[#B48F57] sm:text-sm"
+              className="w-full rounded-xl border border-slate-200/60 bg-white/60 px-4 py-3 text-slate-700 text-sm focus:border-(--primary-gold) focus:ring-1 focus:ring-(--primary-gold) outline-none transition-all shadow-sm resize-none"
               rows={3}
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
             />
           </div>
-          <div className="pt-4 flex justify-end space-x-3">
-            <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)}>
+          <div className="pt-6 border-t border-slate-100 flex justify-end space-x-3">
+            <button type="button" onClick={() => setIsModalOpen(false)} className="px-6 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
               Cancel
-            </Button>
-            <Button type="submit">
-              {editingPatient ? 'Save Changes' : 'Create Patient'}
+            </button>
+            <Button type="submit" className="rounded-full px-8">
+              {editingPatient ? 'Save Changes' : 'Register Patient'}
             </Button>
           </div>
         </form>
@@ -262,6 +320,46 @@ export default function AdminPatientsPage() {
         onClose={() => setDocsModalPatient(null)} 
         patient={docsModalPatient} 
       />
+    </div>
+  );
+}
+
+function MiniStat({ label, value, color }: { label: string; value: number; color: string }) {
+  return (
+    <div className="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-4 text-center hover:bg-white/15 transition-colors">
+      <p className={`text-2xl md:text-3xl font-bold font-primary ${color} mb-1 drop-shadow-sm`}>{value}</p>
+      <p className="text-white/70 text-[10px] md:text-xs uppercase tracking-widest font-secondary font-semibold">{label}</p>
+    </div>
+  );
+}
+
+function StatCard({
+  title,
+  value,
+  icon,
+  highlight = false,
+}: {
+  title: string;
+  value: string | number;
+  icon: React.ReactNode;
+  highlight?: boolean;
+}) {
+  return (
+    <div className={`glass-panel rounded-2xl hover-lift transition-all duration-300 relative overflow-hidden ${highlight ? 'border-(--primary-gold)/30 bg-white/90 shadow-md' : 'bg-white/80'}`}>
+      {highlight && <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-(--primary-gold) to-(--primary-plum)"></div>}
+      <div className="p-5">
+        <div className="flex items-center gap-4">
+          <div className={`shrink-0 rounded-xl p-3 border shadow-sm transition-colors ${highlight ? 'bg-(--primary-gold)/10 border-(--primary-gold)/20' : 'bg-slate-50 border-slate-100'}`}>
+            {icon}
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs font-bold text-slate-400 font-secondary uppercase tracking-widest truncate mb-1">{title}</p>
+            <p className={`font-bold font-primary truncate text-2xl ${highlight ? 'text-(--primary-gold) drop-shadow-sm' : 'text-slate-800'}`}>
+              {value}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

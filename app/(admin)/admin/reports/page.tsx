@@ -59,8 +59,8 @@ export default function AdminReportsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 font-primary tracking-tight flex items-center gap-2">
-            <BarChart3 className="w-8 h-8 text-[var(--primary-plum)]" />
+          <h1 className="text-4xl font-bold text-slate-900 font-primary tracking-tight mb-2">
+            <BarChart3 className="w-8 h-8 text-(--primary-plum)" />
             Reports & Analytics
           </h1>
           <p className="text-slate-500 mt-1 font-secondary text-sm">Comprehensive performance and financial metrics.</p>
@@ -93,26 +93,26 @@ export default function AdminReportsPage() {
         <div className="space-y-6">
           {/* Top Level KPIs */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-white rounded-2xl p-6 shadow-soft border-t-4 border-[var(--primary-plum)]">
+            <div className="bg-white rounded-2xl p-6 shadow-soft border-t-4 border-(--primary-plum)">
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-sm font-medium text-slate-500 font-secondary uppercase tracking-wider">Net Revenue</p>
                   <h3 className="text-3xl font-bold text-slate-900 mt-2 font-primary">AED {summary.revenue.net_revenue.toLocaleString(undefined, {minimumFractionDigits: 2})}</h3>
                 </div>
-                <div className="p-3 bg-[var(--primary-plum)]/10 rounded-xl">
-                  <DollarSign className="w-6 h-6 text-[var(--primary-plum)]" />
+                <div className="p-3 bg-(--primary-plum)/10 rounded-xl">
+                  <DollarSign className="w-6 h-6 text-(--primary-plum)" />
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-soft border-t-4 border-[var(--primary-gold)]">
+            <div className="bg-white rounded-2xl p-6 shadow-soft border-t-4 border-(--primary-gold)">
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-sm font-medium text-slate-500 font-secondary uppercase tracking-wider">Collected Rev</p>
                   <h3 className="text-3xl font-bold text-slate-900 mt-2 font-primary">AED {summary.revenue.collected_revenue.toLocaleString(undefined, {minimumFractionDigits: 2})}</h3>
                 </div>
-                <div className="p-3 bg-[var(--primary-gold)]/10 rounded-xl">
-                  <TrendingUp className="w-6 h-6 text-[var(--primary-gold)]" />
+                <div className="p-3 bg-(--primary-gold)/10 rounded-xl">
+                  <TrendingUp className="w-6 h-6 text-(--primary-gold)" />
                 </div>
               </div>
             </div>
@@ -161,7 +161,7 @@ export default function AdminReportsPage() {
                 </div>
                 <div className="pt-4 border-t border-slate-100 flex justify-between items-center">
                   <span className="font-bold text-slate-900">Net Revenue</span>
-                  <span className="font-bold text-xl text-[var(--primary-plum)]">AED {summary.revenue.net_revenue.toLocaleString(undefined, {minimumFractionDigits: 2})}</span>
+                  <span className="font-bold text-xl text-(--primary-plum)">AED {summary.revenue.net_revenue.toLocaleString(undefined, {minimumFractionDigits: 2})}</span>
                 </div>
               </div>
             </div>
@@ -181,7 +181,7 @@ export default function AdminReportsPage() {
                         </span>
                         <span className="text-sm font-medium text-slate-800">{svc.service}</span>
                       </div>
-                      <span className="text-sm font-bold text-[var(--primary-plum)] bg-[var(--primary-plum)]/10 px-3 py-1 rounded-full">
+                      <span className="text-sm font-bold text-(--primary-plum) bg-(--primary-plum)/10 px-3 py-1 rounded-full">
                         {svc.count} Bookings
                       </span>
                     </div>
