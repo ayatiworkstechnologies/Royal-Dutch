@@ -42,7 +42,7 @@ export default function AdminStaffPage() {
   const fetchStaff = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/v1/staff');
+      const response = await api.get('/api/staff');
       setStaffList(response.data);
     } catch (error) {
       console.error('Failed to fetch staff', error);
@@ -53,7 +53,7 @@ export default function AdminStaffPage() {
 
   const fetchServices = async () => {
     try {
-      const response = await api.get('/api/v1/services');
+      const response = await api.get('/api/services');
       setServices(response.data);
     } catch (error) {
       console.error('Failed to fetch services', error);
@@ -90,9 +90,9 @@ export default function AdminStaffPage() {
     e.preventDefault();
     try {
       if (editingStaff) {
-        await api.patch(`/api/v1/staff/${editingStaff.id}`, formData);
+        await api.patch(`/api/staff/${editingStaff.id}`, formData);
       } else {
-        await api.post('/api/v1/staff', formData);
+        await api.post('/api/staff', formData);
       }
       setIsModalOpen(false);
       fetchStaff();
@@ -105,7 +105,7 @@ export default function AdminStaffPage() {
   const handleDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this staff member?')) {
       try {
-        await api.delete(`/api/v1/staff/${id}`);
+        await api.delete(`/api/staff/${id}`);
         fetchStaff();
       } catch (error) {
         console.error('Failed to delete staff', error);

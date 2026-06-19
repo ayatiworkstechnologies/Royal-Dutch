@@ -24,7 +24,7 @@ export default function ForgotPasswordPage() {
     setLoading(true);
 
     try {
-      await api.post('/api/v1/auth/otp/request', { email });
+      await api.post('/api/auth/otp/request', { email });
       setSuccess('Verification code sent to your email.');
       setStep(2);
     } catch (err: any) {
@@ -41,7 +41,7 @@ export default function ForgotPasswordPage() {
     setLoading(true);
 
     try {
-      await api.post('/api/v1/auth/reset-password', { 
+      await api.post('/api/auth/reset-password', { 
         email, 
         code, 
         new_password: newPassword 

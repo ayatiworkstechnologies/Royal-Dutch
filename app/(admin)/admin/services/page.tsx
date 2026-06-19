@@ -51,8 +51,8 @@ export default function AdminServicesPage() {
     setLoading(true);
     try {
       const [servicesRes, categoriesRes] = await Promise.all([
-        api.get('/api/v1/services'),
-        api.get('/api/v1/categories')
+        api.get('/api/services'),
+        api.get('/api/categories')
       ]);
       setServices(servicesRes.data);
       setCategories(categoriesRes.data);
@@ -116,9 +116,9 @@ export default function AdminServicesPage() {
       };
 
       if (editingService) {
-        await api.patch(`/api/v1/services/${editingService.id}`, payload);
+        await api.patch(`/api/services/${editingService.id}`, payload);
       } else {
-        await api.post('/api/v1/services', payload);
+        await api.post('/api/services', payload);
       }
       setIsModalOpen(false);
       fetchData(); // refresh table
@@ -131,7 +131,7 @@ export default function AdminServicesPage() {
   const handleDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this service?')) {
       try {
-        await api.delete(`/api/v1/services/${id}`);
+        await api.delete(`/api/services/${id}`);
         fetchData();
       } catch (error) {
         console.error('Failed to delete service', error);

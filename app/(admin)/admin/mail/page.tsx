@@ -28,7 +28,7 @@ export default function AdminMailPage() {
   const fetchMails = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/v1/mail?limit=100');
+      const response = await api.get('/api/mail?limit=100');
       setMails(response.data.items || response.data);
     } catch (error) {
       console.error('Failed to fetch mail', error);
@@ -40,7 +40,7 @@ export default function AdminMailPage() {
   const checkSmtp = async () => {
     setTestingSmtp(true);
     try {
-      const response = await api.get('/api/v1/mail/smtp-status');
+      const response = await api.get('/api/mail/smtp-status');
       setSmtpStatus(response.data);
     } catch (error) {
       console.error('SMTP Check Failed', error);
@@ -60,7 +60,7 @@ export default function AdminMailPage() {
   const handleSendQueued = async () => {
     setProcessingQueue(true);
     try {
-      const response = await api.post('/api/v1/mail/send-queued');
+      const response = await api.post('/api/mail/send-queued');
       alert(`Sent: ${response.data.sent_count}, Failed: ${response.data.failed_count}`);
       fetchMails();
     } catch (error: any) {
@@ -73,7 +73,7 @@ export default function AdminMailPage() {
 
   const handleSendOne = async (id: number) => {
     try {
-      await api.post(`/api/v1/mail/${id}/send`);
+      await api.post(`/api/mail/${id}/send`);
       fetchMails();
       alert('Mail sent successfully!');
     } catch (error: any) {
@@ -85,7 +85,7 @@ export default function AdminMailPage() {
   const handleDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this mail record?')) {
       try {
-        await api.delete(`/api/v1/mail/${id}`);
+        await api.delete(`/api/mail/${id}`);
         fetchMails();
       } catch (error) {
         console.error('Failed to delete mail', error);

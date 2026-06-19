@@ -14,7 +14,7 @@ export default function CustomerBookingsPage() {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const res = await api.get('/api/v1/bookings/me');
+        const res = await api.get('/api/bookings/me');
         setBookings(res.data);
       } catch (err) {
         console.error("Failed to load bookings", err);

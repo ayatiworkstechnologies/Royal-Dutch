@@ -39,7 +39,7 @@ export default function AdminEmailTemplatesPage() {
   const fetchTemplates = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/v1/email-templates');
+      const response = await api.get('/api/email-templates');
       setTemplates(response.data);
     } catch (error) {
       console.error('Failed to fetch templates', error);
@@ -83,9 +83,9 @@ export default function AdminEmailTemplatesPage() {
     e.preventDefault();
     try {
       if (editingTemplate) {
-        await api.patch(`/api/v1/email-templates/${editingTemplate.id}`, formData);
+        await api.patch(`/api/email-templates/${editingTemplate.id}`, formData);
       } else {
-        await api.post('/api/v1/email-templates', formData);
+        await api.post('/api/email-templates', formData);
       }
       setIsModalOpen(false);
       fetchTemplates();
@@ -98,7 +98,7 @@ export default function AdminEmailTemplatesPage() {
   const handleDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this template?')) {
       try {
-        await api.delete(`/api/v1/email-templates/${id}`);
+        await api.delete(`/api/email-templates/${id}`);
         fetchTemplates();
       } catch (error) {
         console.error('Failed to delete template', error);

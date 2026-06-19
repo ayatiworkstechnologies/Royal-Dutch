@@ -24,7 +24,7 @@ export default function CustomerLoginPage() {
     try {
       const payload = { email, password };
 
-      const response = await api.post('/api/v1/auth/login', payload, {
+      const response = await api.post('/api/auth/login', payload, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -32,7 +32,7 @@ export default function CustomerLoginPage() {
 
       const { access_token } = response.data;
       
-      const userRes = await api.get('/api/v1/account/me', {
+      const userRes = await api.get('/api/account/me', {
         headers: { Authorization: `Bearer ${access_token}` }
       });
 

@@ -26,12 +26,14 @@ import { useBookingModal } from "@/context/BookingModalContext";
 
 // API wrappers
 const api = {
-  categories: () => axiosInstance.get('/api/v1/categories').then(res => res.data),
-  services: () => axiosInstance.get('/api/v1/services').then(res => res.data),
-  staff: () => axiosInstance.get('/api/v1/staff').then(res => res.data),
-  slots: ({ serviceId, selectedDate, staffId }: any) => axiosInstance.get('/api/v1/bookings/slots', { params: { service_id: serviceId, selected_date: selectedDate, staff_id: staffId } }).then(res => res.data),
-  createBooking: (data: any) => axiosInstance.post('/api/v1/bookings', data).then(res => res.data),
-  lookupBookings: (phone: string) => axiosInstance.get(`/api/v1/bookings/lookup?phone=${phone}`).then(res => res.data)
+  categories: () => axiosInstance.get('/api/categories').then(res => res.data),
+  services: () => axiosInstance.get('/api/services').then(res => res.data),
+  staff: () => axiosInstance.get('/api/staff').then(res => res.data),
+  slots: ({ serviceId, selectedDate, staffId }: any) => axiosInstance.get('/api/bookings/slots', { params: { service_id: serviceId, selected_date: selectedDate, staff_id: staffId } }).then(res => res.data),
+  createBooking: (data: any) => axiosInstance.post('/api/bookings', data).then(res => res.data),
+  lookupBookings: (phone: string) => axiosInstance.get(`/api/bookings/lookup?phone=${phone}`).then(res => res.data),
+  chat: (messages: { role: string; content: string }[]) =>
+    axiosInstance.post('/api/chat', { messages }).then(res => res.data.reply as string),
 };
 
 const money = (amount: number, currency: string = 'AED') => new Intl.NumberFormat('en-AE', { style: 'currency', currency }).format(amount);
@@ -181,6 +183,7 @@ export default function AiHelpButton() {
           {catServices.map(service => (
             <button
               key={service.id}
+              type="button"
               onClick={() => handleServiceSelect(service)}
               className="flex items-center justify-between p-3 rounded-xl border border-slate-100 bg-white hover:border-fuchsia-300 hover:bg-fuchsia-50/20 text-left transition-all cursor-pointer"
             >
@@ -209,6 +212,7 @@ export default function AiHelpButton() {
       component: (
         <div className="grid gap-2 mt-2 max-h-48 overflow-y-auto no-scrollbar">
           <button
+            type="button"
             onClick={() => handleStaffSelect(null, "Any Available Specialist")}
             className="p-3 rounded-xl border border-slate-100 bg-white hover:border-fuchsia-300 hover:bg-fuchsia-50/20 text-left transition-all cursor-pointer"
           >
@@ -218,6 +222,7 @@ export default function AiHelpButton() {
           {assignedStaff.map(member => (
             <button
               key={member.id}
+              type="button"
               onClick={() => handleStaffSelect(member.id, member.name)}
               className="p-3 rounded-xl border border-slate-100 bg-white hover:border-fuchsia-300 hover:bg-fuchsia-50/20 text-left transition-all cursor-pointer"
             >
@@ -295,6 +300,7 @@ export default function AiHelpButton() {
             {available.map((time: string) => (
               <button
                 key={time}
+                type="button"
                 onClick={() => handleSlotSelect(time)}
                 className="py-2.5 px-1.5 rounded-lg border border-slate-200 bg-white hover:border-fuchsia-300 hover:bg-fuchsia-50 text-[10px] font-bold text-slate-800 text-center transition-all cursor-pointer"
               >
@@ -407,6 +413,7 @@ export default function AiHelpButton() {
           <div className="flex items-center justify-between border-t pt-2 mt-2">
             <span className="font-bold text-slate-800">Fee: {money(finalBooking.service?.price, finalBooking.service?.currency)}</span>
             <button
+              type="button"
               onClick={submitChatBooking}
               className="btn-premium-primary text-[10px] uppercase tracking-wider py-2 px-4 shadow-none cursor-pointer"
             >
@@ -577,6 +584,7 @@ export default function AiHelpButton() {
             {matches.map(service => (
               <button
                 key={service.id}
+                type="button"
                 onClick={() => handleServiceSelect(service)}
                 className="flex items-center justify-between p-3 rounded-xl border border-slate-100 bg-white hover:border-fuchsia-300 hover:bg-fuchsia-50/20 text-left transition-all cursor-pointer"
               >
@@ -593,27 +601,49 @@ export default function AiHelpButton() {
       return;
     }
 
-    triggerBotResponse(`I couldn't match that command. I can help you book treatments, search services, or check lookup codes. Choose an option:`, [
-      { label: "Book Appointment", action: () => startBookingFlow() },
-      { label: "Check Status", action: () => startLookupFlow() },
-      { label: "Main Menu", action: () => resetToMainMenu() }
-    ]);
+    // Free-form medical / general question → Claude AI
+    setTyping(true);
+    const history = messages
+      .filter(m => m.sender === "bot" || m.sender === "user")
+      .slice(-10)
+      .map(m => ({ role: m.sender === "user" ? "user" : "assistant", content: m.text || "" }))
+      .filter(m => m.content);
+    history.push({ role: "user", content: query });
+
+    api.chat(history).then(reply => {
+      setTyping(false);
+      addMessage({
+        sender: "bot",
+        text: reply,
+        options: [
+          { label: "Book Appointment", action: () => startBookingFlow() },
+          { label: "Main Menu", action: () => resetToMainMenu() }
+        ]
+      });
+    }).catch(() => {
+      setTyping(false);
+      triggerBotResponse("I'm sorry, I couldn't process that right now. Let me connect you with our team:", [
+        { label: "Book Appointment", action: () => startBookingFlow() },
+        { label: "Check Status", action: () => startLookupFlow() },
+        { label: "Main Menu", action: () => resetToMainMenu() }
+      ]);
+    });
   };
 
   return (
-    <div className="fixed bottom-6 left-5 z-[999] flex flex-col items-start gap-3">
+    <div className="fixed bottom-6 left-5 z-999 flex flex-col items-start gap-3">
       {/* Bot Chat Window Drawer */}
       <AnimatePresence>
         {open && (
-          <motion.section 
+          <motion.section
             initial={{ opacity: 0, y: 30, scale: 0.95, originX: 0, originY: 1 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="w-[min(calc(100vw-2rem),380px)] h-[500px] flex flex-col rounded-2xl border border-fuchsia-950/10 bg-white shadow-[0_24px_70px_rgba(91,15,77,0.22)] overflow-hidden font-sans"
+            className="w-[min(calc(100vw-2rem),380px)] h-125 flex flex-col rounded-2xl border border-fuchsia-950/10 bg-white shadow-[0_24px_70px_rgba(91,15,77,0.22)] overflow-hidden font-sans"
           >
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-slate-100 bg-gradient-to-r from-[#5b0f4d] to-[#38072e] p-4 text-white">
+            <div className="flex items-center justify-between border-b border-slate-100 bg-linear-to-r from-[#5b0f4d] to-[#38072e] p-4 text-white">
               <div className="flex items-center gap-2.5">
                 <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 backdrop-blur-sm shadow-inner text-white">
                   <Bot size={18} className="text-fuchsia-200" />
@@ -634,9 +664,9 @@ export default function AiHelpButton() {
             </div>
 
             {/* Message history Pane */}
-            <div 
+            <div
               ref={scrollRef}
-              className="flex-grow overflow-y-auto p-4 space-y-4 bg-slate-50/30 no-scrollbar"
+              className="grow overflow-y-auto p-4 space-y-4 bg-slate-50/30 no-scrollbar"
             >
               {messages.map((msg) => (
                 <div 
@@ -711,10 +741,11 @@ export default function AiHelpButton() {
                   flowState === "lookup_phone" ? "Type phone number..." :
                   "Ask bot to book, lookup, hours..."
                 }
-                className="flex-grow rounded-lg border border-slate-200 py-2 px-3 text-xs outline-none focus:border-fuchsia-400 focus:ring-1 focus:ring-fuchsia-400 transition-all" 
+                className="grow rounded-lg border border-slate-200 py-2 px-3 text-xs outline-none focus:border-fuchsia-400 focus:ring-1 focus:ring-fuchsia-400 transition-all" 
               />
-              <button 
-                type="submit" 
+              <button
+                type="submit"
+                aria-label="Send message"
                 className="flex items-center justify-center bg-[#5b0f4d] hover:bg-[#38072e] text-white h-8 w-8 rounded-xl p-0 shrink-0 shadow-sm cursor-pointer transition-colors"
               >
                 <Send size={12} />
@@ -727,8 +758,9 @@ export default function AiHelpButton() {
       {/* Circle Toggle Button */}
       <button
         type="button"
+        aria-label="Open AI assistant"
         onClick={() => setOpen((value) => !value)}
-        className="flex h-[52px] w-[52px] items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#5b0f4d] to-[#38072e] text-xs font-bold uppercase tracking-wider text-white shadow-[0_12px_30px_rgba(91,15,77,0.35)] hover:scale-105 active:scale-95 transition-all duration-300 sm:w-auto sm:px-5 cursor-pointer"
+        className="flex h-13 w-13 items-center justify-center gap-2 rounded-full bg-linear-to-r from-[#5b0f4d] to-[#38072e] text-xs font-bold uppercase tracking-wider text-white shadow-[0_12px_30px_rgba(91,15,77,0.35)] hover:scale-105 active:scale-95 transition-all duration-300 sm:w-auto sm:px-5 cursor-pointer"
       >
         <MessageCircle size={22} className="animate-pulse sm:w-4 sm:h-4" />
         <span className="hidden sm:inline tracking-wider">AI Assistant</span>
@@ -740,9 +772,9 @@ export default function AiHelpButton() {
 function TypingIndicator() {
   return (
     <div className="flex items-center gap-1">
-      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: '0ms' }} />
-      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: '150ms' }} />
-      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" style={{ animationDelay: '300ms' }} />
+      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400 [animation-delay:0ms]" />
+      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400 [animation-delay:150ms]" />
+      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400 [animation-delay:300ms]" />
     </div>
   );
 }

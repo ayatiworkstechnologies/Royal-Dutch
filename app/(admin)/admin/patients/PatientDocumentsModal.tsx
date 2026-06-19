@@ -42,7 +42,7 @@ export function PatientDocumentsModal({ isOpen, onClose, patient }: PatientDocum
     if (!patient) return;
     setLoading(true);
     try {
-      const response = await api.get(`/api/v1/patients/${patient.id}/documents`);
+      const response = await api.get(`/api/patients/${patient.id}/documents`);
       setDocuments(response.data);
     } catch (error) {
       console.error('Failed to fetch documents', error);
@@ -62,7 +62,7 @@ export function PatientDocumentsModal({ isOpen, onClose, patient }: PatientDocum
     e.preventDefault();
     if (!patient) return;
     try {
-      await api.post(`/api/v1/patients/${patient.id}/documents`, formData);
+      await api.post(`/api/patients/${patient.id}/documents`, formData);
       setFormData({ title: '', document_type: 'medical_record', file_name: '', external_url: '' });
       setIsAdding(false);
       fetchDocuments();
@@ -76,7 +76,7 @@ export function PatientDocumentsModal({ isOpen, onClose, patient }: PatientDocum
     if (!patient) return;
     if (window.confirm('Are you sure you want to delete this document record?')) {
       try {
-        await api.delete(`/api/v1/patients/${patient.id}/documents/${docId}`);
+        await api.delete(`/api/patients/${patient.id}/documents/${docId}`);
         fetchDocuments();
       } catch (error) {
         console.error('Failed to delete document', error);

@@ -1,8 +1,12 @@
 import axios from 'axios';
 import { getToken, removeToken } from './auth';
 
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const trimmedApiUrl = rawApiUrl.replace(/\/+$/, '');
+const apiBaseUrl = trimmedApiUrl.endsWith('/api') ? trimmedApiUrl : `${trimmedApiUrl}/api`;
+
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+  baseURL: apiBaseUrl,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -11,6 +15,12 @@ export const api = axios.create({
 // Request interceptor
 api.interceptors.request.use(
   (config) => {
+    if (config.url?.startsWith('/api/')) {
+      config.url = config.url.slice('/api'.length);
+    } else if (config.url === '/api') {
+      config.url = '';
+    }
+
     const token = getToken();
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;

@@ -36,7 +36,7 @@ export default function AdminReportsPage() {
       if (dateTo) params.append('date_to', dateTo);
 
       // Fetch summary
-      const sumRes = await api.get(`/api/v1/reports/summary?${params.toString()}`);
+      const sumRes = await api.get(`/api/reports/summary?${params.toString()}`);
       setSummary(sumRes.data);
     } catch (error) {
       console.error('Failed to fetch reports', error);

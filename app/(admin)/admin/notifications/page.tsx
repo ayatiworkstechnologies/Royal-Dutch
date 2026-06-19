@@ -26,7 +26,7 @@ export default function AdminNotificationsPage() {
   const fetchNotifications = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/v1/notifications?limit=100');
+      const response = await api.get('/api/notifications?limit=100');
       setNotifications(response.data.items || response.data);
     } catch (error) {
       console.error('Failed to fetch notifications', error);
@@ -44,7 +44,7 @@ export default function AdminNotificationsPage() {
   const handleDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this notification?')) {
       try {
-        await api.delete(`/api/v1/notifications/${id}`);
+        await api.delete(`/api/notifications/${id}`);
         fetchNotifications();
       } catch (error) {
         console.error('Failed to delete notification', error);

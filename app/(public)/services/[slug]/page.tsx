@@ -28,7 +28,7 @@ export default function ServiceDetailPage() {
   useEffect(() => {
     const fetchService = async () => {
       try {
-        const res = await api.get(`/api/v1/services/${slug}`);
+        const res = await api.get(`/api/services/${slug}`);
         setService(res.data);
       } catch (err: any) {
         setError('Service not found');

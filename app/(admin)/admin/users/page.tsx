@@ -36,7 +36,7 @@ export default function AdminUsersPage() {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/v1/admin/users');
+      const response = await api.get('/api/admin/users');
       setUsers(response.data);
     } catch (error) {
       console.error('Failed to fetch admin users', error);
@@ -84,9 +84,9 @@ export default function AdminUsersPage() {
       }
 
       if (editingUser) {
-        await api.patch(`/api/v1/admin/users/${editingUser.id}`, payload);
+        await api.patch(`/api/admin/users/${editingUser.id}`, payload);
       } else {
-        await api.post('/api/v1/admin/users', payload);
+        await api.post('/api/admin/users', payload);
       }
       setIsModalOpen(false);
       fetchUsers();
@@ -99,7 +99,7 @@ export default function AdminUsersPage() {
   const handleDeactivate = async (id: number) => {
     if (window.confirm('Are you sure you want to deactivate this user? They will no longer be able to log in.')) {
       try {
-        await api.delete(`/api/v1/admin/users/${id}`);
+        await api.delete(`/api/admin/users/${id}`);
         fetchUsers();
       } catch (error) {
         console.error('Failed to deactivate user', error);

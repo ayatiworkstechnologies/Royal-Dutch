@@ -25,7 +25,7 @@ export default function CustomerProfilePage() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await api.get('/api/v1/account/me');
+        const res = await api.get('/api/account/me');
         const data = res.data;
         setFormData({
           full_name: data.full_name || '',
@@ -59,7 +59,7 @@ export default function CustomerProfilePage() {
         age: formData.age ? parseInt(formData.age, 10) : null
       };
 
-      await api.patch('/api/v1/account/me', payload);
+      await api.patch('/api/account/me', payload);
       setSuccessMsg('Profile updated successfully!');
       setTimeout(() => setSuccessMsg(''), 3000);
     } catch (err: any) {

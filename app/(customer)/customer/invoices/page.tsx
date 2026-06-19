@@ -14,7 +14,7 @@ export default function CustomerInvoicesPage() {
   useEffect(() => {
     const fetchInvoices = async () => {
       try {
-        const res = await api.get('/api/v1/account/invoices');
+        const res = await api.get('/api/account/invoices');
         setInvoices(res.data);
       } catch (err) {
         console.error("Failed to load invoices", err);
@@ -27,7 +27,7 @@ export default function CustomerInvoicesPage() {
 
   const handleDownload = async (invoiceId: number, invoiceNumber: string) => {
     try {
-      const res = await api.get(`/api/v1/account/invoices/${invoiceId}/pdf`, {
+      const res = await api.get(`/api/account/invoices/${invoiceId}/pdf`, {
         responseType: 'blob'
       });
       

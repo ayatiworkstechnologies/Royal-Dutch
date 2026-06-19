@@ -39,7 +39,7 @@ export default function AdminAuditLogsPage() {
       params.append('limit', '100');
       if (actionFilter) params.append('action', actionFilter);
 
-      const response = await api.get(`/api/v1/audit-logs?${params.toString()}`);
+      const response = await api.get(`/api/audit-logs?${params.toString()}`);
       setLogs(response.data.items || response.data);
     } catch (error: any) {
       console.error('Failed to fetch audit logs', error);

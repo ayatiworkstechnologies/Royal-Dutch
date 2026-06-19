@@ -41,7 +41,7 @@ export default function AdminPatientsPage() {
   const fetchPatients = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/v1/patients');
+      const response = await api.get('/api/patients');
       setPatients(response.data);
     } catch (error) {
       console.error('Failed to fetch patients', error);
@@ -81,9 +81,9 @@ export default function AdminPatientsPage() {
       };
 
       if (editingPatient) {
-        await api.patch(`/api/v1/patients/${editingPatient.id}`, payload);
+        await api.patch(`/api/patients/${editingPatient.id}`, payload);
       } else {
-        await api.post('/api/v1/patients', payload);
+        await api.post('/api/patients', payload);
       }
       setIsModalOpen(false);
       fetchPatients();
@@ -96,7 +96,7 @@ export default function AdminPatientsPage() {
   const handleDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this patient?')) {
       try {
-        await api.delete(`/api/v1/patients/${id}`);
+        await api.delete(`/api/patients/${id}`);
         fetchPatients();
       } catch (error) {
         console.error('Failed to delete patient', error);

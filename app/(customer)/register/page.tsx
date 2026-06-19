@@ -26,7 +26,7 @@ export default function CustomerRegisterPage() {
     try {
       const payload = { name, email, phone, password };
 
-      const response = await api.post('/api/v1/auth/register', payload, {
+      const response = await api.post('/api/auth/register', payload, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -34,7 +34,7 @@ export default function CustomerRegisterPage() {
 
       const { access_token } = response.data;
       
-      const userRes = await api.get('/api/v1/account/me', {
+      const userRes = await api.get('/api/account/me', {
         headers: { Authorization: `Bearer ${access_token}` }
       });
 

@@ -35,7 +35,7 @@ export default function AdminCategoriesPage() {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/v1/categories');
+      const response = await api.get('/api/categories');
       setCategories(response.data);
     } catch (error) {
       console.error('Failed to fetch categories', error);
@@ -78,9 +78,9 @@ export default function AdminCategoriesPage() {
     e.preventDefault();
     try {
       if (editingCategory) {
-        await api.patch(`/api/v1/categories/${editingCategory.id}`, formData);
+        await api.patch(`/api/categories/${editingCategory.id}`, formData);
       } else {
-        await api.post('/api/v1/categories', formData);
+        await api.post('/api/categories', formData);
       }
       setIsModalOpen(false);
       fetchCategories();
@@ -93,7 +93,7 @@ export default function AdminCategoriesPage() {
   const handleDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this category?')) {
       try {
-        await api.delete(`/api/v1/categories/${id}`);
+        await api.delete(`/api/categories/${id}`);
         fetchCategories();
       } catch (error) {
         console.error('Failed to delete category', error);

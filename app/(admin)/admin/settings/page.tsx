@@ -27,7 +27,7 @@ export default function AdminSettingsPage() {
   const fetchSettings = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/v1/settings');
+      const response = await api.get('/api/settings');
       setSettings(response.data);
     } catch (error) {
       console.error('Failed to fetch settings', error);
@@ -45,7 +45,7 @@ export default function AdminSettingsPage() {
     if (!settings) return;
     setSaving(true);
     try {
-      const response = await api.patch('/api/v1/settings', settings);
+      const response = await api.patch('/api/settings', settings);
       setSettings(response.data);
       alert('Settings saved successfully!');
     } catch (error: any) {

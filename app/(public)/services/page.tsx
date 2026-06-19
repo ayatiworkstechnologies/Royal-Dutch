@@ -29,8 +29,8 @@ export default function ServicesPage() {
     const fetchData = async () => {
       try {
         const [catsRes, servsRes] = await Promise.all([
-          api.get('/api/v1/categories'),
-          api.get('/api/v1/services')
+          api.get('/api/categories'),
+          api.get('/api/services')
         ]);
         setCategories(catsRes.data);
         setServices(servsRes.data);

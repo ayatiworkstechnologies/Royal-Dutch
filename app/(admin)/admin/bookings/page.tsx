@@ -40,7 +40,7 @@ export default function AdminBookingsPage() {
       if (statusFilter) params.append('status', statusFilter);
       if (dateFilter) params.append('date', dateFilter);
 
-      const response = await api.get(`/api/v1/bookings?${params.toString()}`);
+      const response = await api.get(`/api/bookings?${params.toString()}`);
       setBookings(response.data);
     } catch (error) {
       console.error('Failed to fetch bookings', error);
@@ -58,7 +58,7 @@ export default function AdminBookingsPage() {
 
   const handleStatusChange = async (id: string, newStatus: string) => {
     try {
-      await api.patch(`/api/v1/bookings/${id}/status`, { status: newStatus });
+      await api.patch(`/api/bookings/${id}/status`, { status: newStatus });
       fetchBookings();
     } catch (error) {
       console.error('Failed to update status', error);

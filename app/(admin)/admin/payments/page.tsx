@@ -50,7 +50,7 @@ export default function AdminPaymentsPage() {
   const fetchPayments = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/v1/payments?limit=100');
+      const response = await api.get('/api/payments?limit=100');
       setPayments(response.data.items || response.data);
     } catch (error) {
       console.error('Failed to fetch payments', error);
@@ -61,7 +61,7 @@ export default function AdminPaymentsPage() {
 
   const fetchInvoices = async () => {
     try {
-      const response = await api.get('/api/v1/billing?limit=100');
+      const response = await api.get('/api/billing?limit=100');
       // Only fetch unpaid or partially paid for dropdown
       const activeInvoices = (response.data.items || response.data).filter((i: any) => i.balance_due > 0);
       setInvoices(activeInvoices);
@@ -124,9 +124,9 @@ export default function AdminPaymentsPage() {
       };
 
       if (editingPayment) {
-        await api.patch(`/api/v1/payments/${editingPayment.id}`, payload);
+        await api.patch(`/api/payments/${editingPayment.id}`, payload);
       } else {
-        await api.post('/api/v1/payments', payload);
+        await api.post('/api/payments', payload);
       }
       setIsModalOpen(false);
       fetchPayments();
@@ -140,7 +140,7 @@ export default function AdminPaymentsPage() {
   const handleDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this payment? It may affect invoice balances.')) {
       try {
-        await api.delete(`/api/v1/payments/${id}`);
+        await api.delete(`/api/payments/${id}`);
         fetchPayments();
         fetchInvoices();
       } catch (error) {
@@ -152,7 +152,7 @@ export default function AdminPaymentsPage() {
 
   const handleQueueEmail = async (id: number) => {
     try {
-      await api.post(`/api/v1/payments/${id}/mail/payment`);
+      await api.post(`/api/payments/${id}/mail/payment`);
       alert('Payment receipt email queued successfully!');
     } catch (error) {
       console.error('Failed to queue email', error);

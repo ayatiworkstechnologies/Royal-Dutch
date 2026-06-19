@@ -71,7 +71,7 @@ export default function AdminBillingPage() {
     setLoading(true);
     try {
       // Fetching all for now without explicit pagination
-      const response = await api.get('/api/v1/billing?limit=100');
+      const response = await api.get('/api/billing?limit=100');
       // If backend returns paginated object { items: [...] } or list [...]
       setInvoices(response.data.items || response.data);
     } catch (error) {
@@ -83,7 +83,7 @@ export default function AdminBillingPage() {
 
   const fetchPatients = async () => {
     try {
-      const response = await api.get('/api/v1/patients?limit=500');
+      const response = await api.get('/api/patients?limit=500');
       setPatients(response.data.items || response.data);
     } catch (error) {
       console.error('Failed to fetch patients', error);
@@ -161,9 +161,9 @@ export default function AdminBillingPage() {
 
       if (editingInvoice) {
         // Can only patch some fields like status
-        await api.patch(`/api/v1/billing/${editingInvoice.id}`, { status: formData.status, notes: formData.notes });
+        await api.patch(`/api/billing/${editingInvoice.id}`, { status: formData.status, notes: formData.notes });
       } else {
-        await api.post('/api/v1/billing', payload);
+        await api.post('/api/billing', payload);
       }
       setIsModalOpen(false);
       fetchInvoices();
@@ -176,7 +176,7 @@ export default function AdminBillingPage() {
   const handleDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this invoice?')) {
       try {
-        await api.delete(`/api/v1/billing/${id}`);
+        await api.delete(`/api/billing/${id}`);
         fetchInvoices();
       } catch (error) {
         console.error('Failed to delete invoice', error);
@@ -187,7 +187,7 @@ export default function AdminBillingPage() {
 
   const handleDownloadPDF = async (id: number, number: string) => {
     try {
-      const response = await api.get(`/api/v1/billing/${id}/pdf`, { responseType: 'blob' });
+      const response = await api.get(`/api/billing/${id}/pdf`, { responseType: 'blob' });
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
@@ -203,7 +203,7 @@ export default function AdminBillingPage() {
 
   const handleQueueEmail = async (id: number) => {
     try {
-      await api.post(`/api/v1/billing/${id}/mail/invoice`);
+      await api.post(`/api/billing/${id}/mail/invoice`);
       alert('Invoice email queued successfully!');
     } catch (error) {
       console.error('Failed to queue email', error);

@@ -4,7 +4,7 @@ import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import api from '@/lib/api';
 import { getToken, removeToken, setToken } from '@/lib/auth';
 
-export type Role = 'super_admin' | 'admin' | 'staff' | 'customer';
+export type Role = 'super_admin' | 'admin' | 'receptionist' | 'doctor' | 'accountant' | 'marketing' | 'customer';
 
 export interface User {
   id: string;
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
     try {
-      const response = await api.get('/api/v1/account/me');
+      const response = await api.get('/api/account/me');
       setUser(response.data);
     } catch (error) {
       console.error('Failed to fetch user', error);
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const login = (token: string, userData: User) => {
-    setToken(token);
+    setToken(token, userData.role === 'customer' ? 'customer' : 'admin');
     setUser(userData);
   };
 

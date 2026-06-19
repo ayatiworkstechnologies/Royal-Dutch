@@ -33,7 +33,7 @@ export function WhatsAppModal({ isOpen, onClose, booking }: WhatsAppModalProps) 
     setSuccess(false);
 
     try {
-      await api.post('/api/v1/whatsapp/send', {
+      await api.post('/api/whatsapp/send', {
         recipient_phone: booking.patient.phone,
         message: message,
         booking_id: parseInt(booking.id, 10),

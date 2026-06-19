@@ -85,7 +85,7 @@ export function BookingModal() {
   const fetchCategories = async () => {
     try {
       setLoading(true);
-      const res = await api.get('/api/v1/categories');
+      const res = await api.get('/api/categories');
       setCategories(res.data);
       
       // If initial category is set, auto-select it
@@ -108,7 +108,7 @@ export function BookingModal() {
     setStep(2);
     setLoading(true);
     try {
-      const res = await api.get(`/api/v1/services?category_slug=${category.slug}`);
+      const res = await api.get(`/api/services?category_slug=${category.slug}`);
       setServices(res.data);
     } catch (err) {
       console.error('Failed to load services', err);
@@ -122,7 +122,7 @@ export function BookingModal() {
     if (selectedServiceId && selectedDate) {
       const fetchSlots = async () => {
         try {
-          const res = await api.get(`/api/v1/bookings/slots?service_id=${selectedServiceId}&selected_date=${selectedDate}`);
+          const res = await api.get(`/api/bookings/slots?service_id=${selectedServiceId}&selected_date=${selectedDate}`);
           const slotStrings = res.data.slots || [];
           setSlots(slotStrings.map((timeStr: string) => ({
             start_time: timeStr,
@@ -156,7 +156,7 @@ export function BookingModal() {
         },
         notes: patientDetails.notes
       };
-      const res = await api.post('/api/v1/bookings', payload);
+      const res = await api.post('/api/bookings', payload);
       setBookingCode(res.data.booking_code || res.data.id);
       setStep(5);
     } catch (err: any) {
