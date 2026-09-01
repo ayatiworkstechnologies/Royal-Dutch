@@ -22,7 +22,15 @@
 
 # misc
 .DS_Store
+Thumbs.db
 *.pem
+
+# editor / system
+.vscode/
+.idea/
+
+# turbopack
+.turbo/
 
 # debug
 npm-debug.log*
