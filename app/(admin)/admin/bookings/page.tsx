@@ -8,6 +8,7 @@ import { format } from 'date-fns';
 import { Eye, Check, X, Calendar as CalendarIcon, MessageSquare, CalendarCheck, Clock, CheckSquare, List, User, Phone, FileText, Activity, UserCheck, Pill, Plus, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { WhatsAppModal } from './WhatsAppModal';
+import { StatusReasonModal } from '@/components/ui/StatusReasonModal';
 
 interface Booking {
   id: string;
@@ -54,6 +55,7 @@ export default function AdminBookingsPage() {
   const [showAddPrescription, setShowAddPrescription] = useState(false);
   const [prescriptionForm, setPrescriptionForm] = useState(EMPTY_PRESCRIPTION_FORM);
   const [savingPrescription, setSavingPrescription] = useState(false);
+  const [statusChangeTarget, setStatusChangeTarget] = useState<{ id: string; status: string } | null>(null);
   const [assignMode, setAssignMode] = useState<'confirm' | 'reassign'>('confirm');
   
   // Staff list for assignment
@@ -102,12 +104,17 @@ export default function AdminBookingsPage() {
     }
   }, [user]);
 
-  const handleStatusChange = async (id: string, newStatus: string) => {
-    const note = window.prompt('Add a note for this status change (optional):', '');
-    if (note === null) return; // cancelled
+  const handleStatusChange = (id: string, newStatus: string) => {
+    setStatusChangeTarget({ id, status: newStatus });
+  };
+
+  const confirmStatusChange = async (reason: string, notes: string) => {
+    if (!statusChangeTarget) return;
+    const { id, status } = statusChangeTarget;
     try {
-      await api.patch(`/api/bookings/${id}/status`, { status: newStatus, notes: note || undefined });
+      await api.patch(`/api/bookings/${id}/status`, { status, reason, notes: notes || undefined });
       fetchBookings();
+      setStatusChangeTarget(null);
     } catch (error) {
       console.error('Failed to update status', error);
       toastError('Error', 'Failed to update booking status.');
@@ -588,7 +595,7 @@ export default function AdminBookingsPage() {
                 await api.patch(`/api/bookings/${assignModalBooking.id}`, { staff_id: parseInt(staffId) });
               }
               if (assignMode === 'confirm') {
-                await api.patch(`/api/bookings/${assignModalBooking.id}/status`, { status: 'confirmed' });
+                await api.patch(`/api/bookings/${assignModalBooking.id}/status`, { status: 'confirmed', reason: 'Doctor available' });
               }
               toastSuccess('Done', assignMode === 'confirm' ? 'Booking confirmed and doctor assigned.' : 'Doctor reassigned successfully.');
               fetchBookings();
@@ -600,6 +607,13 @@ export default function AdminBookingsPage() {
           }}
         />
       )}
+
+      <StatusReasonModal
+        isOpen={!!statusChangeTarget}
+        status={statusChangeTarget?.status ?? null}
+        onCancel={() => setStatusChangeTarget(null)}
+        onConfirm={confirmStatusChange}
+      />
     </div>
   );
 }

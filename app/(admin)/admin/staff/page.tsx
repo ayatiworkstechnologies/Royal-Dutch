@@ -4,10 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
 import { useAlert } from '@/context/AlertContext';
-import { Plus, Edit2, Trash2, Search } from 'lucide-react';
+import { Plus, Edit2, Trash2, Search, LayoutDashboard } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
+import { CLINICAL_ROLES } from '@/hooks/useAdminAuth';
+import Link from 'next/link';
 
 interface Staff {
   id: number;
@@ -191,6 +193,11 @@ export default function AdminStaffPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
+                      {CLINICAL_ROLES.includes(staff.role) && (
+                        <Link href={`/admin/staff/${staff.id}/dashboard`} className="text-slate-500 hover:text-(--primary-plum) inline-flex items-center">
+                          <LayoutDashboard className="w-4 h-4 mr-1" /> Dashboard
+                        </Link>
+                      )}
                       <button onClick={() => handleOpenModal(staff)} className="text-(--primary-plum) hover:text-(--primary-plum-light) inline-flex items-center">
                         <Edit2 className="w-4 h-4 mr-1" /> Edit
                       </button>

@@ -21,6 +21,7 @@ import {
   X,
 } from 'lucide-react';
 import Link from 'next/link';
+import { StatusReasonModal } from '@/components/ui/StatusReasonModal';
 
 interface Booking {
   id: number;
@@ -92,6 +93,7 @@ export default function StaffDashboardPage() {
   const [prescriptionForm, setPrescriptionForm] = useState(EMPTY_PRESCRIPTION_FORM);
   const [prescriptionsLoading, setPrescriptionsLoading] = useState(false);
   const [savingPrescription, setSavingPrescription] = useState(false);
+  const [statusChangeTarget, setStatusChangeTarget] = useState<{ bookingId: number; status: string } | null>(null);
 
   const fetchBookings = useCallback(async () => {
     setFetching(true);
@@ -119,13 +121,18 @@ export default function StaffDashboardPage() {
     }
   }, [user, loading, fetchBookings, router]);
 
-  const updateStatus = async (bookingId: number, status: string) => {
-    const note = window.prompt('Add a note for this status change (optional):', '');
-    if (note === null) return; // cancelled
+  const updateStatus = (bookingId: number, status: string) => {
+    setStatusChangeTarget({ bookingId, status });
+  };
+
+  const confirmStatusChange = async (reason: string, notes: string) => {
+    if (!statusChangeTarget) return;
+    const { bookingId, status } = statusChangeTarget;
     setUpdating(bookingId);
     try {
-      await api.patch(`/api/staff/me/bookings/${bookingId}/status`, { status, notes: note || undefined });
+      await api.patch(`/api/staff/me/bookings/${bookingId}/status`, { status, reason, notes: notes || undefined });
       await fetchBookings();
+      setStatusChangeTarget(null);
     } finally {
       setUpdating(null);
     }
@@ -447,6 +454,14 @@ export default function StaffDashboardPage() {
           </div>
         </div>
       )}
+
+      <StatusReasonModal
+        isOpen={!!statusChangeTarget}
+        status={statusChangeTarget?.status ?? null}
+        saving={updating !== null}
+        onCancel={() => setStatusChangeTarget(null)}
+        onConfirm={confirmStatusChange}
+      />
     </div>
   );
 }
