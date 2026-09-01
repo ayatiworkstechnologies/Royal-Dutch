@@ -57,8 +57,9 @@ const SUPER_ADMIN_EXTRA: NavItem[] = [
 ];
 
 const CLINICAL_NAV: NavItem[] = [
-  { name: 'Dashboard',    href: '/admin/dashboard',        icon: LayoutDashboard },
-  { name: 'My Schedule',  href: '/admin/staff-dashboard',  icon: CalendarDays },
+  { name: 'Dashboard',    href: '/admin/dashboard',                   icon: LayoutDashboard },
+  { name: 'My Schedule',  href: '/admin/staff-dashboard',             icon: CalendarDays },
+  { name: 'My Patients',  href: '/admin/staff-dashboard/patients',    icon: Users },
 ];
 
 function getNavItems(role: string): NavItem[] {

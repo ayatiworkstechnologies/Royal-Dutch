@@ -34,9 +34,10 @@ export default function RootLayout({
       lang="en"
       className={`${outfit.variable} ${inter.variable} h-full overflow-x-hidden antialiased`}
     >
-      <head>
-        <script
+      <body className="flex min-h-full w-full flex-col overflow-x-hidden bg-white font-secondary text-[#171717]">
+        <Script
           id="scroll-top-before-navigation"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
             if ("scrollRestoration" in history) {
@@ -99,8 +100,6 @@ export default function RootLayout({
           `
           }}
         />
-      </head>
-      <body className="flex min-h-full w-full flex-col overflow-x-hidden bg-white font-secondary text-[#171717]">
         <AuthProvider>
           <AlertProvider>
             {children}

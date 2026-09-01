@@ -16,6 +16,9 @@ import {
   RefreshCw,
   CalendarCheck,
   Link2,
+  Pill,
+  Plus,
+  X,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -35,6 +38,18 @@ interface Booking {
     email: string | null;
   };
 }
+
+interface Prescription {
+  id: number;
+  booking_id: number;
+  drug_name: string;
+  dosage: string;
+  frequency: string;
+  duration: string;
+  notes: string | null;
+}
+
+const EMPTY_PRESCRIPTION_FORM = { drug_name: '', dosage: '', frequency: '', duration: '', notes: '' };
 
 const STATUS_CFG: Record<string, { label: string; classes: string }> = {
   pending:     { label: 'Pending',     classes: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
@@ -72,6 +87,11 @@ export default function StaffDashboardPage() {
   const [dateFilter, setDateFilter] = useState<FilterDate>('today');
   const [statusFilter, setStatusFilter] = useState<FilterStatus>('all');
   const [updating, setUpdating] = useState<number | null>(null);
+  const [prescriptionBooking, setPrescriptionBooking] = useState<Booking | null>(null);
+  const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
+  const [prescriptionForm, setPrescriptionForm] = useState(EMPTY_PRESCRIPTION_FORM);
+  const [prescriptionsLoading, setPrescriptionsLoading] = useState(false);
+  const [savingPrescription, setSavingPrescription] = useState(false);
 
   const fetchBookings = useCallback(async () => {
     setFetching(true);
@@ -100,12 +120,47 @@ export default function StaffDashboardPage() {
   }, [user, loading, fetchBookings, router]);
 
   const updateStatus = async (bookingId: number, status: string) => {
+    const note = window.prompt('Add a note for this status change (optional):', '');
+    if (note === null) return; // cancelled
     setUpdating(bookingId);
     try {
-      await api.patch(`/api/staff/me/bookings/${bookingId}/status`, { status });
+      await api.patch(`/api/staff/me/bookings/${bookingId}/status`, { status, notes: note || undefined });
       await fetchBookings();
     } finally {
       setUpdating(null);
+    }
+  };
+
+  const openPrescriptions = async (booking: Booking) => {
+    setPrescriptionBooking(booking);
+    setPrescriptionForm(EMPTY_PRESCRIPTION_FORM);
+    setPrescriptionsLoading(true);
+    try {
+      const res = await api.get(`/api/staff/me/bookings/${booking.id}/prescriptions`);
+      setPrescriptions(res.data);
+    } catch {
+      setPrescriptions([]);
+    } finally {
+      setPrescriptionsLoading(false);
+    }
+  };
+
+  const closePrescriptions = () => {
+    setPrescriptionBooking(null);
+    setPrescriptions([]);
+    setPrescriptionForm(EMPTY_PRESCRIPTION_FORM);
+  };
+
+  const submitPrescription = async () => {
+    if (!prescriptionBooking) return;
+    if (!prescriptionForm.drug_name || !prescriptionForm.dosage || !prescriptionForm.frequency || !prescriptionForm.duration) return;
+    setSavingPrescription(true);
+    try {
+      const res = await api.post(`/api/staff/me/bookings/${prescriptionBooking.id}/prescriptions`, prescriptionForm);
+      setPrescriptions(prev => [res.data, ...prev]);
+      setPrescriptionForm(EMPTY_PRESCRIPTION_FORM);
+    } finally {
+      setSavingPrescription(false);
     }
   };
 
@@ -232,7 +287,12 @@ export default function StaffDashboardPage() {
                     {/* Main info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                        <p className="text-base font-bold text-slate-800 font-primary">{b.patient.full_name}</p>
+                        <Link
+                          href={`/admin/staff-dashboard/patients/${b.patient.id}`}
+                          className="text-base font-bold text-slate-800 font-primary hover:text-(--primary-plum) hover:underline"
+                        >
+                          {b.patient.full_name}
+                        </Link>
                         <span className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${cfg.classes}`}>
                           {cfg.label}
                         </span>
@@ -266,25 +326,30 @@ export default function StaffDashboardPage() {
                     </div>
 
                     {/* Actions */}
-                    {actions.length > 0 && (
-                      <div className="shrink-0 flex flex-wrap gap-2">
-                        {actions.map(a => (
-                          <button
-                            key={a.status}
-                            disabled={isUpdating}
-                            onClick={() => updateStatus(b.id, a.status)}
-                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors disabled:opacity-50 ${a.classes}`}
-                          >
-                            {isUpdating ? (
-                              <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                            ) : (
-                              <a.icon className="w-3.5 h-3.5" />
-                            )}
-                            {a.label}
-                          </button>
-                        ))}
-                      </div>
-                    )}
+                    <div className="shrink-0 flex flex-wrap gap-2">
+                      {actions.map(a => (
+                        <button
+                          key={a.status}
+                          disabled={isUpdating}
+                          onClick={() => updateStatus(b.id, a.status)}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors disabled:opacity-50 ${a.classes}`}
+                        >
+                          {isUpdating ? (
+                            <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                          ) : (
+                            <a.icon className="w-3.5 h-3.5" />
+                          )}
+                          {a.label}
+                        </button>
+                      ))}
+                      <button
+                        onClick={() => openPrescriptions(b)}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors bg-(--primary-plum)/8 text-(--primary-plum) hover:bg-(--primary-plum)/15 border-(--primary-plum)/20"
+                      >
+                        <Pill className="w-3.5 h-3.5" />
+                        Medicines
+                      </button>
+                    </div>
                   </div>
                 </li>
               );
@@ -292,6 +357,96 @@ export default function StaffDashboardPage() {
           </ul>
         )}
       </div>
+
+      {/* Prescriptions modal */}
+      {prescriptionBooking && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={closePrescriptions}>
+          <div
+            className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[85vh] overflow-y-auto"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between p-5 border-b border-slate-100">
+              <div>
+                <h3 className="text-lg font-bold text-slate-900 font-primary">Medicines</h3>
+                <p className="text-xs text-slate-500 font-secondary">
+                  {prescriptionBooking.patient.full_name} — #{prescriptionBooking.booking_code}
+                </p>
+              </div>
+              <button onClick={closePrescriptions} className="p-1.5 rounded-lg text-slate-400 hover:bg-slate-100">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-5 space-y-4">
+              {/* Existing prescriptions */}
+              {prescriptionsLoading ? (
+                <div className="space-y-2">
+                  {[1, 2].map(i => <div key={i} className="h-14 bg-slate-100/60 rounded-xl animate-pulse" />)}
+                </div>
+              ) : prescriptions.length === 0 ? (
+                <p className="text-sm text-slate-400 font-secondary">No medicines added yet.</p>
+              ) : (
+                <ul className="space-y-2">
+                  {prescriptions.map(p => (
+                    <li key={p.id} className="border border-slate-100 rounded-xl p-3">
+                      <p className="text-sm font-semibold text-slate-800 font-primary">{p.drug_name}</p>
+                      <p className="text-xs text-slate-500 font-secondary mt-0.5">
+                        {p.dosage} · {p.frequency} · {p.duration}
+                      </p>
+                      {p.notes && <p className="text-xs text-slate-400 font-secondary mt-1 italic">{p.notes}</p>}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {/* Add new */}
+              <div className="border-t border-slate-100 pt-4 space-y-3">
+                <p className="text-sm font-semibold text-slate-700 font-primary">Add medicine</p>
+                <div className="grid grid-cols-2 gap-3">
+                  <input
+                    placeholder="Drug name"
+                    value={prescriptionForm.drug_name}
+                    onChange={e => setPrescriptionForm(f => ({ ...f, drug_name: e.target.value }))}
+                    className="col-span-2 rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-(--primary-plum)/30"
+                  />
+                  <input
+                    placeholder="Dosage (e.g. 500mg)"
+                    value={prescriptionForm.dosage}
+                    onChange={e => setPrescriptionForm(f => ({ ...f, dosage: e.target.value }))}
+                    className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-(--primary-plum)/30"
+                  />
+                  <input
+                    placeholder="Frequency (e.g. 2x/day)"
+                    value={prescriptionForm.frequency}
+                    onChange={e => setPrescriptionForm(f => ({ ...f, frequency: e.target.value }))}
+                    className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-(--primary-plum)/30"
+                  />
+                  <input
+                    placeholder="Duration (e.g. 5 days)"
+                    value={prescriptionForm.duration}
+                    onChange={e => setPrescriptionForm(f => ({ ...f, duration: e.target.value }))}
+                    className="col-span-2 rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-(--primary-plum)/30"
+                  />
+                  <input
+                    placeholder="Notes (optional)"
+                    value={prescriptionForm.notes}
+                    onChange={e => setPrescriptionForm(f => ({ ...f, notes: e.target.value }))}
+                    className="col-span-2 rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-(--primary-plum)/30"
+                  />
+                </div>
+                <button
+                  onClick={submitPrescription}
+                  disabled={savingPrescription || !prescriptionForm.drug_name || !prescriptionForm.dosage || !prescriptionForm.frequency || !prescriptionForm.duration}
+                  className="flex items-center justify-center gap-1.5 w-full px-4 py-2 rounded-lg bg-(--primary-plum) text-white text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+                >
+                  {savingPrescription ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
+                  Add medicine
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

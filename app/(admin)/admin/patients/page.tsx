@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
 import { useAlert } from '@/context/AlertContext';
-import { Plus, Edit2, Trash2, Search, FileText, Users, Activity, UserPlus, FileArchive } from 'lucide-react';
+import { Plus, Edit2, Trash2, Search, FileText, Users, Activity, UserPlus, FileArchive, ClipboardList } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
 import { PatientDocumentsModal } from './PatientDocumentsModal';
+import { PatientRecordModal } from './PatientRecordModal';
 import { format } from 'date-fns';
 
 interface Patient {
@@ -32,6 +33,7 @@ export default function AdminPatientsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPatient, setEditingPatient] = useState<Patient | null>(null);
   const [docsModalPatient, setDocsModalPatient] = useState<Patient | null>(null);
+  const [recordModalPatient, setRecordModalPatient] = useState<Patient | null>(null);
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',
@@ -225,6 +227,14 @@ export default function AdminPatientsPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2 opacity-80 group-hover:opacity-100 transition-opacity">
                       <button
                         type="button"
+                        onClick={() => setRecordModalPatient(patient)}
+                        className="text-(--primary-plum) hover:text-white hover:bg-(--primary-plum) bg-(--primary-plum)/10 p-2 rounded-lg transition-colors"
+                        title="View Patient Record (Visits & Prescriptions)"
+                      >
+                        <ClipboardList className="w-4 h-4 inline-block" />
+                      </button>
+                      <button
+                        type="button"
                         onClick={() => setDocsModalPatient(patient)}
                         className="text-blue-600 hover:text-blue-800 bg-blue-50 p-2 rounded-lg transition-colors"
                         title="View Medical Documents"
@@ -320,10 +330,16 @@ export default function AdminPatientsPage() {
         </form>
       </Modal>
 
-      <PatientDocumentsModal 
-        isOpen={!!docsModalPatient} 
-        onClose={() => setDocsModalPatient(null)} 
-        patient={docsModalPatient} 
+      <PatientDocumentsModal
+        isOpen={!!docsModalPatient}
+        onClose={() => setDocsModalPatient(null)}
+        patient={docsModalPatient}
+      />
+
+      <PatientRecordModal
+        isOpen={!!recordModalPatient}
+        onClose={() => setRecordModalPatient(null)}
+        patient={recordModalPatient}
       />
     </div>
   );

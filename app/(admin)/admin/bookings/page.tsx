@@ -5,7 +5,7 @@ import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
 import { useAlert } from '@/context/AlertContext';
 import { format } from 'date-fns';
-import { Eye, Check, X, Calendar as CalendarIcon, MessageSquare, CalendarCheck, Clock, CheckSquare, List, User, Phone, FileText, Activity, UserCheck } from 'lucide-react';
+import { Eye, Check, X, Calendar as CalendarIcon, MessageSquare, CalendarCheck, Clock, CheckSquare, List, User, Phone, FileText, Activity, UserCheck, Pill, Plus, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { WhatsAppModal } from './WhatsAppModal';
 
@@ -26,6 +26,17 @@ interface Booking {
   notes?: string;
 }
 
+interface Prescription {
+  id: number;
+  drug_name: string;
+  dosage: string;
+  frequency: string;
+  duration: string;
+  notes: string | null;
+}
+
+const EMPTY_PRESCRIPTION_FORM = { drug_name: '', dosage: '', frequency: '', duration: '', notes: '' };
+
 export default function AdminBookingsPage() {
   const { user } = useAdminAuth();
   const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
@@ -38,6 +49,11 @@ export default function AdminBookingsPage() {
   const [whatsappModalBooking, setWhatsappModalBooking] = useState<Booking | null>(null);
   const [viewModalBooking, setViewModalBooking] = useState<Booking | null>(null);
   const [assignModalBooking, setAssignModalBooking] = useState<Booking | null>(null);
+  const [bookingPrescriptions, setBookingPrescriptions] = useState<Prescription[]>([]);
+  const [prescriptionsLoading, setPrescriptionsLoading] = useState(false);
+  const [showAddPrescription, setShowAddPrescription] = useState(false);
+  const [prescriptionForm, setPrescriptionForm] = useState(EMPTY_PRESCRIPTION_FORM);
+  const [savingPrescription, setSavingPrescription] = useState(false);
   const [assignMode, setAssignMode] = useState<'confirm' | 'reassign'>('confirm');
   
   // Staff list for assignment
@@ -87,12 +103,50 @@ export default function AdminBookingsPage() {
   }, [user]);
 
   const handleStatusChange = async (id: string, newStatus: string) => {
+    const note = window.prompt('Add a note for this status change (optional):', '');
+    if (note === null) return; // cancelled
     try {
-      await api.patch(`/api/bookings/${id}/status`, { status: newStatus });
+      await api.patch(`/api/bookings/${id}/status`, { status: newStatus, notes: note || undefined });
       fetchBookings();
     } catch (error) {
       console.error('Failed to update status', error);
       toastError('Error', 'Failed to update booking status.');
+    }
+  };
+
+  useEffect(() => {
+    if (!viewModalBooking) {
+      setBookingPrescriptions([]);
+      setShowAddPrescription(false);
+      setPrescriptionForm(EMPTY_PRESCRIPTION_FORM);
+      return;
+    }
+    (async () => {
+      setPrescriptionsLoading(true);
+      try {
+        const res = await api.get(`/api/bookings/${viewModalBooking.id}/prescriptions`);
+        setBookingPrescriptions(res.data);
+      } catch {
+        setBookingPrescriptions([]);
+      } finally {
+        setPrescriptionsLoading(false);
+      }
+    })();
+  }, [viewModalBooking]);
+
+  const submitBookingPrescription = async () => {
+    if (!viewModalBooking) return;
+    if (!prescriptionForm.drug_name || !prescriptionForm.dosage || !prescriptionForm.frequency || !prescriptionForm.duration) return;
+    setSavingPrescription(true);
+    try {
+      const res = await api.post(`/api/bookings/${viewModalBooking.id}/prescriptions`, prescriptionForm);
+      setBookingPrescriptions(prev => [res.data, ...prev]);
+      setPrescriptionForm(EMPTY_PRESCRIPTION_FORM);
+      setShowAddPrescription(false);
+    } catch (error: any) {
+      toastError('Error', error.response?.data?.detail || 'Failed to add prescription.');
+    } finally {
+      setSavingPrescription(false);
     }
   };
 
@@ -218,7 +272,7 @@ export default function AdminBookingsPage() {
                         {(currentPage - 1) * itemsPerPage + index + 1}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-slate-800">{booking.patient?.full_name || 'Unknown'}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-(--primary-plum) bg-(--primary-plum)/5 rounded-md px-3">{booking.service_name}</td>
+                      <td className="px-6 py-4 max-w-[220px] whitespace-normal break-words text-sm font-medium text-(--primary-plum) bg-(--primary-plum)/5 rounded-md">{booking.service_name}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-secondary">
                         {booking.booking_date} <span className="mx-1 text-slate-300">•</span> <span className="font-medium text-slate-700">{booking.booking_time}</span>
                       </td>
@@ -425,8 +479,93 @@ export default function AdminBookingsPage() {
                   </div>
                 </div>
               )}
+
+              {/* Prescriptions */}
+              <div className="mt-6 pt-6 border-t border-slate-100">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 rounded-full bg-(--primary-plum)/10 flex items-center justify-center shrink-0">
+                      <Pill className="w-5 h-5 text-(--primary-plum)" />
+                    </div>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest font-secondary">Medicines</p>
+                  </div>
+                  {!showAddPrescription && (
+                    <button
+                      onClick={() => { setShowAddPrescription(true); setPrescriptionForm(EMPTY_PRESCRIPTION_FORM); }}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors bg-(--primary-plum)/8 text-(--primary-plum) hover:bg-(--primary-plum)/15 border-(--primary-plum)/20"
+                    >
+                      <Plus className="w-3.5 h-3.5" /> Add Medicine
+                    </button>
+                  )}
+                </div>
+
+                {showAddPrescription && (
+                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3 mb-3">
+                    <div className="grid grid-cols-2 gap-3">
+                      <input
+                        placeholder="Drug name"
+                        value={prescriptionForm.drug_name}
+                        onChange={e => setPrescriptionForm(f => ({ ...f, drug_name: e.target.value }))}
+                        className="col-span-2 rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-(--primary-plum)/30"
+                      />
+                      <input
+                        placeholder="Dosage (e.g. 500mg)"
+                        value={prescriptionForm.dosage}
+                        onChange={e => setPrescriptionForm(f => ({ ...f, dosage: e.target.value }))}
+                        className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-(--primary-plum)/30"
+                      />
+                      <input
+                        placeholder="Frequency (e.g. 2x/day)"
+                        value={prescriptionForm.frequency}
+                        onChange={e => setPrescriptionForm(f => ({ ...f, frequency: e.target.value }))}
+                        className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-(--primary-plum)/30"
+                      />
+                      <input
+                        placeholder="Duration (e.g. 5 days)"
+                        value={prescriptionForm.duration}
+                        onChange={e => setPrescriptionForm(f => ({ ...f, duration: e.target.value }))}
+                        className="col-span-2 rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-(--primary-plum)/30"
+                      />
+                      <input
+                        placeholder="Notes (optional)"
+                        value={prescriptionForm.notes}
+                        onChange={e => setPrescriptionForm(f => ({ ...f, notes: e.target.value }))}
+                        className="col-span-2 rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-(--primary-plum)/30"
+                      />
+                    </div>
+                    <div className="flex justify-end gap-2">
+                      <Button type="button" variant="outline" onClick={() => setShowAddPrescription(false)}>Cancel</Button>
+                      <Button
+                        type="button"
+                        onClick={submitBookingPrescription}
+                        disabled={savingPrescription || !prescriptionForm.drug_name || !prescriptionForm.dosage || !prescriptionForm.frequency || !prescriptionForm.duration}
+                      >
+                        {savingPrescription ? <RefreshCw className="w-4 h-4 animate-spin" /> : 'Save Medicine'}
+                      </Button>
+                    </div>
+                  </div>
+                )}
+
+                {prescriptionsLoading ? (
+                  <div className="space-y-2">
+                    {[1, 2].map(i => <div key={i} className="h-12 bg-slate-100/60 rounded-xl animate-pulse" />)}
+                  </div>
+                ) : bookingPrescriptions.length === 0 ? (
+                  <p className="text-sm text-slate-400 font-secondary">No medicines added for this visit yet.</p>
+                ) : (
+                  <ul className="space-y-2">
+                    {bookingPrescriptions.map(p => (
+                      <li key={p.id} className="border border-slate-100 rounded-xl p-3">
+                        <p className="text-sm font-semibold text-slate-800 font-primary">{p.drug_name}</p>
+                        <p className="text-xs text-slate-500 font-secondary mt-0.5">{p.dosage} · {p.frequency} · {p.duration}</p>
+                        {p.notes && <p className="text-xs text-slate-400 font-secondary mt-1 italic">{p.notes}</p>}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
-            
+
             <div className="p-6 bg-slate-50 border-t border-slate-100 flex justify-end">
               <Button onClick={() => setViewModalBooking(null)} className="px-6 rounded-xl font-secondary tracking-wide shadow-sm">
                 Close
