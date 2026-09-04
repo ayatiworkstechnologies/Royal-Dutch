@@ -9,6 +9,7 @@ import { Plus, Edit2, Trash2, ShieldCheck, UserCog } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
+import { StatusToggle } from '@/components/ui/StatusToggle';
 
 interface AdminUser {
   id: number;
@@ -20,9 +21,10 @@ interface AdminUser {
 
 export default function AdminUsersPage() {
   const { user } = useAdminAuth();
-  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
+  const { success: toastSuccess, error: toastError, confirm: confirmDialog } = useAlert();
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [loading, setLoading] = useState(true);
+  const [togglingUserId, setTogglingUserId] = useState<number | null>(null);
 
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -110,6 +112,34 @@ export default function AdminUsersPage() {
     }
   };
 
+  const handleStatusToggle = async (account: AdminUser) => {
+    const isCurrentUser = account.id.toString() === user?.id?.toString();
+    if (isCurrentUser && account.is_active) {
+      toastError('Action unavailable', 'You cannot deactivate your own account.');
+      return;
+    }
+
+    const nextActive = !account.is_active;
+    setTogglingUserId(account.id);
+    try {
+      const response = await api.patch(`/api/admin/users/${account.id}`, {
+        is_active: nextActive,
+      });
+      setUsers((current) =>
+        current.map((item) => item.id === account.id ? response.data : item)
+      );
+      toastSuccess(
+        'Status updated',
+        `${account.name} is now ${nextActive ? 'active' : 'inactive'}.`
+      );
+    } catch (error: any) {
+      console.error('Failed to update user status', error);
+      toastError('Status update failed', error.response?.data?.detail || 'Please try again.');
+    } finally {
+      setTogglingUserId(null);
+    }
+  };
+
   if (user?.role !== 'super_admin') {
     return (
       <div className="flex flex-col items-center justify-center h-full p-12 text-center">
@@ -170,10 +200,12 @@ export default function AdminUsersPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize 
-                        ${u.is_active ? 'bg-green-100/80 text-green-800 border border-green-200' : 'bg-red-100/80 text-red-800 border border-red-200'}`}>
-                        {u.is_active ? 'Active' : 'Inactive'}
-                      </span>
+                      <StatusToggle
+                        active={u.is_active}
+                        label={u.name}
+                        disabled={togglingUserId === u.id || (u.is_active && u.id.toString() === user?.id?.toString())}
+                        onChange={() => handleStatusToggle(u)}
+                      />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
                       <button onClick={() => handleOpenModal(u)} className="text-(--primary-plum) hover:text-(--primary-plum-light) transition-colors" title="Edit User">

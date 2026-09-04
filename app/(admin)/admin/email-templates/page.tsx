@@ -8,6 +8,7 @@ import { Plus, Edit2, Trash2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
+import { StatusToggle } from '@/components/ui/StatusToggle';
 
 interface EmailTemplate {
   id: number;
@@ -21,10 +22,11 @@ interface EmailTemplate {
 
 export default function AdminEmailTemplatesPage() {
   const { user } = useAdminAuth();
-  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
+  const { success: toastSuccess, error: toastError, confirm: confirmDialog } = useAlert();
   const [templates, setTemplates] = useState<EmailTemplate[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [togglingTemplateId, setTogglingTemplateId] = useState<number | null>(null);
   
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -107,6 +109,23 @@ export default function AdminEmailTemplatesPage() {
     }
   };
 
+  const handleStatusToggle = async (template: EmailTemplate) => {
+    const nextStatus = template.status === 'active' ? 'inactive' : 'active';
+    setTogglingTemplateId(template.id);
+    try {
+      const response = await api.patch(`/api/email-templates/${template.id}`, { status: nextStatus });
+      setTemplates((current) =>
+        current.map((item) => item.id === template.id ? response.data : item)
+      );
+      toastSuccess('Status updated', `${template.name} is now ${nextStatus}.`);
+    } catch (error: any) {
+      console.error('Failed to update template status', error);
+      toastError('Status update failed', error.response?.data?.detail || 'Please try again.');
+    } finally {
+      setTogglingTemplateId(null);
+    }
+  };
+
   const filteredTemplates = templates.filter(t => 
     t.name.toLowerCase().includes(search.toLowerCase()) || 
     t.slug.toLowerCase().includes(search.toLowerCase()) ||
@@ -165,9 +184,12 @@ export default function AdminEmailTemplatesPage() {
                       <div className="text-xs text-slate-500 line-clamp-1">{template.description || '-'}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${template.status === 'active' ? 'bg-green-100/80 text-green-800 border border-green-200' : 'bg-red-100/80 text-red-800 border border-red-200'}`}>
-                        {template.status}
-                      </span>
+                      <StatusToggle
+                        active={template.status === 'active'}
+                        label={template.name}
+                        disabled={togglingTemplateId === template.id}
+                        onChange={() => handleStatusToggle(template)}
+                      />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
                       <button onClick={() => handleOpenModal(template)} className="text-(--primary-plum) hover:text-(--primary-plum-light) inline-flex items-center">

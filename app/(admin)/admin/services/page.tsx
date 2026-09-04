@@ -8,6 +8,7 @@ import { Plus, Edit2, Trash2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
+import { StatusToggle } from '@/components/ui/StatusToggle';
 
 interface Service {
   id: number;
@@ -29,11 +30,12 @@ interface Category {
 
 export default function AdminServicesPage() {
   const { user } = useAdminAuth();
-  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
+  const { success: toastSuccess, error: toastError, confirm: confirmDialog } = useAlert();
   const [services, setServices] = useState<Service[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [togglingServiceId, setTogglingServiceId] = useState<number | null>(null);
   
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,8 +55,8 @@ export default function AdminServicesPage() {
     setLoading(true);
     try {
       const [servicesRes, categoriesRes] = await Promise.all([
-        api.get('/api/services'),
-        api.get('/api/categories')
+        api.get('/api/services?include_inactive=true'),
+        api.get('/api/categories?include_inactive=true')
       ]);
       setServices(servicesRes.data);
       setCategories(categoriesRes.data);
@@ -140,6 +142,23 @@ export default function AdminServicesPage() {
     }
   };
 
+  const handleStatusToggle = async (service: Service) => {
+    const nextStatus = service.status === 'active' ? 'inactive' : 'active';
+    setTogglingServiceId(service.id);
+    try {
+      const response = await api.patch(`/api/services/${service.id}`, { status: nextStatus });
+      setServices((current) =>
+        current.map((item) => item.id === service.id ? response.data : item)
+      );
+      toastSuccess('Status updated', `${service.name} is now ${nextStatus}.`);
+    } catch (error: any) {
+      console.error('Failed to update service status', error);
+      toastError('Status update failed', error.response?.data?.detail || 'Please try again.');
+    } finally {
+      setTogglingServiceId(null);
+    }
+  };
+
   const filteredServices = services.filter(s => 
     s.name.toLowerCase().includes(search.toLowerCase()) || 
     (s.category_name && s.category_name.toLowerCase().includes(search.toLowerCase()))
@@ -201,9 +220,12 @@ export default function AdminServicesPage() {
                       <div className="text-sm text-slate-500">{service.price ? `${service.price} ${service.currency}` : '-'}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${service.status === 'active' ? 'bg-green-100/80 text-green-800 border border-green-200' : 'bg-red-100/80 text-red-800 border border-red-200'}`}>
-                        {service.status}
-                      </span>
+                      <StatusToggle
+                        active={service.status === 'active'}
+                        label={service.name}
+                        disabled={togglingServiceId === service.id}
+                        onChange={() => handleStatusToggle(service)}
+                      />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
                       <button onClick={() => handleOpenModal(service)} className="text-(--primary-plum) hover:text-(--primary-plum-light) inline-flex items-center">

@@ -8,6 +8,7 @@ import { Plus, Edit2, Trash2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
+import { StatusToggle } from '@/components/ui/StatusToggle';
 
 interface Category {
   id: number;
@@ -19,10 +20,11 @@ interface Category {
 
 export default function AdminCategoriesPage() {
   const { user } = useAdminAuth();
-  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
+  const { success: toastSuccess, error: toastError, confirm: confirmDialog } = useAlert();
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [togglingCategoryId, setTogglingCategoryId] = useState<number | null>(null);
   
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,7 +39,8 @@ export default function AdminCategoriesPage() {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/categories');
+      // Admins need both statuses so an inactive category can be reactivated.
+      const response = await api.get('/api/categories?include_inactive=true');
       setCategories(response.data);
     } catch (error) {
       console.error('Failed to fetch categories', error);
@@ -102,6 +105,32 @@ export default function AdminCategoriesPage() {
     }
   };
 
+  const handleStatusToggle = async (category: Category) => {
+    const nextStatus = category.status === 'active' ? 'inactive' : 'active';
+    setTogglingCategoryId(category.id);
+
+    try {
+      const response = await api.patch(`/api/categories/${category.id}`, {
+        status: nextStatus,
+      });
+      setCategories((current) =>
+        current.map((item) => item.id === category.id ? response.data : item)
+      );
+      toastSuccess(
+        'Status updated',
+        `${category.name} is now ${nextStatus}.`
+      );
+    } catch (error: any) {
+      console.error('Failed to update category status', error);
+      toastError(
+        'Status update failed',
+        error.response?.data?.detail || 'Please try again.'
+      );
+    } finally {
+      setTogglingCategoryId(null);
+    }
+  };
+
   const filteredCategories = categories.filter(c => 
     c.name.toLowerCase().includes(search.toLowerCase()) || 
     c.slug.toLowerCase().includes(search.toLowerCase())
@@ -161,9 +190,12 @@ export default function AdminCategoriesPage() {
                       <div className="text-sm text-slate-500 line-clamp-1">{category.description || '-'}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${category.status === 'active' ? 'bg-green-100/80 text-green-800 border border-green-200' : 'bg-red-100/80 text-red-800 border border-red-200'}`}>
-                        {category.status}
-                      </span>
+                      <StatusToggle
+                        active={category.status === 'active'}
+                        label={category.name}
+                        disabled={togglingCategoryId === category.id}
+                        onChange={() => handleStatusToggle(category)}
+                      />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
                       <button onClick={() => handleOpenModal(category)} className="text-(--primary-plum) hover:text-(--primary-plum-light) inline-flex items-center">

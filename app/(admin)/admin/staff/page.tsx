@@ -8,6 +8,7 @@ import { Plus, Edit2, Trash2, Search, LayoutDashboard } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
+import { StatusToggle } from '@/components/ui/StatusToggle';
 import { CLINICAL_ROLES } from '@/hooks/useAdminAuth';
 import Link from 'next/link';
 
@@ -24,11 +25,12 @@ interface Staff {
 
 export default function AdminStaffPage() {
   const { user } = useAdminAuth();
-  const { success: toastSuccess, error: toastError, warning: toastWarning, info: toastInfo, confirm: confirmDialog } = useAlert();
+  const { success: toastSuccess, error: toastError, warning: toastWarning, confirm: confirmDialog } = useAlert();
   const [staffList, setStaffList] = useState<Staff[]>([]);
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [togglingStaffId, setTogglingStaffId] = useState<number | null>(null);
   
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +50,7 @@ export default function AdminStaffPage() {
   const fetchStaff = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/staff');
+      const response = await api.get('/api/staff?include_inactive=true');
       setStaffList(response.data);
     } catch (error) {
       console.error('Failed to fetch staff', error);
@@ -129,6 +131,23 @@ export default function AdminStaffPage() {
     }
   };
 
+  const handleStatusToggle = async (staff: Staff) => {
+    const nextStatus = staff.status === 'active' ? 'inactive' : 'active';
+    setTogglingStaffId(staff.id);
+    try {
+      const response = await api.patch(`/api/staff/${staff.id}`, { status: nextStatus });
+      setStaffList((current) =>
+        current.map((item) => item.id === staff.id ? response.data : item)
+      );
+      toastSuccess('Status updated', `${staff.name} is now ${nextStatus}.`);
+    } catch (error: any) {
+      console.error('Failed to update staff status', error);
+      toastError('Status update failed', error.response?.data?.detail || 'Please try again.');
+    } finally {
+      setTogglingStaffId(null);
+    }
+  };
+
   const filteredStaff = staffList.filter(s => 
     s.name.toLowerCase().includes(search.toLowerCase()) || 
     (s.role && s.role.toLowerCase().includes(search.toLowerCase())) ||
@@ -188,9 +207,12 @@ export default function AdminStaffPage() {
                       <div className="text-sm text-slate-500">{staff.specialization || '-'}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${staff.status === 'active' ? 'bg-green-100/80 text-green-800 border border-green-200' : 'bg-red-100/80 text-red-800 border border-red-200'}`}>
-                        {staff.status}
-                      </span>
+                      <StatusToggle
+                        active={staff.status === 'active'}
+                        label={staff.name}
+                        disabled={togglingStaffId === staff.id}
+                        onChange={() => handleStatusToggle(staff)}
+                      />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
                       {CLINICAL_ROLES.includes(staff.role) && (
