@@ -16,6 +16,17 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+API requests are proxied through `/api` to the Royal Dutch backend. The default
+backend is `http://89.167.92.220:8015`. To use another backend, set the server-side
+environment variable before starting or building the app:
+
+```bash
+API_BACKEND_URL=https://api.example.com
+```
+
+`NEXT_PUBLIC_API_URL` can still be used to make browser requests directly to an
+alternative backend, but the same-origin proxy is preferred.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

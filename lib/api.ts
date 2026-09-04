@@ -1,9 +1,13 @@
 import axios from 'axios';
 import { getToken, removeToken } from './auth';
 
-const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// Browser requests use Next.js' same-origin /api rewrite by default. This avoids
+// exposing the backend directly to CORS and mixed-content restrictions.
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || '';
 const trimmedApiUrl = rawApiUrl.replace(/\/+$/, '');
-const apiBaseUrl = trimmedApiUrl.endsWith('/api') ? trimmedApiUrl : `${trimmedApiUrl}/api`;
+const apiBaseUrl = trimmedApiUrl
+  ? (trimmedApiUrl.endsWith('/api') ? trimmedApiUrl : `${trimmedApiUrl}/api`)
+  : '/api';
 
 export const api = axios.create({
   baseURL: apiBaseUrl,
