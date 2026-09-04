@@ -24,8 +24,10 @@ environment variable before starting or building the app:
 API_BACKEND_URL=https://api.example.com
 ```
 
-`NEXT_PUBLIC_API_URL` can still be used to make browser requests directly to an
-alternative backend, but the same-origin proxy is preferred.
+Browser requests always use the same-origin `/api` path so production HTTPS
+deployments do not expose the backend to mixed-content or CORS restrictions.
+Do not set `NEXT_PUBLIC_API_URL`; configure the server-side `API_BACKEND_URL`
+instead.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

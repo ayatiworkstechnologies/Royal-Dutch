@@ -1,16 +1,9 @@
 import axios from 'axios';
 import { getToken, removeToken } from './auth';
 
-// Browser requests use Next.js' same-origin /api rewrite by default. This avoids
-// exposing the backend directly to CORS and mixed-content restrictions.
-const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || '';
-const trimmedApiUrl = rawApiUrl.replace(/\/+$/, '');
-const apiBaseUrl = trimmedApiUrl
-  ? (trimmedApiUrl.endsWith('/api') ? trimmedApiUrl : `${trimmedApiUrl}/api`)
-  : '/api';
-
 export const api = axios.create({
-  baseURL: apiBaseUrl,
+  // Keep browser traffic same-origin. Next.js proxies /api to API_BACKEND_URL.
+  baseURL: '/api',
   headers: {
     'Content-Type': 'application/json',
   },
