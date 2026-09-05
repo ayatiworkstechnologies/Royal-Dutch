@@ -11,7 +11,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="min-h-screen w-full overflow-x-hidden bg-white">
+    <main className="min-h-screen w-full overflow-x-clip bg-white">
       {/* Banner Section */}
       <motion.section
         className="relative w-full overflow-hidden bg-white"
@@ -70,7 +70,7 @@ export default function Home() {
       <TestimonialSection />
 
       {/* Blog Section */}
-      <BlogSection />
+      {/* <BlogSection /> */}
 
 
     </main>

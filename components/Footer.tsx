@@ -40,17 +40,17 @@ const exploreLinks = [
     href: "/",
   },
   {
-    name: "Services",
-    href: "/services",
+    name: "Medical Specialities",
+    href: "/medical-specialities",
   },
   {
     name: "Our Works",
     href: "/our-works",
   },
-  {
-    name: "Blog",
-    href: "/blog",
-  },
+  // {
+  //   name: "Blog",
+  //   href: "/blog",
+  // },
   {
     name: "Contact",
     href: "/contact",

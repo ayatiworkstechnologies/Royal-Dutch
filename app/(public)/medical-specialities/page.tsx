@@ -7,27 +7,32 @@ const specialities = [
       "Advanced dermatology and aesthetic treatments focused on skin health, confidence, and long-lasting results.",
     href: "/medical-specialities/dermatology-aesthetic-medicine",
   },
-  {
-    title: "Dentistry Department",
-    description:
-      "Comprehensive dental care including preventive, cosmetic, restorative, and pediatric dentistry.",
-    href: "/medical-specialities/dentistry-department",
-  },
-  {
-    title: "General Medicine (GP Services)",
-    description:
-      "Primary medical care for acute conditions, chronic disease management, screenings, and wellness.",
-    href: "/medical-specialities/general-medicine",
-  },
-  {
-    title: "Physiotherapy & Rehabilitation",
-    description:
-      "Rehabilitation and therapy programs for pain management, recovery, mobility, and wellness.",
-    href: "/medical-specialities/physiotherapy-rehabilitation",
-  },
+
+  // {
+  //   title: "Dentistry Department",
+  //   description:
+  //     "Comprehensive dental care including preventive, cosmetic, restorative, and pediatric dentistry.",
+  //   href: "/medical-specialities/dentistry-department",
+  // },
+
+  // {
+  //   title: "General Medicine (GP Services)",
+  //   description:
+  //     "Primary medical care for acute conditions, chronic disease management, screenings, and wellness.",
+  //   href: "/medical-specialities/general-medicine",
+  // },
+
+  // {
+  //   title: "Physiotherapy & Rehabilitation",
+  //   description:
+  //     "Rehabilitation and therapy programs for pain management, recovery, mobility, and wellness.",
+  //   href: "/medical-specialities/physiotherapy-rehabilitation",
+  // },
 ];
 
 export default function MedicalSpecialitiesPage() {
+  const hasSingleSpeciality = specialities.length === 1;
+
   return (
     <main className="min-h-screen bg-white pt-[110px]">
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -46,12 +51,20 @@ export default function MedicalSpecialitiesPage() {
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div
+          className={`mt-14 gap-6 ${
+            hasSingleSpeciality
+              ? "flex justify-center"
+              : "grid grid-cols-1 md:grid-cols-2"
+          }`}
+        >
           {specialities.map((item) => (
             <Link
               key={item.title}
               href={item.href}
-              className="group border border-[#eadfd8] bg-[#fffdfb] p-7 transition duration-300 hover:border-[#8b1d72]/30 hover:shadow-[0_18px_45px_rgba(0,0,0,0.08)]"
+              className={`group border border-[#eadfd8] bg-[#fffdfb] p-7 transition duration-300 hover:border-[#8b1d72]/30 hover:shadow-[0_18px_45px_rgba(0,0,0,0.08)] ${
+                hasSingleSpeciality ? "w-full max-w-[745px]" : ""
+              }`}
             >
               <h2 className="font-primary text-[21px] font-medium uppercase tracking-[3px] text-black transition group-hover:text-[#8b1d72]">
                 {item.title}

@@ -59,84 +59,84 @@ const medicalSpecialities: SubMenuCategory[] = [
       },
     ],
   },
-  {
-    title: "Dentistry Department",
-    path: "/medical-specialities/dentistry-department",
-    items: [
-      {
-        name: "Preventive and general dentistry",
-        path: "/medical-specialities/dentistry-department/preventive-general-dentistry",
-        image: "/images/dd-1.png",
-      },
-      {
-        name: "Cosmetic smile design and rehabilitation",
-        path: "/medical-specialities/dentistry-department/cosmetic-smile-design-rehabilitation",
-        image: "/images/dd-2.png",
-      },
-      {
-        name: "Restorative dentistry",
-        path: "/medical-specialities/dentistry-department/restorative-dentistry",
-        image: "/images/dd-3.png",
-      },
-      {
-        name: "Pediatric dentistry",
-        path: "/medical-specialities/dentistry-department/pediatric-dentistry",
-        image: "/images/dd-4.png",
-      },
-    ],
-  },
-  {
-    title: "General Medicine (GP Services)",
-    path: "/medical-specialities/general-medicine",
-    items: [
-      {
-        name: "Diagnosis and treatment of acute conditions",
-        path: "/medical-specialities/general-medicine/diagnosis-treatment-acute-conditions",
-        image: "/images/gm-1.png",
-      },
-      {
-        name: "Chronic disease management",
-        path: "/medical-specialities/general-medicine/chronic-disease-management",
-        image: "/images/gm-2.png",
-      },
-      {
-        name: "Preventive health screenings and check-ups",
-        path: "/medical-specialities/general-medicine/preventive-health-screenings-checkups",
-        image: "/images/gm-3.png",
-      },
-      {
-        name: "Family medicine and wellness care",
-        path: "/medical-specialities/general-medicine/family-medicine-wellness-care",
-        image: "/images/gm-4.png",
-      },
-    ],
-  },
-  {
-    title: "Physiotherapy & Rehabilitation",
-    path: "/medical-specialities/physiotherapy-rehabilitation",
-    items: [
-      {
-        name: "Musculoskeletal and pain management therapy",
-        path: "/medical-specialities/physiotherapy-rehabilitation/musculoskeletal-pain-management",
-        image: "/images/pr-1.png",
-      },
-      {
-        name: "Post-injury and post-operative rehabilitation",
-        path: "/medical-specialities/physiotherapy-rehabilitation/post-injury-post-operative-rehabilitation",
-        image: "/images/pr-2.png",
-      },
-      {
-        name: "Neurological physiotherapy",
-        path: "/medical-specialities/physiotherapy-rehabilitation/neurological-physiotherapy",
-        image: "/images/pr-3.png",
-      },
-      {
-        name: "Home-based physiotherapy programs",
-        path: "/medical-specialities/physiotherapy-rehabilitation/home-based-physiotherapy-programs",
-        image: "/images/pr-4.png",
-      },
-    ],
-  },
+  // {
+  //   title: "Dentistry Department",
+  //   path: "/medical-specialities/dentistry-department",
+  //   items: [
+  //     {
+  //       name: "Preventive and general dentistry",
+  //       path: "/medical-specialities/dentistry-department/preventive-general-dentistry",
+  //       image: "/images/dd-1.png",
+  //     },
+  //     {
+  //       name: "Cosmetic smile design and rehabilitation",
+  //       path: "/medical-specialities/dentistry-department/cosmetic-smile-design-rehabilitation",
+  //       image: "/images/dd-2.png",
+  //     },
+  //     {
+  //       name: "Restorative dentistry",
+  //       path: "/medical-specialities/dentistry-department/restorative-dentistry",
+  //       image: "/images/dd-3.png",
+  //     },
+  //     {
+  //       name: "Pediatric dentistry",
+  //       path: "/medical-specialities/dentistry-department/pediatric-dentistry",
+  //       image: "/images/dd-4.png",
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: "General Medicine (GP Services)",
+  //   path: "/medical-specialities/general-medicine",
+  //   items: [
+  //     {
+  //       name: "Diagnosis and treatment of acute conditions",
+  //       path: "/medical-specialities/general-medicine/diagnosis-treatment-acute-conditions",
+  //       image: "/images/gm-1.png",
+  //     },
+  //     {
+  //       name: "Chronic disease management",
+  //       path: "/medical-specialities/general-medicine/chronic-disease-management",
+  //       image: "/images/gm-2.png",
+  //     },
+  //     {
+  //       name: "Preventive health screenings and check-ups",
+  //       path: "/medical-specialities/general-medicine/preventive-health-screenings-checkups",
+  //       image: "/images/gm-3.png",
+  //     },
+  //     {
+  //       name: "Family medicine and wellness care",
+  //       path: "/medical-specialities/general-medicine/family-medicine-wellness-care",
+  //       image: "/images/gm-4.png",
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: "Physiotherapy & Rehabilitation",
+  //   path: "/medical-specialities/physiotherapy-rehabilitation",
+  //   items: [
+  //     {
+  //       name: "Musculoskeletal and pain management therapy",
+  //       path: "/medical-specialities/physiotherapy-rehabilitation/musculoskeletal-pain-management",
+  //       image: "/images/pr-1.png",
+  //     },
+  //     {
+  //       name: "Post-injury and post-operative rehabilitation",
+  //       path: "/medical-specialities/physiotherapy-rehabilitation/post-injury-post-operative-rehabilitation",
+  //       image: "/images/pr-2.png",
+  //     },
+  //     {
+  //       name: "Neurological physiotherapy",
+  //       path: "/medical-specialities/physiotherapy-rehabilitation/neurological-physiotherapy",
+  //       image: "/images/pr-3.png",
+  //     },
+  //     {
+  //       name: "Home-based physiotherapy programs",
+  //       path: "/medical-specialities/physiotherapy-rehabilitation/home-based-physiotherapy-programs",
+  //       image: "/images/pr-4.png",
+  //     },
+  //   ],
+  // },
 ];
 
 /* ================= CARE SERVICES ================= */
@@ -225,6 +225,13 @@ const careServices: SubMenuCategory[] = [
 /* ================= TOP NAV ================= */
 
 const navLinks: NavLink[] = [
+
+  {
+    name: "Home",
+    path: "/",
+    type: "link",
+  },
+  
   {
     name: "About",
     path: "/about",
@@ -237,23 +244,23 @@ const navLinks: NavLink[] = [
     menuKey: "medical",
     categories: medicalSpecialities,
   },
-  {
-    name: "Care Services",
-    path: "/care-services",
-    type: "mega",
-    menuKey: "care",
-    categories: careServices,
-  },
+  // {
+  //   name: "Care Services",
+  //   path: "/care-services",
+  //   type: "mega",
+  //   menuKey: "care",
+  //   categories: careServices,
+  // },
   {
     name: "Our Works",
     path: "/our-works",
     type: "link",
   },
-  {
-    name: "Blog",
-    path: "/blog",
-    type: "link",
-  },
+  // {
+  //   name: "Blog",
+  //   path: "/blog",
+  //   type: "link",
+  // },
   {
     name: "Contact",
     path: "/contact",

@@ -18,72 +18,72 @@ const slides = [
     ],
     bgImage: "/images/treatment-bg-1.png",
   },
-  {
-    number: "02",
-    title: "Dentistry Department",
-    points: [
-      "Preventive and general dentistry",
-      "Cosmetic smile design and rehabilitation",
-      "Restorative dentistry",
-      "Pediatric dentistry",
-    ],
-    bgImage: "/images/treatment-bg-2.png",
-  },
-  {
-    number: "03",
-    title: "General Medicine (GP Services)",
-    points: [
-      "Diagnosis and treatment of acute conditions",
-      "Chronic disease management",
-      "Preventive health screenings and check-ups",
-      "Family medicine and wellness care",
-    ],
-    bgImage: "/images/treatment-bg-3.png",
-  },
-  {
-    number: "04",
-    title: "Physiotherapy & Rehabilitation",
-    points: [
-      "Musculoskeletal and pain management therapy",
-      "Post-injury and post-operative rehabilitation",
-      "Neurological physiotherapy",
-      "Home-based physiotherapy programs",
-    ],
-    bgImage: "/images/treatment-bg-4.png",
-  },
-  {
-    number: "05",
-    title: "Home Healthcare Division",
-    points: [
-      "Doctor home consultations",
-      "Skilled nursing care",
-      "Elderly and assisted care services",
-      "Chronic condition monitoring",
-    ],
-    bgImage: "/images/treatment-bg-5.png",
-  },
-  {
-    number: "06",
-    title: "Post-Surgical Care Programs",
-    points: [
-      "Wound care and infection prevention",
-      "Pain management protocols",
-      "Rehabilitation and mobility restoration",
-      "Long-term recovery and follow-up care",
-    ],
-    bgImage: "/images/treatment-bg-6.png",
-  },
-  {
-    number: "07",
-    title: "Integrated Care Model",
-    points: [
-      "Seamless coordination between departments",
-      "Continuity of care from consultation to recovery",
-      "Personalized treatment pathways",
-      "Improved clinical outcomes and patient satisfaction",
-    ],
-    bgImage: "/images/treatment-bg-7.png",
-  },
+  // {
+  //   number: "02",
+  //   title: "Dentistry Department",
+  //   points: [
+  //     "Preventive and general dentistry",
+  //     "Cosmetic smile design and rehabilitation",
+  //     "Restorative dentistry",
+  //     "Pediatric dentistry",
+  //   ],
+  //   bgImage: "/images/treatment-bg-2.png",
+  // },
+  // {
+  //   number: "03",
+  //   title: "General Medicine (GP Services)",
+  //   points: [
+  //     "Diagnosis and treatment of acute conditions",
+  //     "Chronic disease management",
+  //     "Preventive health screenings and check-ups",
+  //     "Family medicine and wellness care",
+  //   ],
+  //   bgImage: "/images/treatment-bg-3.png",
+  // },
+  // {
+  //   number: "04",
+  //   title: "Physiotherapy & Rehabilitation",
+  //   points: [
+  //     "Musculoskeletal and pain management therapy",
+  //     "Post-injury and post-operative rehabilitation",
+  //     "Neurological physiotherapy",
+  //     "Home-based physiotherapy programs",
+  //   ],
+  //   bgImage: "/images/treatment-bg-4.png",
+  // },
+  // {
+  //   number: "05",
+  //   title: "Home Healthcare Division",
+  //   points: [
+  //     "Doctor home consultations",
+  //     "Skilled nursing care",
+  //     "Elderly and assisted care services",
+  //     "Chronic condition monitoring",
+  //   ],
+  //   bgImage: "/images/treatment-bg-5.png",
+  // },
+  // {
+  //   number: "06",
+  //   title: "Post-Surgical Care Programs",
+  //   points: [
+  //     "Wound care and infection prevention",
+  //     "Pain management protocols",
+  //     "Rehabilitation and mobility restoration",
+  //     "Long-term recovery and follow-up care",
+  //   ],
+  //   bgImage: "/images/treatment-bg-6.png",
+  // },
+  // {
+  //   number: "07",
+  //   title: "Integrated Care Model",
+  //   points: [
+  //     "Seamless coordination between departments",
+  //     "Continuity of care from consultation to recovery",
+  //     "Personalized treatment pathways",
+  //     "Improved clinical outcomes and patient satisfaction",
+  //   ],
+  //   bgImage: "/images/treatment-bg-7.png",
+  // },
 ];
 
 export default function TreatmentCarousel() {
@@ -195,6 +195,7 @@ export default function TreatmentCarousel() {
             </motion.div>
           </motion.div>
 
+          {slides.length > 1 && (
           <button
             type="button"
             onClick={prevSlide}
@@ -218,7 +219,9 @@ export default function TreatmentCarousel() {
               </svg>
             </span>
           </button>
+          )}
 
+          {slides.length > 1 && (
           <button
             type="button"
             onClick={nextSlide}
@@ -242,6 +245,7 @@ export default function TreatmentCarousel() {
               </svg>
             </span>
           </button>
+          )}
         </div>
       </div>
 
@@ -265,6 +269,7 @@ export default function TreatmentCarousel() {
 
             <div className="absolute inset-0 bg-black/20" />
 
+            {slides.length > 1 && (
             <div className="absolute right-4 top-4 z-20 flex items-center gap-3">
               <button
                 type="button"
@@ -284,6 +289,7 @@ export default function TreatmentCarousel() {
                 ›
               </button>
             </div>
+            )}
           </div>
 
           <div className="bg-white px-6 py-7">

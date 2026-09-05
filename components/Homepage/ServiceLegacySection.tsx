@@ -129,7 +129,7 @@ export default function ServiceLegacySection() {
             viewport={{ once: true }}
           >
             <Link
-              href="/#"
+              href="/medical-specialities/dermatology-aesthetic-medicine"
               className="rounded-full bg-[#b765a2] px-5 py-2 font-primary text-[12px] font-semibold uppercase tracking-[1px] text-white transition duration-300 hover:bg-[#D6B981] hover:text-[#200020]"
             >
               Know More
