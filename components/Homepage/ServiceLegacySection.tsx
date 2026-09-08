@@ -79,21 +79,26 @@ export default function ServiceLegacySection() {
           </motion.p>
 
           {/* Heading - fade right */}
-          <motion.h2
-            className="font-primary text-[25px] font-medium uppercase leading-[1.35] tracking-[5px] text-black sm:text-[28px] md:text-[30px] lg:text-[32px]"
-            initial={{ opacity: 0, x: 80 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{
-              duration: 1.25,
-              delay: 0.25,
-              ease: smoothEase,
-            }}
-            viewport={{ once: true }}
-          >
-            A Legacy Of Excellence In
-            <br className="hidden sm:block" />
-            Dermatology &amp; Aesthetics
-          </motion.h2>
+         <motion.h2
+  className="font-primary text-[25px] font-medium uppercase leading-[1.35] tracking-[5px] text-black sm:text-[28px] md:text-[30px] lg:text-[32px]"
+  initial={{ opacity: 0, x: 80 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  transition={{
+    duration: 1.25,
+    delay: 0.25,
+    ease: smoothEase,
+  }}
+  viewport={{ once: true }}
+>
+  A Legacy Of Excellence In
+  <br className="sm:hidden" />
+
+  <span className="inline-block sm:hidden">&nbsp;</span>
+
+  <br className="hidden sm:block" />
+
+  Dermatology &amp; Aesthetics
+</motion.h2>
 
           {/* Paragraph - fade up */}
           <motion.p

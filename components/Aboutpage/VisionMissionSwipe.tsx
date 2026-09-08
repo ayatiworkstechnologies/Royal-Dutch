@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const cards = [
   {
     title: "Our Vision",
-    text: "To be the leading multi-center dermatology and aesthetic brand in the UAE, known for innovation, integrity, and international clinical standards.",
+    text: "To become a leading multi-specialty medical centre in the UAE, recognized for innovation, integrity, and international standards of clinical care.",
     image: "/images/our-vision-1.png", // laptop / desktop same
     tabImage: "/images/our-vision-1.png",
     mobileImage: "/images/our-vision-mobile.png",
@@ -169,7 +169,7 @@ export default function VisionMissionStack() {
                 {item.title}
               </h2>
 
-              <p className="mt-7 font-secondary text-[14px] font-medium leading-[1.85] tracking-[1.4px] text-[#7d7d7d] sm:text-[15px] md:text-[16px]">
+              <p className="mt-7 font-secondary text-[14px] font-medium leading-[1.85] tracking-[1.4px] text-[#7d7d7d] sm:text-[14px] md:text-[16px]">
                 {item.text}
               </p>
 
