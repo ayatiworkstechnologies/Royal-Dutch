@@ -1,50 +1,58 @@
 import Link from "next/link";
 
-const services = [
+const treatments = [
   {
-    title: "Facials",
+    title: "Glowing Dermapen",
     description:
-      "Professional facial treatments designed to cleanse, refresh, hydrate, and enhance your skin's natural glow.",
-    href: "/services/facials",
+      "A professional microneedling treatment designed to improve skin texture, support skin renewal, and promote a smoother, brighter-looking complexion.",
+    href: "/services/advanced-skin-treatments/glowing-dermapen",
   },
   {
-    title: "Advanced Skin Treatments",
+    title: "Exosome Dermapen",
     description:
-      "Advanced skin treatments combining modern techniques and personalized care for healthier, brighter, and rejuvenated skin.",
-    href: "/services/advanced-skin-treatments",
+      "An advanced Dermapen treatment combined with exosome-based skin care to support rejuvenation, hydration, and improved skin appearance.",
+    href: "/services/advanced-skin-treatments/exosome-dermapen",
   },
   {
-    title: "Body & Laser Treatments",
+    title: "Pink Drop",
     description:
-      "Modern body contouring and laser treatments designed for smoother skin, long-term hair reduction, and enhanced body confidence.",
-    href: "/services/body-laser-treatments",
+      "A targeted skin-brightening treatment designed to refresh dull-looking skin and promote a more radiant, even, and revitalized complexion.",
+    href: "/services/advanced-skin-treatments/pink-drop",
+  },
+  {
+    title: "Chemical Peel Brightening Serum",
+    description:
+      "A professional chemical peel combined with brightening care to gently exfoliate, improve skin clarity, and enhance overall radiance.",
+    href: "/services/advanced-skin-treatments/chemical-peel-brightening-serum",
   },
 ];
 
-export default function ServicesPage() {
+export default function AdvancedSkinTreatmentsPage() {
   return (
     <main className="min-h-screen bg-white pt-[50px]">
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
         {/* ================= HEADING ================= */}
+
         <div className="mx-auto max-w-3xl text-center">
           <p className="font-secondary text-[11px] font-semibold uppercase tracking-[4px] text-[#8b1d72] sm:text-[12px]">
             Royal Dutch Medical Centre
           </p>
 
-          <h1 className="mt-5 font-primary text-[28px] font-medium uppercase tracking-[5px] text-black sm:text-[36px] sm:tracking-[6px] md:text-[44px]">
-            Our Services
+          <h1 className="mt-5 font-primary text-[27px] font-medium uppercase leading-[1.4] tracking-[4px] text-black sm:text-[35px] sm:tracking-[5px] md:text-[43px]">
+            Advanced Skin Treatments
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl font-secondary text-[14px] leading-[1.8] tracking-[0.8px] text-[#777] sm:text-[15px] sm:tracking-[1px]">
-            Discover personalized aesthetic and dermatology treatments designed
-            to enhance skin health, beauty, confidence, and overall wellbeing.
+            Explore advanced skin treatments designed to improve texture,
+            brightness, hydration, and overall skin appearance through
+            personalized professional care.
           </p>
         </div>
 
-        {/* ================= SERVICES ================= */}
-        <div className="mx-auto mt-12 grid max-w-[1200px] grid-cols-1 items-stretch gap-6 sm:mt-14 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((item, index) => (
+        {/* ================= TREATMENTS ================= */}
+
+        <div className="mx-auto mt-12 grid max-w-[1200px] grid-cols-1 items-stretch gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-2">
+          {treatments.map((item, index) => (
             <Link
               key={item.title}
               href={item.href}
@@ -53,27 +61,32 @@ export default function ServicesPage() {
                 relative
                 flex
                 h-full
-                min-h-[345px]
+                min-h-[265px]
                 flex-col
                 overflow-hidden
                 rounded-[4px]
                 border
                 border-[#eadfd8]
                 bg-[#fffdfb]
-                p-7
+                p-6
                 transition-all
                 duration-500
                 ease-out
+
                 hover:-translate-y-1
                 hover:border-[#8b1d72]/30
                 hover:bg-white
                 hover:shadow-[0_18px_45px_rgba(0,0,0,0.08)]
-                sm:p-8
-                lg:min-h-[345px]
+
+                sm:min-h-[265px]
+                sm:p-7
+
+                lg:min-h-[265px]
                 lg:p-9
               "
             >
-              {/* TOP HOVER LINE */}
+              {/* ================= TOP HOVER LINE ================= */}
+
               <span
                 className="
                   absolute
@@ -84,43 +97,53 @@ export default function ServicesPage() {
                   bg-[#8b1d72]
                   transition-all
                   duration-500
+                  ease-out
                   group-hover:w-full
                 "
               />
 
-              {/* NUMBER */}
-              <span className="font-secondary text-[11px] font-semibold uppercase tracking-[2px] text-[#b49584]">
-                0{index + 1}
+              {/* ================= NUMBER ================= */}
+
+              <span className="font-secondary text-[10px] font-semibold uppercase tracking-[2px] text-[#b49584] sm:text-[11px]">
+                {String(index + 1).padStart(2, "0")}
               </span>
 
-              {/* TITLE */}
+              {/* ================= TITLE ================= */}
+
               <h2
                 className="
-                  mt-8
+                  mt-7
+                  max-w-[460px]
                   font-primary
-                  text-[18px]
+                  text-[17px]
                   font-medium
                   uppercase
-                  leading-[1.45]
+                  leading-[1.5]
                   tracking-[2px]
                   text-black
                   transition-colors
                   duration-300
+
                   group-hover:text-[#8b1d72]
-                  sm:text-[19px]
+
+                  sm:text-[18px]
+                  lg:mt-8
                   lg:text-[20px]
                 "
               >
                 {item.title}
               </h2>
 
-              {/* DESCRIPTION */}
-              <p className="mt-5 font-secondary text-[13px] leading-[1.9] tracking-[0.6px] text-[#777] sm:text-[13.5px]">
+              {/* ================= DESCRIPTION ================= */}
+
+              <p className="mt-4 max-w-[500px] font-secondary text-[13px] leading-[1.9] tracking-[0.5px] text-[#777] sm:text-[13.5px]">
                 {item.description}
               </p>
 
-              {/* BUTTON - ALWAYS BOTTOM */}
-              <div className="mt-auto pt-8">
+              {/* ================= BUTTON ================= */}
+              {/* mt-auto keeps all buttons aligned */}
+
+              <div className="mt-auto pt-7">
                 <div className="inline-flex items-center gap-3">
                   <span
                     className="
@@ -129,7 +152,7 @@ export default function ServicesPage() {
                       text-[10px]
                       font-semibold
                       uppercase
-                      tracking-[3px]
+                      tracking-[2.5px]
                       text-[#8b1d72]
 
                       after:absolute
@@ -144,7 +167,7 @@ export default function ServicesPage() {
                       group-hover:after:w-full
                     "
                   >
-                    View Treatments
+                    View Treatment
                   </span>
 
                   <span

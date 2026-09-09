@@ -40,8 +40,8 @@ const exploreLinks = [
     href: "/",
   },
   {
-    name: "Medical Specialities",
-    href: "/medical-specialities",
+    name: "Services",
+    href: "/services",
   },
   {
     name: "Our Works",

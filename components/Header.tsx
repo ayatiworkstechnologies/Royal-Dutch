@@ -11,7 +11,7 @@ import { User as UserIcon } from "lucide-react";
 type SubMenuItem = {
   name: string;
   path: string;
-  image: string;
+  image?: string;
 };
 
 type SubMenuCategory = {
@@ -24,7 +24,7 @@ type NavLink = {
   name: string;
   path: string;
   type: "link" | "mega";
-  menuKey?: "medical" | "care";
+  menuKey?: "services";
   categories?: SubMenuCategory[];
 };
 
@@ -222,6 +222,81 @@ const careServices: SubMenuCategory[] = [
   },
 ];
 
+/* ================= SERVICES ================= */
+
+const serviceCategories: SubMenuCategory[] = [
+  {
+    title: "Facials",
+    path: "/services/facials",
+    items: [
+      {
+        name: "Classic Facial",
+        path: "/services/facials/classic-facial",
+      },
+      {
+        name: "HydraFacial",
+        path: "/services/facials/hydrafacial",
+      },
+      {
+        name: "Vitamin C HydraFacial",
+        path: "/services/facials/vitamin-c-hydrafacial",
+      },
+      {
+        name: "Acne Control Facial",
+        path: "/services/facials/acne-control-facial",
+      },
+      {
+        name: "Peeling Pearl Facial",
+        path: "/services/facials/peeling-pearl-facial",
+      },
+      {
+        name: "Royal Dutch Facial",
+        path: "/services/facials/royal-dutch-facial",
+      },
+    ],
+  },
+  {
+    title: "Advanced Skin Treatments",
+    path: "/services/advanced-skin-treatments",
+    items: [
+      {
+        name: "Glowing Dermapen",
+        path: "/services/advanced-skin-treatments/glowing-dermapen",
+      },
+      {
+        name: "Exosome Dermapen",
+        path: "/services/advanced-skin-treatments/exosome-dermapen",
+      },
+      {
+        name: "Pink Drop",
+        path: "/services/advanced-skin-treatments/pink-drop",
+      },
+      {
+        name: "Chemical Peel Brightening Serum",
+        path: "/services/advanced-skin-treatments/chemical-peel-brightening-serum",
+      },
+    ],
+  },
+  {
+    title: "Body & Laser Treatments",
+    path: "/services/body-laser-treatments",
+    items: [
+      {
+        name: "Fat Freezing",
+        path: "/services/body-laser-treatments/fat-freezing",
+      },
+      {
+        name: "Laser Treatment",
+        path: "/services/body-laser-treatments/laser-treatment",
+      },
+    ],
+  },
+];
+
+// Retain the existing hidden datasets without rendering them in navigation.
+void medicalSpecialities;
+void careServices;
+
 /* ================= TOP NAV ================= */
 
 const navLinks: NavLink[] = [
@@ -238,19 +313,12 @@ const navLinks: NavLink[] = [
     type: "link",
   },
   {
-    name: "Medical Specialities",
-    path: "/medical-specialities",
+    name: "Services",
+    path: "/services",
     type: "mega",
-    menuKey: "medical",
-    categories: medicalSpecialities,
+    menuKey: "services",
+    categories: serviceCategories,
   },
-  // {
-  //   name: "Care Services",
-  //   path: "/care-services",
-  //   type: "mega",
-  //   menuKey: "care",
-  //   categories: careServices,
-  // },
   {
     name: "Our Works",
     path: "/our-works",
@@ -319,45 +387,37 @@ function DesktopMegaMenu({
 }) {
   const isExactActive = (path: string) => currentPath === cleanPath(path);
 
-  const isParentActive = (path: string) => {
-    const target = cleanPath(path);
-    return currentPath === target || currentPath.startsWith(`${target}/`);
-  };
-
   const activeCategory = categories[activeIndex] || categories[0];
 
   return (
-    <div className="absolute left-1/2 top-[calc(100%+14px)] z-[9999] hidden w-[calc(100vw-28px)] max-w-[1320px] -translate-x-1/2 rounded-[14px] bg-white px-8 py-8 shadow-[0_18px_45px_rgba(0,0,0,0.15)] lg:block">
-      <div className="grid min-h-[300px] grid-cols-[230px_1fr] gap-8">
-        <div className="border-r border-black/10 pr-7">
-          <div className="flex flex-col gap-[26px] pt-2">
+    <div className="absolute left-1/2 top-[calc(100%+10px)] z-[9999] hidden w-[620px] max-w-[calc(100vw-28px)] -translate-x-1/2 overflow-hidden rounded-[14px] border border-black/[0.06] bg-white px-5 py-4 shadow-[0_22px_55px_rgba(0,0,0,0.14)] lg:block xl:w-[650px]">
+      <div className="grid min-h-[165px] grid-cols-[225px_1fr] gap-5 xl:grid-cols-[240px_1fr] xl:gap-6">
+        <div className="border-r border-black/10 pr-5 xl:pr-6">
+          <div className="flex flex-col gap-2.5">
             {categories.map((category, index) => {
-              const isHovered = activeIndex === index;
-              const isCurrentParent = isParentActive(category.path);
+              const isActiveCategory = activeIndex === index;
 
               return (
-                <Link
+                <button
                   key={category.title}
-                  href={category.path}
+                  type="button"
                   onMouseEnter={() => setActiveIndex(index)}
                   onFocus={() => setActiveIndex(index)}
-                  onClick={closeDesktopMenuNow}
-                  className={`text-left font-secondary text-[15px] leading-[1.28] transition-colors duration-200 ${
-                    isCurrentParent
-                      ? "font-semibold text-[#8b1d72]"
-                      : isHovered
-                      ? "font-semibold text-black"
-                      : "font-normal text-[#8b8b8b] hover:text-[#8b1d72]"
+                  onClick={() => setActiveIndex(index)}
+                  className={`group relative w-full overflow-hidden rounded-[9px] px-3 py-2 text-left font-secondary text-[13px] font-semibold leading-[1.35] transition-all duration-300 ease-out before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:rounded-r-full before:bg-[#8b1d72] before:transition-all before:duration-300 after:absolute after:bottom-[5px] after:left-3 after:h-px after:rounded-full after:bg-[#8b1d72] after:transition-all after:duration-300 ${
+                    isActiveCategory
+                      ? "translate-x-1 bg-[#8b1d72]/[0.07] text-[#8b1d72] before:opacity-100 after:w-7"
+                      : "text-[#2f2f2f] before:opacity-0 after:w-0 hover:translate-x-1 hover:bg-[#8b1d72]/[0.05] hover:text-[#8b1d72] hover:before:opacity-100 hover:after:w-7"
                   }`}
                 >
                   {category.title}
-                </Link>
+                </button>
               );
             })}
           </div>
         </div>
 
-        <div className="grid grid-cols-4 gap-8">
+        <div className="flex flex-col gap-1 py-0.5">
           {activeCategory.items.map((item) => {
             const itemActive = isExactActive(item.path);
 
@@ -366,35 +426,13 @@ function DesktopMegaMenu({
                 key={item.name}
                 href={item.path}
                 onClick={closeDesktopMenuNow}
-                className="group flex h-full flex-col"
+                className={`group relative flex w-full items-center rounded-[8px] px-3 py-2 font-secondary text-[12.5px] leading-[1.4] transition-all duration-300 ease-out before:mr-0 before:h-[5px] before:w-[5px] before:scale-0 before:rounded-full before:bg-[#8b1d72] before:opacity-0 before:transition-all before:duration-300 ${
+                  itemActive
+                    ? "translate-x-1 bg-[#8b1d72]/[0.07] font-semibold text-[#8b1d72] before:mr-2 before:scale-100 before:opacity-100"
+                    : "font-medium text-[#303030] hover:translate-x-1 hover:bg-[#8b1d72]/[0.05] hover:text-[#8b1d72] hover:before:mr-2 hover:before:scale-100 hover:before:opacity-100"
+                }`}
               >
-                <h4
-                  className={`min-h-[58px] font-secondary text-[15px] leading-[1.35] transition-colors duration-300 ${
-                    itemActive
-                      ? "font-semibold text-[#8b1d72]"
-                      : "font-normal text-[#7d7d7d] group-hover:text-[#8b1d72]"
-                  }`}
-                >
-                  {item.name}
-                </h4>
-
-                <div
-                  className={`mt-4 overflow-hidden rounded-[5px] bg-[#f5eef4] transition duration-300 ${
-                    itemActive
-                      ? "ring-2 ring-[#8b1d72] ring-offset-4 ring-offset-white"
-                      : ""
-                  }`}
-                >
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    width={290}
-                    height={190}
-                    className={`h-[155px] w-full object-cover object-center transition-transform duration-700 xl:h-[210px] ${
-                      itemActive ? "scale-[1.03]" : "group-hover:scale-105"
-                    }`}
-                  />
-                </div>
+                {item.name}
               </Link>
             );
           })}
@@ -445,7 +483,7 @@ function MobileAccordion({
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className={`flex w-full items-center justify-between py-4 font-secondary text-[15px] font-semibold ${
+        className={`group flex w-full items-center justify-between py-3.5 font-secondary text-[15px] font-semibold transition-colors duration-300 ${
           categories.some((category) => isParentActive(category.path))
             ? "text-[#D6B981]"
             : "text-white"
@@ -468,7 +506,7 @@ function MobileAccordion({
             return (
               <div
                 key={category.title}
-                className={`mb-3 overflow-hidden rounded-[12px] ${
+                className={`mb-2 overflow-hidden rounded-[10px] border border-white/[0.06] transition-colors duration-300 ${
                   categoryActive ? "bg-white/15" : "bg-white/7"
                 }`}
               >
@@ -477,7 +515,7 @@ function MobileAccordion({
                   onClick={() =>
                     setActiveIndex((prev) => (prev === index ? null : index))
                   }
-                  className={`flex w-full items-center justify-between px-4 py-3 text-left font-secondary text-[14px] font-semibold leading-5 ${
+                  className={`group flex w-full items-center justify-between px-3.5 py-2.5 text-left font-secondary text-[14px] font-semibold leading-5 transition-all duration-300 ${
                     categoryActive ? "text-[#D6B981]" : "text-white"
                   }`}
                 >
@@ -493,7 +531,7 @@ function MobileAccordion({
                   }`}
                 >
                   <div className="min-h-0">
-                    <ul className="space-y-2 px-4 pb-4 pt-1">
+                    <ul className="space-y-1.5 px-3.5 pb-3.5 pt-1">
                       {category.items.map((item) => {
                         const itemActive = isExactActive(item.path);
 
@@ -502,10 +540,10 @@ function MobileAccordion({
                             <Link
                               href={item.path}
                               onClick={closeMobileMenu}
-                              className={`block rounded-[8px] px-3 py-2 font-secondary text-[13px] leading-[1.5] transition ${
+                              className={`group relative block rounded-[8px] px-3 py-2 font-secondary text-[13px] leading-[1.45] transition-all duration-300 ${
                                 itemActive
                                   ? "bg-[#8b1d72] font-semibold text-white"
-                                  : "text-white/75 hover:bg-white/10 hover:text-[#D6B981]"
+                                  : "text-white/75 hover:translate-x-1 hover:bg-white/[0.08] hover:text-[#D6B981]"
                               }`}
                             >
                               {item.name}
@@ -610,9 +648,8 @@ export default function Header() {
   const { user, logout } = useAuth();
 
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState<"medical" | "care" | null>(null);
-  const [medicalActive, setMedicalActive] = useState(0);
-  const [careActive, setCareActive] = useState(0);
+  const [openMenu, setOpenMenu] = useState<"services" | null>(null);
+  const [servicesActive, setServicesActive] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -647,15 +684,10 @@ export default function Header() {
     }
   };
 
-  const openDesktopMenu = (menu: "medical" | "care") => {
+  const openDesktopMenu = (menu: "services") => {
     clearCloseTimer();
     setOpenMenu(menu);
-
-    if (menu === "medical") {
-      setMedicalActive(getActiveCategoryIndex(medicalSpecialities));
-    } else {
-      setCareActive(getActiveCategoryIndex(careServices));
-    }
+    setServicesActive(getActiveCategoryIndex(serviceCategories));
   };
 
   const closeDesktopMenu = () => {
@@ -676,8 +708,7 @@ export default function Header() {
   };
 
   useEffect(() => {
-    setMedicalActive(getActiveCategoryIndex(medicalSpecialities));
-    setCareActive(getActiveCategoryIndex(careServices));
+    setServicesActive(getActiveCategoryIndex(serviceCategories));
   }, [currentPath]);
 
   useEffect(() => {
@@ -703,10 +734,10 @@ export default function Header() {
   }, []);
 
   const navLinkClass = (href: string) =>
-    `font-secondary text-[15px] font-medium transition-colors duration-300 ${
+    `group relative inline-flex font-secondary text-[15px] font-medium transition-colors duration-300 after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:rounded-full after:bg-[#8b1d72] after:transition-all after:duration-300 ${
       isExactActive(href)
-        ? "text-[#8b1d72]"
-        : "text-[#2f2f2f] hover:text-[#8b1d72]"
+        ? "text-[#8b1d72] after:w-full"
+        : "text-[#2f2f2f] hover:text-[#8b1d72] hover:after:w-full"
     }`;
 
   const isMegaActive = (link: NavLink) => {
@@ -780,12 +811,12 @@ export default function Header() {
                         type="button"
                         onMouseEnter={() => openDesktopMenu(link.menuKey!)}
                         onFocus={() => openDesktopMenu(link.menuKey!)}
-                        className={`flex items-center gap-1 font-secondary text-[15px] transition-colors duration-300 ${
+                        className={`group relative flex items-center gap-1.5 font-secondary text-[15px] transition-colors duration-300 after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:rounded-full after:bg-[#8b1d72] after:transition-all after:duration-300 ${
                           activeMega
-                            ? "font-semibold text-[#8b1d72]"
+                            ? "font-semibold text-[#8b1d72] after:w-full"
                             : isOpen
-                            ? "font-semibold text-black"
-                            : "font-medium text-[#2f2f2f] hover:text-[#8b1d72]"
+                            ? "font-semibold text-black after:w-full"
+                            : "font-medium text-[#2f2f2f] hover:text-[#8b1d72] hover:after:w-full"
                         }`}
                       >
                         {link.name}
@@ -853,8 +884,10 @@ export default function Header() {
                   key={link.name}
                   href={link.path}
                   onClick={closeMobileMenu}
-                  className={`block border-b border-white/10 py-4 font-secondary text-[15px] font-semibold ${
-                    isExactActive(link.path) ? "text-[#D6B981]" : "text-white"
+                  className={`group relative block border-b border-white/10 py-3.5 font-secondary text-[15px] font-semibold transition-colors duration-300 after:absolute after:bottom-2 after:left-0 after:h-px after:rounded-full after:bg-[#D6B981] after:transition-all after:duration-300 ${
+                    isExactActive(link.path)
+                      ? "text-[#D6B981] after:w-10"
+                      : "text-white hover:text-[#D6B981] hover:after:w-10"
                   }`}
                 >
                   {link.name}
@@ -922,13 +955,9 @@ export default function Header() {
 
         {openMenu && (
           <DesktopMegaMenu
-            categories={
-              openMenu === "medical" ? medicalSpecialities : careServices
-            }
-            activeIndex={openMenu === "medical" ? medicalActive : careActive}
-            setActiveIndex={
-              openMenu === "medical" ? setMedicalActive : setCareActive
-            }
+            categories={serviceCategories}
+            activeIndex={servicesActive}
+            setActiveIndex={setServicesActive}
             currentPath={currentPath}
             closeDesktopMenuNow={closeDesktopMenuNow}
           />

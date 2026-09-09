@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type TransformationItem = {
   id: number;
@@ -78,7 +78,9 @@ const defaultTransformations: TransformationItem[] = [
   },
 ];
 
-const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const smoothEase: [number, number, number, number] = [
+  0.16, 1, 0.3, 1,
+];
 
 export default function TransformationStories({
   eyebrow = "Our Works",
@@ -86,14 +88,101 @@ export default function TransformationStories({
   description = "Witness the remarkable outcomes achieved through expert care and personalized treatment plans. Explore real before-and-after results that showcase our commitment to excellence and patient satisfaction.",
   items = defaultTransformations,
 }: TransformationStoriesProps) {
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 1023px)");
+
+    const updateScreenSize = () => {
+      setIsSmallScreen(mediaQuery.matches);
+    };
+
+    updateScreenSize();
+    mediaQuery.addEventListener("change", updateScreenSize);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateScreenSize);
+    };
+  }, []);
+
+  const getScrollAmount = useCallback(() => {
+    const carousel = carouselRef.current;
+
+    if (!carousel) {
+      return 320;
+    }
+
+    const card = carousel.querySelector(
+      "[data-transformation-card]"
+    ) as HTMLElement | null;
+
+    const gap = window.innerWidth >= 768 ? 24 : 16;
+
+    return card ? card.offsetWidth + gap : carousel.clientWidth;
+  }, []);
+
+  const scrollNext = useCallback(() => {
+    const carousel = carouselRef.current;
+
+    if (!carousel) return;
+
+    const isAtEnd =
+      carousel.scrollLeft + carousel.clientWidth >=
+      carousel.scrollWidth - 8;
+
+    carousel.scrollTo({
+      left: isAtEnd
+        ? 0
+        : carousel.scrollLeft + getScrollAmount(),
+      behavior: "smooth",
+    });
+  }, [getScrollAmount]);
+
+  const scrollPrevious = useCallback(() => {
+    const carousel = carouselRef.current;
+
+    if (!carousel) return;
+
+    const isAtStart = carousel.scrollLeft <= 8;
+    const lastScrollPosition =
+      carousel.scrollWidth - carousel.clientWidth;
+
+    carousel.scrollTo({
+      left: isAtStart
+        ? lastScrollPosition
+        : carousel.scrollLeft - getScrollAmount(),
+      behavior: "smooth",
+    });
+  }, [getScrollAmount]);
+
+  useEffect(() => {
+    if (!isSmallScreen || isPaused || items.length <= 1) return;
+
+    const timer = window.setInterval(() => {
+      scrollNext();
+    }, 4200);
+
+    return () => window.clearInterval(timer);
+  }, [isPaused, isSmallScreen, items.length, scrollNext]);
+
   return (
-    <section className="relative overflow-hidden bg-white px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-      <div className="mx-auto max-w-7xl">
+    <section className="relative w-full overflow-hidden bg-[#fbfaf8] px-5 py-10 sm:px-6 md:px-8 md:py-12 lg:px-10 lg:py-14">
+      <div className="mx-auto max-w-6xl">
         {/* Heading */}
         <motion.div
-          className="mx-auto mb-14 max-w-4xl text-center"
-          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          className="mb-7 flex items-end justify-between gap-6 sm:mb-8 md:mb-10"
+          initial={{
+            opacity: 0,
+            y: 25,
+            filter: "blur(8px)",
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+          }}
           transition={{
             duration: 1,
             ease: smoothEase,
@@ -101,30 +190,113 @@ export default function TransformationStories({
           viewport={{
             once: true,
             amount: 0.2,
-            margin: "0px 0px -80px 0px",
           }}
         >
-          <p className="font-secondary text-[11px] font-semibold tracking-[2px] text-[#b657a2]">
-            {eyebrow}
-          </p>
+          <div className="min-w-0">
+            <p className="mb-2 font-secondary text-[9px] font-semibold uppercase tracking-[3px] text-[#b657a2] sm:text-[10px]">
+              {eyebrow}
+            </p>
 
-          <h2 className="mt-4 font-primary text-[24px] font-medium uppercase leading-[1.2] tracking-[6px] text-[#171717] sm:text-[32px] md:text-[38px]">
-            {title}
-          </h2>
+            <h2 className="font-primary text-[23px] font-medium uppercase leading-[1.15] tracking-[4px] text-[#171717] sm:text-[27px] md:text-[31px] md:tracking-[5px]">
+              {title}
+            </h2>
 
-          <p className="mx-auto mt-5 max-w-[720px] font-secondary text-[12px] font-medium leading-[1.75] tracking-[1.3px] text-[#999] sm:text-[13px]">
-            {description}
-          </p>
+            <p className="mt-3 max-w-2xl font-secondary text-[9px] leading-[1.8] tracking-[1.2px] text-[#878281] sm:text-[10px] md:text-[11px]">
+              {description}
+            </p>
+          </div>
+
+          {/* Desktop arrows */}
+          <div className="hidden items-center gap-2 md:flex lg:hidden">
+            <CarouselButton
+              direction="previous"
+              onClick={scrollPrevious}
+            />
+
+            <CarouselButton
+              direction="next"
+              onClick={scrollNext}
+            />
+          </div>
         </motion.div>
 
-        {/* Compact Grid */}
-        <div className="mx-auto grid max-w-[1220px] grid-cols-1 gap-x-9 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((item, index) => (
-            <TransformationCard key={item.id} item={item} index={index} />
-          ))}
+        {/* Transformation carousel */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 35,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 1,
+            delay: 0.2,
+            ease: smoothEase,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.18,
+          }}
+        >
+          <div
+            ref={carouselRef}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onTouchStart={() => setIsPaused(true)}
+            onTouchEnd={() => setIsPaused(false)}
+            className="mx-auto flex max-w-[1020px] snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:gap-6 lg:grid lg:grid-cols-4 lg:gap-x-8 lg:gap-y-9 lg:overflow-visible"
+          >
+            {items.map((item, index) => (
+              <TransformationCard
+                key={item.id}
+                item={item}
+                index={index}
+              />
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Mobile arrows */}
+        <div className="mt-6 flex justify-center gap-2 md:hidden">
+          <CarouselButton
+            direction="previous"
+            onClick={scrollPrevious}
+          />
+
+          <CarouselButton
+            direction="next"
+            onClick={scrollNext}
+          />
         </div>
       </div>
     </section>
+  );
+}
+
+function CarouselButton({
+  direction,
+  onClick,
+}: {
+  direction: "previous" | "next";
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={
+        direction === "previous"
+          ? "Previous transformation"
+          : "Next transformation"
+      }
+      className="flex h-8 w-8 items-center justify-center rounded-full border border-[#b657a2]/20 bg-white text-[#b657a2] shadow-sm transition-all duration-300 hover:bg-[#8b1d72] hover:text-white"
+    >
+      <span className="-mt-0.5 text-[18px] leading-none">
+        {direction === "previous" ? "‹" : "›"}
+      </span>
+    </button>
   );
 }
 
@@ -142,11 +314,12 @@ function TransformationCard({
 
   return (
     <motion.article
+      data-transformation-card
       initial={{
         opacity: 0,
-        y: 38,
-        scale: 0.96,
-        filter: "blur(8px)",
+        y: 35,
+        scale: 0.97,
+        filter: "blur(7px)",
       }}
       whileInView={{
         opacity: 1,
@@ -155,27 +328,26 @@ function TransformationCard({
         filter: "blur(0px)",
       }}
       transition={{
-        duration: 0.9,
-        delay: (index % 4) * 0.06,
+        duration: 0.8,
+        delay: (index % 3) * 0.08,
         ease: smoothEase,
       }}
       viewport={{
         once: true,
         amount: 0.18,
-        margin: "0px 0px -70px 0px",
       }}
-      className="group"
+      className="w-[calc(100vw-40px)] shrink-0 snap-start sm:w-[calc((100%_-_16px)/2)] lg:w-full"
     >
-      <div className="overflow-hidden rounded-[14px] border border-[#ead9e6] bg-white transition duration-500 hover:-translate-y-2 hover:border-[#8b1d72]/45">
-        {/* Image Area */}
-        <div className="relative h-[285px] overflow-hidden bg-[#f4edf3] sm:h-[305px] lg:h-[315px]">
+      <div className="overflow-hidden rounded-[10px] bg-white shadow-[0_6px_24px_rgba(35,20,25,0.06)] transition-all duration-500 hover:-translate-y-1">
+        {/* Image area */}
+        <div className="group relative aspect-[0.96] overflow-hidden rounded-t-[10px] bg-[#f2e8ed]">
           {/* Before image */}
           <Image
             src={item.beforeImage}
             alt={`${item.title} before`}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover object-center"
+            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 31vw"
+            className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.025]"
           />
 
           {/* After image */}
@@ -189,50 +361,44 @@ function TransformationCard({
               src={item.afterImage}
               alt={`${item.title} after`}
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-              className="object-cover object-center"
+              sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 31vw"
+              className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.025]"
             />
           </div>
 
-          {/* Labels */}
+          {/* Image overlay */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/[0.04] via-transparent to-black/[0.08]" />
+
+          {/* Before label */}
           <div
-            className={`pointer-events-none absolute left-3 top-3 rounded-full bg-white px-3.5 py-1.5 transition-all duration-300 ${
+            className={`pointer-events-none absolute left-2.5 top-2.5 z-20 rounded-full bg-white/95 px-3 py-1 font-secondary text-[7px] font-bold uppercase tracking-[2px] text-[#b657a2] shadow-sm transition-all duration-300 sm:left-3 sm:top-3 sm:px-3.5 sm:py-1.5 sm:text-[8px] ${
               showBeforeLabel
                 ? "translate-y-0 opacity-100"
                 : "-translate-y-1 opacity-0"
             }`}
           >
-            <span className="font-secondary text-[8px] font-bold uppercase tracking-[2px] text-[#b657a2]">
-              Before
-            </span>
+            Before
           </div>
 
+          {/* After label */}
           <div
-            className={`pointer-events-none absolute right-3 top-3 rounded-full bg-white px-3.5 py-1.5 transition-all duration-300 ${
+            className={`pointer-events-none absolute right-2.5 top-2.5 z-20 rounded-full bg-white/95 px-3 py-1 font-secondary text-[7px] font-bold uppercase tracking-[2px] text-[#b657a2] shadow-sm transition-all duration-300 sm:right-3 sm:top-3 sm:px-3.5 sm:py-1.5 sm:text-[8px] ${
               showAfterLabel
                 ? "translate-y-0 opacity-100"
                 : "-translate-y-1 opacity-0"
             }`}
           >
-            <span className="font-secondary text-[8px] font-bold uppercase tracking-[2px] text-[#b657a2]">
-              After
-            </span>
+            After
           </div>
 
           {/* Divider */}
           <div
-            className="pointer-events-none absolute top-0 z-20 h-full w-px bg-white/90"
-            style={{ left: `${position}%` }}
-          />
-
-          {/* Center Icon */}
-          <div
-            className="pointer-events-none absolute top-[55%] z-30 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#8b1d72] text-white ring-[4px] ring-white/70 transition duration-500 group-hover:scale-110 group-hover:bg-[#D6B981] group-hover:text-[#330027]"
+            className="pointer-events-none absolute inset-y-0 z-20 w-px bg-white shadow-[0_0_3px_rgba(0,0,0,0.16)]"
             style={{
-              left: `clamp(24px, ${position}%, calc(100% - 24px))`,
+              left: `${position}%`,
             }}
           >
-            <span className="font-secondary text-[13px] font-bold leading-none">
+            <span className="absolute left-1/2 top-1/2 flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#8b1d72] text-[11px] font-medium text-white shadow-md transition-all duration-300 group-hover:scale-110">
               ↔
             </span>
           </div>
@@ -243,35 +409,31 @@ function TransformationCard({
             min="5"
             max="95"
             value={position}
-            onChange={(event) => setPosition(Number(event.target.value))}
+            onChange={(event) =>
+              setPosition(Number(event.target.value))
+            }
             aria-label={`${item.title} before and after slider`}
             className="absolute inset-0 z-40 h-full w-full cursor-ew-resize opacity-0"
           />
         </div>
 
-        {/* Bottom Panel */}
-        <div className="bg-gradient-to-br from-[#982086] via-[#861876] to-[#5a064d] px-4 py-3.5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="min-w-0">
-              <h3 className="font-primary text-[11px] font-semibold uppercase leading-[1.25] tracking-[2.4px] text-white">
-                {item.title}
-              </h3>
+        {/* Bottom information panel */}
+        <div className="px-3.5 pb-3.5 pt-2.5 sm:px-4 sm:pb-4 sm:pt-3">
+          <h3 className="font-primary text-[8px] font-semibold uppercase tracking-[2px] text-[#242021] sm:text-[9px]">
+            {item.title}
+          </h3>
 
-              <p className="mt-1 font-secondary text-[9px] leading-[1.45] text-white/75">
-                {item.subtitle}
-              </p>
-            </div>
+          <p className="mt-1 font-secondary text-[8px] leading-4 tracking-[0.5px] text-[#6f6969] sm:text-[9px]">
+            {item.subtitle}
+          </p>
 
-            <div className="relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/35 text-[#D6B981] transition duration-500 group-hover:bg-white group-hover:text-[#8b1d72]">
-              <span className="absolute inset-0 rounded-full bg-[#D6B981]/15 blur-sm" />
-              <span className="relative text-[13px] leading-none">✦</span>
-            </div>
-          </div>
-
-          <div className="mt-2.5 h-[2px] w-full rounded-full bg-white/20">
+          {/* Progress line */}
+          <div className="mt-2 h-px w-full bg-[#d9d4d2]">
             <div
-              className="h-full rounded-full bg-[#D6B981] transition-all duration-200"
-              style={{ width: `${100 - position}%` }}
+              className="h-full bg-[#8b1d72] transition-[width] duration-150"
+              style={{
+                width: `${position}%`,
+              }}
             />
           </div>
         </div>
