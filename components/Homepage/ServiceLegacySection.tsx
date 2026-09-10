@@ -34,7 +34,7 @@ export default function ServiceLegacySection() {
           >
             <div className="relative overflow-hidden rounded-[8px] border border-[#d6b981]/70">
               <Image
-                src="/images/service-home.png"
+                src="/images/service-1-home.png"
                 alt="Royal Dutch Dermatology and Aesthetics Service"
                 width={500}
                 height={680}

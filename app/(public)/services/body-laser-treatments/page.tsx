@@ -8,11 +8,17 @@ const treatments = [
     href: "/services/body-laser-treatments/fat-freezing",
   },
   {
-    title: "Laser Treatment",
-    description:
-      "Advanced laser-based treatment designed to support smoother-looking skin, long-term hair reduction, and personalized aesthetic care.",
-    href: "/services/body-laser-treatments/laser-treatment",
-  },
+  title: "Men’s Laser Hair Removal",
+  description:
+    "Advanced laser hair removal treatment designed to support smoother-looking skin and long-term hair reduction for men.",
+  href: "/services/body-laser-treatments/men-s-laser-hair-removal",
+},
+{
+  title: "Women’s Laser Hair Removal",
+  description:
+    "Advanced laser hair removal treatment designed to support smoother-looking skin and long-term hair reduction for women.",
+  href: "/services/body-laser-treatments/women-s-laser-hair-removal",
+},
 ];
 
 export default function BodyLaserTreatmentsPage() {

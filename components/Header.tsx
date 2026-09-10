@@ -286,8 +286,12 @@ const serviceCategories: SubMenuCategory[] = [
         path: "/services/body-laser-treatments/fat-freezing",
       },
       {
-        name: "Laser Treatment",
-        path: "/services/body-laser-treatments/laser-treatment",
+        name: "Men’s Laser Hair Removal",
+        path: "/services/body-laser-treatments/men-s-laser-hair-removal",
+      },
+      {
+        name: "Women’s Laser Hair Removal",
+        path: "/services/body-laser-treatments/women-s-laser-hair-removal",
       },
     ],
   },

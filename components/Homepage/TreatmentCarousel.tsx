@@ -97,14 +97,14 @@ const slides: Slide[] = [
     number: "12",
     title: "LT-Men’s Laser Hair Removal",
     description: "Men’s laser hair removal for smoother skin.",
-    href: "/services/body-laser-treatments/laser-treatment",
+    href: "/services/body-laser-treatments/men-s-laser-hair-removal",
     image: "/images/mens-laser-hair-removal.png",
   },
   {
     number: "13",
     title: "LT-Women’s Laser Hair Removal",
     description: "Women’s laser hair removal for smoother skin.",
-    href: "/services/body-laser-treatments/laser-treatment",
+    href: "/services/body-laser-treatments/women-s-laser-hair-removal",
     image: "/images/womens-laser-hair-removal.png",
   },
 ];

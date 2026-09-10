@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const resultSlides = [
-  { title: "Acne", before: "/images/result-before-acne.png", after: "/images/result-after-acne.png" },
-  { title: "Pigmentation", before: "/images/result-before-pigmentation.png", after: "/images/result-after-pigmentation.png" },
-  { title: "Anti-aging", before: "/images/result-before-anti-aging.png", after: "/images/result-after-anti-aging.png" },
-  { title: "Cosmetic smile design", before: "/images/result-before-smile-design.png", after: "/images/result-after-smile-design.png" },
+  { title: "HYDRA FACIAL", before: "/images/result-before-hydrafacial.png", after: "/images/result-after-hydrafacial.png" },
+  { title: "ACNE CONTROL FACIAL", before: "/images/result-before-acne-control-facial.png", after: "/images/result-after-acne-control-facial.png" },
+  { title: "EXOSOME DERMAPEN", before: "/images/result-before-exosome-dermapen.png", after: "/images/result-after-exosome-dermapen.png" },
+  { title: "PEELING PEARL FACIAL ", before: "/images/result-before-peeling-pearl-facial.png", after: "/images/result-after-peeling-pearl-facial.png" },
 ];
 
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
