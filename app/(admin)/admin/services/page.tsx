@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { catalogNumbers, sortCatalog } from '@/lib/catalogNumbers';
 import { useAlert } from '@/context/AlertContext';
 import { Plus, Edit2, Trash2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -12,6 +13,7 @@ import { StatusToggle } from '@/components/ui/StatusToggle';
 
 interface Service {
   id: number;
+  display_id?: number | null;
   category_id: number;
   category_name?: string;
   name: string;
@@ -25,6 +27,7 @@ interface Service {
 
 interface Category {
   id: number;
+  display_id?: number | null;
   name: string;
 }
 
@@ -58,8 +61,8 @@ export default function AdminServicesPage() {
         api.get('/api/services?include_inactive=true'),
         api.get('/api/categories?include_inactive=true')
       ]);
-      setServices(servicesRes.data);
-      setCategories(categoriesRes.data);
+      setServices(sortCatalog<Service>(servicesRes.data));
+      setCategories(sortCatalog<Category>(categoriesRes.data));
     } catch (error) {
       console.error('Failed to fetch data', error);
     } finally {
@@ -159,6 +162,9 @@ export default function AdminServicesPage() {
     }
   };
 
+  const serviceNumbers = catalogNumbers(services);
+  const categoryNumbers = catalogNumbers(categories);
+
   const filteredServices = services.filter(s => 
     s.name.toLowerCase().includes(search.toLowerCase()) || 
     (s.category_name && s.category_name.toLowerCase().includes(search.toLowerCase()))
@@ -189,7 +195,9 @@ export default function AdminServicesPage() {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-slate-50/50">
               <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Service ID</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Service Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Category ID</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Category</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Duration / Price</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
@@ -199,21 +207,23 @@ export default function AdminServicesPage() {
             <tbody className="bg-white/20 divide-y divide-slate-100/60">
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">Loading services...</td>
+                  <td colSpan={7} className="px-6 py-12 text-center text-slate-500">Loading services...</td>
                 </tr>
               ) : filteredServices.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">No services found</td>
+                  <td colSpan={7} className="px-6 py-12 text-center text-slate-500">No services found</td>
                 </tr>
               ) : (
                 filteredServices.map((service) => (
                   <tr key={service.id} className="hover:bg-white/60 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-mono">{serviceNumbers.get(service.id)}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-slate-800">{service.name}</div>
                       <div className="text-xs text-slate-500 font-mono mt-1">{service.slug}</div>
                     </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-mono">{categoryNumbers.get(service.category_id) ?? '-'}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-slate-500">{service.category_name || `ID: ${service.category_id}`}</div>
+                      <div className="text-sm text-slate-500">{service.category_name || categories.find(category => category.id === service.category_id)?.name || '-'}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-slate-800">{service.duration_minutes ? `${service.duration_minutes} mins` : '-'}</div>
@@ -277,7 +287,7 @@ export default function AdminServicesPage() {
             >
               <option value="" disabled>Select a category</option>
               {categories.map(c => (
-                <option key={c.id} value={c.id}>{c.name}</option>
+                <option key={c.id} value={c.id}>{c.id} — {c.name}</option>
               ))}
             </select>
           </div>

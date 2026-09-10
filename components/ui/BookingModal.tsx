@@ -18,14 +18,20 @@ interface Category {
 }
 
 interface Service {
-  id: string;
+  id: number;
   name: string;
+  price: number | string | null;
+  currency: string;
+  duration_minutes: number | null;
 }
 
 
 export function BookingModal() {
   const { isOpen, closeModal, initialCategoryId, initialServiceId } = useBookingModal();
   const { user } = useAuth();
+
+  const directBooking = initialCategoryId != null && Boolean(initialServiceId);
+  const bookingSteps = directBooking ? [3, 4] : [1, 2, 3, 4];
 
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -41,7 +47,7 @@ export function BookingModal() {
 
   // Form State
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-  const [selectedServiceId, setSelectedServiceId] = useState(initialServiceId || '');
+  const [selectedServiceId, setSelectedServiceId] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedSlot, setSelectedSlot] = useState('');
 
@@ -58,11 +64,11 @@ export function BookingModal() {
   // Reset internal state when modal opens
   useEffect(() => {
     if (isOpen) {
-      setStep(1);
+      setStep(directBooking ? 3 : 1);
       setError('');
       setBookingCode('');
       setSelectedCategory(null);
-      setSelectedServiceId(initialServiceId || '');
+      setSelectedServiceId('');
       setSelectedDate('');
       setSelectedSlot('');
       setWeekSlots(null);
@@ -80,7 +86,7 @@ export function BookingModal() {
       
       fetchCategories();
     }
-  }, [isOpen, initialServiceId, user]);
+  }, [isOpen, initialCategoryId, initialServiceId, directBooking, user]);
 
   const fetchCategories = async () => {
     try {
@@ -92,7 +98,9 @@ export function BookingModal() {
       if (initialCategoryId) {
         const cat = res.data.find((c: Category) => c.id === initialCategoryId);
         if (cat) {
-          handleSelectCategory(cat);
+          await handleSelectCategory(cat, initialServiceId);
+        } else {
+          setError('This category is no longer available for booking.');
         }
       }
     } catch (err) {
@@ -103,13 +111,27 @@ export function BookingModal() {
     }
   };
 
-  const handleSelectCategory = async (category: Category) => {
+  const handleSelectCategory = async (category: Category, preselectedServiceId?: string) => {
+    setSelectedServiceId('');
+    setSelectedDate('');
+    setSelectedSlot('');
+    setServices([]);
+    setError('');
     setSelectedCategory(category);
-    setStep(2);
+    setStep(preselectedServiceId ? 3 : 2);
     setLoading(true);
     try {
       const res = await api.get(`/api/services?category_slug=${category.slug}`);
       setServices(res.data);
+      if (preselectedServiceId) {
+        const service = (res.data as Service[]).find(item => String(item.id) === preselectedServiceId);
+        if (service) {
+          setSelectedServiceId(String(service.id));
+          setStep(3);
+        } else {
+          setError('This service is no longer available. Please select another service.');
+        }
+      }
     } catch (err) {
       console.error('Failed to load services', err);
       setError('Failed to load services.');
@@ -153,7 +175,7 @@ export function BookingModal() {
 
     try {
       const payload = {
-        service_id: selectedServiceId,
+        service_id: Number(selectedServiceId),
         booking_date: selectedDate,
         booking_time: selectedSlot,
         patient: { 
@@ -179,11 +201,14 @@ export function BookingModal() {
     }
   };
 
+  const selectedService = services.find(service => String(service.id) === selectedServiceId);
+  const showSummary = (step === 3 || step === 4) && Boolean(selectedService) && !loading;
+
   const renderProgress = () => {
     if (step === 5) return null;
     return (
       <div className="flex justify-center items-center space-x-2 sm:space-x-4 mb-6 pt-4">
-        {[1, 2, 3, 4].map((s) => (
+        {bookingSteps.map((s) => (
           <React.Fragment key={s}>
             <div className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-semibold transition-colors ${step >= s ? 'bg-(--primary-plum) text-white' : 'bg-gray-200 text-gray-500'}`}>
               {s}
@@ -196,9 +221,11 @@ export function BookingModal() {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={closeModal} title={step === 5 ? "" : "Book an Appointment"} maxWidth="2xl">
+    <Modal isOpen={isOpen} onClose={closeModal} title={step === 5 ? "" : "Book an Appointment"} maxWidth={showSummary ? "5xl" : "2xl"}>
       {renderProgress()}
 
+      <div className={showSummary ? "grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-8" : ""}>
+      <div className="min-w-0">
       {error && (
         <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-700">
           {error}
@@ -249,7 +276,7 @@ export function BookingModal() {
               {services.map(s => (
                 <button
                   key={s.id}
-                  onClick={() => { setSelectedServiceId(s.id); setStep(3); }}
+                  onClick={() => { setSelectedServiceId(String(s.id)); setStep(3); }}
                   className="flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-(--primary-plum) hover:bg-(--primary-plum)/5 transition-all text-left group bg-white"
                 >
                   <span className="font-medium text-gray-800">{s.name}</span>
@@ -261,15 +288,17 @@ export function BookingModal() {
         </div>
       )}
 
-      {!loading && step === 3 && (
+      {!loading && step === 3 && selectedServiceId && (
         <div className="space-y-5 animate-in fade-in slide-in-from-right-8 duration-500">
           {/* Header */}
           <div className="flex items-center">
-            <button type="button" onClick={() => setStep(2)} className="mr-3 p-1 rounded-full hover:bg-gray-100 text-gray-500">
-              <ArrowLeft className="w-5 h-5" />
-            </button>
+            {!directBooking && (
+              <button type="button" onClick={() => setStep(2)} className="mr-3 p-1 rounded-full hover:bg-gray-100 text-gray-500">
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+            )}
             <div className="flex-1">
-              <p className="text-xs text-gray-500 uppercase tracking-wider">{services.find(s => s.id === selectedServiceId)?.name}</p>
+              <p className="text-xs text-gray-500 uppercase tracking-wider">{services.find(s => String(s.id) === selectedServiceId)?.name}</p>
               <h3 className="text-lg font-semibold text-gray-900 font-cinzel">Select Date & Time</h3>
             </div>
             {slotsLoading && <RefreshCw className="w-4 h-4 animate-spin text-gray-400" />}
@@ -471,6 +500,39 @@ export function BookingModal() {
           </Button>
         </div>
       )}
+      </div>
+      {showSummary && selectedService && (
+        <aside aria-label="Booking summary" className="self-start rounded-2xl border border-[#eadfe8] bg-[#faf6fa] p-5 lg:sticky lg:top-0">
+          <h3 className="text-lg font-semibold text-gray-900">Booking Summary</h3>
+          <p className="mt-5 text-xs font-medium uppercase tracking-wider text-gray-500">{selectedCategory?.name}</p>
+          <p className="mt-2 text-lg font-semibold text-(--primary-plum)">{selectedService.name}</p>
+          <dl className="mt-5 space-y-4 text-sm">
+            <div className="flex justify-between gap-4 border-t border-[#eadfe8] pt-4">
+              <dt className="text-gray-500">Price</dt>
+              <dd className="text-right font-semibold text-gray-900">
+                {selectedService.price != null
+                  ? `${selectedService.currency} ${Number(selectedService.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                  : 'Price on request'}
+              </dd>
+            </div>
+            {selectedService.duration_minutes != null && (
+              <div className="flex justify-between gap-4">
+                <dt className="text-gray-500">Duration</dt>
+                <dd className="font-medium text-gray-900">{selectedService.duration_minutes} minutes</dd>
+              </div>
+            )}
+            <div className="flex justify-between gap-4">
+              <dt className="text-gray-500">Date</dt>
+              <dd className="text-right font-medium text-gray-900">{selectedDate ? format(new Date(`${selectedDate}T00:00:00`), 'dd MMM yyyy') : 'Not selected'}</dd>
+            </div>
+            <div className="flex justify-between gap-4">
+              <dt className="text-gray-500">Time</dt>
+              <dd className="font-medium text-gray-900">{selectedSlot || 'Not selected'}</dd>
+            </div>
+          </dl>
+        </aside>
+      )}
+      </div>
     </Modal>
   );
 }

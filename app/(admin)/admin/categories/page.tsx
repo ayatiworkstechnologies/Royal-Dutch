@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
+import { catalogNumbers, sortCatalog } from '@/lib/catalogNumbers';
 import { useAlert } from '@/context/AlertContext';
 import { Plus, Edit2, Trash2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -12,6 +13,7 @@ import { StatusToggle } from '@/components/ui/StatusToggle';
 
 interface Category {
   id: number;
+  display_id?: number | null;
   name: string;
   slug: string;
   description: string | null;
@@ -41,7 +43,7 @@ export default function AdminCategoriesPage() {
     try {
       // Admins need both statuses so an inactive category can be reactivated.
       const response = await api.get('/api/categories?include_inactive=true');
-      setCategories(response.data);
+      setCategories(sortCatalog<Category>(response.data));
     } catch (error) {
       console.error('Failed to fetch categories', error);
     } finally {
@@ -131,6 +133,9 @@ export default function AdminCategoriesPage() {
     }
   };
 
+  // Prefer persisted numbers; support older API responses without display_id.
+  const categoryNumbers = catalogNumbers(categories);
+
   const filteredCategories = categories.filter(c => 
     c.name.toLowerCase().includes(search.toLowerCase()) || 
     c.slug.toLowerCase().includes(search.toLowerCase())
@@ -161,6 +166,7 @@ export default function AdminCategoriesPage() {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-slate-50/50">
               <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Category ID</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Name</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Slug</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Description</th>
@@ -171,15 +177,16 @@ export default function AdminCategoriesPage() {
             <tbody className="bg-white/20 divide-y divide-slate-100/60">
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">Loading categories...</td>
+                  <td colSpan={6} className="px-6 py-12 text-center text-slate-500">Loading categories...</td>
                 </tr>
               ) : filteredCategories.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">No categories found</td>
+                  <td colSpan={6} className="px-6 py-12 text-center text-slate-500">No categories found</td>
                 </tr>
               ) : (
                 filteredCategories.map((category) => (
                   <tr key={category.id} className="hover:bg-white/60 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-mono">{categoryNumbers.get(category.id)}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-slate-800">{category.name}</div>
                     </td>

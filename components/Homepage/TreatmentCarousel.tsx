@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
+import ServiceBookingButton from "@/components/ui/ServiceBookingButton";
 import { useEffect, useState } from "react";
 
 const AUTO_PLAY_TIME = 2500;
@@ -520,7 +520,7 @@ export default function TreatmentCarousel() {
                     {activeSlide.description}
                   </p>
 
-                  <Link
+                  <ServiceBookingButton
                     href={activeSlide.href}
                     onClick={() => setManualPause(true)}
                     className="
@@ -545,7 +545,7 @@ export default function TreatmentCarousel() {
                     "
                   >
                     Book Now
-                  </Link>
+                  </ServiceBookingButton>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -707,7 +707,7 @@ export default function TreatmentCarousel() {
                     {activeSlide.description}
                   </p>
 
-                  <Link
+                  <ServiceBookingButton
                     href={activeSlide.href}
                     onClick={() => setManualPause(true)}
                     className="
@@ -730,7 +730,7 @@ export default function TreatmentCarousel() {
                     "
                   >
                     Book Now
-                  </Link>
+                  </ServiceBookingButton>
                 </div>
               </motion.div>
             </AnimatePresence>
