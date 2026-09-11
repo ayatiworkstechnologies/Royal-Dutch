@@ -44,7 +44,7 @@ export default function FatFreezingPage() {
             badge: "2+1 Sessions",
             buttonText: "Book Package",
             buttonHref:
-              "/services/body-laser-treatments/fat-freezing",
+              "/services/body-laser-treatments/fat-freezing/fat-freezing-package",
           },
         ]}
       />

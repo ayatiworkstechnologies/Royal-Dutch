@@ -410,18 +410,7 @@ export default function WhatWeDoSection() {
             }}
             viewport={{ once: true }}
           >
-            We provide{" "}
-            <span className="font-semibold text-black">
-              natural and clinical treatments
-            </span>{" "}
-            focused on precision-driven care for long-lasting skin health. Our
-            approach is{" "}
-            <span className="font-semibold text-black">toxin-free</span> and
-            uses organic, nature-powered products with proven{" "}
-            <span className="font-semibold text-black">
-              effectiveness, ensuring safe,
-            </span>{" "}
-            balanced treatments with no side effects.
+            We provide personalized skin & aesthetic care focused on precision-driven treatments for long-lasting skin health. Our approach is evidence-based, using clinically evaluated, high-quality products with proven effectiveness, ensuring safe, balanced, and natural-looking results.
           </motion.p>
 
           {/* Cards */}

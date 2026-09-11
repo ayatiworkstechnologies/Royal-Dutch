@@ -22,59 +22,59 @@ type TransformationStoriesProps = {
 const defaultTransformations: TransformationItem[] = [
   {
     id: 1,
-    title: "Acne",
+    title: "Hydra Facial",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-acne.png",
-    afterImage: "/images/result-after-acne.png",
+    beforeImage: "/images/result-before-hydrafacial.png",
+    afterImage: "/images/result-after-hydrafacial.png",
   },
   {
     id: 2,
-    title: "Pigmentation",
+    title: "Acne Control Facial",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-pigmentation.png",
-    afterImage: "/images/result-after-pigmentation.png",
+    beforeImage: "/images/result-before-acne-control-facial.png",
+    afterImage: "/images/result-after-acne-control-facial.png",
   },
   {
     id: 3,
-    title: "Anti-aging",
+    title: "EXOSOME DERMAPEN",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-anti-aging.png",
-    afterImage: "/images/result-after-anti-aging.png",
+    beforeImage: "/images/result-before-exosome-dermapen.png",
+    afterImage: "/images/result-after-exosome-dermapen.png",
   },
   {
     id: 4,
-    title: "Cosmetic smile",
+    title: "PEELING PEARL FACIAL",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-smile-design.png",
-    afterImage: "/images/result-after-smile-design.png",
+    beforeImage: "/images/result-before-peeling-pearl-facial.png",
+    afterImage: "/images/result-after-peeling-pearl-facial.png",
   },
   {
     id: 5,
-    title: "Diagnosis Treatment",
+    title: "GLOWING DERMAPEN",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-diagnosis-treatment.png",
-    afterImage: "/images/result-after-diagnosis-treatment.png",
+    beforeImage: "/images/result-before-glowing-dermapen.png",
+    afterImage: "/images/result-after-glowing-dermapen.png",
   },
   {
     id: 6,
-    title: "Infection prevention",
+    title: "VITAMIN C HYDRAFACIAL",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-infection-prevention.png",
-    afterImage: "/images/result-after-infection-prevention.png",
+    beforeImage: "/images/result-before-vitamin-c-hydrafacial.png",
+    afterImage: "/images/result-after-vitamin-c-hydrafacial.png",
   },
   {
     id: 7,
-    title: "Pediatric Dentistry",
+    title: "CHEMICAL PEEL WITH BRIGHTENING SERUM",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-pediatric.png",
-    afterImage: "/images/result-after-pediatric.png",
+    beforeImage: "/images/result-before-chemical-peel.png",
+    afterImage: "/images/result-after-chemical-peel.png",
   },
   {
     id: 8,
-    title: "Restorative dentistry ",
+    title: "ROYAL DUTCH FACIAL",
     subtitle: "Slide to reveal transformation",
-    beforeImage: "/images/result-before-restorative.png",
-    afterImage: "/images/result-after-restorative.png",
+    beforeImage: "/images/result-before-royal-dutch-facial.png",
+    afterImage: "/images/result-after-royal-dutch-facial.png",
   },
 ];
 
@@ -438,6 +438,6 @@ function TransformationCard({
           </div>
         </div>
       </div>
-    </motion.article>
+    </motion.article> 
   );
 }

@@ -10,7 +10,7 @@ const testimonials = [
   {
     name: "Aisha Mohammed",
     service: "General Consultation",
-    image: "/images/testimonial-user-1.png",
+    image: "/images/user-female.png",
     text: (
       <>
         I had a <strong>Hydra Facial</strong> at Royal Dutch Clinic, and my skin
@@ -23,7 +23,7 @@ const testimonials = [
   {
     name: "Sara Ahmed",
     service: "Laser Rejuvenation",
-    image: "/images/testimonial-user-1.png",
+    image: "/images/user-female.png",
     text: (
       <>
         The experience was very <strong>professional</strong> and comfortable.
@@ -33,9 +33,9 @@ const testimonials = [
     ),
   },
   {
-    name: "Mariam Ali",
+    name: "Zaid Ali",
     service: "Skin Care Treatment",
-    image: "/images/testimonial-user-1.png",
+    image: "/images/user-male.png",
     text: (
       <>
         I loved the calm environment and the detailed care. The result was
