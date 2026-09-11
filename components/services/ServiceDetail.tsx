@@ -15,9 +15,20 @@ interface Service {
   currency: string;
 }
 
+interface SubService {
+  id: number;
+  name: string;
+  description: string | null;
+  duration_minutes: number | null;
+  price: string | number | null;
+  currency: string;
+  image: string | null;
+}
+
 export default function ServiceDetail({ categorySlug, slug }: { categorySlug: string; slug: string }) {
   const [service, setService] = useState<Service | null>(null);
   const [categoryName, setCategoryName] = useState("");
+  const [subServices, setSubServices] = useState<SubService[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -26,6 +37,7 @@ export default function ServiceDetail({ categorySlug, slug }: { categorySlug: st
     setLoading(true);
     setError("");
     setService(null);
+    setSubServices([]);
     Promise.all([
       api.get<Service>(`/api/services/${encodeURIComponent(slug)}`),
       api.get<{ id: number; slug: string; name: string }[]>("/api/categories"),
@@ -38,6 +50,8 @@ export default function ServiceDetail({ categorySlug, slug }: { categorySlug: st
       }
       setCategoryName(category.name);
       setService(serviceResponse.data);
+      return api.get<SubService[]>(`/api/services/${serviceResponse.data.id}/sub-services`)
+        .then(response => { if (!cancelled) setSubServices(response.data); });
     }).catch(() => {
       if (!cancelled) setError("Unable to load this service. Please try again later.");
     }).finally(() => {
@@ -63,6 +77,23 @@ export default function ServiceDetail({ categorySlug, slug }: { categorySlug: st
               {service.duration_minutes != null && <span>{service.duration_minutes} minutes</span>}
               {service.price != null && <span>{service.currency} {service.price}</span>}
             </div>
+            {subServices.length > 0 && (
+              <div className="mt-10">
+                <h2 className="font-primary text-2xl text-slate-900">Available options</h2>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  {subServices.map(item => (
+                    <article key={item.id} className="rounded-xl border border-[#eadfd8] bg-[#fffdfb] p-5">
+                      <h3 className="font-semibold text-slate-900">{item.name}</h3>
+                      {item.description && <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>}
+                      <div className="mt-3 flex flex-wrap gap-3 text-sm font-medium text-[#8b1d72]">
+                        {item.duration_minutes != null && <span>{item.duration_minutes} minutes</span>}
+                        {item.price != null && <span>{item.currency} {item.price}</span>}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="mt-8 inline-block">
               <ServiceBookingButton href={`/services/${categorySlug}/${slug}`}
                 className="rounded-lg bg-[#8b1d72] px-8 py-3 font-semibold text-white hover:bg-[#73175e]">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useCallback, useContext, useRef, useState } from "react";
+import React, { createContext, useCallback, useContext, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import {
   CheckCircle2, XCircle, AlertTriangle, Info, X,
@@ -38,6 +38,7 @@ interface AlertContextValue {
 // ─── Context ─────────────────────────────────────────────────────────────────
 
 const AlertContext = createContext<AlertContextValue | null>(null);
+const subscribeToClient = () => () => {};
 
 export function useAlert() {
   const ctx = useContext(AlertContext);
@@ -57,6 +58,7 @@ const TOAST_CFG: Record<ToastType, { icon: React.ElementType; bar: string; icon_
 // ─── Provider ────────────────────────────────────────────────────────────────
 
 export function AlertProvider({ children }: { children: React.ReactNode }) {
+  const isClient = useSyncExternalStore(subscribeToClient, () => true, () => false);
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [confirmState, setConfirmState] = useState<(ConfirmOptions & { resolve: (v: boolean) => void }) | null>(null);
   const counter = useRef(0);
@@ -92,7 +94,7 @@ export function AlertProvider({ children }: { children: React.ReactNode }) {
       {children}
 
       {/* ── Toast stack ── */}
-      {typeof window !== "undefined" && createPortal(
+      {isClient && createPortal(
         <div className="fixed top-5 right-5 z-[9999] flex flex-col gap-3 w-[340px] max-w-[calc(100vw-2.5rem)]">
           {toasts.map(t => {
             const cfg = TOAST_CFG[t.type];
@@ -123,7 +125,7 @@ export function AlertProvider({ children }: { children: React.ReactNode }) {
       )}
 
       {/* ── Confirm dialog ── */}
-      {confirmState && typeof window !== "undefined" && createPortal(
+      {confirmState && isClient && createPortal(
         <div className="fixed inset-0 z-[9998] flex items-center justify-center p-4">
           {/* backdrop */}
           <div

@@ -768,10 +768,11 @@ export default function Header() {
                 <Image
                   src="/icons/logo.svg"
                   alt="Royal Dutch Medical Centre"
-                  width={190}
-                  height={54}
+                  width={225}
+                  height={62}
                   priority
-                  className="h-auto w-[140px] sm:w-[160px] lg:w-[170px] xl:w-[190px]"
+                  style={{ height: "auto" }}
+                  className="w-[140px] sm:w-[160px] lg:w-[170px] xl:w-[190px]"
                 />
               </Link>
 
