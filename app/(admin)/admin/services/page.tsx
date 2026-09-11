@@ -10,6 +10,9 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
 import { StatusToggle } from '@/components/ui/StatusToggle';
+import { TablePagination } from '@/components/ui/TablePagination';
+
+const PAGE_SIZE = 10;
 
 interface Service {
   id: number;
@@ -57,6 +60,7 @@ export default function AdminServicesPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   const [togglingServiceId, setTogglingServiceId] = useState<number | null>(null);
   const [subServiceParent, setSubServiceParent] = useState<Service | null>(null);
   const [subServices, setSubServices] = useState<SubService[]>([]);
@@ -267,6 +271,9 @@ export default function AdminServicesPage() {
     s.name.toLowerCase().includes(search.toLowerCase()) || 
     (s.category_name && s.category_name.toLowerCase().includes(search.toLowerCase()))
   );
+  const totalPages = Math.max(1, Math.ceil(filteredServices.length / PAGE_SIZE));
+  const effectivePage = Math.min(currentPage, totalPages);
+  const paginatedServices = filteredServices.slice((effectivePage - 1) * PAGE_SIZE, effectivePage * PAGE_SIZE);
 
   return (
     <div className="space-y-6">
@@ -286,7 +293,7 @@ export default function AdminServicesPage() {
           type="text"
           placeholder="Search services by name or category..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
           className="w-full bg-transparent border-none focus:ring-0 outline-none text-sm text-slate-700 placeholder:text-slate-400"
         />
         <span className="shrink-0 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500">
@@ -316,7 +323,7 @@ export default function AdminServicesPage() {
                   <td colSpan={5} className="px-6 py-12 text-center text-slate-500">No services found</td>
                 </tr>
               ) : (
-                filteredServices.map((service) => (
+                paginatedServices.map((service) => (
                   <tr key={service.id} className="group hover:bg-white/70 transition-colors">
                     <td className="px-6 py-5">
                       <div className="flex items-start gap-3">
@@ -366,6 +373,7 @@ export default function AdminServicesPage() {
             </tbody>
           </table>
         </div>
+        <TablePagination page={effectivePage} pageSize={PAGE_SIZE} totalItems={filteredServices.length} onPageChange={setCurrentPage} />
       </div>
 
       <Modal

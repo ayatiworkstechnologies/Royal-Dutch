@@ -10,6 +10,9 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
 import { StatusToggle } from '@/components/ui/StatusToggle';
+import { TablePagination } from '@/components/ui/TablePagination';
+
+const PAGE_SIZE = 10;
 
 interface Service {
   id: number;
@@ -49,6 +52,7 @@ export default function AdminSubServicesPage() {
   const [items, setItems] = useState<SubService[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [editing, setEditing] = useState<SubService | null>(null);
   const [saving, setSaving] = useState(false);
@@ -156,9 +160,13 @@ export default function AdminSubServicesPage() {
 
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
-    if (!query) return items;
-    return items.filter(item => item.name.toLowerCase().includes(query) || item.slug.toLowerCase().includes(query) || item.service_name?.toLowerCase().includes(query));
+    const ascending = [...items].sort((a, b) => a.id - b.id);
+    if (!query) return ascending;
+    return ascending.filter(item => item.name.toLowerCase().includes(query) || item.slug.toLowerCase().includes(query) || item.service_name?.toLowerCase().includes(query));
   }, [items, search]);
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const effectivePage = Math.min(currentPage, totalPages);
+  const paginatedItems = filtered.slice((effectivePage - 1) * PAGE_SIZE, effectivePage * PAGE_SIZE);
 
   return (
     <div className="space-y-6">
@@ -172,7 +180,7 @@ export default function AdminSubServicesPage() {
 
       <div className="glass-panel flex items-center gap-2 rounded-3xl p-6 shadow-soft">
         <Search className="h-5 w-5 text-gray-400" />
-        <input className="w-full bg-transparent text-sm outline-none" placeholder="Search by sub-service or parent service..." value={search} onChange={event => setSearch(event.target.value)} />
+        <input className="w-full bg-transparent text-sm outline-none" placeholder="Search by sub-service or parent service..." value={search} onChange={event => { setSearch(event.target.value); setCurrentPage(1); }} />
       </div>
 
       <div className="glass-panel overflow-hidden rounded-3xl shadow-soft">
@@ -184,7 +192,7 @@ export default function AdminSubServicesPage() {
             <tbody className="divide-y divide-slate-100/60 bg-white/20">
               {loading ? <tr><td colSpan={6} className="px-6 py-12 text-center text-slate-500">Loading sub-services...</td></tr>
                 : filtered.length === 0 ? <tr><td colSpan={6} className="px-6 py-12 text-center text-slate-500"><ListTree className="mx-auto mb-2 h-7 w-7" />No sub-services found</td></tr>
-                : filtered.map(item => <tr key={item.id} className="transition-colors hover:bg-white/60">
+                : paginatedItems.map(item => <tr key={item.id} className="transition-colors hover:bg-white/60">
                   <td className="whitespace-nowrap px-6 py-4 text-sm font-mono text-slate-500">#{item.id}</td>
                   <td className="px-6 py-4"><p className="text-sm font-medium text-slate-800">{item.name}</p><p className="mt-1 text-xs font-mono text-slate-500">{item.slug}</p></td>
                   <td className="px-6 py-4 text-sm text-slate-600">{item.service_name || services.find(service => service.id === item.service_id)?.name || '-'}</td>
@@ -198,6 +206,7 @@ export default function AdminSubServicesPage() {
             </tbody>
           </table>
         </div>
+        <TablePagination page={effectivePage} pageSize={PAGE_SIZE} totalItems={filtered.length} onPageChange={setCurrentPage} />
       </div>
 
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editing ? 'Edit Sub Service' : 'Add Sub Service'} maxWidth="lg">

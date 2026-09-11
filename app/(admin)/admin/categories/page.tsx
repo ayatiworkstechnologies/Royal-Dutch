@@ -10,6 +10,9 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
 import { StatusToggle } from '@/components/ui/StatusToggle';
+import { TablePagination } from '@/components/ui/TablePagination';
+
+const PAGE_SIZE = 10;
 
 interface Category {
   id: number;
@@ -26,6 +29,7 @@ export default function AdminCategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   const [togglingCategoryId, setTogglingCategoryId] = useState<number | null>(null);
   
   // Modal state
@@ -140,6 +144,9 @@ export default function AdminCategoriesPage() {
     c.name.toLowerCase().includes(search.toLowerCase()) || 
     c.slug.toLowerCase().includes(search.toLowerCase())
   );
+  const totalPages = Math.max(1, Math.ceil(filteredCategories.length / PAGE_SIZE));
+  const effectivePage = Math.min(currentPage, totalPages);
+  const paginatedCategories = filteredCategories.slice((effectivePage - 1) * PAGE_SIZE, effectivePage * PAGE_SIZE);
 
   return (
     <div className="space-y-6">
@@ -156,7 +163,7 @@ export default function AdminCategoriesPage() {
           type="text"
           placeholder="Search categories by name or slug..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
           className="w-full bg-transparent border-none focus:ring-0 outline-none text-sm"
         />
       </div>
@@ -184,7 +191,7 @@ export default function AdminCategoriesPage() {
                   <td colSpan={6} className="px-6 py-12 text-center text-slate-500">No categories found</td>
                 </tr>
               ) : (
-                filteredCategories.map((category) => (
+                paginatedCategories.map((category) => (
                   <tr key={category.id} className="hover:bg-white/60 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-mono">{categoryNumbers.get(category.id)}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -218,6 +225,7 @@ export default function AdminCategoriesPage() {
             </tbody>
           </table>
         </div>
+        <TablePagination page={effectivePage} pageSize={PAGE_SIZE} totalItems={filteredCategories.length} onPageChange={setCurrentPage} />
       </div>
 
       <Modal
