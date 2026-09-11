@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const backendUrl = (
   process.env.NODE_ENV === "development"
-    ? "http://89.167.92.220:8015"
+    ? "http://localhost:8002"
     : process.env.API_BACKEND_URL || "http://89.167.92.220:8015"
 ).replace(/\/+$/, "");
 
