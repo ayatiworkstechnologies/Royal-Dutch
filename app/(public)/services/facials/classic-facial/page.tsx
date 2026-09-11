@@ -22,6 +22,8 @@ export default function ClassicFacialPage() {
         description="Healthy, glowing skin begins with consistent professional care. Our Classic Facial is a gentle treatment designed to cleanse, exfoliate, hydrate, and refresh your skin. The treatment combines deep cleansing, mild exfoliation, optional steam and extraction, facial massage, a customized mask, moisturization, and sun protection. Whether your skin feels dull, dry, oily, or congested, each step is personalized according to your skin type and current concerns."
         rating={4.9}
         reviews={350}
+        price={150}
+        currency="AED"
         buttonHref="/services/facials/classic-facial"
       />
 

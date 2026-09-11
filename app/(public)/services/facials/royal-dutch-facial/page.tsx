@@ -22,6 +22,8 @@ export default function RoyalDutchFacialPage() {
         description="Experience personalized skincare with the signature Royal Dutch Facial. This comprehensive treatment is designed to deeply cleanse, gently exfoliate, hydrate, and restore your skin’s natural radiance. The facial combines professional skin analysis, cleansing, exfoliation, optional extraction, massage, a customized mask, moisturization, and sun protection. Every stage is adapted to your skin type and concerns, leaving your complexion feeling smoother, balanced, nourished, and refreshed."
         rating={4.9}
         reviews={350}
+        price={300}
+        currency="AED"
         buttonHref="/services/facials/royal-dutch-facial"
       />
 

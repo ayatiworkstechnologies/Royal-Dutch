@@ -22,6 +22,8 @@ export default function VitaminCHydrafacialPage() {
         description="Bright, healthy-looking skin begins with deep cleansing and antioxidant care. Our Vitamin C HydraFacial combines cleansing, exfoliation, extraction, hydration, and Vitamin C serum infusion in one refreshing treatment. The treatment helps remove dead skin cells and pore impurities while delivering hydrating and antioxidant-rich ingredients to the skin. Ideal for dull, tired, or uneven-looking skin, this customized facial supports a smoother texture, improved hydration, and a fresh, luminous appearance with minimal downtime."
         rating={4.9}
         reviews={350}
+        price={250}
+        currency="AED"
         buttonHref="/services/facials/vitamin-c-hydrafacial"
       />
 

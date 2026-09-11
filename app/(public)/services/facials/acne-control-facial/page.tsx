@@ -22,6 +22,8 @@ export default function AcneControlFacialPage() {
         description="Clearer-looking skin begins with gentle, consistent, and targeted care. Our Acne Control Facial is designed to deeply cleanse congested skin, remove excess oil, and support a healthier-looking complexion. The treatment combines skin analysis, cleansing, gentle exfoliation, careful extraction when appropriate, a soothing mask, hydration, and sun protection. Ideal for oily and acne-prone skin, each step is customized to help calm visible redness, reduce pore congestion, and maintain the skin’s natural moisture balance."
         rating={4.9}
         reviews={350}
+        price={350}
+        currency="AED"
         buttonHref="/services/facials/acne-control-facial"
       />
 

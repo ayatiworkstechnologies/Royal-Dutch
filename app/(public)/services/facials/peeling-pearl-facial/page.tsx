@@ -22,6 +22,8 @@ export default function PeelingPearlFacialPage() {
         description="Naturally luminous skin begins with gentle exfoliation and nourishing care. Our Peeling Pearl Facial is designed to cleanse, exfoliate, soften, and refresh dull-looking skin. The treatment combines deep cleansing, a gentle pearl-based peel, facial massage, a nourishing mask, hydration, and sun protection. Ideal for tired, rough, or uneven-looking skin, this luxurious facial helps remove surface buildup and leaves the complexion feeling smoother, softer, and visibly refreshed."
         rating={4.9}
         reviews={350}
+        price={649}
+        currency="AED"
         buttonHref="/services/facials/peeling-pearl-facial"
       />
 

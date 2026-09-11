@@ -22,6 +22,8 @@ export default function HydrafacialPage() {
         description="Healthy, radiant skin begins with deep cleansing and lasting hydration. HydraFacial is a gentle, non-invasive treatment that combines cleansing, exfoliation, extraction, and serum infusion in one comfortable session. Using controlled suction and specialized treatment tips, HydraFacial helps remove surface impurities and congested pores while delivering hydrating serums selected for your skin’s needs. The treatment supports smoother texture, improved hydration, and a brighter-looking complexion with minimal discomfort and little to no downtime."
         rating={4.9}
         reviews={350}
+        price={250}
+        currency="AED"
         buttonHref="/services/facials/hydrafacial"
       />
 
