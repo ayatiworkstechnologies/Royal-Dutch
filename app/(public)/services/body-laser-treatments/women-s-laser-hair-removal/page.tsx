@@ -19,162 +19,84 @@ export default function WomensLaserHairRemovalPage() {
       />
 
       {/* =====================================================
-          INTRO + TREATMENT PRICE CAROUSEL
+          INTRO + TREATMENT PRICES
       ====================================================== */}
       <ServiceMain
         title="Women’s Laser Hair Removal"
         description="Enjoy smoother-looking skin and long-term hair reduction with Women’s Laser Hair Removal. This non-surgical treatment uses controlled laser energy to target pigment within unwanted hair. The laser delivers concentrated light to suitable hair follicles, gradually reducing future growth while protecting the surrounding skin. Treatment can be customized for areas such as the upper lip, chin, underarms, bikini line, arms, hands, legs, feet, abdomen, and back."
-        rating={4.9}
-        reviews={350}
-        autoSlideInterval={4000}
-        subServices={[
+        priceListTitle="Women’s Laser Hair Removal Treatment Prices"
+        priceListItems={[
           {
             title: "Upper Lip",
-            description:
-              "Laser hair reduction treatment for the upper lip area.",
             price: 50,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/women-s-laser-hair-removal",
           },
-
           {
             title: "Chin + Upper Lip",
-            description:
-              "Laser hair reduction treatment for the chin and upper lip.",
             price: 75,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/women-s-laser-hair-removal",
           },
-
           {
             title: "Underarms",
-            description:
-              "Laser hair reduction treatment for the underarm area.",
             price: 120,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/women-s-laser-hair-removal",
           },
-
           {
             title: "Half Bikini Line",
-            description:
-              "Targeted laser hair reduction for the half bikini line.",
             price: 150,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/women-s-laser-hair-removal",
           },
-
           {
             title: "Full Bikini Line",
-            description:
-              "Complete laser hair reduction treatment for the bikini line.",
             price: 200,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/women-s-laser-hair-removal",
           },
-
           {
             title: "Full Arms + Hands",
-            description:
-              "Laser hair reduction treatment for the full arms and hands.",
             price: 200,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/women-s-laser-hair-removal",
           },
-
           {
             title: "Full Arms + Hands + Underarms",
-            description:
-              "Combined laser treatment for full arms, hands, and underarms.",
             price: 250,
             currency: "AED",
-            priceLabel: "Treatment price",
             badge: "Combo",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/women-s-laser-hair-removal",
           },
-
           {
             title: "Half Arms + Hands",
-            description:
-              "Laser hair reduction treatment for the half arms and hands.",
             price: 150,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/women-s-laser-hair-removal",
           },
-
           {
             title: "Half Legs + Feet",
-            description:
-              "Laser hair reduction treatment for the half legs and feet.",
             price: 200,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/women-s-laser-hair-removal",
           },
-
           {
             title: "Full Legs + Feet",
-            description:
-              "Complete laser hair reduction treatment for the legs and feet.",
             price: 300,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/women-s-laser-hair-removal",
           },
-
           {
             title: "Full Body — Excluding Belly And Back",
-            description:
-              "Full-body laser hair reduction excluding the belly and back.",
             price: 450,
             currency: "AED",
-            priceLabel: "Treatment price",
             badge: "Full Body",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/women-s-laser-hair-removal",
           },
-
           {
             title: "Full Body — Including Belly And Back",
-            description:
-              "Complete full-body laser hair reduction including the belly and back.",
             price: 650,
             currency: "AED",
-            priceLabel: "Treatment price",
             badge: "Full Body",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/women-s-laser-hair-removal",
           },
         ]}
+        rating={4.9}
+        reviews={350}
+        price={50}
+        currency="AED"
+        priceLabel="Starting Price"
+        buttonText="Book Now"
+        buttonHref="/services/body-laser-treatments/women-s-laser-hair-removal"
       />
 
       {/* =====================================================
@@ -286,8 +208,7 @@ export default function WomensLaserHairRemovalPage() {
         description=""
         faqs={[
           {
-            question:
-              "Is Laser Hair Removal Suitable For All Skin Types?",
+            question: "Is Laser Hair Removal Suitable For All Skin Types?",
             answer:
               "Modern laser systems can treat a wide range of skin tones when the appropriate device and settings are used. Dark, coarse hair generally responds better than white, grey, red, or very light-blonde hair.",
           },
@@ -297,8 +218,7 @@ export default function WomensLaserHairRemovalPage() {
               "A small facial area may take approximately 10 to 15 minutes, while larger or multiple body areas may take 60 minutes or longer.",
           },
           {
-            question:
-              "Is Women’s Laser Hair Removal Painful?",
+            question: "Is Women’s Laser Hair Removal Painful?",
             answer:
               "Most people describe the sensation as brief warmth or a light snapping feeling. Cooling technology may be used to improve comfort during treatment.",
           },
@@ -308,8 +228,7 @@ export default function WomensLaserHairRemovalPage() {
               "Most people require approximately six or more sessions because hair grows in different cycles. The exact number depends on the area, hair type, skin tone, and individual response.",
           },
           {
-            question:
-              "Is There Any Downtime Or Side Effects?",
+            question: "Is There Any Downtime Or Side Effects?",
             answer:
               "Downtime is usually minimal. Temporary redness, warmth, tenderness, or mild swelling may occur. Less-common risks include burns, blisters, scarring, and changes in skin colour.",
           },

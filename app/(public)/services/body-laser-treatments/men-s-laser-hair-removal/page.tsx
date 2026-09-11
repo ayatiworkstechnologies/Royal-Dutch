@@ -19,106 +19,64 @@ export default function MensLaserHairRemovalPage() {
       />
 
       {/* =====================================================
-          INTRO + PRICING CAROUSEL
+          INTRO + PRICE GRID
       ====================================================== */}
       <ServiceMain
         title="Men’s Laser Hair Removal"
         description="Achieve smoother-looking skin and long-term hair reduction with Men’s Laser Hair Removal. The treatment uses controlled laser energy to target pigment within unwanted hair. The laser delivers concentrated light to suitable hair follicles, gradually reducing future growth while protecting the surrounding skin. Treatment can be customized for areas such as the beard, underarms, chest, abdomen, back, arms, and legs."
-        rating={4.9}
-        reviews={350}
-        autoSlideInterval={4000}
-        subServices={[
+        priceListTitle="Men’s Laser Hair Removal Treatment Prices"
+        priceListItems={[
           {
             title: "Beard",
-            description: "Men’s laser hair removal for the beard area.",
             price: 100,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/men-s-laser-hair-removal",
           },
           {
             title: "Underarms",
-            description:
-              "Laser hair reduction treatment for the underarm area.",
             price: 150,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/men-s-laser-hair-removal",
           },
           {
             title: "Half Legs",
-            description:
-              "Laser hair reduction treatment for the half-leg area.",
             price: 400,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/men-s-laser-hair-removal",
           },
           {
             title: "Full Legs",
-            description:
-              "Complete laser hair reduction treatment for both full legs.",
             price: 600,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/men-s-laser-hair-removal",
           },
           {
             title: "Back",
-            description:
-              "Laser hair reduction treatment for the back area.",
             price: 400,
             currency: "AED",
-            priceLabel: "Treatment price",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/men-s-laser-hair-removal",
           },
           {
             title: "Full Body — Excluding Belly And Back",
-            description:
-              "Full-body laser hair reduction excluding the belly and back.",
             price: 750,
             currency: "AED",
-            priceLabel: "Treatment price",
             badge: "Full Body",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/men-s-laser-hair-removal",
           },
           {
             title: "Full Body — Including Belly And Back",
-            description:
-              "Complete full-body laser hair reduction including the belly and back.",
             price: 950,
             currency: "AED",
-            priceLabel: "Treatment price",
             badge: "Full Body",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/men-s-laser-hair-removal",
           },
           {
             title: "Ear Piercing",
-            description:
-              "Professional ear piercing service.",
             price: 150,
             currency: "AED",
-            priceLabel: "Service price",
             badge: "Other Service",
-            buttonText: "Book Now",
-            buttonHref:
-              "/services/body-laser-treatments/men-s-laser-hair-removal",
           },
         ]}
+        rating={4.9}
+        reviews={350}
+        price={100}
+        currency="AED"
+        priceLabel="Starting Price"
+        buttonText="Book Now"
+        buttonHref="/services/body-laser-treatments/men-s-laser-hair-removal"
       />
 
       {/* =====================================================

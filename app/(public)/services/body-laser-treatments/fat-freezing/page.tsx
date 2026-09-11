@@ -10,46 +10,46 @@ import ServiceMain from "@/components/services/ServiceMain";
 export default function FatFreezingPage() {
   return (
     <main className="min-h-screen w-full overflow-x-hidden bg-white">
-      {/* Banner Section */}
+      {/* =====================================================
+          BANNER
+      ====================================================== */}
       <DynamicBanner
         mobileImage="/images/fat-freezing-mobile-01.png"
         desktopImage="/images/fat-freezing-desktop-01.png"
       />
 
-      {/* Intro Section */}
+      {/* =====================================================
+          INTRO + TREATMENT PRICES
+      ====================================================== */}
       <ServiceMain
         title="Fat Freezing — Cryolipolysis"
         description="Shape stubborn areas without surgery using Fat Freezing, clinically known as cryolipolysis. This non-invasive body-contouring treatment uses controlled cooling to target localized fat beneath the skin. The cooled fat cells are gradually processed and eliminated by the body over the following weeks and months, helping reduce the size of the treated fatty bulge. Fat Freezing is designed for body contouring—not overall weight loss—and is most suitable for people who are close to their preferred weight but have resistant pockets of fat."
-        rating={4.9}
-        reviews={350}
-        autoSlideInterval={4000}
-        subServices={[
+        priceListTitle="Fat Freezing Treatment Prices"
+        priceListItems={[
           {
             title: "Single Session",
-            description: "One Fat Freezing treatment session.",
             price: 400,
             currency: "AED",
-            priceLabel: "Single session price",
-            buttonText: "Book Single Session",
-            buttonHref:
-              "/services/body-laser-treatments/fat-freezing",
           },
           {
             title: "Fat Freezing Package",
-            description:
-              "Complete package with three treatment sessions.",
             price: 800,
             currency: "AED",
-            priceLabel: "Package price",
-            badge: "2+1 Sessions",
-            buttonText: "Book Package",
-            buttonHref:
-              "/services/body-laser-treatments/fat-freezing/fat-freezing-package",
+            badge: "2 + 1 Sessions",
           },
         ]}
+        rating={4.9}
+        reviews={350}
+        price={400}
+        currency="AED"
+        priceLabel="Single Session"
+        buttonText="Book Now"
+        buttonHref="/services/body-laser-treatments/fat-freezing"
       />
 
-      {/* Treatment Offers */}
+      {/* =====================================================
+          TREATMENT OFFERS
+      ====================================================== */}
       <TreatmentOffers
         eyebrow="Treatment Benefits"
         title="Why Choose Fat Freezing"
@@ -86,7 +86,9 @@ export default function FatFreezingPage() {
         ]}
       />
 
-      {/* Timeline Steps */}
+      {/* =====================================================
+          TIMELINE STEPS
+      ====================================================== */}
       <TimelineSteps
         eyebrow="Treatment Steps"
         title="How Fat Freezing Works"
@@ -115,7 +117,9 @@ export default function FatFreezingPage() {
         ]}
       />
 
-      {/* Benefits Section */}
+      {/* =====================================================
+          BENEFITS
+      ====================================================== */}
       <BenefitRevealSection
         title="Who Can Benefit From Fat Freezing"
         subtitle="A non-surgical body-contouring option for people who want to reduce small, localized areas of stubborn fat."
@@ -144,20 +148,20 @@ export default function FatFreezingPage() {
         ]}
       />
 
-      {/* FAQ Section */}
+      {/* =====================================================
+          FAQ
+      ====================================================== */}
       <FaqSection
         title="FAQs"
         description=""
         faqs={[
           {
-            question:
-              "Is Fat Freezing A Weight-Loss Treatment?",
+            question: "Is Fat Freezing A Weight-Loss Treatment?",
             answer:
               "No. Fat Freezing is intended to contour localized fatty areas. It is not a treatment for obesity, overall weight loss, loose skin, or cellulite.",
           },
           {
-            question:
-              "How Long Does A Fat-Freezing Session Take?",
+            question: "How Long Does A Fat-Freezing Session Take?",
             answer:
               "A session commonly takes approximately 35 to 60 minutes per treatment area, depending on the device, applicator, and selected area.",
           },
@@ -172,8 +176,7 @@ export default function FatFreezingPage() {
               "Changes develop gradually. Some people notice improvement within several weeks, while the treated fatty bulge may continue reducing over approximately four to six months.",
           },
           {
-            question:
-              "Are There Any Side Effects Or Downtime?",
+            question: "Are There Any Side Effects Or Downtime?",
             answer:
               "Temporary redness, swelling, bruising, tenderness, tingling, or numbness can occur. A rare complication called paradoxical adipose hyperplasia may cause the treated fatty tissue to enlarge and can require surgical correction. A professional assessment is essential before treatment.",
           },

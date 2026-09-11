@@ -19,10 +19,21 @@ interface SubService {
   buttonHref?: string;
 }
 
+interface PriceListItem {
+  title: string;
+  price: string | number;
+  currency?: string;
+  badge?: string;
+}
+
 interface ServiceMainProps {
   title: string;
   description?: string | null;
   categoryName?: string;
+
+  /* OPTIONAL LEFT-SIDE PRICE GRID */
+  priceListTitle?: string;
+  priceListItems?: PriceListItem[];
 
   rating?: number;
   reviews?: number;
@@ -52,6 +63,9 @@ export default function ServiceMain({
   title,
   description,
   categoryName = "Treatment",
+
+  priceListTitle = "Treatment Prices",
+  priceListItems = [],
 
   rating = 4.9,
   reviews = 350,
@@ -238,6 +252,166 @@ export default function ServiceMain({
             >
               {description}
             </p>
+          )}
+
+          {/* =====================================================
+              OPTIONAL LEFT-SIDE PRICE GRID
+              Existing pages are not affected unless priceListItems
+              is provided.
+          ====================================================== */}
+          {priceListItems.length > 0 && (
+            <div className="mt-[20px] max-w-[760px]">
+              {/* Price Grid Header */}
+              <div className="mb-[10px] flex flex-wrap items-end justify-between gap-2">
+                <div>
+                  <p
+                    className="
+                      mb-[4px]
+                      font-secondary
+                      text-[8px]
+                      font-semibold
+                      uppercase
+                      leading-none
+                      tracking-[0.14em]
+                      text-[#8B1D72]
+                    "
+                  >
+                    Treatment Pricing
+                  </p>
+
+                  <h3
+                    className="
+                      font-primary
+                      text-[15px]
+                      font-semibold
+                      uppercase
+                      leading-[1.2]
+                      tracking-[0.01em]
+                      text-[#111111]
+
+                      sm:text-[16px]
+                    "
+                  >
+                    {priceListTitle}
+                  </h3>
+                </div>
+
+                <span
+                  className="
+                    rounded-full
+                    border
+                    border-[#E9D4E3]
+                    bg-[#FFF8FC]
+                    px-[8px]
+                    py-[4px]
+                    font-secondary
+                    text-[7px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.07em]
+                    text-[#8B1D72]
+                  "
+                >
+                  {priceListItems.length} Options
+                </span>
+              </div>
+
+              {/* Responsive Price Grid: 1 mobile / 2 tablet / 4 desktop */}
+              <div className="grid grid-cols-1 gap-[8px] sm:grid-cols-2 lg:grid-cols-4">
+                {priceListItems.map((item, index) => (
+                  <div
+                    key={`${item.title}-${index}`}
+                    className="
+                      group
+                      flex
+                      min-h-[58px]
+                      min-w-0
+                      items-center
+                      justify-between
+                      gap-[7px]
+                      rounded-[11px]
+                      border
+                      border-[#EAEAEA]
+                      bg-[#FCFCFC]
+                      px-[10px]
+                      py-[8px]
+                      transition-all
+                      duration-300
+
+                      hover:border-[#DDB8D1]
+                      hover:bg-[#FFF9FD]
+                      hover:shadow-[0_4px_12px_rgba(139,29,114,0.06)]
+                    "
+                  >
+                    {/* Service Name */}
+                    <div className="min-w-0 flex-1">
+                      <p
+                        className="
+                          break-words
+                          font-secondary
+                          text-[9px]
+                          font-medium
+                          leading-[1.35]
+                          tracking-[0.015em]
+                          text-[#555555]
+                          transition-colors
+                          duration-300
+
+                          group-hover:text-[#222222]
+                        "
+                      >
+                        {item.title}
+                      </p>
+
+                      {item.badge && (
+                        <span
+                          className="
+                            mt-[4px]
+                            inline-flex
+                            max-w-full
+                            rounded-full
+                            border
+                            border-[#EACFE1]
+                            bg-white
+                            px-[6px]
+                            py-[2px]
+                            font-secondary
+                            text-[6px]
+                            font-semibold
+                            uppercase
+                            leading-none
+                            tracking-[0.04em]
+                            text-[#8B1D72]
+                          "
+                        >
+                          {item.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Price */}
+                    <div className="shrink-0 text-right">
+                      <span
+                        className="
+                          block
+                          whitespace-nowrap
+                          font-primary
+                          text-[11px]
+                          font-semibold
+                          leading-none
+                          tracking-[-0.02em]
+                          text-[#111111]
+
+                          xl:text-[12px]
+                        "
+                      >
+                        {item.currency || currency} {item.price}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
         </div>
 

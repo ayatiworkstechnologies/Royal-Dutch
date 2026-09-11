@@ -14,7 +14,7 @@ const testimonials = [
     text: (
       <>
         I had a <strong>Hydra Facial</strong> at Royal Dutch Clinic, and my skin
-        felt <strong>fresh, clean</strong>, and deeply hydrated after the
+        felt <strong> fresh, clean</strong>, and deeply hydrated after the
         session. The treatment was <strong>relaxing</strong>, and the team
         explained each step clearly.
       </>
@@ -48,7 +48,11 @@ const testimonials = [
 
 function QuoteIcon() {
   return (
-    <img src="./icons/quote.png" alt="Quote" className="mx-auto w-5" />
+    <img
+      src="/icons/quote.png"
+      alt="Quote"
+      className="mx-auto w-5"
+    />
   );
 }
 
@@ -93,6 +97,7 @@ export default function TestimonialSection() {
       }}
       viewport={{ once: true, amount: 0.25 }}
     >
+      {/* Background */}
       <motion.div
         className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.55]"
         style={{
@@ -109,11 +114,12 @@ export default function TestimonialSection() {
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <div className="relative mx-auto flex min-h-[360px] items-center justify-center">
+          {/* Desktop Previous Button */}
           <motion.button
             type="button"
             onClick={prevSlide}
             aria-label="Previous testimonial"
-            className="absolute cursor-pointer left-0 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition hover:bg-[#8b1d72] hover:text-white md:flex"
+            className="absolute left-0 top-1/2 hidden h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition hover:bg-[#8b1d72] hover:text-white md:flex"
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{
@@ -128,9 +134,11 @@ export default function TestimonialSection() {
             </span>
           </motion.button>
 
-          <div className="mx-auto max-w-[720px] text-center">
+          {/* Testimonial Content */}
+          <div className="mx-auto w-full max-w-[720px] text-center">
+            {/* Quote Icon */}
             <motion.div
-              className="mb-8 md:mb-10"
+              className="mb-7 md:mb-10"
               initial={{ opacity: 0, y: -28, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
@@ -146,20 +154,54 @@ export default function TestimonialSection() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIndex}
-                initial={{ opacity: 0, y: 28, filter: "blur(6px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -22, filter: "blur(6px)" }}
+                initial={{
+                  opacity: 0,
+                  y: 28,
+                  filter: "blur(6px)",
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                }}
+                exit={{
+                  opacity: 0,
+                  y: -22,
+                  filter: "blur(6px)",
+                }}
                 transition={{
                   duration: 0.9,
                   ease: smoothEase,
                 }}
               >
-                <p className="mx-auto max-w-[720px] font-secondary text-[15px] font-light leading-[1.8] tracking-[3px] text-[#8d8d8d] md:text-[16px]">
+                {/* Testimonial Text */}
+                <p
+                  className="
+                    mx-auto
+                    max-w-[720px]
+                    px-1
+                    font-secondary
+                    text-[14px]
+                    font-light
+                    leading-[1.8]
+                    tracking-[1px]
+                    text-[#8d8d8d]
+
+                    sm:text-[15px]
+                    sm:tracking-[1.5px]
+
+                    md:px-0
+                    md:text-[16px]
+                    md:tracking-[3px]
+                  "
+                >
                   {active.text}
                 </p>
 
-                <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                  <div className="relative h-10 w-10 overflow-hidden rounded-full border border-[#d6b981]/50 bg-white p-[2px]">
+                {/* User Information */}
+                <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:mt-9 sm:flex-row">
+                  {/* User Image */}
+                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-[#d6b981]/50 bg-white p-[2px]">
                     <Image
                       src={active.image}
                       alt={active.name}
@@ -169,14 +211,47 @@ export default function TestimonialSection() {
                     />
                   </div>
 
-                  <div className="flex flex-col items-center gap-3 sm:flex-row">
-                    <h3 className="font-primary text-[17px] font-semibold uppercase tracking-[5px] text-black">
+                  <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
+                    {/* Name */}
+                    <h3
+                      className="
+                        font-primary
+                        text-[15px]
+                        font-semibold
+                        uppercase
+                        tracking-[2px]
+                        text-black
+
+                        sm:text-[16px]
+                        sm:tracking-[3px]
+
+                        md:text-[17px]
+                        md:tracking-[5px]
+                      "
+                    >
                       {active.name}
                     </h3>
 
+                    {/* Divider */}
                     <span className="hidden h-9 w-px bg-[#777] sm:block" />
 
-                    <p className="font-primary text-[16px] font-light uppercase tracking-[5px] text-[#9a9a9a]">
+                    {/* Service */}
+                    <p
+                      className="
+                        font-primary
+                        text-[14px]
+                        font-light
+                        uppercase
+                        tracking-[2px]
+                        text-[#9a9a9a]
+
+                        sm:text-[15px]
+                        sm:tracking-[3px]
+
+                        md:text-[16px]
+                        md:tracking-[5px]
+                      "
+                    >
                       {active.service}
                     </p>
                   </div>
@@ -184,8 +259,9 @@ export default function TestimonialSection() {
               </motion.div>
             </AnimatePresence>
 
+            {/* Slider Indicators */}
             <motion.div
-              className="mt-10  flex items-center justify-center gap-4 md:mt-12"
+              className="mt-9 flex items-center justify-center gap-4 md:mt-12"
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{
@@ -211,11 +287,12 @@ export default function TestimonialSection() {
             </motion.div>
           </div>
 
+          {/* Desktop Next Button */}
           <motion.button
             type="button"
             onClick={nextSlide}
             aria-label="Next testimonial"
-            className="absolute cursor-pointer right-0 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition hover:bg-[#8b1d72] hover:text-white md:flex"
+            className="absolute right-0 top-1/2 hidden h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition hover:bg-[#8b1d72] hover:text-white md:flex"
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{
@@ -231,6 +308,7 @@ export default function TestimonialSection() {
           </motion.button>
         </div>
 
+        {/* Mobile Navigation Buttons */}
         <motion.div
           className="mt-6 flex justify-center gap-4 md:hidden"
           initial={{ opacity: 0, y: 24 }}
@@ -242,6 +320,7 @@ export default function TestimonialSection() {
           }}
           viewport={{ once: true }}
         >
+          {/* Previous */}
           <button
             type="button"
             onClick={prevSlide}
@@ -253,6 +332,7 @@ export default function TestimonialSection() {
             </span>
           </button>
 
+          {/* Next */}
           <button
             type="button"
             onClick={nextSlide}

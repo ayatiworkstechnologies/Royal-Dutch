@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 
-const highlightItems = ["Natural Care", "Clinical Precision", "Safe Results"];
+const highlightItems = ["Tailored Treatment Plans", "Evidence-Based Care", "Natural-Looking Results"];
 
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -370,7 +370,7 @@ export default function WhatWeDoSection() {
             }}
             viewport={{ once: true }}
           >
-            We Provide Natural Treatments
+           Personalized Care. Proven Results.
           </motion.h2>
 
           {/* Divider */}
