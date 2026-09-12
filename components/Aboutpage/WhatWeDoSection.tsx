@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 
-const highlightItems = ["Natural Care", "Clinical Precision", "Safe Results"];
+const highlightItems = ["Evidence-Based Care", "Advanced Technology", "Personalized Treatment"];
 
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -67,9 +67,209 @@ function buildRightLoopPath(offset: number) {
 function SectionLineBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-     
+      {/* <svg
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 1200 700"
+        preserveAspectRatio="xMidYMid slice"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+         
+          <linearGradient
+            id="royalTravelGlow"
+            x1="-140%"
+            y1="0%"
+            x2="-40%"
+            y2="0%"
+          >
+            <stop offset="0%" stopColor="transparent" />
+            <stop offset="34%" stopColor="transparent" />
+            <stop offset="44%" stopColor="#e467e4" stopOpacity="0.18" />
+            <stop offset="48%" stopColor="#e467e4" stopOpacity="0.55" />
+            <stop offset="50%" stopColor="#e467e4" stopOpacity="1" />
+            <stop offset="52%" stopColor="#e467e4" stopOpacity="0.65" />
+            <stop offset="58%" stopColor="#e467e4" stopOpacity="0.22" />
+            <stop offset="72%" stopColor="transparent" />
+            <stop offset="100%" stopColor="transparent" />
 
-      {/* Very light overlay only */}
+            <animate
+              attributeName="x1"
+              values="-140%;140%"
+              dur="13s"
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="x2"
+              values="-40%;240%"
+              dur="13s"
+              repeatCount="indefinite"
+            />
+          </linearGradient>
+
+          <linearGradient
+            id="royalTravelGlowSoft"
+            x1="-170%"
+            y1="0%"
+            x2="-70%"
+            y2="0%"
+          >
+            <stop offset="0%" stopColor="transparent" />
+            <stop offset="42%" stopColor="transparent" />
+            <stop offset="50%" stopColor="#e467e4" stopOpacity="0.8" />
+            <stop offset="58%" stopColor="transparent" />
+            <stop offset="100%" stopColor="transparent" />
+
+            <animate
+              attributeName="x1"
+              values="-170%;150%"
+              dur="17s"
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="x2"
+              values="-70%;250%"
+              dur="17s"
+              repeatCount="indefinite"
+            />
+          </linearGradient>
+
+          <radialGradient id="sparkleGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#e467e4" stopOpacity="1" />
+            <stop offset="45%" stopColor="#e467e4" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#e467e4" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        <g opacity="0.16">
+          {topRings.map((r) => (
+            <circle
+              key={`top-${r}`}
+              cx="570"
+              cy="-30"
+              r={r}
+              fill="none"
+              stroke="#c29ec2"
+              strokeWidth="4"
+            />
+          ))}
+
+          {leftRings.map((r) => (
+            <circle
+              key={`left-${r}`}
+              cx="-40"
+              cy="610"
+              r={r}
+              fill="none"
+              stroke="#c29ec2"
+              strokeWidth="4"
+            />
+          ))}
+
+          {bottomRings.map((r) => (
+            <circle
+              key={`bottom-${r}`}
+              cx="595"
+              cy="760"
+              r={r}
+              fill="none"
+              stroke="#c29ec2"
+              strokeWidth="4"
+              opacity="0.25"
+            />
+          ))}
+
+          {rightOffsets.map((offset) => (
+            <path
+              key={`right-${offset}`}
+              d={buildRightLoopPath(offset)}
+              fill="none"
+              stroke="#c29ec2"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          ))}
+        </g>
+
+        <g className="royal-line-glow" opacity="1">
+          {topRings.map((r) => (
+            <circle
+              key={`top-glow-${r}`}
+              cx="570"
+              cy="-30"
+              r={r}
+              fill="none"
+              stroke="url(#royalTravelGlow)"
+              strokeWidth="5"
+            />
+          ))}
+
+          {leftRings.map((r) => (
+            <circle
+              key={`left-glow-${r}`}
+              cx="-40"
+              cy="610"
+              r={r}
+              fill="none"
+              stroke="url(#royalTravelGlow)"
+              strokeWidth="5"
+            />
+          ))}
+
+          {bottomRings.map((r) => (
+            <circle
+              key={`bottom-glow-${r}`}
+              cx="595"
+              cy="760"
+              r={r}
+              fill="none"
+              stroke="url(#royalTravelGlowSoft)"
+              strokeWidth="5"
+              opacity="0.9"
+            />
+          ))}
+
+          {rightOffsets.map((offset) => (
+            <path
+              key={`right-glow-${offset}`}
+              d={buildRightLoopPath(offset)}
+              fill="none"
+              stroke="url(#royalTravelGlow)"
+              strokeWidth="5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          ))}
+        </g>
+
+        <g opacity="0.9">
+          {sparkleDots.map((dot, index) => (
+            <circle
+              key={`sparkle-${index}`}
+              cx={dot.cx}
+              cy={dot.cy}
+              r="5"
+              fill="url(#sparkleGlow)"
+            >
+              <animate
+                attributeName="opacity"
+                values="0;0.25;1;0.25;0"
+                dur="6.5s"
+                begin={dot.delay}
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="r"
+                values="2;4;6;4;2"
+                dur="6.5s"
+                begin={dot.delay}
+                repeatCount="indefinite"
+              />
+            </circle>
+          ))}
+        </g>
+      </svg> */}
+
       <div className="absolute inset-0 bg-[#fbfaf8]/18" />
     </div>
   );
@@ -170,7 +370,7 @@ export default function WhatWeDoSection() {
             }}
             viewport={{ once: true }}
           >
-            We Provide Natural Treatments
+          Comprehensive Care, One Center
           </motion.h2>
 
           {/* Divider */}
@@ -210,18 +410,7 @@ export default function WhatWeDoSection() {
             }}
             viewport={{ once: true }}
           >
-            We provide{" "}
-            <span className="font-semibold text-black">
-              natural and clinical treatments
-            </span>{" "}
-            focused on precision-driven care for long-lasting skin health. Our
-            approach is{" "}
-            <span className="font-semibold text-black">toxin-free</span> and
-            uses organic, nature-powered products with proven{" "}
-            <span className="font-semibold text-black">
-              effectiveness, ensuring safe,
-            </span>{" "}
-            balanced treatments with no side effects.
+            We provide integrated medical, dental, aesthetic, and home healthcare services designed to support every stage of the patient journey. By combining clinical expertise, advanced technology, and personalized care, we deliver safe, effective, and evidence-based treatment tailored to each patient’s individual needs.
           </motion.p>
 
           {/* Cards */}

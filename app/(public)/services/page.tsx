@@ -1,42 +1,132 @@
 import Link from "next/link";
 
-const treatments = [
+const services = [
+  {
+    title: "Facials",
+    description:
+      "Discover professional facial treatments designed to deeply cleanse, hydrate, refresh, and improve the overall appearance of your skin with personalized skincare solutions.",
+    href: "/services/facials",
+  },
+  {
+    title: "Advanced Skin Treatments",
+    description:
+      "Explore advanced aesthetic skin treatments created to improve texture, radiance, hydration, pores, fine lines, and the overall quality of your skin.",
+    href: "/services/advanced-skin-treatments",
+  },
+  {
+    title: "Laser Treatments",
+    description:
+      "Advanced laser treatments designed to support long-term hair reduction and smoother-looking skin with personalized treatment options for men and women.",
+    href: "/services/laser-treatments",
+  },
   {
     title: "Fat Freezing",
     description:
-      "A non-surgical body contouring treatment designed to target localized fat areas using controlled cooling technology for a more defined body shape.",
-    href: "/services/fat-freezing/fat-freezing-cryolipolysis",
+      "A non-surgical body contouring solution using controlled cooling technology to target stubborn localized fat and support a more sculpted body appearance.",
+    href: "/services/fat-freezing",
   },
- 
 ];
 
-export default function BodyLaserTreatmentsPage() {
+export default function ServicesPage() {
   return (
     <main className="min-h-screen bg-white pt-[50px]">
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
-        
-        {/* ================= HEADING ================= */}
+      <section
+        className="
+          mx-auto
+          max-w-7xl
+          px-4
+          py-14
+
+          sm:px-6
+          sm:py-16
+
+          lg:px-8
+          lg:py-20
+        "
+      >
+        {/* =====================================================
+            HEADING
+        ====================================================== */}
 
         <div className="mx-auto max-w-3xl text-center">
-          <p className="font-secondary text-[11px] font-semibold uppercase tracking-[4px] text-[#8b1d72] sm:text-[12px]">
+          <p
+            className="
+              font-secondary
+              text-[11px]
+              font-semibold
+              uppercase
+              tracking-[4px]
+              text-[#8b1d72]
+
+              sm:text-[12px]
+            "
+          >
             Royal Dutch Medical Centre
           </p>
 
-          <h1 className="mt-5 font-primary text-[27px] font-medium uppercase leading-[1.4] tracking-[4px] text-black sm:text-[35px] sm:tracking-[5px] md:text-[43px]">
-            Body &amp; Laser Treatments
+          <h1
+            className="
+              mt-5
+              font-primary
+              text-[27px]
+              font-medium
+              uppercase
+              leading-[1.4]
+              tracking-[4px]
+              text-black
+
+              sm:text-[35px]
+              sm:tracking-[5px]
+
+              md:text-[43px]
+            "
+          >
+            Our Services
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl font-secondary text-[14px] leading-[1.8] tracking-[0.8px] text-[#777] sm:text-[15px] sm:tracking-[1px]">
-            Explore advanced body contouring and laser treatments designed to
-            enhance body confidence, improve skin appearance, and provide
-            personalized aesthetic care.
+          <p
+            className="
+              mx-auto
+              mt-6
+              max-w-2xl
+              font-secondary
+              text-[14px]
+              leading-[1.8]
+              tracking-[0.8px]
+              text-[#777]
+
+              sm:text-[15px]
+              sm:tracking-[1px]
+            "
+          >
+            Explore our range of aesthetic and wellness treatments designed to
+            support healthier-looking skin, body confidence, and personalized
+            care at Royal Dutch Medical Centre.
           </p>
         </div>
 
-        {/* ================= TREATMENTS ================= */}
+        {/* =====================================================
+            SERVICES GRID
+        ====================================================== */}
 
-        <div className="mx-auto mt-12 grid max-w-[900px] grid-cols-1 items-stretch gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6">
-          {treatments.map((item, index) => (
+        <div
+          className="
+            mx-auto
+            mt-12
+            grid
+            max-w-[950px]
+            grid-cols-1
+            items-stretch
+            gap-5
+
+            sm:mt-14
+            sm:grid-cols-2
+            sm:gap-6
+
+            lg:mt-16
+          "
+        >
+          {services.map((item, index) => (
             <Link
               key={item.title}
               href={item.href}
@@ -45,14 +135,19 @@ export default function BodyLaserTreatmentsPage() {
                 relative
                 flex
                 h-full
-                min-h-[265px]
+                min-h-[280px]
                 flex-col
                 overflow-hidden
-                rounded-[4px]
+
+                rounded-[6px]
+
                 border
                 border-[#eadfd8]
+
                 bg-[#fffdfb]
+
                 p-6
+
                 transition-all
                 duration-500
                 ease-out
@@ -62,41 +157,63 @@ export default function BodyLaserTreatmentsPage() {
                 hover:bg-white
                 hover:shadow-[0_18px_45px_rgba(0,0,0,0.08)]
 
-                sm:min-h-[265px]
+                sm:min-h-[300px]
                 sm:p-7
 
-                lg:min-h-[265px]
+                lg:min-h-[310px]
                 lg:p-9
               "
             >
-              {/* ================= TOP HOVER LINE ================= */}
+              {/* =================================================
+                  TOP HOVER LINE
+              ================================================== */}
 
               <span
                 className="
                   absolute
                   left-0
                   top-0
+
                   h-[2px]
                   w-0
+
                   bg-[#8b1d72]
+
                   transition-all
                   duration-500
                   ease-out
+
                   group-hover:w-full
                 "
               />
 
-              {/* ================= NUMBER ================= */}
+              {/* =================================================
+                  NUMBER
+              ================================================== */}
 
-              <span className="font-secondary text-[10px] font-semibold uppercase tracking-[2px] text-[#b49584] sm:text-[11px]">
+              <span
+                className="
+                  font-secondary
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[2px]
+                  text-[#b49584]
+
+                  sm:text-[11px]
+                "
+              >
                 {String(index + 1).padStart(2, "0")}
               </span>
 
-              {/* ================= TITLE ================= */}
+              {/* =================================================
+                  TITLE
+              ================================================== */}
 
               <h2
                 className="
                   mt-7
+
                   font-primary
                   text-[17px]
                   font-medium
@@ -104,12 +221,14 @@ export default function BodyLaserTreatmentsPage() {
                   leading-[1.5]
                   tracking-[2px]
                   text-black
+
                   transition-colors
                   duration-300
 
                   group-hover:text-[#8b1d72]
 
                   sm:text-[18px]
+
                   lg:mt-8
                   lg:text-[20px]
                 "
@@ -117,19 +236,36 @@ export default function BodyLaserTreatmentsPage() {
                 {item.title}
               </h2>
 
-              {/* ================= DESCRIPTION ================= */}
+              {/* =================================================
+                  DESCRIPTION
+              ================================================== */}
 
-              <p className="mt-4 font-secondary text-[13px] leading-[1.9] tracking-[0.5px] text-[#777] sm:text-[13.5px]">
+              <p
+                className="
+                  mt-4
+
+                  font-secondary
+                  text-[13px]
+                  leading-[1.9]
+                  tracking-[0.5px]
+                  text-[#777]
+
+                  sm:text-[13.5px]
+                "
+              >
                 {item.description}
               </p>
 
-              {/* ================= BUTTON ================= */}
+              {/* =================================================
+                  VIEW SERVICE
+              ================================================== */}
 
               <div className="mt-auto pt-7">
                 <div className="inline-flex items-center gap-3">
                   <span
                     className="
                       relative
+
                       font-secondary
                       text-[10px]
                       font-semibold
@@ -143,22 +279,25 @@ export default function BodyLaserTreatmentsPage() {
                       after:h-px
                       after:w-0
                       after:bg-[#8b1d72]
+
                       after:transition-all
                       after:duration-300
 
                       group-hover:after:w-full
                     "
                   >
-                    View Treatment
+                    View Services
                   </span>
 
                   <span
                     className="
                       text-[17px]
                       text-[#8b1d72]
+
                       transition-transform
                       duration-300
                       ease-out
+
                       group-hover:translate-x-1.5
                     "
                   >

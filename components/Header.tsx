@@ -593,11 +593,13 @@ function UserDropdown({ user, logout, openAuth }: { user: any, logout: () => voi
   return (
     <div className="relative" ref={dropdownRef}>
       <button
+        type="button"
         onClick={() => setOpen(!open)}
-        className="flex h-[40px] w-[40px] items-center justify-center rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] text-black transition hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:w-[46px]"
-        aria-label="User menu"
+        className="group flex h-[40px] items-center justify-center gap-2 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-3.5 font-secondary text-[13px] font-semibold text-black transition-all duration-300 hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:px-4 xl:text-[14px]"
+        aria-label={user ? "Open account menu" : "Open login menu"}
       >
-        <UserIcon className="h-4 w-4 xl:h-5 xl:w-5" />
+        <UserIcon className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:scale-105 xl:h-5 xl:w-5" />
+        <span className="whitespace-nowrap">{user ? "Account" : "Login"}</span>
       </button>
 
       {open && (
@@ -859,7 +861,7 @@ export default function Header() {
                 onMouseEnter={closeDesktopMenuNow}
                 onFocus={closeDesktopMenuNow}
                 onClick={() => openModal()}
-                className="group inline-flex h-[40px] min-w-[105px] items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-3 font-secondary text-[13px] font-semibold leading-none text-black transition duration-300 hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:min-w-[150px] xl:gap-2 xl:px-4 xl:text-[14px]"
+                className="hidden group h-[40px] min-w-[105px] items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-3 font-secondary text-[13px] font-semibold leading-none text-black transition duration-300 hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:min-w-[150px] xl:gap-2 xl:px-4 xl:text-[14px]"
               >
                 <AssistSparkle />
                 <span className="translate-y-[1px] whitespace-nowrap">
@@ -957,7 +959,7 @@ export default function Header() {
                 closeMobileMenu();
                 openModal();
               }}
-              className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] bg-[#D6B981] px-5 py-3 font-secondary text-[15px] font-bold text-[#200020]"
+              className="hidden mt-5 w-full items-center justify-center gap-2 rounded-[10px] bg-[#D6B981] px-5 py-3 font-secondary text-[15px] font-bold text-[#200020]"
             >
               <AssistSparkle />
               Book Now

@@ -232,9 +232,9 @@ export default function ServiceLegacySection() {
               once: true,
             }}
           >
-            A Legacy Of Excellence In
+            COMPREHENSIVE CARE
             <br />
-            Dermatology &amp; Aesthetics
+            ALL IN ONE PLACE
           </motion.h2>
 
           {/* Paragraph */}
@@ -270,13 +270,7 @@ export default function ServiceLegacySection() {
               once: true,
             }}
           >
-            Established in Ras Al-Khaimah, United Arab Emirates, Royal Dutch
-            Medical Centre has earned a reputation as a premier destination for
-            advanced dermatology and aesthetic medicine. Founded by seasoned
-            Dutch professionals with a vision to redefine clinical care through
-            European precision and innovation, Royal Dutch Clinic has grown
-            into a trusted brand that delivers personalized beauty and wellness
-            solutions with uncompromising quality.
+            Royal Dutch Medical Center brings together medical, dental, aesthetic, and home healthcare services within one integrated healthcare environment. Our multidisciplinary team combines evidence-based medicine, advanced technology, and personalized treatment protocols to provide seamless, patient-centered care at every stage of the healthcare journey.
           </motion.p>
 
           {/* Button */}
@@ -300,7 +294,7 @@ export default function ServiceLegacySection() {
             }}
           >
             <Link
-              href="/medical-specialities/dermatology-aesthetic-medicine"
+              href="/services"
               className="
                 rounded-full
                 bg-[#b765a2]

@@ -1,12 +1,7 @@
 import Link from "next/link";
 
 const treatments = [
-  {
-    title: "Fat Freezing",
-    description:
-      "A non-surgical body contouring treatment designed to target localized fat areas using controlled cooling technology for a more defined body shape.",
-    href: "/services/laser-treatments/fat-freezing",
-  },
+  
   {
   title: "Men’s Laser Hair Removal",
   description:
@@ -21,7 +16,7 @@ const treatments = [
 },
 ];
 
-export default function BodyLaserTreatmentsPage() {
+export default function LaserTreatmentsPage() {
   return (
     <main className="min-h-screen bg-white pt-[50px]">
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
@@ -34,11 +29,11 @@ export default function BodyLaserTreatmentsPage() {
           </p>
 
           <h1 className="mt-5 font-primary text-[27px] font-medium uppercase leading-[1.4] tracking-[4px] text-black sm:text-[35px] sm:tracking-[5px] md:text-[43px]">
-            Body &amp; Laser Treatments
+            Laser Treatments
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl font-secondary text-[14px] leading-[1.8] tracking-[0.8px] text-[#777] sm:text-[15px] sm:tracking-[1px]">
-            Explore advanced body contouring and laser treatments designed to
+            Explore advanced laser treatments designed to
             enhance body confidence, improve skin appearance, and provide
             personalized aesthetic care.
           </p>
