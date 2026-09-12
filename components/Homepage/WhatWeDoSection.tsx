@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 
-const highlightItems = ["COMPLETE MEDICAL CARE", "ADVANCED DIAGNOSTICS", "PERSONALIZED TREATMENT PLANS"];
+const highlightItems = ["MULTI-SPECIALTY EXPERTISE", "COMPLETE HEALTHCARE SERVICES", "CARE TAILORED TO YOU"];
 
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -370,7 +370,7 @@ export default function WhatWeDoSection() {
             }}
             viewport={{ once: true }}
           >
-           COMPREHENSIVE CARE. PERSONALIZED FOR YOU.
+           YOUR HEALTH. OUR PRIORITY.
           </motion.h2>
 
           {/* Divider */}
@@ -410,8 +410,7 @@ export default function WhatWeDoSection() {
             }}
             viewport={{ once: true }}
           >
-            We provide integrated medical, dental, aesthetic, physiotherapy, and home healthcare services designed around each patient’s individual needs. From routine health concerns such as fever and headaches to blood tests, diagnostics, rehabilitation, and specialized treatments, our multidisciplinary team combines evidence-based medicine, advanced technology, and personalized care to support your health at every stage.
-          </motion.p>
+Royal Dutch Medical Center provides complete healthcare under one integrated platform, bringing together medical consultations, diagnostics, dental care, aesthetics, physiotherapy, and home healthcare. Our experienced team delivers evidence-based, technology-supported, and individually tailored care for everyday health needs and specialized treatments          </motion.p>
 
           {/* Cards */}
           <motion.div
