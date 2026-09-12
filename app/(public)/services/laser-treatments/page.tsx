@@ -5,19 +5,19 @@ const treatments = [
     title: "Fat Freezing",
     description:
       "A non-surgical body contouring treatment designed to target localized fat areas using controlled cooling technology for a more defined body shape.",
-    href: "/services/body-laser-treatments/fat-freezing",
+    href: "/services/laser-treatments/fat-freezing",
   },
   {
   title: "Men’s Laser Hair Removal",
   description:
     "Advanced laser hair removal treatment designed to support smoother-looking skin and long-term hair reduction for men.",
-  href: "/services/body-laser-treatments/men-s-laser-hair-removal",
+  href: "/services/laser-treatments/men-s-laser-hair-removal",
 },
 {
   title: "Women’s Laser Hair Removal",
   description:
     "Advanced laser hair removal treatment designed to support smoother-looking skin and long-term hair reduction for women.",
-  href: "/services/body-laser-treatments/women-s-laser-hair-removal",
+  href: "/services/laser-treatments/women-s-laser-hair-removal",
 },
 ];
 

@@ -44,7 +44,7 @@ export default function FatFreezingPage() {
         currency="AED"
         priceLabel="Single Session"
         buttonText="Book Now"
-        buttonHref="/services/body-laser-treatments/fat-freezing"
+        buttonHref="/services/fat-freezing/fat-freezing-cryolipolysis"
       />
 
       {/* =====================================================

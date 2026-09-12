@@ -376,7 +376,7 @@ export function BookingModal() {
               </div>
             )}
             <div className="relative">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-h-72 overflow-y-auto pr-1 pb-1 [scrollbar-width:thin]">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-h-72 overflow-y-auto pr-1 pb-1 pt-3 [scrollbar-width:thin]">
                 {Array.from({ length: 31 }).map((_, i) => {
                   const d = addDays(new Date(), i);
                   const iso = format(d, 'yyyy-MM-dd');
@@ -499,7 +499,8 @@ export function BookingModal() {
             </div>
           )}
 
-          <div className="pt-1 flex justify-end">
+          {/* Desktop only: keep Continue button under the date/time section */}
+          <div className="hidden pt-1 lg:flex lg:justify-end">
             <Button
               type="button"
               onClick={() => setStep(4)}
@@ -635,12 +636,14 @@ export function BookingModal() {
                     : 'Price on request'}
                 </dd>
               </div>
+              {/* Duration hidden for now
               {selectedService.duration_minutes != null && (
                 <div className="flex justify-between gap-4">
                   <dt className="text-gray-500">Duration</dt>
                   <dd className="font-medium text-gray-900">{selectedService.duration_minutes} minutes</dd>
                 </div>
               )}
+              */}
               <div className="flex justify-between gap-4">
                 <dt className="text-gray-500">Date</dt>
                 <dd className="text-right font-medium text-gray-900">{selectedDate ? format(new Date(`${selectedDate}T00:00:00`), 'dd MMM yyyy') : 'Not selected'}</dd>
@@ -661,6 +664,20 @@ export function BookingModal() {
             </div>
           </div>
         </aside>
+      )}
+
+      {/* Mobile + tablet only: Continue button comes AFTER Booking Summary */}
+      {!loading && step === 3 && selectedServiceId && (
+        <div className="flex justify-end lg:hidden">
+          <Button
+            type="button"
+            onClick={() => setStep(4)}
+            disabled={!selectedDate || !selectedSlot}
+            className="w-full sm:w-auto"
+          >
+            Continue to Details
+          </Button>
+        </div>
       )}
       </div>
     </Modal>

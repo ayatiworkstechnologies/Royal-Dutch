@@ -7,108 +7,88 @@ import BenefitRevealSection from "@/components/services/BenefitRevealSection";
 import FaqSection from "@/components/services/FaqSection";
 import ServiceMain from "@/components/services/ServiceMain";
 
-export default function WomensLaserHairRemovalPage() {
+export default function MensLaserHairRemovalPage() {
   return (
     <main className="min-h-screen w-full overflow-x-hidden bg-white">
       {/* =====================================================
           BANNER
       ====================================================== */}
       <DynamicBanner
-        mobileImage="/images/womens-laser-hair-removal-mobile-01.png"
-        desktopImage="/images/womens-laser-hair-removal-desktop-01.png"
+        mobileImage="/images/mens-laser-hair-removal-mobile-01.png"
+        desktopImage="/images/mens-laser-hair-removal-desktop-01.png"
       />
 
       {/* =====================================================
-          INTRO + TREATMENT PRICES
+          INTRO + PRICE GRID
       ====================================================== */}
       <ServiceMain
-        title="Women’s Laser Hair Removal"
-        description="Enjoy smoother-looking skin and long-term hair reduction with Women’s Laser Hair Removal. This non-surgical treatment uses controlled laser energy to target pigment within unwanted hair. The laser delivers concentrated light to suitable hair follicles, gradually reducing future growth while protecting the surrounding skin. Treatment can be customized for areas such as the upper lip, chin, underarms, bikini line, arms, hands, legs, feet, abdomen, and back."
-        priceListTitle="Women’s Laser Hair Removal Treatment Prices"
+        title="Men’s Laser Hair Removal"
+        description="Achieve smoother-looking skin and long-term hair reduction with Men’s Laser Hair Removal. The treatment uses controlled laser energy to target pigment within unwanted hair. The laser delivers concentrated light to suitable hair follicles, gradually reducing future growth while protecting the surrounding skin. Treatment can be customized for areas such as the beard, underarms, chest, abdomen, back, arms, and legs."
+        priceListTitle="Men’s Laser Hair Removal Treatment Prices"
         priceListItems={[
           {
-            title: "Upper Lip",
-            price: 50,
-            currency: "AED",
-          },
-          {
-            title: "Chin + Upper Lip",
-            price: 75,
+            title: "Beard",
+            price: 100,
             currency: "AED",
           },
           {
             title: "Underarms",
-            price: 120,
-            currency: "AED",
-          },
-          {
-            title: "Half Bikini Line",
             price: 150,
             currency: "AED",
           },
           {
-            title: "Full Bikini Line",
-            price: 200,
+            title: "Half Legs",
+            price: 400,
             currency: "AED",
           },
           {
-            title: "Full Arms + Hands",
-            price: 200,
+            title: "Full Legs",
+            price: 600,
             currency: "AED",
           },
           {
-            title: "Full Arms + Hands + Underarms",
-            price: 250,
-            currency: "AED",
-            badge: "Combo",
-          },
-          {
-            title: "Half Arms + Hands",
-            price: 150,
-            currency: "AED",
-          },
-          {
-            title: "Half Legs + Feet",
-            price: 200,
-            currency: "AED",
-          },
-          {
-            title: "Full Legs + Feet",
-            price: 300,
+            title: "Back",
+            price: 400,
             currency: "AED",
           },
           {
             title: "Full Body — Excluding Belly And Back",
-            price: 450,
+            price: 750,
             currency: "AED",
             badge: "Full Body",
           },
           {
             title: "Full Body — Including Belly And Back",
-            price: 650,
+            price: 950,
             currency: "AED",
             badge: "Full Body",
+          },
+          {
+            title: "Ear Piercing",
+            price: 150,
+            currency: "AED",
+            badge: "Other Service",
           },
         ]}
         rating={4.9}
         reviews={350}
-        price={50}
+        price={100}
         currency="AED"
         priceLabel="Starting Price"
         buttonText="Book Now"
-        buttonHref="/services/body-laser-treatments/women-s-laser-hair-removal"
+        buttonHref="/services/laser-treatments/men-s-laser-hair-removal"
       />
 
       {/* =====================================================
-          WHY CHOOSE
+          TREATMENT BENEFITS
       ====================================================== */}
       <TreatmentOffers
         eyebrow="Treatment Benefits"
-        title="Why Choose Women’s Laser Hair Removal"
-        description="Unlike shaving and waxing, which provide temporary results, laser treatment targets suitable hair follicles for progressive and longer-lasting hair reduction."
+        title="Why Choose Men’s Laser Hair Removal"
+        description="Unlike shaving and waxing, which offer temporary results, laser treatment targets suitable hair follicles to provide progressive, longer-lasting hair reduction."
         sectionTitle="It Offers:"
-        image="/images/why-choose-womens-laser-hair-removal.png"
-        imageAlt="Women’s Laser Hair Removal Treatment Benefits"
+        image="/images/why-choose-mens-laser-hair-removal.png"
+        imageAlt="Men’s Laser Hair Removal Treatment Benefits"
         offers={[
           {
             label: "Long-Term Hair Reduction:",
@@ -116,19 +96,19 @@ export default function WomensLaserHairRemovalPage() {
               "Gradually reduces the thickness, density, and regrowth of unwanted hair.",
           },
           {
-            label: "Smoother-Looking Skin:",
+            label: "Less Frequent Shaving:",
             description:
-              "Helps maintain a cleaner, softer, and more evenly groomed appearance.",
+              "Reduces the time and effort required for regular shaving, trimming, or waxing.",
           },
           {
-            label: "Less Frequent Hair Removal:",
+            label: "Smoother-Looking Skin:",
             description:
-              "Reduces the time and effort required for regular shaving, waxing, or threading.",
+              "Creates a cleaner, smoother, and more evenly groomed appearance.",
           },
           {
             label: "Reduced Shaving Irritation:",
             description:
-              "May help minimize razor cuts, irritation, and recurring ingrown hairs.",
+              "May help reduce razor cuts, shaving irritation, and recurring ingrown hairs.",
           },
           {
             label: "Customized Treatment:",
@@ -143,18 +123,18 @@ export default function WomensLaserHairRemovalPage() {
       ====================================================== */}
       <TimelineSteps
         eyebrow="Treatment Steps"
-        title="How Women’s Laser Hair Removal Works"
+        title="How Men’s Laser Hair Removal Works"
         description="Our specialists assess your skin and hair before customizing the treatment settings for safe, controlled, and effective hair reduction."
         steps={[
           {
             title: "Consultation And Assessment",
             description:
-              "Your skin tone, hair colour, hair thickness, treatment areas, medical history, and previous hair-removal methods are evaluated.",
+              "Your skin tone, hair colour, hair thickness, medical history, and selected treatment areas are carefully evaluated.",
           },
           {
             title: "Shaving And Skin Preparation",
             description:
-              "The selected area is cleaned and prepared. Hair should be shaved beforehand, while waxing, threading, and plucking must be avoided.",
+              "The treatment area is cleaned and prepared. Hair should be shaved beforehand, while waxing and plucking must be avoided.",
           },
           {
             title: "Controlled Laser Treatment",
@@ -173,26 +153,26 @@ export default function WomensLaserHairRemovalPage() {
           WHO CAN BENEFIT
       ====================================================== */}
       <BenefitRevealSection
-        title="Who Can Benefit From Women’s Laser Hair Removal"
-        subtitle="A professional treatment for women seeking smoother-looking skin and a lasting reduction in unwanted facial or body hair."
-        sectionTitle="It’s Ideal For Women Who:"
-        image="/images/who-choose-womens-laser-hair-removal.png"
-        imageAlt="Who Can Benefit From Women’s Laser Hair Removal"
+        title="Who Can Benefit From Men’s Laser Hair Removal"
+        subtitle="A professional grooming treatment for men seeking smoother-looking skin and a lasting reduction in unwanted facial or body hair."
+        sectionTitle="It’s Ideal For Men Who:"
+        image="/images/who-choose-mens-laser-hair-removal.png"
+        imageAlt="Who Can Benefit From Men’s Laser Hair Removal"
         benefits={[
           {
             text: "Want to reduce unwanted facial or body hair",
           },
           {
-            text: "Experience frequent shaving or waxing irritation",
+            text: "Experience frequent shaving irritation or razor bumps",
           },
           {
             text: "Have recurring ingrown hairs in suitable treatment areas",
           },
           {
-            text: "Want smoother-looking underarms, arms, or legs",
+            text: "Want cleaner beard, cheek, or neckline definition",
           },
           {
-            text: "Prefer less frequent shaving, threading, or waxing",
+            text: "Prefer less frequent shaving, trimming, or waxing",
           },
           {
             text: "Want treatment customized to their skin and hair type",
@@ -208,27 +188,30 @@ export default function WomensLaserHairRemovalPage() {
         description=""
         faqs={[
           {
-            question: "Is Laser Hair Removal Suitable For All Skin Types?",
+            question:
+              "Is Laser Hair Removal Suitable For All Skin Types?",
             answer:
               "Modern laser systems can treat a wide range of skin tones when the appropriate device and settings are used. Dark, coarse hair generally responds better than white, grey, red, or very light-blonde hair.",
           },
           {
             question: "How Long Does A Session Take?",
             answer:
-              "A small facial area may take approximately 10 to 15 minutes, while larger or multiple body areas may take 60 minutes or longer.",
+              "A smaller area may take approximately 10 to 20 minutes, while larger or multiple areas can take 60 minutes or longer.",
           },
           {
-            question: "Is Women’s Laser Hair Removal Painful?",
+            question:
+              "Is Men’s Laser Hair Removal Painful?",
             answer:
-              "Most people describe the sensation as brief warmth or a light snapping feeling. Cooling technology may be used to improve comfort during treatment.",
+              "Most people describe the sensation as brief warmth or a light snapping feeling. Cooling technology may be used to improve comfort.",
           },
           {
             question: "How Many Sessions Will I Need?",
             answer:
-              "Most people require approximately six or more sessions because hair grows in different cycles. The exact number depends on the area, hair type, skin tone, and individual response.",
+              "Most people require approximately six or more sessions because hair grows in different cycles. The exact number depends on the area, hair type, skin tone, and response.",
           },
           {
-            question: "Is There Any Downtime Or Side Effects?",
+            question:
+              "Is There Any Downtime Or Side Effects?",
             answer:
               "Downtime is usually minimal. Temporary redness, warmth, tenderness, or mild swelling may occur. Less-common risks include burns, blisters, scarring, and changes in skin colour.",
           },

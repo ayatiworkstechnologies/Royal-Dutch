@@ -188,9 +188,9 @@ export default function ServiceMain({
 
           sm:px-8
 
-          lg:grid-cols-[minmax(0,760px)_390px]
+          lg:grid-cols-[minmax(0,820px)_390px]
           lg:justify-between
-          lg:gap-[100px]
+          lg:gap-[70px]
           lg:px-[60px]
           lg:py-[78px]
         "
@@ -260,15 +260,15 @@ export default function ServiceMain({
               is provided.
           ====================================================== */}
           {priceListItems.length > 0 && (
-            <div className="mt-[20px] max-w-[760px]">
+            <div className="mt-[28px] max-w-[820px]">
               {/* Price Grid Header */}
-              <div className="mb-[10px] flex flex-wrap items-end justify-between gap-2">
+              <div className="mb-[16px] flex flex-wrap items-end justify-between gap-3">
                 <div>
                   <p
                     className="
-                      mb-[4px]
+                      mb-[6px]
                       font-secondary
-                      text-[8px]
+                      text-[10px]
                       font-semibold
                       uppercase
                       leading-none
@@ -282,14 +282,14 @@ export default function ServiceMain({
                   <h3
                     className="
                       font-primary
-                      text-[15px]
+                      text-[20px]
                       font-semibold
                       uppercase
                       leading-[1.2]
                       tracking-[0.01em]
                       text-[#111111]
 
-                      sm:text-[16px]
+                      sm:text-[22px]
                     "
                   >
                     {priceListTitle}
@@ -302,10 +302,10 @@ export default function ServiceMain({
                     border
                     border-[#E9D4E3]
                     bg-[#FFF8FC]
-                    px-[8px]
-                    py-[4px]
+                    px-[12px]
+                    py-[6px]
                     font-secondary
-                    text-[7px]
+                    text-[9px]
                     font-semibold
                     uppercase
                     tracking-[0.07em]
@@ -317,24 +317,24 @@ export default function ServiceMain({
               </div>
 
               {/* Responsive Price Grid: 1 mobile / 2 tablet / 4 desktop */}
-              <div className="grid grid-cols-1 gap-[8px] sm:grid-cols-2 lg:grid-cols-4">
+              <div className="grid grid-cols-1 gap-[12px] sm:grid-cols-2 lg:grid-cols-4">
                 {priceListItems.map((item, index) => (
                   <div
                     key={`${item.title}-${index}`}
                     className="
                       group
                       flex
-                      min-h-[58px]
+                      min-h-[82px]
                       min-w-0
                       items-center
                       justify-between
-                      gap-[7px]
-                      rounded-[11px]
+                      gap-[12px]
+                      rounded-[14px]
                       border
                       border-[#EAEAEA]
                       bg-[#FCFCFC]
-                      px-[10px]
-                      py-[8px]
+                      px-[16px]
+                      py-[14px]
                       transition-all
                       duration-300
 
@@ -349,7 +349,7 @@ export default function ServiceMain({
                         className="
                           break-words
                           font-secondary
-                          text-[9px]
+                          text-[12px]
                           font-medium
                           leading-[1.35]
                           tracking-[0.015em]
@@ -366,17 +366,17 @@ export default function ServiceMain({
                       {item.badge && (
                         <span
                           className="
-                            mt-[4px]
+                            mt-[6px]
                             inline-flex
                             max-w-full
                             rounded-full
                             border
                             border-[#EACFE1]
                             bg-white
-                            px-[6px]
-                            py-[2px]
+                            px-[8px]
+                            py-[3px]
                             font-secondary
-                            text-[6px]
+                            text-[7px]
                             font-semibold
                             uppercase
                             leading-none
@@ -396,13 +396,13 @@ export default function ServiceMain({
                           block
                           whitespace-nowrap
                           font-primary
-                          text-[11px]
+                          text-[15px]
                           font-semibold
                           leading-none
                           tracking-[-0.02em]
                           text-[#111111]
 
-                          xl:text-[12px]
+                          xl:text-[16px]
                         "
                       >
                         {item.currency || currency} {item.price}

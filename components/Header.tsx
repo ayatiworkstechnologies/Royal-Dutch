@@ -278,20 +278,27 @@ const serviceCategories: SubMenuCategory[] = [
     ],
   },
   {
-    title: "Body & Laser Treatments",
-    path: "/services/body-laser-treatments",
+    title: "Laser Treatments",
+    path: "/services/laser-treatments",
     items: [
-      {
-        name: "Fat Freezing",
-        path: "/services/body-laser-treatments/fat-freezing",
-      },
+     
       {
         name: "Men’s Laser Hair Removal",
-        path: "/services/body-laser-treatments/men-s-laser-hair-removal",
+        path: "/services/laser-treatments/men-s-laser-hair-removal",
       },
       {
         name: "Women’s Laser Hair Removal",
-        path: "/services/body-laser-treatments/women-s-laser-hair-removal",
+        path: "/services/laser-treatments/women-s-laser-hair-removal",
+      },
+    ],
+  },
+  {
+    title: "Fat Freezing",
+    path: "/services/fat-freezing",
+    items: [
+      {
+        name: "Fat Freezing Cryolipolysis",
+        path: "/services/fat-freezing/fat-freezing-cryolipolysis",
       },
     ],
   },
