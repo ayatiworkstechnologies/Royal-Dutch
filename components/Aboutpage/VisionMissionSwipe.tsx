@@ -10,14 +10,14 @@ gsap.registerPlugin(ScrollTrigger);
 const cards = [
   {
     title: "Our Vision",
-    text: "To be a leading multidisciplinary medical center in the UAE, recognized for clinical excellence, innovation, integrity, and international standards of patient care.",
+    text: "To become a leading multidisciplinary medical center in the UAE, recognized for clinical excellence, innovation, integrity, and international standards of comprehensive patient care.",
     image: "/images/our-vision-1.png", // laptop / desktop same
     tabImage: "/images/our-vision-1.png",
     mobileImage: "/images/our-vision-mobile.png",
   },
   {
     title: "Our Mission",
-    text: "To deliver comprehensive, patient-centered healthcare through evidence-based medicine, advanced technology, and personalized treatment protocols — providing trusted medical, dental, aesthetic, and home healthcare services under one integrated platform.",
+    text: "To provide accessible, evidence-based, and personalized healthcare through experienced medical professionals, advanced technology, and integrated services — supporting patients from routine health concerns and diagnostics to specialized treatment, rehabilitation, and ongoing care.",
     image: "/images/our-mission-1.png", // laptop / desktop same
     tabImage: "/images/our-mission-1.png",
     mobileImage: "/images/our-mission-mobile.png",

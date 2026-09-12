@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 
-const highlightItems = ["Evidence-Based Care", "Advanced Technology", "Personalized Treatment"];
+const highlightItems = ["COMPREHENSIVE MEDICAL CARE", "ADVANCED DIAGNOSTICS", "PERSONALIZED PATIENT CARE"];
 
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -360,7 +360,7 @@ export default function WhatWeDoSection() {
 
           {/* Heading */}
           <motion.h2
-            className="mx-auto max-w-4xl font-primary text-[22px] font-medium uppercase leading-[1.45] tracking-[4px] text-black sm:text-[25px] md:text-[30px] md:tracking-[6px] lg:text-[32px]"
+            className="mx-auto max-w-4xl font-primary text-[18px] font-medium uppercase leading-[1.45] tracking-[4px] text-black sm:text-[18px] md:text-[24px] md:tracking-[6px] lg:text-[26px]"
             initial={{ opacity: 0, x: -65 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{
@@ -370,7 +370,7 @@ export default function WhatWeDoSection() {
             }}
             viewport={{ once: true }}
           >
-          Comprehensive Care, One Center
+          Complete Care Under One Roof
           </motion.h2>
 
           {/* Divider */}
@@ -400,7 +400,7 @@ export default function WhatWeDoSection() {
 
           {/* Paragraph */}
           <motion.p
-            className="mx-auto mt-7 max-w-[980px] font-secondary text-[16px] font-light leading-[1.75] tracking-[1.2px] text-[#777] sm:text-[18px] md:mt-8 md:text-[21px] md:leading-[1.65] md:tracking-[1.4px] lg:text-[24px]"
+            className="mx-auto mt-7 max-w-[980px] font-secondary text-[14px] font-light leading-[1.75] tracking-[1.2px] text-[#777] sm:text-[15px] md:mt-8 md:text-[18px] md:leading-[1.65] md:tracking-[1.4px] lg:text-[20px]"
             initial={{ opacity: 0, x: 65 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{
@@ -410,7 +410,7 @@ export default function WhatWeDoSection() {
             }}
             viewport={{ once: true }}
           >
-            We provide integrated medical, dental, aesthetic, and home healthcare services designed to support every stage of the patient journey. By combining clinical expertise, advanced technology, and personalized care, we deliver safe, effective, and evidence-based treatment tailored to each patient’s individual needs.
+            We provide comprehensive medical, dental, aesthetic, physiotherapy, diagnostic, and home healthcare services tailored to individual patient needs. From blood tests, fever, headaches, and routine consultations to physiotherapy, specialized treatments, and continuing care, our multidisciplinary team delivers safe, evidence-based treatment with a focus on long-term health and wellbeing.
           </motion.p>
 
           {/* Cards */}
@@ -436,7 +436,7 @@ export default function WhatWeDoSection() {
                   ease: smoothEase,
                 }}
               >
-                <p className="font-primary text-[11px] uppercase tracking-[3px] text-[#b567a1] sm:text-[12px]">
+                <p className="font-primary text-[11px] uppercase tracking-[1px] text-[#b567a1] sm:text-[12px]">
                   {item}
                 </p>
               </motion.div>

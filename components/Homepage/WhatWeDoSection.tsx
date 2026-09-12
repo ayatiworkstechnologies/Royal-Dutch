@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 
-const highlightItems = ["Tailored Treatment Plans", "Evidence-Based Care", "Natural-Looking Results"];
+const highlightItems = ["COMPLETE MEDICAL CARE", "ADVANCED DIAGNOSTICS", "PERSONALIZED TREATMENT PLANS"];
 
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -360,7 +360,7 @@ export default function WhatWeDoSection() {
 
           {/* Heading */}
           <motion.h2
-            className="mx-auto max-w-4xl font-primary text-[22px] font-medium uppercase leading-[1.45] tracking-[4px] text-black sm:text-[25px] md:text-[30px] md:tracking-[6px] lg:text-[32px]"
+            className="mx-auto max-w-4xl font-primary text-[22px] font-medium uppercase leading-[1.45] tracking-[4px] text-black sm:text-[18px] md:text-[22px] md:tracking-[6px] lg:text-[24px]"
             initial={{ opacity: 0, x: -65 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{
@@ -370,7 +370,7 @@ export default function WhatWeDoSection() {
             }}
             viewport={{ once: true }}
           >
-           Personalized Care. Proven Results.
+           COMPREHENSIVE CARE. PERSONALIZED FOR YOU.
           </motion.h2>
 
           {/* Divider */}
@@ -400,7 +400,7 @@ export default function WhatWeDoSection() {
 
           {/* Paragraph */}
           <motion.p
-            className="mx-auto mt-7 max-w-[980px] font-secondary text-[16px] font-light leading-[1.75] tracking-[1.2px] text-[#777] sm:text-[18px] md:mt-8 md:text-[21px] md:leading-[1.65] md:tracking-[1.4px] lg:text-[24px]"
+            className="mx-auto mt-7 max-w-[980px] font-secondary text-[14px] font-light leading-[1.75] tracking-[1.2px] text-[#777] sm:text-[14px] md:mt-8 md:text-[18px] md:leading-[1.65] md:tracking-[1.4px] lg:text-[20px]"
             initial={{ opacity: 0, x: 65 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{
@@ -410,7 +410,7 @@ export default function WhatWeDoSection() {
             }}
             viewport={{ once: true }}
           >
-            We provide personalized skin & aesthetic care focused on precision-driven treatments for long-lasting skin health. Our approach is evidence-based, using clinically evaluated, high-quality products with proven effectiveness, ensuring safe, balanced, and natural-looking results.
+            We provide integrated medical, dental, aesthetic, physiotherapy, and home healthcare services designed around each patient’s individual needs. From routine health concerns such as fever and headaches to blood tests, diagnostics, rehabilitation, and specialized treatments, our multidisciplinary team combines evidence-based medicine, advanced technology, and personalized care to support your health at every stage.
           </motion.p>
 
           {/* Cards */}
@@ -436,7 +436,7 @@ export default function WhatWeDoSection() {
                   ease: smoothEase,
                 }}
               >
-                <p className="font-primary text-[11px] uppercase tracking-[3px] text-[#b567a1] sm:text-[12px]">
+                <p className="font-primary text-[11px] uppercase tracking-[1px] text-[#b567a1] sm:text-[13px]">
                   {item}
                 </p>
               </motion.div>

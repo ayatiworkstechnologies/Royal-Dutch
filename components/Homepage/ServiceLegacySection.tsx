@@ -232,9 +232,9 @@ export default function ServiceLegacySection() {
               once: true,
             }}
           >
-            COMPREHENSIVE CARE
+            COMPLETE HEALTHCARE. 
             <br />
-            ALL IN ONE PLACE
+            ONE MEDICAL CENTER.
           </motion.h2>
 
           {/* Paragraph */}
@@ -270,7 +270,7 @@ export default function ServiceLegacySection() {
               once: true,
             }}
           >
-            Royal Dutch Medical Center brings together medical, dental, aesthetic, and home healthcare services within one integrated healthcare environment. Our multidisciplinary team combines evidence-based medicine, advanced technology, and personalized treatment protocols to provide seamless, patient-centered care at every stage of the healthcare journey.
+            Royal Dutch Medical Center provides comprehensive medical, dental, aesthetic, physiotherapy, diagnostic, and home healthcare services under one roof. From everyday health concerns such as fever and headaches to blood tests, physiotherapy, specialized consultations, and aesthetic care, our experienced team combines evidence-based medicine, advanced technology, and personalized treatment plans to support every stage of your health journey.
           </motion.p>
 
           {/* Button */}
@@ -312,7 +312,7 @@ export default function ServiceLegacySection() {
                 hover:text-[#200020]
               "
             >
-              Know More
+              EXPLORE SERVICES
             </Link>
           </motion.div>
         </div>
