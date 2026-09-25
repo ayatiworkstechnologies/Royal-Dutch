@@ -8,26 +8,26 @@ const specialities = [
     href: "/medical-specialities/dermatology-aesthetic-medicine",
   },
 
-  // {
-  //   title: "Dentistry Department",
-  //   description:
-  //     "Comprehensive dental care including preventive, cosmetic, restorative, and pediatric dentistry.",
-  //   href: "/medical-specialities/dentistry-department",
-  // },
+  {
+    title: "Dentistry Department",
+    description:
+      "Comprehensive dental care including preventive, cosmetic, restorative, and pediatric dentistry.",
+    href: "/medical-specialities/dentistry-department",
+  },
 
-  // {
-  //   title: "General Medicine (GP Services)",
-  //   description:
-  //     "Primary medical care for acute conditions, chronic disease management, screenings, and wellness.",
-  //   href: "/medical-specialities/general-medicine",
-  // },
+  {
+    title: "General Medicine (GP Services)",
+    description:
+      "Primary medical care for acute conditions, chronic disease management, screenings, and wellness.",
+    href: "/medical-specialities/general-medicine",
+  },
 
-  // {
-  //   title: "Physiotherapy & Rehabilitation",
-  //   description:
-  //     "Rehabilitation and therapy programs for pain management, recovery, mobility, and wellness.",
-  //   href: "/medical-specialities/physiotherapy-rehabilitation",
-  // },
+  {
+    title: "Physiotherapy & Rehabilitation",
+    description:
+      "Rehabilitation and therapy programs for pain management, recovery, mobility, and wellness.",
+    href: "/medical-specialities/physiotherapy-rehabilitation",
+  },
 ];
 
 export default function MedicalSpecialitiesPage() {
