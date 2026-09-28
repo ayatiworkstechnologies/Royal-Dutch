@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { User as UserIcon } from "lucide-react";
+
 import { useBookingModal } from "@/context/BookingModalContext";
 import { useAuth } from "@/hooks/useAuth";
-import { User as UserIcon } from "lucide-react";
 import { AuthModal, AuthView } from "@/components/ui/AuthModal";
 
 /* =========================================================
@@ -14,9 +15,8 @@ import { AuthModal, AuthView } from "@/components/ui/AuthModal";
 ========================================================= */
 
 type SubMenuItem = {
-  name: string;
+  name: string; 
   path: string;
-  image?: string;
 };
 
 type SubMenuCategory = {
@@ -25,303 +25,123 @@ type SubMenuCategory = {
   items: SubMenuItem[];
 };
 
-type MenuKey =
-  | "services"
-  | "medicalSpecialities"
-  | "careServices";
-
 type NavLink = {
   name: string;
   path: string;
   type: "link" | "mega";
-  menuKey?: MenuKey;
+  menuKey?: "services";
   categories?: SubMenuCategory[];
 };
 
-const submenuImage = "/images/treatment-bg-1.jpg";
-
-/* =========================================================
-   MEDICAL SPECIALITIES
-========================================================= */
-
-const medicalSpecialities: SubMenuCategory[] = [
-  {
-    title: "Dermatology & Aesthetic Medicine",
-    path: "/medical-specialities/dermatology-aesthetic-medicine",
-    items: [
-      {
-        name: "Medical dermatology",
-        path: "/medical-specialities/dermatology-aesthetic-medicine/medical-dermatology",
-        image: "/images/da-1.png",
-      },
-      {
-        name: "Cosmetic injectables",
-        path: "/medical-specialities/dermatology-aesthetic-medicine/cosmetic-injectables",
-        image: "/images/da-2.png",
-      },
-      {
-        name: "Laser and device based treatments",
-        path: "/medical-specialities/dermatology-aesthetic-medicine/laser-device-based-treatments",
-        image: "/images/da-3.png",
-      },
-      {
-        name: "Anti-aging and preventive skin programs",
-        path: "/medical-specialities/dermatology-aesthetic-medicine/anti-aging-preventive-skin-programs",
-        image: "/images/da-4.png",
-      },
-    ],
-  },
-
-  {
-    title: "Dentistry Department",
-    path: "/medical-specialities/dentistry-department",
-    items: [
-      {
-        name: "Preventive and general dentistry",
-        path: "/medical-specialities/dentistry-department/preventive-general-dentistry",
-        image: "/images/dd-1.png",
-      },
-      {
-        name: "Cosmetic smile design and rehabilitation",
-        path: "/medical-specialities/dentistry-department/cosmetic-smile-design-rehabilitation",
-        image: "/images/dd-2.png",
-      },
-      {
-        name: "Restorative dentistry",
-        path: "/medical-specialities/dentistry-department/restorative-dentistry",
-        image: "/images/dd-3.png",
-      },
-      {
-        name: "Pediatric dentistry",
-        path: "/medical-specialities/dentistry-department/pediatric-dentistry",
-        image: "/images/dd-4.png",
-      },
-    ],
-  },
-
-  {
-    title: "General Medicine (GP Services)",
-    path: "/medical-specialities/general-medicine",
-    items: [
-      {
-        name: "Diagnosis and treatment of acute conditions",
-        path: "/medical-specialities/general-medicine/diagnosis-treatment-acute-conditions",
-        image: "/images/gm-1.png",
-      },
-      {
-        name: "Chronic disease management",
-        path: "/medical-specialities/general-medicine/chronic-disease-management",
-        image: "/images/gm-2.png",
-      },
-      {
-        name: "Preventive health screenings and check-ups",
-        path: "/medical-specialities/general-medicine/preventive-health-screenings-checkups",
-        image: "/images/gm-3.png",
-      },
-      {
-        name: "Family medicine and wellness care",
-        path: "/medical-specialities/general-medicine/family-medicine-wellness-care",
-        image: "/images/gm-4.png",
-      },
-    ],
-  },
-
-  {
-    title: "Physiotherapy & Rehabilitation",
-    path: "/medical-specialities/physiotherapy-rehabilitation",
-    items: [
-      {
-        name: "Musculoskeletal and pain management therapy",
-        path: "/medical-specialities/physiotherapy-rehabilitation/musculoskeletal-pain-management",
-        image: "/images/pr-1.png",
-      },
-      {
-        name: "Post-injury and post-operative rehabilitation",
-        path: "/medical-specialities/physiotherapy-rehabilitation/post-injury-post-operative-rehabilitation",
-        image: "/images/pr-2.png",
-      },
-      {
-        name: "Neurological physiotherapy",
-        path: "/medical-specialities/physiotherapy-rehabilitation/neurological-physiotherapy",
-        image: "/images/pr-3.png",
-      },
-      {
-        name: "Home-based physiotherapy programs",
-        path: "/medical-specialities/physiotherapy-rehabilitation/home-based-physiotherapy-programs",
-        image: "/images/pr-4.png",
-      },
-    ],
-  },
-];
-
-/* =========================================================
-   CARE SERVICES
-========================================================= */
-
-const careServices: SubMenuCategory[] = [
-  {
-    title: "Home Healthcare Division",
-    path: "/care-services/home-healthcare-division",
-    items: [
-      {
-        name: "Doctor home consultations",
-        path: "/care-services/home-healthcare-division/doctor-home-consultations",
-        image: "/images/hhd-1.png",
-      },
-      {
-        name: "Skilled nursing care",
-        path: "/care-services/home-healthcare-division/skilled-nursing-care",
-        image: "/images/hhd-2.png",
-      },
-      {
-        name: "Elderly and assisted care services",
-        path: "/care-services/home-healthcare-division/elderly-assisted-care-services",
-        image: "/images/hhd-3.png",
-      },
-      {
-        name: "Chronic condition monitoring",
-        path: "/care-services/home-healthcare-division/chronic-condition-monitoring",
-        image: "/images/hhd-4.png",
-      },
-    ],
-  },
-
-  {
-    title: "Post-Surgical Care Programs",
-    path: "/care-services/post-surgical-care-programs",
-    items: [
-      {
-        name: "Wound care and infection prevention",
-        path: "/care-services/post-surgical-care-programs/wound-care-infection-prevention",
-        image: "/images/pscp-1.png",
-      },
-      {
-        name: "Pain management protocols",
-        path: "/care-services/post-surgical-care-programs/pain-management-protocols",
-        image: "/images/pscp-2.png",
-      },
-      {
-        name: "Rehabilitation and mobility restoration",
-        path: "/care-services/post-surgical-care-programs/rehabilitation-mobility-restoration",
-        image: "/images/pscp-3.png",
-      },
-      {
-        name: "Long-term recovery and follow-up care",
-        path: "/care-services/post-surgical-care-programs/long-term-recovery-follow-up-care",
-        image: "/images/pscp-4.png",
-      },
-    ],
-  },
-
-  {
-    title: "Integrated Care Model",
-    path: "/care-services/integrated-care-model",
-    items: [
-      {
-        name: "Seamless coordination between departments",
-        path: "/care-services/integrated-care-model/seamless-coordination-between-departments",
-        image: submenuImage,
-      },
-      {
-        name: "Continuity of care from consultation to recovery",
-        path: "/care-services/integrated-care-model/continuity-of-care",
-        image: submenuImage,
-      },
-      {
-        name: "Personalized treatment pathways",
-        path: "/care-services/integrated-care-model/personalized-treatment-pathways",
-        image: submenuImage,
-      },
-      {
-        name: "Improved clinical outcomes and patient satisfaction",
-        path: "/care-services/integrated-care-model/improved-clinical-outcomes",
-        image: submenuImage,
-      },
-    ],
-  },
-];
-
 /* =========================================================
    SERVICES
+
+   NOTE:
+   All service URLs are currently "#".
+   Replace them later when pages are created.
 ========================================================= */
 
 const serviceCategories: SubMenuCategory[] = [
   {
-    title: "Facials",
-    path: "/services/facials",
+    title: "Aesthetic & Skin Care",
+    path: "#",
     items: [
       {
-        name: "Classic Facial",
-        path: "/services/facials/classic-facial",
+        name: "Facial Treatments",
+        path: "#",
       },
       {
-        name: "HydraFacial",
-        path: "/services/facials/hydrafacial",
+        name: "Advanced Skin Treatments",
+        path: "#",
       },
       {
-        name: "Vitamin C HydraFacial",
-        path: "/services/facials/vitamin-c-hydrafacial",
+        name: "Laser Hair Removal – Women",
+        path: "#",
       },
       {
-        name: "Acne Control Facial",
-        path: "/services/facials/acne-control-facial",
+        name: "Laser Hair Removal – Men",
+        path: "#",
       },
       {
-        name: "Peeling Pearl Facial",
-        path: "/services/facials/peeling-pearl-facial",
-      },
-      {
-        name: "Royal Dutch Facial",
-        path: "/services/facials/royal-dutch-facial",
+        name: "Other Services",
+        path: "#",
       },
     ],
   },
 
   {
-    title: "Advanced Skin Treatments",
-    path: "/services/advanced-skin-treatments",
+    title: "Home Care Services",
+    path: "#",
     items: [
       {
-        name: "Glowing Dermapen",
-        path: "/services/advanced-skin-treatments/glowing-dermapen",
+        name: "General Home Care",
+        path: "#",
       },
       {
-        name: "Exosome Dermapen",
-        path: "/services/advanced-skin-treatments/exosome-dermapen",
+        name: "Nursing & Clinical Care",
+        path: "#",
       },
       {
-        name: "Pink Drop",
-        path: "/services/advanced-skin-treatments/pink-drop",
+        name: "Elderly & Long-Term Care",
+        path: "#",
       },
       {
-        name: "Chemical Peel Brightening Serum",
-        path: "/services/advanced-skin-treatments/chemical-peel-brightening-serum",
+        name: "Physiotherapy Support",
+        path: "#",
       },
     ],
   },
 
   {
-    title: "Laser Treatments",
-    path: "/services/laser-treatments",
+    title: "Dental Services",
+    path: "#",
     items: [
       {
-        name: "Men’s Laser Hair Removal",
-        path: "/services/laser-treatments/men-s-laser-hair-removal",
+        name: "Consultation & Diagnostics",
+        path: "#",
       },
       {
-        name: "Women’s Laser Hair Removal",
-        path: "/services/laser-treatments/women-s-laser-hair-removal",
+        name: "Preventive Dentistry",
+        path: "#",
+      },
+      {
+        name: "Restorative Dentistry",
+        path: "#",
+      },
+      {
+        name: "Extractions & Surgery",
+        path: "#",
+      },
+      {
+        name: "Pediatric Dentistry",
+        path: "#",
+      },
+      {
+        name: "Prosthodontics",
+        path: "#",
+      },
+      {
+        name: "Cosmetic Dentistry",
+        path: "#",
       },
     ],
   },
 
   {
-    title: "Fat Freezing",
-    path: "/services/fat-freezing",
+    title: "General Practitioner (GP)",
+    path: "#",
     items: [
       {
-        name: "Fat Freezing Cryolipolysis",
-        path: "/services/fat-freezing/fat-freezing-cryolipolysis",
+        name: "General Consultations",
+        path: "#",
+      },
+      {
+        name: "Medical Services",
+        path: "#",
+      },
+      {
+        name: "Documentation & Certificates",
+        path: "#",
       },
     ],
   },
@@ -344,7 +164,7 @@ const navLinks: NavLink[] = [
   },
   {
     name: "Services",
-    path: "/services",
+    path: "#",
     type: "mega",
     menuKey: "services",
     categories: serviceCategories,
@@ -353,20 +173,6 @@ const navLinks: NavLink[] = [
     name: "Our Works",
     path: "/our-works",
     type: "link",
-  },
-  {
-    name: "Medical Specialities",
-    path: "/medical-specialities",
-    type: "mega",
-    menuKey: "medicalSpecialities",
-    categories: medicalSpecialities,
-  },
-  {
-    name: "Care services",
-    path: "/care-services",
-    type: "mega",
-    menuKey: "careServices",
-    categories: careServices,
   },
   {
     name: "Contact",
@@ -387,7 +193,15 @@ function cleanPath(path?: string | null) {
     : path;
 }
 
-function ChevronIcon({ open = false }: { open?: boolean }) {
+/* =========================================================
+   CHEVRON ICON
+========================================================= */
+
+function ChevronIcon({
+  open = false,
+}: {
+  open?: boolean;
+}) {
   return (
     <svg
       className={`h-[14px] w-[14px] transition-transform duration-300 ${
@@ -408,12 +222,51 @@ function ChevronIcon({ open = false }: { open?: boolean }) {
   );
 }
 
+/* =========================================================
+   ARROW ICON
+========================================================= */
+
+function ArrowIcon() {
+  return (
+    <svg
+      className="h-[15px] w-[15px]"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M5 12H19M13 6L19 12L13 18"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/* =========================================================
+   BOOK ICON
+========================================================= */
+
 function AssistSparkle() {
   return (
     <span className="assist-glow-icon" aria-hidden="true">
       ✦
     </span>
   );
+}
+
+/* =========================================================
+   PLACEHOLDER LINK HANDLER
+
+   Because href is "#", prevent page jumping to top.
+========================================================= */
+
+function handlePlaceholderLink(
+  event: React.MouseEvent<HTMLAnchorElement>
+) {
+  event.preventDefault();
 }
 
 /* =========================================================
@@ -424,36 +277,76 @@ function DesktopMegaMenu({
   categories,
   activeIndex,
   setActiveIndex,
-  currentPath,
   closeDesktopMenuNow,
 }: {
   categories: SubMenuCategory[];
   activeIndex: number;
   setActiveIndex: (index: number) => void;
-  currentPath: string;
   closeDesktopMenuNow: () => void;
 }) {
-  const isExactActive = (path: string) =>
-    currentPath === cleanPath(path);
-
   const activeCategory =
     categories[activeIndex] || categories[0];
 
-  if (!activeCategory) {
-    return null;
-  }
-
   return (
-    <div className="absolute left-1/2 top-[calc(100%+10px)] z-[9999] hidden w-[620px] max-w-[calc(100vw-28px)] -translate-x-1/2 overflow-hidden rounded-[14px] border border-black/[0.06] bg-white px-5 py-4 shadow-[0_22px_55px_rgba(0,0,0,0.14)] lg:block xl:w-[650px]">
-      <div className="grid min-h-[165px] grid-cols-[225px_1fr] gap-5 xl:grid-cols-[240px_1fr] xl:gap-6">
+    <div
+      className="
+        absolute
+        left-1/2
+        top-[calc(100%+10px)]
+        z-[9999]
+        hidden
+        w-[900px]
+        max-w-[calc(100vw-32px)]
+        -translate-x-1/2
+        overflow-hidden
+        rounded-[18px]
+        border
+        border-black/[0.06]
+        bg-white
+        shadow-[0_24px_70px_rgba(0,0,0,0.14)]
+        lg:block
+      "
+    >
+      {/* =====================================================
+          TOP HEADER REMOVED
+          
+          Removed:
+          ROYAL DUTCH MEDICAL CENTRE
+          Our Services
+          View All Services
+      ===================================================== */}
 
-        {/* LEFT CATEGORIES */}
+      <div className="grid min-h-[300px] grid-cols-[310px_1fr]">
+        {/* =================================================
+            LEFT SIDE - MAIN SERVICE CATEGORIES
+        ================================================= */}
 
-        <div className="border-r border-black/10 pr-5 xl:pr-6">
-          <div className="flex flex-col gap-2.5">
+        <div
+          className="
+            border-r
+            border-black/[0.07]
+            bg-[#fbf9fa]
+            p-5
+          "
+        >
+          <p
+            className="
+              mb-3
+              px-3
+              font-secondary
+              text-[10px]
+              font-semibold
+              uppercase
+              tracking-[0.15em]
+              text-black/40
+            "
+          >
+            Service Categories
+          </p>
+
+          <div className="flex flex-col gap-1.5">
             {categories.map((category, index) => {
-              const isActiveCategory =
-                activeIndex === index;
+              const selected = activeIndex === index;
 
               return (
                 <button
@@ -468,41 +361,174 @@ function DesktopMegaMenu({
                   onClick={() =>
                     setActiveIndex(index)
                   }
-                  className={`group relative w-full overflow-hidden rounded-[9px] px-3 py-2 text-left font-secondary text-[13px] font-semibold leading-[1.35] transition-all duration-300 ease-out before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:rounded-r-full before:bg-[#8b1d72] before:transition-all before:duration-300 after:absolute after:bottom-[5px] after:left-3 after:h-px after:rounded-full after:bg-[#8b1d72] after:transition-all after:duration-300 ${
-                    isActiveCategory
-                      ? "translate-x-1 bg-[#8b1d72]/[0.07] text-[#8b1d72] before:opacity-100 after:w-7"
-                      : "text-[#2f2f2f] before:opacity-0 after:w-0 hover:translate-x-1 hover:bg-[#8b1d72]/[0.05] hover:text-[#8b1d72] hover:before:opacity-100 hover:after:w-7"
-                  }`}
+                  className={`
+                    group
+                    flex
+                    w-full
+                    items-center
+                    justify-between
+                    rounded-[10px]
+                    px-4
+                    py-3
+                    text-left
+                    font-secondary
+                    text-[13px]
+                    font-semibold
+                    leading-[1.35]
+                    transition-all
+                    duration-300
+
+                    ${
+                      selected
+                        ? `
+                          bg-[#8b1d72]
+                          text-white
+                          shadow-[0_8px_20px_rgba(139,29,114,0.16)]
+                        `
+                        : `
+                          text-[#303030]
+                          hover:bg-[#8b1d72]/[0.06]
+                          hover:text-[#8b1d72]
+                        `
+                    }
+                  `}
                 >
-                  {category.title}
+                  <span>
+                    {category.title}
+                  </span>
+
+                  <span
+                    className={`
+                      ml-4
+                      shrink-0
+                      transition-transform
+                      duration-300
+
+                      ${
+                        selected
+                          ? "text-white"
+                          : `
+                            text-[#8b1d72]
+                            group-hover:translate-x-1
+                          `
+                      }
+                    `}
+                  >
+                    <ArrowIcon />
+                  </span>
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* RIGHT ITEMS */}
+        {/* =================================================
+            RIGHT SIDE
+        ================================================= */}
 
-        <div className="flex flex-col gap-1 py-0.5">
-          {activeCategory.items.map((item) => {
-            const itemActive =
-              isExactActive(item.path);
+        <div className="p-6">
+          <div
+            className="
+              mb-4
+              border-b
+              border-black/[0.06]
+              pb-4
+            "
+          >
+            <p
+              className="
+                font-secondary
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.15em]
+                text-[#8b1d72]
+              "
+            >
+              Explore
+            </p>
 
-            return (
+            <h4
+              className="
+                mt-1
+                font-secondary
+                text-[18px]
+                font-semibold
+                text-[#222222]
+              "
+            >
+              {activeCategory.title}
+            </h4>
+          </div>
+
+          {/* =================================================
+              SUB SERVICE LINKS
+          ================================================= */}
+
+          <div className="grid grid-cols-2 gap-2.5">
+            {activeCategory.items.map((item) => (
               <Link
                 key={item.name}
-                href={item.path}
-                onClick={closeDesktopMenuNow}
-                className={`group relative flex w-full items-center rounded-[8px] px-3 py-2 font-secondary text-[12.5px] leading-[1.4] transition-all duration-300 ease-out before:mr-0 before:h-[5px] before:w-[5px] before:scale-0 before:rounded-full before:bg-[#8b1d72] before:opacity-0 before:transition-all before:duration-300 ${
-                  itemActive
-                    ? "translate-x-1 bg-[#8b1d72]/[0.07] font-semibold text-[#8b1d72] before:mr-2 before:scale-100 before:opacity-100"
-                    : "font-medium text-[#303030] hover:translate-x-1 hover:bg-[#8b1d72]/[0.05] hover:text-[#8b1d72] hover:before:mr-2 hover:before:scale-100 hover:before:opacity-100"
-                }`}
+                href="#"
+                onClick={(event) => {
+                  handlePlaceholderLink(event);
+
+                  /*
+                    Later when real URL is added,
+                    remove handlePlaceholderLink
+                    and use href={item.path}
+
+                    closeDesktopMenuNow();
+                  */
+                }}
+                className="
+                  group
+                  flex
+                  min-h-[50px]
+                  items-center
+                  justify-between
+                  rounded-[10px]
+                  border
+                  border-black/[0.06]
+                  bg-white
+                  px-4
+                  py-3
+                  font-secondary
+                  text-[12.5px]
+                  font-medium
+                  leading-[1.4]
+                  text-[#333333]
+                  transition-all
+                  duration-300
+
+                  hover:-translate-y-[1px]
+                  hover:border-[#8b1d72]/20
+                  hover:bg-[#8b1d72]/[0.04]
+                  hover:text-[#8b1d72]
+                  hover:shadow-[0_8px_18px_rgba(0,0,0,0.05)]
+                "
               >
-                {item.name}
+                <span>
+                  {item.name}
+                </span>
+
+                <span
+                  className="
+                    ml-3
+                    shrink-0
+                    text-[#8b1d72]
+                    opacity-40
+                    transition-all
+                    duration-300
+                    group-hover:translate-x-1
+                    group-hover:opacity-100
+                  "
+                >
+                  <ArrowIcon />
+                </span>
               </Link>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -510,69 +536,52 @@ function DesktopMegaMenu({
 }
 
 /* =========================================================
-   MOBILE ACCORDION
+   MOBILE SERVICES ACCORDION
 ========================================================= */
 
 function MobileAccordion({
   title,
   categories,
-  closeMobileMenu,
-  currentPath,
 }: {
   title: string;
   categories: SubMenuCategory[];
-  closeMobileMenu: () => void;
-  currentPath: string;
 }) {
-  const isParentActive = (path: string) => {
-    const target = cleanPath(path);
+  const [open, setOpen] =
+    useState(false);
 
-    return (
-      currentPath === target ||
-      currentPath.startsWith(`${target}/`)
-    );
-  };
-
-  const isExactActive = (path: string) =>
-    currentPath === cleanPath(path);
-
-  const activeCategoryIndex =
-    categories.findIndex((category) =>
-      isParentActive(category.path)
-    );
-
-  const [open, setOpen] = useState(
-    activeCategoryIndex >= 0
+  const [
+    activeIndex,
+    setActiveIndex,
+  ] = useState<number | null>(
+    null
   );
-
-  const [activeIndex, setActiveIndex] =
-    useState<number | null>(
-      activeCategoryIndex >= 0
-        ? activeCategoryIndex
-        : null
-    );
-
-  useEffect(() => {
-    if (activeCategoryIndex >= 0) {
-      setOpen(true);
-      setActiveIndex(activeCategoryIndex);
-    }
-  }, [activeCategoryIndex]);
 
   return (
     <div className="border-b border-white/10">
+      {/* =================================================
+          SERVICES
+      ================================================= */}
+
       <button
         type="button"
         onClick={() =>
           setOpen((prev) => !prev)
         }
-        className={`group flex w-full items-center justify-between py-3.5 font-secondary text-[15px] font-semibold transition-colors duration-300 ${
-          categories.some((category) =>
-            isParentActive(category.path)
-          )
-            ? "text-[#D6B981]"
-            : "text-white"
-        }`}
+        className="
+          group
+          flex
+          w-full
+          items-center
+          justify-between
+          py-3.5
+          font-secondary
+          text-[15px]
+          font-semibold
+          text-white
+          transition-colors
+          duration-300
+          hover:text-[#D6B981]
+        "
       >
         {title}
 
@@ -580,31 +589,47 @@ function MobileAccordion({
       </button>
 
       <div
-        className={`grid overflow-hidden transition-all duration-300 ${
-          open
-            ? "grid-rows-[1fr] opacity-100"
-            : "grid-rows-[0fr] opacity-0"
-        }`}
+        className={`
+          grid
+          overflow-hidden
+          transition-all
+          duration-300
+
+          ${
+            open
+              ? `
+                grid-rows-[1fr]
+                opacity-100
+              `
+              : `
+                grid-rows-[0fr]
+                opacity-0
+              `
+          }
+        `}
       >
         <div className="min-h-0 pb-4">
-
           {categories.map(
             (category, index) => {
               const isOpenCategory =
                 activeIndex === index;
 
-              const categoryActive =
-                isParentActive(category.path);
-
               return (
                 <div
-                  key={category.title}
-                  className={`mb-2 overflow-hidden rounded-[10px] border border-white/[0.06] transition-colors duration-300 ${
-                    categoryActive
-                      ? "bg-white/15"
-                      : "bg-white/7"
-                  }`}
+                  key={
+                    category.title
+                  }
+                  className="
+                    mb-2
+                    overflow-hidden
+                    rounded-[10px]
+                    border
+                    border-white/[0.06]
+                    bg-white/[0.07]
+                  "
                 >
+                  {/* CATEGORY */}
+
                   <button
                     type="button"
                     onClick={() =>
@@ -615,62 +640,121 @@ function MobileAccordion({
                             : index
                       )
                     }
-                    className={`group flex w-full items-center justify-between px-3.5 py-2.5 text-left font-secondary text-[14px] font-semibold leading-5 transition-all duration-300 ${
-                      categoryActive
-                        ? "text-[#D6B981]"
-                        : "text-white"
-                    }`}
+                    className="
+                      group
+                      flex
+                      w-full
+                      items-center
+                      justify-between
+                      px-3.5
+                      py-3
+                      text-left
+                      font-secondary
+                      text-[14px]
+                      font-semibold
+                      leading-5
+                      text-white
+                      transition-colors
+                      duration-300
+
+                      hover:text-[#D6B981]
+                    "
                   >
-                    {category.title}
+                    <span>
+                      {category.title}
+                    </span>
 
                     <ChevronIcon
-                      open={isOpenCategory}
+                      open={
+                        isOpenCategory
+                      }
                     />
                   </button>
 
+                  {/* =================================================
+                      CHILD SERVICES
+                  ================================================= */}
+
                   <div
-                    className={`grid overflow-hidden transition-all duration-300 ${
-                      isOpenCategory
-                        ? "grid-rows-[1fr] opacity-100"
-                        : "grid-rows-[0fr] opacity-0"
-                    }`}
+                    className={`
+                      grid
+                      overflow-hidden
+                      transition-all
+                      duration-300
+
+                      ${
+                        isOpenCategory
+                          ? `
+                            grid-rows-[1fr]
+                            opacity-100
+                          `
+                          : `
+                            grid-rows-[0fr]
+                            opacity-0
+                          `
+                      }
+                    `}
                   >
                     <div className="min-h-0">
-                      <ul className="space-y-1.5 px-3.5 pb-3.5 pt-1">
-
+                      <ul
+                        className="
+                          space-y-1.5
+                          px-3.5
+                          pb-3.5
+                          pt-1
+                        "
+                      >
                         {category.items.map(
-                          (item) => {
-                            const itemActive =
-                              isExactActive(
-                                item.path
-                              );
+                          (item) => (
+                            <li
+                              key={
+                                item.name
+                              }
+                            >
+                              <Link
+                                href="#"
+                                onClick={
+                                  handlePlaceholderLink
+                                }
+                                className="
+                                  group
+                                  flex
+                                  items-center
+                                  justify-between
+                                  rounded-[8px]
+                                  px-3
+                                  py-2.5
+                                  font-secondary
+                                  text-[13px]
+                                  leading-[1.45]
+                                  text-white/75
+                                  transition-all
+                                  duration-300
 
-                            return (
-                              <li
-                                key={item.name}
+                                  hover:translate-x-1
+                                  hover:bg-white/[0.08]
+                                  hover:text-[#D6B981]
+                                "
                               >
-                                <Link
-                                  href={
-                                    item.path
-                                  }
-                                  onClick={
-                                    closeMobileMenu
-                                  }
-                                  className={`group relative block rounded-[8px] px-3 py-2 font-secondary text-[13px] leading-[1.45] transition-all duration-300 ${
-                                    itemActive
-                                      ? "bg-[#8b1d72] font-semibold text-white"
-                                      : "text-white/75 hover:translate-x-1 hover:bg-white/[0.08] hover:text-[#D6B981]"
-                                  }`}
-                                >
+                                <span>
                                   {
                                     item.name
                                   }
-                                </Link>
-                              </li>
-                            );
-                          }
-                        )}
+                                </span>
 
+                                <span
+                                  className="
+                                    opacity-50
+                                    transition-all
+                                    group-hover:opacity-100
+                                  "
+                                >
+                                  <ArrowIcon />
+                                </span>
+                              </Link>
+                            </li>
+                          )
+                        )}
                       </ul>
                     </div>
                   </div>
@@ -678,7 +762,6 @@ function MobileAccordion({
               );
             }
           )}
-
         </div>
       </div>
     </div>
@@ -686,7 +769,7 @@ function MobileAccordion({
 }
 
 /* =========================================================
-   USER DROPDOWN
+   USER / LOGIN DROPDOWN
 ========================================================= */
 
 function UserDropdown({
@@ -696,12 +779,17 @@ function UserDropdown({
 }: {
   user: any;
   logout: () => void;
-  openAuth: (view: AuthView) => void;
+  openAuth: (
+    view: AuthView
+  ) => void;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] =
+    useState(false);
 
   const dropdownRef =
-    useRef<HTMLDivElement>(null);
+    useRef<HTMLDivElement>(
+      null
+    );
 
   useEffect(() => {
     function handleClickOutside(
@@ -734,31 +822,98 @@ function UserDropdown({
       className="relative"
       ref={dropdownRef}
     >
+      {/* LOGIN */}
+
       <button
         type="button"
         onClick={() =>
           setOpen((prev) => !prev)
         }
-        className="group flex h-[40px] items-center justify-center gap-2 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-3.5 font-secondary text-[13px] font-semibold text-black transition-all duration-300 hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:px-4 xl:text-[14px]"
+        className="
+          group
+          flex
+          h-[40px]
+          items-center
+          justify-center
+          gap-2
+          rounded-full
+          border-2
+          border-[#d9d9d9]
+          bg-[#f6f6f6]
+          px-3.5
+          font-secondary
+          text-[13px]
+          font-semibold
+          text-black
+          transition-all
+          duration-300
+
+          hover:border-[#8b1d72]
+          hover:bg-white
+          hover:text-[#8b1d72]
+
+          xl:h-[46px]
+          xl:px-4
+          xl:text-[14px]
+        "
         aria-label={
           user
             ? "Open account menu"
             : "Open login menu"
         }
       >
-        <UserIcon className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:scale-105 xl:h-5 xl:w-5" />
+        <UserIcon
+          className="
+            h-4
+            w-4
+            shrink-0
+
+            xl:h-5
+            xl:w-5
+          "
+        />
 
         <span className="whitespace-nowrap">
-          {user ? "Account" : "Login"}
+          {user
+            ? "Account"
+            : "Login"}
         </span>
       </button>
 
-      {open && (
-        <div className="absolute right-0 top-[calc(100%+8px)] z-[99999] min-w-[200px] rounded-[12px] border border-gray-100 bg-white p-2 shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+      {/* DROPDOWN */}
 
+      {open && (
+        <div
+          className="
+            absolute
+            right-0
+            top-[calc(100%+8px)]
+            z-[99999]
+            min-w-[200px]
+            rounded-[12px]
+            border
+            border-gray-100
+            bg-white
+            p-2
+            shadow-[0_8px_24px_rgba(0,0,0,0.12)]
+          "
+        >
           {user ? (
             <>
-              <div className="mb-1 border-b border-gray-100 px-3 py-2 pb-3 font-secondary text-[14px] font-bold text-gray-800">
+              <div
+                className="
+                  mb-1
+                  border-b
+                  border-gray-100
+                  px-3
+                  py-2
+                  pb-3
+                  font-secondary
+                  text-[14px]
+                  font-bold
+                  text-gray-800
+                "
+              >
                 {user.full_name ||
                   user.first_name ||
                   "User"}
@@ -766,24 +921,54 @@ function UserDropdown({
 
               <Link
                 href={
-                  user.role === "customer"
+                  user.role ===
+                  "customer"
                     ? "/customer/dashboard"
                     : "/admin/dashboard"
                 }
-                className="block rounded-[8px] px-3 py-2 font-secondary text-[14px] font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-[#8b1d72]"
                 onClick={() =>
                   setOpen(false)
                 }
+                className="
+                  block
+                  rounded-[8px]
+                  px-3
+                  py-2
+                  font-secondary
+                  text-[14px]
+                  font-medium
+                  text-gray-600
+                  transition-colors
+
+                  hover:bg-gray-50
+                  hover:text-[#8b1d72]
+                "
               >
                 Dashboard
               </Link>
 
               <button
+                type="button"
                 onClick={() => {
                   setOpen(false);
+
                   logout();
                 }}
-                className="mt-1 w-full rounded-[8px] px-3 py-2 text-left font-secondary text-[14px] font-medium text-red-600 transition-colors hover:bg-red-50"
+                className="
+                  mt-1
+                  w-full
+                  rounded-[8px]
+                  px-3
+                  py-2
+                  text-left
+                  font-secondary
+                  text-[14px]
+                  font-medium
+                  text-red-600
+                  transition-colors
+
+                  hover:bg-red-50
+                "
               >
                 Logout
               </button>
@@ -791,31 +976,64 @@ function UserDropdown({
           ) : (
             <>
               <button
+                type="button"
                 onClick={() => {
                   setOpen(false);
+
                   openAuth(
                     "patient_login"
                   );
                 }}
-                className="block w-full rounded-[8px] px-3 py-2 text-left font-secondary text-[14px] font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-[#8b1d72]"
+                className="
+                  block
+                  w-full
+                  rounded-[8px]
+                  px-3
+                  py-2
+                  text-left
+                  font-secondary
+                  text-[14px]
+                  font-medium
+                  text-gray-600
+                  transition-colors
+
+                  hover:bg-gray-50
+                  hover:text-[#8b1d72]
+                "
               >
                 Patient Login
               </button>
 
               <button
+                type="button"
                 onClick={() => {
                   setOpen(false);
+
                   openAuth(
                     "staff_login"
                   );
                 }}
-                className="block w-full rounded-[8px] px-3 py-2 text-left font-secondary text-[14px] font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-[#8b1d72]"
+                className="
+                  block
+                  w-full
+                  rounded-[8px]
+                  px-3
+                  py-2
+                  text-left
+                  font-secondary
+                  text-[14px]
+                  font-medium
+                  text-gray-600
+                  transition-colors
+
+                  hover:bg-gray-50
+                  hover:text-[#8b1d72]
+                "
               >
                 Staff Login
               </button>
             </>
           )}
-
         </div>
       )}
     </div>
@@ -827,30 +1045,43 @@ function UserDropdown({
 ========================================================= */
 
 export default function Header() {
-  const pathname = usePathname();
+  const pathname =
+    usePathname();
 
   const currentPath =
     cleanPath(pathname);
 
-  const { openModal } =
-    useBookingModal();
+  const {
+    openModal,
+  } = useBookingModal();
 
-  const { user, logout } =
-    useAuth();
-
-  const [mobileOpen, setMobileOpen] =
-    useState(false);
-
-  const [openMenu, setOpenMenu] =
-    useState<MenuKey | null>(null);
+  const {
+    user,
+    logout,
+  } = useAuth();
 
   const [
-    activeCategoryIndex,
-    setActiveCategoryIndex,
+    mobileOpen,
+    setMobileOpen,
+  ] = useState(false);
+
+  const [
+    openMenu,
+    setOpenMenu,
+  ] =
+    useState<
+      "services" | null
+    >(null);
+
+  const [
+    servicesActive,
+    setServicesActive,
   ] = useState(0);
 
-  const [isScrolled, setIsScrolled] =
-    useState(false);
+  const [
+    isScrolled,
+    setIsScrolled,
+  ] = useState(false);
 
   const [
     authModalOpen,
@@ -866,136 +1097,148 @@ export default function Header() {
     );
 
   const closeTimer =
-    useRef<ReturnType<
-      typeof setTimeout
-    > | null>(null);
+    useRef<
+      ReturnType<
+        typeof setTimeout
+      > | null
+    >(null);
+
+  /* =========================================================
+     AUTH
+  ========================================================= */
 
   const openAuth = (
     view: AuthView
   ) => {
     setAuthModalView(view);
+
     setAuthModalOpen(true);
   };
 
+  /* =========================================================
+     ACTIVE LINK
+  ========================================================= */
+
   const isExactActive = (
     path: string
-  ) =>
-    currentPath === cleanPath(path);
-
-  const isParentActive = (
-    path: string
   ) => {
-    const target = cleanPath(path);
+    if (path === "#") {
+      return false;
+    }
 
     return (
-      currentPath === target ||
-      currentPath.startsWith(
-        `${target}/`
-      )
+      currentPath ===
+      cleanPath(path)
     );
   };
 
-  const getActiveCategoryIndex = (
-    categories: SubMenuCategory[]
-  ) => {
-    const index =
-      categories.findIndex(
-        (category) =>
-          isParentActive(
-            category.path
-          )
-      );
+  /* =========================================================
+     TIMER
+  ========================================================= */
 
-    return index >= 0 ? index : 0;
-  };
-
-  const clearCloseTimer = () => {
-    if (closeTimer.current) {
-      clearTimeout(
+  const clearCloseTimer =
+    () => {
+      if (
         closeTimer.current
-      );
+      ) {
+        clearTimeout(
+          closeTimer.current
+        );
 
-      closeTimer.current = null;
-    }
-  };
+        closeTimer.current =
+          null;
+      }
+    };
+
+  /* =========================================================
+     OPEN SERVICE MENU
+  ========================================================= */
 
   const openDesktopMenu = (
-    menu: MenuKey,
-    categories: SubMenuCategory[]
+    menu: "services"
   ) => {
     clearCloseTimer();
 
     setOpenMenu(menu);
-
-    setActiveCategoryIndex(
-      getActiveCategoryIndex(
-        categories
-      )
-    );
   };
 
-  const closeDesktopMenu = () => {
-    clearCloseTimer();
+  /* =========================================================
+     CLOSE SERVICE MENU
+  ========================================================= */
 
-    closeTimer.current =
-      setTimeout(() => {
-        setOpenMenu(null);
-      }, 260);
-  };
+  const closeDesktopMenu =
+    () => {
+      clearCloseTimer();
+
+      closeTimer.current =
+        setTimeout(() => {
+          setOpenMenu(null);
+        }, 260);
+    };
 
   const closeDesktopMenuNow =
     () => {
       clearCloseTimer();
+
       setOpenMenu(null);
     };
 
-  const closeMobileMenu = () => {
-    setMobileOpen(false);
-  };
+  /* =========================================================
+     MOBILE
+  ========================================================= */
 
-  /* Update active submenu after route change */
+  const closeMobileMenu =
+    () => {
+      setMobileOpen(false);
+    };
+
+  /* =========================================================
+     ROUTE CHANGE
+  ========================================================= */
 
   useEffect(() => {
-    if (!openMenu) return;
+    setMobileOpen(false);
 
-    const activeLink =
-      navLinks.find(
-        (link) =>
-          link.type === "mega" &&
-          link.menuKey === openMenu
-      );
+    setOpenMenu(null);
+  }, [currentPath]);
 
-    if (activeLink?.categories) {
-      setActiveCategoryIndex(
-        getActiveCategoryIndex(
-          activeLink.categories
-        )
-      );
-    }
-  }, [currentPath, openMenu]);
-
-  /* Mobile body scroll */
+  /* =========================================================
+     BODY SCROLL
+  ========================================================= */
 
   useEffect(() => {
     document.body.style.overflow =
-      mobileOpen ? "hidden" : "";
+      mobileOpen
+        ? "hidden"
+        : "";
 
     return () => {
       document.body.style.overflow =
         "";
-
-      clearCloseTimer();
     };
   }, [mobileOpen]);
 
-  /* Header scroll shadow */
+  /* =========================================================
+     TIMER CLEANUP
+  ========================================================= */
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(
-        window.scrollY > 10
-      );
+    return () => {
+      clearCloseTimer();
     };
+  }, []);
+
+  /* =========================================================
+     SCROLL SHADOW
+  ========================================================= */
+
+  useEffect(() => {
+    const handleScroll =
+      () => {
+        setIsScrolled(
+          window.scrollY > 10
+        );
+      };
 
     handleScroll();
 
@@ -1015,433 +1258,803 @@ export default function Header() {
     };
   }, []);
 
+  /* =========================================================
+     NORMAL NAV STYLE
+  ========================================================= */
+
   const navLinkClass = (
     href: string
   ) =>
-    `group relative inline-flex font-secondary text-[15px] font-medium transition-colors duration-300 after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:rounded-full after:bg-[#8b1d72] after:transition-all after:duration-300 ${
-      isExactActive(href)
-        ? "text-[#8b1d72] after:w-full"
-        : "text-[#2f2f2f] hover:text-[#8b1d72] hover:after:w-full"
-    }`;
+    `
+      group
+      relative
+      inline-flex
+      font-secondary
+      text-[15px]
+      font-medium
+      transition-colors
+      duration-300
 
-  const isMegaActive = (
-    link: NavLink
-  ) =>
-    link.type === "mega" &&
-    isParentActive(link.path);
+      after:absolute
+      after:-bottom-2
+      after:left-0
+      after:h-[2px]
+      after:rounded-full
+      after:bg-[#8b1d72]
+      after:transition-all
+      after:duration-300
 
-  /* Find data belonging to currently open menu */
+      ${
+        isExactActive(href)
+          ? `
+            text-[#8b1d72]
+            after:w-full
+          `
+          : `
+            text-[#2f2f2f]
+            hover:text-[#8b1d72]
+            hover:after:w-full
+          `
+      }
+    `;
 
-  const activeMegaLink =
-    openMenu
-      ? navLinks.find(
-          (link) =>
-            link.type ===
-              "mega" &&
-            link.menuKey ===
-              openMenu
-        )
-      : undefined;
+  /* =========================================================
+     RETURN
+  ========================================================= */
 
   return (
-    <header className="fixed left-0 top-0 z-[99999] w-full bg-transparent px-2 pt-2 sm:px-3 lg:px-4">
+    <>
+      <header
+        className="
+          fixed
+          left-0
+          top-0
+          z-[99999]
+          w-full
+          bg-transparent
+          px-2
+          pt-2
 
-      <div
-        className="relative mx-auto max-w-[1440px]"
-        onMouseEnter={
-          clearCloseTimer
-        }
-        onMouseLeave={
-          closeDesktopMenu
-        }
+          sm:px-3
+
+          lg:px-4
+        "
       >
-
-        <nav
-          className={`rounded-[10px] bg-white px-4 py-2 transition-shadow duration-500 lg:rounded-[12px] lg:px-5 ${
-            isScrolled
-              ? "shadow-[0_8px_28px_rgba(0,0,0,0.10)]"
-              : "shadow-none"
-          }`}
+        <div
+          className="
+            relative
+            mx-auto
+            max-w-[1440px]
+          "
+          onMouseEnter={
+            clearCloseTimer
+          }
+          onMouseLeave={
+            closeDesktopMenu
+          }
         >
+          <nav
+            className={`
+              rounded-[10px]
+              bg-white
+              px-4
+              py-2
+              transition-shadow
+              duration-500
 
-          <div className="grid items-center gap-4 lg:grid-cols-[230px_1fr_110px] xl:grid-cols-[260px_1fr_118px]">
+              lg:rounded-[12px]
+              lg:px-5
 
-            {/* LOGO */}
+              ${
+                isScrolled
+                  ? `
+                    shadow-[0_8px_28px_rgba(0,0,0,0.10)]
+                  `
+                  : "shadow-none"
+              }
+            `}
+          >
+            <div
+              className="
+                grid
+                items-center
+                gap-4
 
-            <div className="flex items-center justify-between">
+                lg:grid-cols-[230px_1fr_110px]
 
-              <Link
-                href="/"
-                onClick={
-                  closeMobileMenu
-                }
-                className="inline-flex"
+                xl:grid-cols-[260px_1fr_118px]
+              "
+            >
+              {/* =================================================
+                  LOGO
+              ================================================= */}
+
+              <div
+                className="
+                  flex
+                  items-center
+                  justify-between
+                "
               >
-                <Image
-                  src="/icons/logo.svg"
-                  alt="Royal Dutch Medical Centre"
-                  width={225}
-                  height={62}
-                  priority
-                  style={{
-                    height: "auto",
-                  }}
-                  className="w-[140px] sm:w-[160px] lg:w-[170px] xl:w-[190px]"
-                />
-              </Link>
+                <Link
+                  href="/"
+                  onClick={
+                    closeMobileMenu
+                  }
+                  className="inline-flex"
+                >
+                  <Image
+                    src="/icons/logo.svg"
+                    alt="Royal Dutch Medical Centre"
+                    width={225}
+                    height={62}
+                    priority
+                    style={{
+                      height:
+                        "auto",
+                    }}
+                    className="
+                      w-[140px]
 
-              {/* MOBILE TOGGLE */}
+                      sm:w-[160px]
 
-              <button
-                type="button"
-                onClick={() =>
-                  setMobileOpen(
-                    (prev) => !prev
-                  )
-                }
-                aria-label="Toggle menu"
-                className="flex h-10 w-10 items-center justify-center rounded-[8px] bg-[#8b1d72] text-white transition hover:bg-[#D6B981] hover:text-[#200020] lg:hidden"
+                      lg:w-[170px]
+
+                      xl:w-[190px]
+                    "
+                  />
+                </Link>
+
+                {/* =================================================
+                    MOBILE HAMBURGER
+                ================================================= */}
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setMobileOpen(
+                      (prev) =>
+                        !prev
+                    )
+                  }
+                  aria-label="Toggle menu"
+                  aria-expanded={
+                    mobileOpen
+                  }
+                  className="
+                    flex
+                    h-10
+                    w-10
+                    items-center
+                    justify-center
+                    rounded-[8px]
+                    bg-[#8b1d72]
+                    text-white
+                    transition
+
+                    hover:bg-[#D6B981]
+                    hover:text-[#200020]
+
+                    lg:hidden
+                  "
+                >
+                  <span
+                    className="
+                      relative
+                      h-4
+                      w-5
+                    "
+                  >
+                    <span
+                      className={`
+                        absolute
+                        left-0
+                        top-0
+                        h-[2px]
+                        w-5
+                        rounded-full
+                        bg-current
+                        transition
+
+                        ${
+                          mobileOpen
+                            ? `
+                              translate-y-[7px]
+                              rotate-45
+                            `
+                            : ""
+                        }
+                      `}
+                    />
+
+                    <span
+                      className={`
+                        absolute
+                        left-0
+                        top-[7px]
+                        h-[2px]
+                        w-5
+                        rounded-full
+                        bg-current
+                        transition
+
+                        ${
+                          mobileOpen
+                            ? "opacity-0"
+                            : ""
+                        }
+                      `}
+                    />
+
+                    <span
+                      className={`
+                        absolute
+                        left-0
+                        top-[14px]
+                        h-[2px]
+                        w-5
+                        rounded-full
+                        bg-current
+                        transition
+
+                        ${
+                          mobileOpen
+                            ? `
+                              -translate-y-[7px]
+                              -rotate-45
+                            `
+                            : ""
+                        }
+                      `}
+                    />
+                  </span>
+                </button>
+              </div>
+
+              {/* =================================================
+                  DESKTOP NAVIGATION
+              ================================================= */}
+
+              <div
+                className="
+                  hidden
+                  items-center
+                  justify-center
+
+                  lg:flex
+                "
               >
-                <span className="relative h-4 w-5">
+                <div
+                  className="
+                    flex
+                    items-center
+                    justify-center
+                    gap-9
 
-                  <span
-                    className={`absolute left-0 top-0 h-[2px] w-5 rounded-full bg-current transition ${
-                      mobileOpen
-                        ? "translate-y-[7px] rotate-45"
-                        : ""
-                    }`}
-                  />
-
-                  <span
-                    className={`absolute left-0 top-[7px] h-[2px] w-5 rounded-full bg-current transition ${
-                      mobileOpen
-                        ? "opacity-0"
-                        : ""
-                    }`}
-                  />
-
-                  <span
-                    className={`absolute left-0 top-[14px] h-[2px] w-5 rounded-full bg-current transition ${
-                      mobileOpen
-                        ? "-translate-y-[7px] -rotate-45"
-                        : ""
-                    }`}
-                  />
-
-                </span>
-              </button>
-
-            </div>
-
-            {/* DESKTOP NAV */}
-
-            <div className="hidden items-center justify-center lg:flex">
-
-              <div className="flex items-center justify-center gap-9 xl:gap-10">
-
-                {navLinks.map(
-                  (link) => {
-                    const isMega =
-                      link.type ===
-                        "mega" &&
-                      Boolean(
-                        link.menuKey &&
-                          link.categories
-                      );
-
-                    const isOpen =
-                      isMega &&
-                      openMenu ===
+                    xl:gap-10
+                  "
+                >
+                  {navLinks.map(
+                    (link) => {
+                      const isMega =
+                        link.type ===
+                          "mega" &&
                         link.menuKey;
 
-                    const activeMega =
-                      isMegaActive(
-                        link
-                      );
+                      const isOpen =
+                        isMega &&
+                        openMenu ===
+                          link.menuKey;
 
-                    if (isMega) {
+                      /* =========================================
+                         SERVICES
+                      ========================================= */
+
+                      if (isMega) {
+                        return (
+                          <button
+                            key={
+                              link.name
+                            }
+                            type="button"
+                            onMouseEnter={() =>
+                              openDesktopMenu(
+                                link.menuKey!
+                              )
+                            }
+                            onFocus={() =>
+                              openDesktopMenu(
+                                link.menuKey!
+                              )
+                            }
+                            onClick={() => {
+                              if (
+                                openMenu ===
+                                link.menuKey
+                              ) {
+                                closeDesktopMenuNow();
+                              } else {
+                                openDesktopMenu(
+                                  link.menuKey!
+                                );
+                              }
+                            }}
+                            aria-expanded={
+                              Boolean(
+                                isOpen
+                              )
+                            }
+                            className={`
+                              group
+                              relative
+                              flex
+                              items-center
+                              gap-1.5
+                              font-secondary
+                              text-[15px]
+                              transition-colors
+                              duration-300
+
+                              after:absolute
+                              after:-bottom-2
+                              after:left-0
+                              after:h-[2px]
+                              after:rounded-full
+                              after:bg-[#8b1d72]
+                              after:transition-all
+                              after:duration-300
+
+                              ${
+                                isOpen
+                                  ? `
+                                    font-semibold
+                                    text-[#8b1d72]
+                                    after:w-full
+                                  `
+                                  : `
+                                    font-medium
+                                    text-[#2f2f2f]
+                                    hover:text-[#8b1d72]
+                                    hover:after:w-full
+                                  `
+                              }
+                            `}
+                          >
+                            {
+                              link.name
+                            }
+
+                            <ChevronIcon
+                              open={
+                                Boolean(
+                                  isOpen
+                                )
+                              }
+                            />
+                          </button>
+                        );
+                      }
+
+                      /* =========================================
+                         NORMAL LINKS
+                      ========================================= */
+
                       return (
-                        <button
+                        <Link
                           key={
                             link.name
                           }
-                          type="button"
-                          onMouseEnter={() =>
-                            openDesktopMenu(
-                              link.menuKey!,
-                              link.categories!
-                            )
+                          href={
+                            link.path
                           }
-                          onFocus={() =>
-                            openDesktopMenu(
-                              link.menuKey!,
-                              link.categories!
-                            )
+                          onMouseEnter={
+                            closeDesktopMenuNow
                           }
-                          className={`group relative flex items-center gap-1.5 font-secondary text-[15px] transition-colors duration-300 after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:rounded-full after:bg-[#8b1d72] after:transition-all after:duration-300 ${
-                            activeMega
-                              ? "font-semibold text-[#8b1d72] after:w-full"
-                              : isOpen
-                              ? "font-semibold text-black after:w-full"
-                              : "font-medium text-[#2f2f2f] hover:text-[#8b1d72] hover:after:w-full"
-                          }`}
+                          onFocus={
+                            closeDesktopMenuNow
+                          }
+                          className={navLinkClass(
+                            link.path
+                          )}
                         >
                           {
                             link.name
                           }
-
-                          <ChevronIcon
-                            open={Boolean(
-                              isOpen ||
-                                activeMega
-                            )}
-                          />
-                        </button>
+                        </Link>
                       );
                     }
+                  )}
+                </div>
+              </div>
 
-                    return (
-                      <Link
-                        key={
-                          link.name
-                        }
-                        href={
-                          link.path
-                        }
-                        onMouseEnter={
-                          closeDesktopMenuNow
-                        }
-                        onFocus={
-                          closeDesktopMenuNow
-                        }
-                        className={navLinkClass(
-                          link.path
-                        )}
-                      >
-                        {link.name}
-                      </Link>
-                    );
+              {/* =================================================
+                  LOGIN
+              ================================================= */}
+
+              <div
+                className="
+                  hidden
+                  justify-end
+
+                  lg:flex
+                  lg:items-center
+                  lg:gap-3
+                "
+              >
+                <UserDropdown
+                  user={user}
+                  logout={logout}
+                  openAuth={
+                    openAuth
                   }
-                )}
+                />
 
+                {/* BOOK NOW - HIDDEN */}
+
+                <button
+                  type="button"
+                  onMouseEnter={
+                    closeDesktopMenuNow
+                  }
+                  onFocus={
+                    closeDesktopMenuNow
+                  }
+                  onClick={() =>
+                    openModal()
+                  }
+                  className="
+                    hidden
+                    h-[40px]
+                    min-w-[105px]
+                    items-center
+                    justify-center
+                    gap-1.5
+                    rounded-full
+                    border-2
+                    border-[#d9d9d9]
+                    bg-[#f6f6f6]
+                    px-3
+                    font-secondary
+                    text-[13px]
+                    font-semibold
+                    leading-none
+                    text-black
+                  "
+                >
+                  <AssistSparkle />
+
+                  <span>
+                    Book Now
+                  </span>
+                </button>
               </div>
             </div>
 
-            {/* DESKTOP LOGIN */}
+            {/* =================================================
+                MOBILE NAV
+            ================================================= */}
 
-            <div className="hidden justify-end lg:flex lg:items-center lg:gap-3">
+            <div
+              className={`
+                lg:hidden
 
-              <UserDropdown
-                user={user}
-                logout={logout}
-                openAuth={
-                  openAuth
+                ${
+                  mobileOpen
+                    ? `
+                      mt-4
+                      max-h-[calc(100dvh-100px)]
+                      overflow-y-auto
+                      rounded-[14px]
+                      bg-[#35102f]
+                      px-4
+                      py-4
+                      opacity-100
+                    `
+                    : `
+                      max-h-0
+                      overflow-hidden
+                      opacity-0
+                    `
                 }
-              />
 
-              <button
-                onMouseEnter={
-                  closeDesktopMenuNow
-                }
-                onFocus={
-                  closeDesktopMenuNow
-                }
-                onClick={() =>
-                  openModal()
-                }
-                className="hidden group h-[40px] min-w-[105px] items-center justify-center gap-1.5 rounded-full border-2 border-[#d9d9d9] bg-[#f6f6f6] px-3 font-secondary text-[13px] font-semibold leading-none text-black transition duration-300 hover:border-[#8b1d72] hover:bg-white hover:text-[#8b1d72] xl:h-[46px] xl:min-w-[150px] xl:gap-2 xl:px-4 xl:text-[14px]"
-              >
-                <AssistSparkle />
+                transition-all
+                duration-300
+              `}
+            >
+              {navLinks.map(
+                (link) => {
+                  const isMega =
+                    link.type ===
+                      "mega" &&
+                    link.categories;
 
-                <span className="translate-y-[1px] whitespace-nowrap">
-                  Book Now
-                </span>
-              </button>
+                  /* SERVICES */
 
-            </div>
-          </div>
+                  if (isMega) {
+                    return (
+                      <MobileAccordion
+                        key={
+                          link.name
+                        }
+                        title={
+                          link.name
+                        }
+                        categories={
+                          link.categories!
+                        }
+                      />
+                    );
+                  }
 
-          {/* =================================================
-              MOBILE NAVIGATION
-          ================================================= */}
+                  /* NORMAL LINK */
 
-          <div
-            className={`lg:hidden ${
-              mobileOpen
-                ? "mt-4 max-h-[calc(100dvh-100px)] overflow-y-auto rounded-[14px] bg-[#35102f] px-4 py-4 opacity-100"
-                : "max-h-0 overflow-hidden opacity-0"
-            } transition-all duration-300`}
-          >
-
-            {navLinks.map(
-              (link) => {
-                const isMega =
-                  link.type ===
-                    "mega" &&
-                  Boolean(
-                    link.categories
-                  );
-
-                if (isMega) {
                   return (
-                    <MobileAccordion
+                    <Link
                       key={
                         link.name
                       }
-                      title={
-                        link.name
+                      href={
+                        link.path
                       }
-                      categories={
-                        link.categories!
-                      }
-                      closeMobileMenu={
+                      onClick={
                         closeMobileMenu
                       }
-                      currentPath={
-                        currentPath
+                      className={`
+                        group
+                        relative
+                        block
+                        border-b
+                        border-white/10
+                        py-3.5
+                        font-secondary
+                        text-[15px]
+                        font-semibold
+                        transition-colors
+                        duration-300
+
+                        after:absolute
+                        after:bottom-2
+                        after:left-0
+                        after:h-px
+                        after:rounded-full
+                        after:bg-[#D6B981]
+                        after:transition-all
+                        after:duration-300
+
+                        ${
+                          isExactActive(
+                            link.path
+                          )
+                            ? `
+                              text-[#D6B981]
+                              after:w-10
+                            `
+                            : `
+                              text-white
+                              hover:text-[#D6B981]
+                              hover:after:w-10
+                            `
+                        }
+                      `}
+                    >
+                      {
+                        link.name
                       }
-                    />
+                    </Link>
                   );
                 }
+              )}
 
-                return (
+              {/* =================================================
+                  MOBILE ACCOUNT
+              ================================================= */}
+
+              {user ? (
+                <>
                   <Link
-                    key={
-                      link.name
-                    }
                     href={
-                      link.path
+                      user.role ===
+                      "customer"
+                        ? "/customer/dashboard"
+                        : "/admin/dashboard"
                     }
                     onClick={
                       closeMobileMenu
                     }
-                    className={`group relative block border-b border-white/10 py-3.5 font-secondary text-[15px] font-semibold transition-colors duration-300 after:absolute after:bottom-2 after:left-0 after:h-px after:rounded-full after:bg-[#D6B981] after:transition-all after:duration-300 ${
-                      isExactActive(
-                        link.path
-                      )
-                        ? "text-[#D6B981] after:w-10"
-                        : "text-white hover:text-[#D6B981] hover:after:w-10"
-                    }`}
+                    className="
+                      mt-5
+                      flex
+                      w-full
+                      items-center
+                      justify-center
+                      gap-2
+                      rounded-[10px]
+                      border
+                      border-gray-200
+                      bg-white
+                      px-5
+                      py-3
+                      font-secondary
+                      text-[15px]
+                      font-bold
+                      text-black
+                    "
                   >
-                    {link.name}
+                    <UserIcon className="h-5 w-5" />
+
+                    {user.full_name ||
+                      user.first_name ||
+                      "Dashboard"}
                   </Link>
-                );
-              }
-            )}
 
-            {/* MOBILE AUTH */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeMobileMenu();
 
-            {user ? (
-              <>
-                <Link
-                  href={
-                    user.role ===
-                    "customer"
-                      ? "/customer/dashboard"
-                      : "/admin/dashboard"
-                  }
-                  onClick={
-                    closeMobileMenu
-                  }
-                  className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
-                >
-                  <UserIcon className="h-5 w-5" />
+                      logout();
+                    }}
+                    className="
+                      mt-3
+                      flex
+                      w-full
+                      items-center
+                      justify-center
+                      gap-2
+                      rounded-[10px]
+                      border
+                      border-red-200
+                      bg-red-50
+                      px-5
+                      py-3
+                      font-secondary
+                      text-[15px]
+                      font-bold
+                      text-red-600
+                    "
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  {/* PATIENT */}
 
-                  {user.full_name ||
-                    user.first_name ||
-                    "Dashboard"}
-                </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeMobileMenu();
 
-                <button
-                  onClick={() => {
-                    closeMobileMenu();
-                    logout();
-                  }}
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-[10px] border border-red-200 bg-red-50 px-5 py-3 font-secondary text-[15px] font-bold text-red-600"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => {
-                    closeMobileMenu();
+                      openAuth(
+                        "patient_login"
+                      );
+                    }}
+                    className="
+                      mt-5
+                      flex
+                      w-full
+                      items-center
+                      justify-center
+                      gap-2
+                      rounded-[10px]
+                      border
+                      border-gray-200
+                      bg-white
+                      px-5
+                      py-3
+                      font-secondary
+                      text-[15px]
+                      font-bold
+                      text-black
+                    "
+                  >
+                    <UserIcon className="h-5 w-5" />
 
-                    openAuth(
-                      "patient_login"
-                    );
-                  }}
-                  className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
-                >
-                  <UserIcon className="h-5 w-5" />
+                    Patient Login
+                  </button>
 
-                  Patient Login
-                </button>
+                  {/* STAFF */}
 
-                <button
-                  onClick={() => {
-                    closeMobileMenu();
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeMobileMenu();
 
-                    openAuth(
-                      "staff_login"
-                    );
-                  }}
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-[10px] border border-gray-200 bg-white px-5 py-3 font-secondary text-[15px] font-bold text-black"
-                >
-                  <UserIcon className="h-5 w-5" />
+                      openAuth(
+                        "staff_login"
+                      );
+                    }}
+                    className="
+                      mt-3
+                      flex
+                      w-full
+                      items-center
+                      justify-center
+                      gap-2
+                      rounded-[10px]
+                      border
+                      border-gray-200
+                      bg-white
+                      px-5
+                      py-3
+                      font-secondary
+                      text-[15px]
+                      font-bold
+                      text-black
+                    "
+                  >
+                    <UserIcon className="h-5 w-5" />
 
-                  Staff Login
-                </button>
-              </>
-            )}
+                    Staff Login
+                  </button>
+                </>
+              )}
 
-            <button
-              onClick={() => {
-                closeMobileMenu();
-                openModal();
-              }}
-              className="hidden mt-5 w-full items-center justify-center gap-2 rounded-[10px] bg-[#D6B981] px-5 py-3 font-secondary text-[15px] font-bold text-[#200020]"
-            >
-              <AssistSparkle />
-              Book Now
-            </button>
+              {/* BOOK NOW HIDDEN */}
 
-          </div>
+              <button
+                type="button"
+                onClick={() => {
+                  closeMobileMenu();
 
-        </nav>
+                  openModal();
+                }}
+                className="
+                  mt-5
+                  hidden
+                  w-full
+                  items-center
+                  justify-center
+                  gap-2
+                  rounded-[10px]
+                  bg-[#D6B981]
+                  px-5
+                  py-3
+                  font-secondary
+                  text-[15px]
+                  font-bold
+                  text-[#200020]
+                "
+              >
+                <AssistSparkle />
 
-        {/* =================================================
-            DYNAMIC DESKTOP MEGA MENU
-        ================================================= */}
+                Book Now
+              </button>
+            </div>
+          </nav>
 
-        {openMenu &&
-          activeMegaLink?.categories && (
+          {/* =================================================
+              DESKTOP MEGA MENU
+          ================================================= */}
+
+          {openMenu ===
+            "services" && (
             <DesktopMegaMenu
               categories={
-                activeMegaLink.categories
+                serviceCategories
               }
               activeIndex={
-                activeCategoryIndex
+                servicesActive
               }
               setActiveIndex={
-                setActiveCategoryIndex
-              }
-              currentPath={
-                currentPath
+                setServicesActive
               }
               closeDesktopMenuNow={
                 closeDesktopMenuNow
               }
             />
           )}
+        </div>
+      </header>
 
-      </div>
-
-      {/* AUTH MODAL */}
+      {/* =================================================
+          AUTH MODAL
+      ================================================= */}
 
       <AuthModal
-        isOpen={authModalOpen}
+        isOpen={
+          authModalOpen
+        }
         onClose={() =>
           setAuthModalOpen(false)
         }
@@ -1449,7 +2062,6 @@ export default function Header() {
           authModalView
         }
       />
-
-    </header>
+    </>
   );
 }

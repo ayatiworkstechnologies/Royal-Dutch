@@ -2,28 +2,28 @@ import Link from "next/link";
 
 const services = [
   {
-    title: "Facials",
+    title: "Aesthetic & Skin Care",
     description:
-      "Discover professional facial treatments designed to deeply cleanse, hydrate, refresh, and improve the overall appearance of your skin with personalized skincare solutions.",
-    href: "/services/facials",
+      "Discover professional aesthetic and skin care treatments designed to cleanse, hydrate, rejuvenate, improve skin texture, enhance radiance, and support healthier-looking skin with personalized treatment options.",
+    href: "/services/aesthetic-skin-care",
   },
   {
-    title: "Advanced Skin Treatments",
+    title: "Home Care Services",
     description:
-      "Explore advanced aesthetic skin treatments created to improve texture, radiance, hydration, pores, fine lines, and the overall quality of your skin.",
-    href: "/services/advanced-skin-treatments",
+      "Access professional healthcare services from the comfort of your home, including medical assessments, doctor visits, nursing support, and personalized care based on your individual health needs.",
+    href: "/services/home-care-services",
   },
   {
-    title: "Laser Treatments",
+    title: "Dental Services",
     description:
-      "Advanced laser treatments designed to support long-term hair reduction and smoother-looking skin with personalized treatment options for men and women.",
-    href: "/services/laser-treatments",
+      "Maintain a healthy and confident smile with comprehensive dental care, including preventive treatments, routine checkups, restorative procedures, and personalized solutions for your oral health needs.",
+    href: "/services/dental-services",
   },
   {
-    title: "Fat Freezing",
+    title: "General Practitioner (GP)",
     description:
-      "A non-surgical body contouring solution using controlled cooling technology to target stubborn localized fat and support a more sculpted body appearance.",
-    href: "/services/fat-freezing",
+      "Receive comprehensive primary healthcare from experienced general practitioners for routine consultations, health assessments, diagnosis, preventive care, and ongoing management of common health concerns.",
+    href: "/services/general-practitioner",
   },
 ];
 
