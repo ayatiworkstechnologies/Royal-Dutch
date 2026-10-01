@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 import ServiceBookingButton from "@/components/ui/ServiceBookingButton";
 
+/* =========================================================
+   TYPES
+========================================================= */
+
 interface SubService {
   title: string;
   description?: string;
@@ -24,6 +28,9 @@ interface PriceListItem {
   price: string | number;
   currency?: string;
   badge?: string;
+
+  /* Individual treatment-card navigation */
+  buttonHref?: string;
 }
 
 interface ServiceMainProps {
@@ -31,7 +38,7 @@ interface ServiceMainProps {
   description?: string | null;
   categoryName?: string;
 
-  /* OPTIONAL LEFT-SIDE PRICE GRID */
+  /* LEFT PRICE GRID */
   priceListTitle?: string;
   priceListItems?: PriceListItem[];
 
@@ -58,6 +65,10 @@ interface ServiceMainProps {
   buttonText?: string;
   buttonHref?: string;
 }
+
+/* =========================================================
+   COMPONENT
+========================================================= */
 
 export default function ServiceMain({
   title,
@@ -93,25 +104,13 @@ export default function ServiceMain({
   const hasSubServices = subServices.length > 0;
   const hasMultipleSubServices = subServices.length > 1;
 
-  /*
-   * IMPORTANT:
-   * Track width = number of slides × 100%
-   * Each slide = 100 / number of slides %
-   *
-   * Example:
-   * 8 slides
-   * Track = 800%
-   * Each slide = 12.5% of track
-   * 12.5% of 800% = one full visible carousel width
-   */
   const slideWidthPercentage =
-    subServices.length > 0
-      ? 100 / subServices.length
-      : 100;
+    subServices.length > 0 ? 100 / subServices.length : 100;
 
-  /*
-   * RESET INDEX
-   */
+  /* =========================================================
+     RESET CAROUSEL
+  ========================================================= */
+
   useEffect(() => {
     if (
       subServices.length > 0 &&
@@ -121,9 +120,10 @@ export default function ServiceMain({
     }
   }, [activeIndex, subServices.length]);
 
-  /*
-   * AUTO SLIDE
-   */
+  /* =========================================================
+     AUTO SLIDE
+  ========================================================= */
+
   useEffect(() => {
     if (!hasMultipleSubServices || isPaused) {
       return;
@@ -147,9 +147,10 @@ export default function ServiceMain({
     autoSlideInterval,
   ]);
 
-  /*
-   * PREVIOUS
-   */
+  /* =========================================================
+     PREVIOUS
+  ========================================================= */
+
   const goToPrevious = () => {
     if (!hasMultipleSubServices) return;
 
@@ -160,9 +161,10 @@ export default function ServiceMain({
     );
   };
 
-  /*
-   * NEXT
-   */
+  /* =========================================================
+     NEXT
+  ========================================================= */
+
   const goToNext = () => {
     if (!hasMultipleSubServices) return;
 
@@ -188,18 +190,20 @@ export default function ServiceMain({
 
           sm:px-8
 
-          lg:grid-cols-[minmax(0,820px)_390px]
+          lg:grid-cols-[minmax(0,890px)_390px]
           lg:justify-between
-          lg:gap-[70px]
+          lg:gap-[40px]
           lg:px-[60px]
           lg:py-[78px]
         "
       >
         {/* =====================================================
-            LEFT SIDE
+            LEFT
         ====================================================== */}
-        <div className="w-full">
-          {/* Category */}
+
+        <div className="w-full min-w-0">
+          {/* CATEGORY */}
+
           <p
             className="
               mb-[5px]
@@ -215,7 +219,8 @@ export default function ServiceMain({
             {categoryName}
           </p>
 
-          {/* Main Title */}
+          {/* TITLE */}
+
           <h1
             className="
               mb-[13px]
@@ -234,11 +239,12 @@ export default function ServiceMain({
             {title}
           </h1>
 
-          {/* Description */}
+          {/* DESCRIPTION */}
+
           {description && (
             <p
               className="
-                max-w-[760px]
+                max-w-[820px]
                 whitespace-pre-line
                 font-secondary
                 text-[12px]
@@ -254,14 +260,14 @@ export default function ServiceMain({
             </p>
           )}
 
-          {/* =====================================================
-              OPTIONAL LEFT-SIDE PRICE GRID
-              Existing pages are not affected unless priceListItems
-              is provided.
-          ====================================================== */}
+          {/* =================================================
+              PRICE GRID
+          ================================================== */}
+
           {priceListItems.length > 0 && (
-            <div className="mt-[28px] max-w-[820px]">
-              {/* Price Grid Header */}
+            <div className="mt-[28px] w-full max-w-[890px]">
+              {/* HEADER */}
+
               <div className="mb-[16px] flex flex-wrap items-end justify-between gap-3">
                 <div>
                   <p
@@ -298,6 +304,7 @@ export default function ServiceMain({
 
                 <span
                   className="
+                    shrink-0
                     rounded-full
                     border
                     border-[#E9D4E3]
@@ -316,108 +323,237 @@ export default function ServiceMain({
                 </span>
               </div>
 
-              {/* Responsive Price Grid: 1 mobile / 2 tablet / 4 desktop */}
-              <div className="grid grid-cols-1 gap-[12px] sm:grid-cols-2 lg:grid-cols-4">
-                {priceListItems.map((item, index) => (
-                  <div
-                    key={`${item.title}-${index}`}
-                    className="
-                      group
-                      flex
-                      min-h-[82px]
-                      min-w-0
-                      items-center
-                      justify-between
-                      gap-[12px]
-                      rounded-[14px]
-                      border
-                      border-[#EAEAEA]
-                      bg-[#FCFCFC]
-                      px-[16px]
-                      py-[14px]
-                      transition-all
-                      duration-300
+              {/* =================================================
+                  TREATMENT CARDS
 
-                      hover:border-[#DDB8D1]
-                      hover:bg-[#FFF9FD]
-                      hover:shadow-[0_4px_12px_rgba(139,29,114,0.06)]
-                    "
-                  >
-                    {/* Service Name */}
-                    <div className="min-w-0 flex-1">
-                      <p
-                        className="
-                          break-words
-                          font-secondary
-                          text-[12px]
-                          font-medium
-                          leading-[1.35]
-                          tracking-[0.015em]
-                          text-[#555555]
-                          transition-colors
-                          duration-300
+                  Mobile : 1
+                  Tablet : 2
+                  Desktop: 4
+              ================================================== */}
 
-                          group-hover:text-[#222222]
-                        "
-                      >
-                        {item.title}
-                      </p>
+              <div
+                className="
+                  grid
+                  grid-cols-1
+                  gap-[12px]
 
-                      {item.badge && (
-                        <span
+                  sm:grid-cols-2
+                  xl:grid-cols-4
+                "
+              >
+                {priceListItems.map((item, index) => {
+                  /* ===============================================
+                     COMMON CARD CONTENT
+                  ================================================ */
+
+                  const cardContent = (
+                    <div
+                      className="
+                        grid
+                        w-full
+                        min-w-0
+                        grid-cols-[minmax(0,1fr)_auto]
+                        items-center
+                        gap-x-3
+                      "
+                    >
+                      {/* SERVICE NAME */}
+
+                      <div className="min-w-0">
+                        <p
                           className="
-                            mt-[6px]
-                            inline-flex
-                            max-w-full
-                            rounded-full
-                            border
-                            border-[#EACFE1]
-                            bg-white
-                            px-[8px]
-                            py-[3px]
                             font-secondary
-                            text-[7px]
-                            font-semibold
-                            uppercase
-                            leading-none
-                            tracking-[0.04em]
-                            text-[#8B1D72]
+                            text-[13px]
+                            font-medium
+                            leading-[1.4]
+                            tracking-[0.01em]
+                            text-[#454545]
+
+                            break-normal
+                            hyphens-none
+                            [overflow-wrap:normal]
+                            [word-break:normal]
+
+                            transition-colors
+                            duration-300
+
+                            group-hover:text-[#111111]
                           "
                         >
-                          {item.badge}
-                        </span>
-                      )}
-                    </div>
+                          {item.title}
+                        </p>
 
-                    {/* Price */}
-                    <div className="shrink-0 text-right">
-                      <span
+                        {item.badge && (
+                          <span
+                            className="
+                              mt-[7px]
+                              inline-flex
+                              max-w-full
+                              rounded-full
+                              border
+                              border-[#EACFE1]
+                              bg-white
+                              px-[8px]
+                              py-[3px]
+                              font-secondary
+                              text-[7px]
+                              font-semibold
+                              uppercase
+                              leading-none
+                              tracking-[0.04em]
+                              text-[#8B1D72]
+                            "
+                          >
+                            {item.badge}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* PRICE */}
+
+                      <div
                         className="
-                          block
-                          whitespace-nowrap
-                          font-primary
-                          text-[15px]
-                          font-semibold
-                          leading-none
-                          tracking-[-0.02em]
-                          text-[#111111]
-
-                          xl:text-[16px]
+                          flex
+                          shrink-0
+                          items-center
+                          justify-end
+                          gap-[6px]
                         "
                       >
-                        {item.currency || currency} {item.price}
-                      </span>
+                        <span
+                          className="
+                            whitespace-nowrap
+                            font-primary
+                            text-[15px]
+                            font-semibold
+                            leading-none
+                            tracking-[-0.025em]
+                            text-[#111111]
+
+                            2xl:text-[16px]
+                          "
+                        >
+                          {item.currency || currency} {item.price}
+                        </span>
+
+                        {/* SMALL ARROW */}
+
+                        {item.buttonHref && (
+                          <span
+                            aria-hidden="true"
+                            className="
+                              hidden
+                              translate-x-[-3px]
+                              text-[15px]
+                              leading-none
+                              text-[#B79AAC]
+                              opacity-0
+
+                              transition-all
+                              duration-300
+
+                              group-hover:translate-x-0
+                              group-hover:text-[#8B1D72]
+                              group-hover:opacity-100
+
+                              2xl:inline
+                            "
+                          >
+                            →
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+
+                  /* ===============================================
+                     CLICKABLE CARD
+
+                     IMPORTANT:
+                     Uses SAME ServiceBookingButton functionality
+                     as right-side Book Now.
+                  ================================================ */
+
+                  if (item.buttonHref) {
+                    return (
+                      <ServiceBookingButton
+                        key={`${item.title}-${index}`}
+                        href={item.buttonHref}
+                        className="
+                          group
+                          flex
+                          min-h-[104px]
+                          w-full
+                          min-w-0
+                          cursor-pointer
+                          items-center
+                          rounded-[15px]
+                          border
+                          border-[#E7E7E7]
+                          bg-[#FCFCFC]
+                          px-[18px]
+                          py-[16px]
+                          text-left
+                          no-underline
+                          outline-none
+
+                          transition-all
+                          duration-300
+                          ease-out
+
+                          hover:-translate-y-[3px]
+                          hover:border-[#D9A7C9]
+                          hover:bg-[#FFF9FC]
+                          hover:shadow-[0_10px_25px_rgba(139,29,114,0.08)]
+
+                          focus-visible:border-[#8B1D72]
+                          focus-visible:ring-2
+                          focus-visible:ring-[#8B1D72]/15
+
+                          active:translate-y-0
+                          active:scale-[0.985]
+                        "
+                      >
+                        {cardContent}
+                      </ServiceBookingButton>
+                    );
+                  }
+
+                  /* ===============================================
+                     NON-CLICKABLE FALLBACK
+                  ================================================ */
+
+                  return (
+                    <div
+                      key={`${item.title}-${index}`}
+                      className="
+                        group
+                        flex
+                        min-h-[104px]
+                        w-full
+                        min-w-0
+                        items-center
+                        rounded-[15px]
+                        border
+                        border-[#E7E7E7]
+                        bg-[#FCFCFC]
+                        px-[18px]
+                        py-[16px]
+                      "
+                    >
+                      {cardContent}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
         </div>
 
         {/* =====================================================
-            RIGHT SIDE
+            RIGHT
         ====================================================== */}
+
         <div className="w-full min-w-0 lg:w-[390px]">
           <div
             className="
@@ -435,9 +571,8 @@ export default function ServiceMain({
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
-            {/* =================================================
-                TOP LABEL
-            ================================================== */}
+            {/* TOP */}
+
             <div className="flex items-center justify-between gap-4">
               <p
                 className="
@@ -455,7 +590,6 @@ export default function ServiceMain({
                   : "TREATMENT PRICES"}
               </p>
 
-              {/* Carousel Counter */}
               {hasMultipleSubServices && (
                 <span
                   className="
@@ -474,9 +608,8 @@ export default function ServiceMain({
               )}
             </div>
 
-            {/* =================================================
-                MAIN SERVICE TITLE
-            ================================================== */}
+            {/* TITLE */}
+
             <h2
               className="
                 mt-[13px]
@@ -493,13 +626,11 @@ export default function ServiceMain({
             </h2>
 
             {/* =================================================
-                SUB SERVICES CAROUSEL
+                SUB SERVICES
             ================================================== */}
+
             {hasSubServices && (
               <div className="mt-[22px] w-full min-w-0">
-                {/* =============================================
-                    SLIDER VIEWPORT
-                ============================================== */}
                 <div
                   className="
                     relative
@@ -510,9 +641,8 @@ export default function ServiceMain({
                     rounded-[14px]
                   "
                 >
-                  {/* =============================================
-                      SLIDING TRACK
-                  ============================================== */}
+                  {/* TRACK */}
+
                   <div
                     className="
                       flex
@@ -525,25 +655,18 @@ export default function ServiceMain({
                     style={{
                       width: `${subServices.length * 100}%`,
                       transform: `translate3d(-${
-                        activeIndex *
-                        slideWidthPercentage
+                        activeIndex * slideWidthPercentage
                       }%, 0, 0)`,
                     }}
                   >
                     {subServices.map((service, index) => (
                       <div
                         key={`${service.title}-${index}`}
-                        className="
-                          min-w-0
-                          shrink-0
-                        "
+                        className="min-w-0 shrink-0"
                         style={{
                           width: `${slideWidthPercentage}%`,
                         }}
                       >
-                        {/* =====================================
-                            SUB SERVICE CARD
-                        ====================================== */}
                         <div
                           className="
                             flex
@@ -560,9 +683,8 @@ export default function ServiceMain({
                             p-[17px]
                           "
                         >
-                          {/* =================================
-                              SUB SERVICE HEADER
-                          ================================== */}
+                          {/* SERVICE HEADER */}
+
                           <div
                             className="
                               flex
@@ -575,7 +697,6 @@ export default function ServiceMain({
                             <div className="min-w-0 flex-1">
                               <p
                                 className="
-                                  break-words
                                   font-secondary
                                   text-[11px]
                                   font-semibold
@@ -583,6 +704,11 @@ export default function ServiceMain({
                                   leading-[1.4]
                                   tracking-[0.04em]
                                   text-[#222222]
+
+                                  break-normal
+                                  hyphens-none
+                                  [overflow-wrap:normal]
+                                  [word-break:normal]
                                 "
                               >
                                 {service.title}
@@ -592,11 +718,15 @@ export default function ServiceMain({
                                 <p
                                   className="
                                     mt-[4px]
-                                    break-words
                                     font-secondary
                                     text-[9px]
                                     leading-[1.6]
                                     text-[#999999]
+
+                                    break-normal
+                                    hyphens-none
+                                    [overflow-wrap:normal]
+                                    [word-break:normal]
                                   "
                                 >
                                   {service.description}
@@ -604,7 +734,6 @@ export default function ServiceMain({
                               )}
                             </div>
 
-                            {/* Badge */}
                             {service.badge && (
                               <span
                                 className="
@@ -627,9 +756,8 @@ export default function ServiceMain({
                             )}
                           </div>
 
-                          {/* =================================
-                              PRICE
-                          ================================== */}
+                          {/* PRICE */}
+
                           <div className="mt-[18px]">
                             <div className="flex items-baseline gap-[6px]">
                               <span
@@ -642,8 +770,7 @@ export default function ServiceMain({
                                   text-[#333333]
                                 "
                               >
-                                {service.currency ||
-                                  currency}
+                                {service.currency || currency}
                               </span>
 
                               <span
@@ -675,9 +802,8 @@ export default function ServiceMain({
                             </p>
                           </div>
 
-                          {/* =================================
-                              DURATION
-                          ================================== */}
+                          {/* DURATION */}
+
                           {service.durationMinutes != null && (
                             <div className="mt-[11px]">
                               <p
@@ -688,17 +814,13 @@ export default function ServiceMain({
                                   text-[#666666]
                                 "
                               >
-                                {
-                                  service.durationMinutes
-                                }{" "}
-                                mins
+                                {service.durationMinutes} mins
                               </p>
                             </div>
                           )}
 
-                          {/* =================================
-                              BOOK NOW
-                          ================================== */}
+                          {/* SUB SERVICE BOOK NOW */}
+
                           <ServiceBookingButton
                             href={
                               service.buttonHref ||
@@ -710,6 +832,7 @@ export default function ServiceMain({
                               h-[46px]
                               w-full
                               shrink-0
+                              cursor-pointer
                               items-center
                               justify-center
                               rounded-full
@@ -718,6 +841,7 @@ export default function ServiceMain({
                               text-[11px]
                               font-semibold
                               text-white
+
                               transition-all
                               duration-300
 
@@ -736,9 +860,8 @@ export default function ServiceMain({
                   </div>
                 </div>
 
-                {/* =============================================
-                    CAROUSEL CONTROLS
-                ============================================== */}
+                {/* CAROUSEL CONTROLS */}
+
                 {hasMultipleSubServices && (
                   <div
                     className="
@@ -749,9 +872,8 @@ export default function ServiceMain({
                       gap-4
                     "
                   >
-                    {/* =========================================
-                        DOTS
-                    ========================================== */}
+                    {/* DOTS */}
+
                     <div className="flex min-w-0 items-center gap-[6px]">
                       {subServices.map((_, index) => (
                         <button
@@ -766,6 +888,7 @@ export default function ServiceMain({
                           className={`
                             h-[5px]
                             shrink-0
+                            cursor-pointer
                             rounded-full
                             transition-all
                             duration-500
@@ -781,11 +904,9 @@ export default function ServiceMain({
                       ))}
                     </div>
 
-                    {/* =========================================
-                        ARROWS
-                    ========================================== */}
+                    {/* ARROWS */}
+
                     <div className="flex shrink-0 items-center gap-[7px]">
-                      {/* Previous */}
                       <button
                         type="button"
                         onClick={goToPrevious}
@@ -795,6 +916,7 @@ export default function ServiceMain({
                           h-[36px]
                           w-[36px]
                           shrink-0
+                          cursor-pointer
                           items-center
                           justify-center
                           rounded-full
@@ -805,6 +927,7 @@ export default function ServiceMain({
                           font-normal
                           leading-none
                           text-[#8B1D72]
+
                           transition-all
                           duration-300
 
@@ -815,7 +938,6 @@ export default function ServiceMain({
                         ‹
                       </button>
 
-                      {/* Next */}
                       <button
                         type="button"
                         onClick={goToNext}
@@ -825,6 +947,7 @@ export default function ServiceMain({
                           h-[36px]
                           w-[36px]
                           shrink-0
+                          cursor-pointer
                           items-center
                           justify-center
                           rounded-full
@@ -835,6 +958,7 @@ export default function ServiceMain({
                           font-normal
                           leading-none
                           text-[#555555]
+
                           transition-all
                           duration-300
 
@@ -852,15 +976,11 @@ export default function ServiceMain({
 
             {/* =================================================
                 NORMAL PRICE
-                ONLY WHEN NO SUB SERVICES
             ================================================== */}
+
             {!hasSubServices &&
-              (price != null ||
-                secondaryPrice != null) && (
+              (price != null || secondaryPrice != null) && (
                 <div className="mt-[22px]">
-                  {/* =========================================
-                      MAIN PRICE
-                  ========================================== */}
                   {price != null && (
                     <div>
                       <p
@@ -907,9 +1027,6 @@ export default function ServiceMain({
                     </div>
                   )}
 
-                  {/* =========================================
-                      SECONDARY PRICE
-                  ========================================== */}
                   {secondaryPrice != null && (
                     <>
                       <div className="my-[16px] h-px w-full bg-[#EEEEEE]" />
@@ -959,7 +1076,6 @@ export default function ServiceMain({
                           </div>
                         </div>
 
-                        {/* Package Note */}
                         {secondaryPriceNote && (
                           <span
                             className="
@@ -988,6 +1104,7 @@ export default function ServiceMain({
             {/* =================================================
                 NORMAL DURATION
             ================================================== */}
+
             {!hasSubServices &&
               durationMinutes != null && (
                 <div className="mt-[15px]">
@@ -1015,12 +1132,14 @@ export default function ServiceMain({
                 </div>
               )}
 
-            {/* Divider */}
+            {/* DIVIDER */}
+
             <div className="my-[18px] h-px w-full bg-[#EEEEEE]" />
 
             {/* =================================================
                 RATING
             ================================================== */}
+
             <div className="flex items-center gap-[6px]">
               <span
                 className="
@@ -1033,25 +1152,23 @@ export default function ServiceMain({
                 {rating}
               </span>
 
-              {/* Stars */}
               <div className="flex items-center gap-[2px]">
-                {Array.from({ length: 5 }).map(
-                  (_, index) => (
-                    <span
-                      key={index}
-                      className="
-                        text-[11px]
-                        leading-none
-                        text-[#F5B301]
-                      "
-                    >
-                      ★
-                    </span>
-                  )
-                )}
+                {Array.from({
+                  length: 5,
+                }).map((_, index) => (
+                  <span
+                    key={index}
+                    className="
+                      text-[11px]
+                      leading-none
+                      text-[#F5B301]
+                    "
+                  >
+                    ★
+                  </span>
+                ))}
               </div>
 
-              {/* Reviews */}
               <span
                 className="
                   font-secondary
@@ -1065,9 +1182,9 @@ export default function ServiceMain({
             </div>
 
             {/* =================================================
-                NORMAL BOOK BUTTON
-                ONLY WITHOUT SUB SERVICES
+                MAIN BOOK NOW
             ================================================== */}
+
             {!hasSubServices && (
               <ServiceBookingButton
                 href={buttonHref}
@@ -1076,6 +1193,7 @@ export default function ServiceMain({
                   flex
                   h-[50px]
                   w-full
+                  cursor-pointer
                   items-center
                   justify-center
                   rounded-full
@@ -1084,6 +1202,7 @@ export default function ServiceMain({
                   text-[12px]
                   font-semibold
                   text-white
+
                   transition-all
                   duration-300
 
