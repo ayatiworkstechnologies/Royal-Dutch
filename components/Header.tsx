@@ -15,7 +15,7 @@ import { AuthModal, AuthView } from "@/components/ui/AuthModal";
 ========================================================= */
 
 type SubMenuItem = {
-  name: string; 
+  name: string;
   path: string;
 };
 
@@ -35,113 +35,109 @@ type NavLink = {
 
 /* =========================================================
    SERVICES
-
-   NOTE:
-   All service URLs are currently "#".
-   Replace them later when pages are created.
 ========================================================= */
 
 const serviceCategories: SubMenuCategory[] = [
   {
     title: "Aesthetic & Skin Care",
-    path: "#",
+    path: "/services/aesthetic-skin-care",
     items: [
       {
         name: "Facial Treatments",
-        path: "#",
+        path: "/services/aesthetic-skin-care/facial-treatments",
       },
       {
         name: "Advanced Skin Treatments",
-        path: "#",
+        path: "/services/aesthetic-skin-care/advanced-skin-treatments",
       },
       {
         name: "Laser Hair Removal – Women",
-        path: "#",
+        path: "/services/aesthetic-skin-care/women-s-laser-hair-removal",
       },
       {
         name: "Laser Hair Removal – Men",
-        path: "#",
+        path: "/services/aesthetic-skin-care/men-s-laser-hair-removal",
       },
       {
         name: "Other Services",
-        path: "#",
+        path: "/services/aesthetic-skin-care/other-services",
       },
     ],
   },
 
   {
     title: "Home Care Services",
-    path: "#",
+    path: "/services/home-care-services",
     items: [
       {
         name: "General Home Care",
-        path: "#",
+        path: "/services/home-care-services/general-home-care",
       },
       {
         name: "Nursing & Clinical Care",
-        path: "#",
+        path: "/services/home-care-services/nursing-clinical-care",
       },
       {
         name: "Elderly & Long-Term Care",
-        path: "#",
+        path: "/services/home-care-services/elderly-long-term-care",
       },
       {
         name: "Physiotherapy Support",
-        path: "#",
+        path: "/services/home-care-services/physiotherapy-support",
       },
     ],
   },
 
   {
     title: "Dental Services",
-    path: "#",
+    path: "/services/dental-services",
     items: [
       {
         name: "Consultation & Diagnostics",
-        path: "#",
+        path: "/services/dental-services/consultation-diagnostics",
       },
       {
         name: "Preventive Dentistry",
-        path: "#",
+        path: "/services/dental-services/preventive-dentistry",
       },
       {
         name: "Restorative Dentistry",
-        path: "#",
+        path: "/services/dental-services/restorative-dentistry",
       },
       {
         name: "Extractions & Surgery",
-        path: "#",
+        path: "/services/dental-services/extractions-surgery",
       },
       {
         name: "Pediatric Dentistry",
-        path: "#",
+        path: "/services/dental-services/pediatric-dentistry",
       },
       {
         name: "Prosthodontics",
-        path: "#",
+        path: "/services/dental-services/prosthodontics",
       },
       {
         name: "Cosmetic Dentistry",
-        path: "#",
+        path: "/services/dental-services/cosmetic-dentistry",
       },
     ],
   },
 
   {
     title: "General Practitioner (GP)",
-    path: "#",
+    path: "/services/general-practitioner",
     items: [
       {
         name: "General Consultations",
-        path: "#",
+        path: "/services/general-practitioner/general-consultations",
       },
       {
         name: "Medical Services",
-        path: "#",
+        path: "/services/general-practitioner/medical-services",
       },
       {
         name: "Documentation & Certificates",
-        path: "#",
+        path: "/services/general-practitioner/documentation-certificates",
       },
     ],
   },
@@ -164,7 +160,7 @@ const navLinks: NavLink[] = [
   },
   {
     name: "Services",
-    path: "#",
+    path: "/services",
     type: "mega",
     menuKey: "services",
     categories: serviceCategories,
@@ -193,8 +189,22 @@ function cleanPath(path?: string | null) {
     : path;
 }
 
+function isPathActive(currentPath: string, path: string) {
+  if (!path || path === "#") {
+    return false;
+  }
+
+  const cleanCurrent = cleanPath(currentPath);
+  const cleanTarget = cleanPath(path);
+
+  return (
+    cleanCurrent === cleanTarget ||
+    cleanCurrent.startsWith(`${cleanTarget}/`)
+  );
+}
+
 /* =========================================================
-   CHEVRON ICON
+   CHEVRON
 ========================================================= */
 
 function ChevronIcon({
@@ -223,7 +233,7 @@ function ChevronIcon({
 }
 
 /* =========================================================
-   ARROW ICON
+   ARROW
 ========================================================= */
 
 function ArrowIcon() {
@@ -258,18 +268,6 @@ function AssistSparkle() {
 }
 
 /* =========================================================
-   PLACEHOLDER LINK HANDLER
-
-   Because href is "#", prevent page jumping to top.
-========================================================= */
-
-function handlePlaceholderLink(
-  event: React.MouseEvent<HTMLAnchorElement>
-) {
-  event.preventDefault();
-}
-
-/* =========================================================
    DESKTOP MEGA MENU
 ========================================================= */
 
@@ -278,11 +276,13 @@ function DesktopMegaMenu({
   activeIndex,
   setActiveIndex,
   closeDesktopMenuNow,
+  currentPath,
 }: {
   categories: SubMenuCategory[];
   activeIndex: number;
   setActiveIndex: (index: number) => void;
   closeDesktopMenuNow: () => void;
+  currentPath: string;
 }) {
   const activeCategory =
     categories[activeIndex] || categories[0];
@@ -307,20 +307,9 @@ function DesktopMegaMenu({
         lg:block
       "
     >
-      {/* =====================================================
-          TOP HEADER REMOVED
-          
-          Removed:
-          ROYAL DUTCH MEDICAL CENTRE
-          Our Services
-          View All Services
-      ===================================================== */}
-
       <div className="grid min-h-[300px] grid-cols-[310px_1fr]">
-        {/* =================================================
-            LEFT SIDE - MAIN SERVICE CATEGORIES
-        ================================================= */}
 
+        {/* LEFT */}
         <div
           className="
             border-r
@@ -346,7 +335,14 @@ function DesktopMegaMenu({
 
           <div className="flex flex-col gap-1.5">
             {categories.map((category, index) => {
-              const selected = activeIndex === index;
+              const selected =
+                activeIndex === index;
+
+              const categoryActive =
+                isPathActive(
+                  currentPath,
+                  category.path
+                );
 
               return (
                 <button
@@ -385,6 +381,11 @@ function DesktopMegaMenu({
                           text-white
                           shadow-[0_8px_20px_rgba(139,29,114,0.16)]
                         `
+                        : categoryActive
+                        ? `
+                          bg-[#8b1d72]/[0.08]
+                          text-[#8b1d72]
+                        `
                         : `
                           text-[#303030]
                           hover:bg-[#8b1d72]/[0.06]
@@ -393,9 +394,7 @@ function DesktopMegaMenu({
                     }
                   `}
                 >
-                  <span>
-                    {category.title}
-                  </span>
+                  <span>{category.title}</span>
 
                   <span
                     className={`
@@ -422,10 +421,7 @@ function DesktopMegaMenu({
           </div>
         </div>
 
-        {/* =================================================
-            RIGHT SIDE
-        ================================================= */}
-
+        {/* RIGHT */}
         <div className="p-6">
           <div
             className="
@@ -461,73 +457,76 @@ function DesktopMegaMenu({
             </h4>
           </div>
 
-          {/* =================================================
-              SUB SERVICE LINKS
-          ================================================= */}
-
+          {/* SUB SERVICES */}
           <div className="grid grid-cols-2 gap-2.5">
-            {activeCategory.items.map((item) => (
-              <Link
-                key={item.name}
-                href="#"
-                onClick={(event) => {
-                  handlePlaceholderLink(event);
+            {activeCategory.items.map((item) => {
+              const active =
+                isPathActive(
+                  currentPath,
+                  item.path
+                );
 
-                  /*
-                    Later when real URL is added,
-                    remove handlePlaceholderLink
-                    and use href={item.path}
-
-                    closeDesktopMenuNow();
-                  */
-                }}
-                className="
-                  group
-                  flex
-                  min-h-[50px]
-                  items-center
-                  justify-between
-                  rounded-[10px]
-                  border
-                  border-black/[0.06]
-                  bg-white
-                  px-4
-                  py-3
-                  font-secondary
-                  text-[12.5px]
-                  font-medium
-                  leading-[1.4]
-                  text-[#333333]
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-[1px]
-                  hover:border-[#8b1d72]/20
-                  hover:bg-[#8b1d72]/[0.04]
-                  hover:text-[#8b1d72]
-                  hover:shadow-[0_8px_18px_rgba(0,0,0,0.05)]
-                "
-              >
-                <span>
-                  {item.name}
-                </span>
-
-                <span
-                  className="
-                    ml-3
-                    shrink-0
-                    text-[#8b1d72]
-                    opacity-40
+              return (
+                <Link
+                  key={item.name}
+                  href={item.path}
+                  onClick={closeDesktopMenuNow}
+                  className={`
+                    group
+                    flex
+                    min-h-[50px]
+                    items-center
+                    justify-between
+                    rounded-[10px]
+                    border
+                    px-4
+                    py-3
+                    font-secondary
+                    text-[12.5px]
+                    font-medium
+                    leading-[1.4]
                     transition-all
                     duration-300
-                    group-hover:translate-x-1
-                    group-hover:opacity-100
-                  "
+
+                    ${
+                      active
+                        ? `
+                          border-[#8b1d72]/20
+                          bg-[#8b1d72]/[0.07]
+                          text-[#8b1d72]
+                        `
+                        : `
+                          border-black/[0.06]
+                          bg-white
+                          text-[#333333]
+                          hover:-translate-y-[1px]
+                          hover:border-[#8b1d72]/20
+                          hover:bg-[#8b1d72]/[0.04]
+                          hover:text-[#8b1d72]
+                          hover:shadow-[0_8px_18px_rgba(0,0,0,0.05)]
+                        `
+                    }
+                  `}
                 >
-                  <ArrowIcon />
-                </span>
-              </Link>
-            ))}
+                  <span>{item.name}</span>
+
+                  <span
+                    className="
+                      ml-3
+                      shrink-0
+                      text-[#8b1d72]
+                      opacity-40
+                      transition-all
+                      duration-300
+                      group-hover:translate-x-1
+                      group-hover:opacity-100
+                    "
+                  >
+                    <ArrowIcon />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -536,38 +535,48 @@ function DesktopMegaMenu({
 }
 
 /* =========================================================
-   MOBILE SERVICES ACCORDION
+   MOBILE SERVICES
 ========================================================= */
 
 function MobileAccordion({
   title,
   categories,
+  currentPath,
+  closeMobileMenu,
 }: {
   title: string;
   categories: SubMenuCategory[];
+  currentPath: string;
+  closeMobileMenu: () => void;
 }) {
-  const [open, setOpen] =
-    useState(false);
+  const serviceRouteActive =
+    currentPath.startsWith("/services");
 
-  const [
-    activeIndex,
-    setActiveIndex,
-  ] = useState<number | null>(
-    null
-  );
+  const initialCategory =
+    categories.findIndex((category) =>
+      isPathActive(currentPath, category.path)
+    );
+
+  const [open, setOpen] =
+    useState(serviceRouteActive);
+
+  const [activeIndex, setActiveIndex] =
+    useState<number | null>(
+      initialCategory >= 0
+        ? initialCategory
+        : null
+    );
 
   return (
     <div className="border-b border-white/10">
-      {/* =================================================
-          SERVICES
-      ================================================= */}
 
+      {/* SERVICES */}
       <button
         type="button"
         onClick={() =>
           setOpen((prev) => !prev)
         }
-        className="
+        className={`
           group
           flex
           w-full
@@ -577,11 +586,16 @@ function MobileAccordion({
           font-secondary
           text-[15px]
           font-semibold
-          text-white
           transition-colors
           duration-300
           hover:text-[#D6B981]
-        "
+
+          ${
+            serviceRouteActive
+              ? "text-[#D6B981]"
+              : "text-white"
+          }
+        `}
       >
         {title}
 
@@ -614,11 +628,15 @@ function MobileAccordion({
               const isOpenCategory =
                 activeIndex === index;
 
+              const categoryActive =
+                isPathActive(
+                  currentPath,
+                  category.path
+                );
+
               return (
                 <div
-                  key={
-                    category.title
-                  }
+                  key={category.title}
                   className="
                     mb-2
                     overflow-hidden
@@ -629,7 +647,6 @@ function MobileAccordion({
                   "
                 >
                   {/* CATEGORY */}
-
                   <button
                     type="button"
                     onClick={() =>
@@ -640,7 +657,7 @@ function MobileAccordion({
                             : index
                       )
                     }
-                    className="
+                    className={`
                       group
                       flex
                       w-full
@@ -653,28 +670,27 @@ function MobileAccordion({
                       text-[14px]
                       font-semibold
                       leading-5
-                      text-white
                       transition-colors
                       duration-300
-
                       hover:text-[#D6B981]
-                    "
+
+                      ${
+                        categoryActive
+                          ? "text-[#D6B981]"
+                          : "text-white"
+                      }
+                    `}
                   >
                     <span>
                       {category.title}
                     </span>
 
                     <ChevronIcon
-                      open={
-                        isOpenCategory
-                      }
+                      open={isOpenCategory}
                     />
                   </button>
 
-                  {/* =================================================
-                      CHILD SERVICES
-                  ================================================= */}
-
+                  {/* CHILD SERVICES */}
                   <div
                     className={`
                       grid
@@ -705,55 +721,66 @@ function MobileAccordion({
                         "
                       >
                         {category.items.map(
-                          (item) => (
-                            <li
-                              key={
-                                item.name
-                              }
-                            >
-                              <Link
-                                href="#"
-                                onClick={
-                                  handlePlaceholderLink
-                                }
-                                className="
-                                  group
-                                  flex
-                                  items-center
-                                  justify-between
-                                  rounded-[8px]
-                                  px-3
-                                  py-2.5
-                                  font-secondary
-                                  text-[13px]
-                                  leading-[1.45]
-                                  text-white/75
-                                  transition-all
-                                  duration-300
+                          (item) => {
+                            const active =
+                              isPathActive(
+                                currentPath,
+                                item.path
+                              );
 
-                                  hover:translate-x-1
-                                  hover:bg-white/[0.08]
-                                  hover:text-[#D6B981]
-                                "
-                              >
-                                <span>
-                                  {
-                                    item.name
+                            return (
+                              <li key={item.name}>
+                                <Link
+                                  href={item.path}
+                                  onClick={
+                                    closeMobileMenu
                                   }
-                                </span>
-
-                                <span
-                                  className="
-                                    opacity-50
+                                  className={`
+                                    group
+                                    flex
+                                    items-center
+                                    justify-between
+                                    rounded-[8px]
+                                    px-3
+                                    py-2.5
+                                    font-secondary
+                                    text-[13px]
+                                    leading-[1.45]
                                     transition-all
-                                    group-hover:opacity-100
-                                  "
+                                    duration-300
+
+                                    ${
+                                      active
+                                        ? `
+                                          bg-white/[0.10]
+                                          text-[#D6B981]
+                                        `
+                                        : `
+                                          text-white/75
+                                          hover:translate-x-1
+                                          hover:bg-white/[0.08]
+                                          hover:text-[#D6B981]
+                                        `
+                                    }
+                                  `}
                                 >
-                                  <ArrowIcon />
-                                </span>
-                              </Link>
-                            </li>
-                          )
+                                  <span>
+                                    {item.name}
+                                  </span>
+
+                                  <span
+                                    className="
+                                      opacity-50
+                                      transition-all
+                                      group-hover:opacity-100
+                                    "
+                                  >
+                                    <ArrowIcon />
+                                  </span>
+                                </Link>
+                              </li>
+                            );
+                          }
                         )}
                       </ul>
                     </div>
@@ -769,7 +796,7 @@ function MobileAccordion({
 }
 
 /* =========================================================
-   USER / LOGIN DROPDOWN
+   USER DROPDOWN
 ========================================================= */
 
 function UserDropdown({
@@ -779,17 +806,13 @@ function UserDropdown({
 }: {
   user: any;
   logout: () => void;
-  openAuth: (
-    view: AuthView
-  ) => void;
+  openAuth: (view: AuthView) => void;
 }) {
   const [open, setOpen] =
     useState(false);
 
   const dropdownRef =
-    useRef<HTMLDivElement>(
-      null
-    );
+    useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(
@@ -822,8 +845,6 @@ function UserDropdown({
       className="relative"
       ref={dropdownRef}
     >
-      {/* LOGIN */}
-
       <button
         type="button"
         onClick={() =>
@@ -847,11 +868,9 @@ function UserDropdown({
           text-black
           transition-all
           duration-300
-
           hover:border-[#8b1d72]
           hover:bg-white
           hover:text-[#8b1d72]
-
           xl:h-[46px]
           xl:px-4
           xl:text-[14px]
@@ -867,20 +886,15 @@ function UserDropdown({
             h-4
             w-4
             shrink-0
-
             xl:h-5
             xl:w-5
           "
         />
 
         <span className="whitespace-nowrap">
-          {user
-            ? "Account"
-            : "Login"}
+          {user ? "Account" : "Login"}
         </span>
       </button>
-
-      {/* DROPDOWN */}
 
       {open && (
         <div
@@ -921,8 +935,7 @@ function UserDropdown({
 
               <Link
                 href={
-                  user.role ===
-                  "customer"
+                  user.role === "customer"
                     ? "/customer/dashboard"
                     : "/admin/dashboard"
                 }
@@ -939,7 +952,6 @@ function UserDropdown({
                   font-medium
                   text-gray-600
                   transition-colors
-
                   hover:bg-gray-50
                   hover:text-[#8b1d72]
                 "
@@ -951,7 +963,6 @@ function UserDropdown({
                 type="button"
                 onClick={() => {
                   setOpen(false);
-
                   logout();
                 }}
                 className="
@@ -966,7 +977,6 @@ function UserDropdown({
                   font-medium
                   text-red-600
                   transition-colors
-
                   hover:bg-red-50
                 "
               >
@@ -979,7 +989,6 @@ function UserDropdown({
                 type="button"
                 onClick={() => {
                   setOpen(false);
-
                   openAuth(
                     "patient_login"
                   );
@@ -996,7 +1005,6 @@ function UserDropdown({
                   font-medium
                   text-gray-600
                   transition-colors
-
                   hover:bg-gray-50
                   hover:text-[#8b1d72]
                 "
@@ -1008,7 +1016,6 @@ function UserDropdown({
                 type="button"
                 onClick={() => {
                   setOpen(false);
-
                   openAuth(
                     "staff_login"
                   );
@@ -1025,7 +1032,6 @@ function UserDropdown({
                   font-medium
                   text-gray-600
                   transition-colors
-
                   hover:bg-gray-50
                   hover:text-[#8b1d72]
                 "
@@ -1045,20 +1051,16 @@ function UserDropdown({
 ========================================================= */
 
 export default function Header() {
-  const pathname =
-    usePathname();
+  const pathname = usePathname();
 
   const currentPath =
     cleanPath(pathname);
 
-  const {
-    openModal,
-  } = useBookingModal();
+  const { openModal } =
+    useBookingModal();
 
-  const {
-    user,
-    logout,
-  } = useAuth();
+  const { user, logout } =
+    useAuth();
 
   const [
     mobileOpen,
@@ -1068,10 +1070,9 @@ export default function Header() {
   const [
     openMenu,
     setOpenMenu,
-  ] =
-    useState<
-      "services" | null
-    >(null);
+  ] = useState<"services" | null>(
+    null
+  );
 
   const [
     servicesActive,
@@ -1091,16 +1092,13 @@ export default function Header() {
   const [
     authModalView,
     setAuthModalView,
-  ] =
-    useState<AuthView>(
-      "patient_login"
-    );
+  ] = useState<AuthView>(
+    "patient_login"
+  );
 
   const closeTimer =
     useRef<
-      ReturnType<
-        typeof setTimeout
-      > | null
+      ReturnType<typeof setTimeout> | null
     >(null);
 
   /* =========================================================
@@ -1111,7 +1109,6 @@ export default function Header() {
     view: AuthView
   ) => {
     setAuthModalView(view);
-
     setAuthModalOpen(true);
   };
 
@@ -1132,54 +1129,74 @@ export default function Header() {
     );
   };
 
+  const servicesRouteActive =
+    currentPath === "/services" ||
+    currentPath.startsWith(
+      "/services/"
+    );
+
+  /* =========================================================
+     AUTO SELECT ACTIVE SERVICE CATEGORY
+  ========================================================= */
+
+  useEffect(() => {
+    const activeIndex =
+      serviceCategories.findIndex(
+        (category) =>
+          isPathActive(
+            currentPath,
+            category.path
+          )
+      );
+
+    if (activeIndex >= 0) {
+      setServicesActive(
+        activeIndex
+      );
+    }
+  }, [currentPath]);
+
   /* =========================================================
      TIMER
   ========================================================= */
 
-  const clearCloseTimer =
-    () => {
-      if (
+  const clearCloseTimer = () => {
+    if (closeTimer.current) {
+      clearTimeout(
         closeTimer.current
-      ) {
-        clearTimeout(
-          closeTimer.current
-        );
+      );
 
-        closeTimer.current =
-          null;
-      }
-    };
+      closeTimer.current = null;
+    }
+  };
 
   /* =========================================================
-     OPEN SERVICE MENU
+     OPEN DESKTOP MENU
   ========================================================= */
 
   const openDesktopMenu = (
     menu: "services"
   ) => {
     clearCloseTimer();
-
     setOpenMenu(menu);
   };
 
   /* =========================================================
-     CLOSE SERVICE MENU
+     CLOSE DESKTOP MENU
   ========================================================= */
 
-  const closeDesktopMenu =
-    () => {
-      clearCloseTimer();
+  const closeDesktopMenu = () => {
+    clearCloseTimer();
 
-      closeTimer.current =
-        setTimeout(() => {
-          setOpenMenu(null);
-        }, 260);
-    };
+    closeTimer.current =
+      setTimeout(() => {
+        setOpenMenu(null);
+      }, 260);
+  };
 
   const closeDesktopMenuNow =
     () => {
       clearCloseTimer();
-
       setOpenMenu(null);
     };
 
@@ -1187,10 +1204,9 @@ export default function Header() {
      MOBILE
   ========================================================= */
 
-  const closeMobileMenu =
-    () => {
-      setMobileOpen(false);
-    };
+  const closeMobileMenu = () => {
+    setMobileOpen(false);
+  };
 
   /* =========================================================
      ROUTE CHANGE
@@ -1198,7 +1214,6 @@ export default function Header() {
 
   useEffect(() => {
     setMobileOpen(false);
-
     setOpenMenu(null);
   }, [currentPath]);
 
@@ -1233,12 +1248,11 @@ export default function Header() {
   ========================================================= */
 
   useEffect(() => {
-    const handleScroll =
-      () => {
-        setIsScrolled(
-          window.scrollY > 10
-        );
-      };
+    const handleScroll = () => {
+      setIsScrolled(
+        window.scrollY > 10
+      );
+    };
 
     handleScroll();
 
@@ -1259,44 +1273,43 @@ export default function Header() {
   }, []);
 
   /* =========================================================
-     NORMAL NAV STYLE
+     NAV LINK STYLE
   ========================================================= */
 
   const navLinkClass = (
     href: string
-  ) =>
-    `
-      group
-      relative
-      inline-flex
-      font-secondary
-      text-[15px]
-      font-medium
-      transition-colors
-      duration-300
+  ) => `
+    group
+    relative
+    inline-flex
+    font-secondary
+    text-[15px]
+    font-medium
+    transition-colors
+    duration-300
 
-      after:absolute
-      after:-bottom-2
-      after:left-0
-      after:h-[2px]
-      after:rounded-full
-      after:bg-[#8b1d72]
-      after:transition-all
-      after:duration-300
+    after:absolute
+    after:-bottom-2
+    after:left-0
+    after:h-[2px]
+    after:rounded-full
+    after:bg-[#8b1d72]
+    after:transition-all
+    after:duration-300
 
-      ${
-        isExactActive(href)
-          ? `
-            text-[#8b1d72]
-            after:w-full
-          `
-          : `
-            text-[#2f2f2f]
-            hover:text-[#8b1d72]
-            hover:after:w-full
-          `
-      }
-    `;
+    ${
+      isExactActive(href)
+        ? `
+          text-[#8b1d72]
+          after:w-full
+        `
+        : `
+          text-[#2f2f2f]
+          hover:text-[#8b1d72]
+          hover:after:w-full
+        `
+    }
+  `;
 
   /* =========================================================
      RETURN
@@ -1314,9 +1327,7 @@ export default function Header() {
           bg-transparent
           px-2
           pt-2
-
           sm:px-3
-
           lg:px-4
         "
       >
@@ -1359,16 +1370,11 @@ export default function Header() {
                 grid
                 items-center
                 gap-4
-
                 lg:grid-cols-[230px_1fr_110px]
-
                 xl:grid-cols-[260px_1fr_118px]
               "
             >
-              {/* =================================================
-                  LOGO
-              ================================================= */}
-
+              {/* LOGO */}
               <div
                 className="
                   flex
@@ -1390,31 +1396,23 @@ export default function Header() {
                     height={62}
                     priority
                     style={{
-                      height:
-                        "auto",
+                      height: "auto",
                     }}
                     className="
                       w-[140px]
-
                       sm:w-[160px]
-
                       lg:w-[170px]
-
                       xl:w-[190px]
                     "
                   />
                 </Link>
 
-                {/* =================================================
-                    MOBILE HAMBURGER
-                ================================================= */}
-
+                {/* MOBILE HAMBURGER */}
                 <button
                   type="button"
                   onClick={() =>
                     setMobileOpen(
-                      (prev) =>
-                        !prev
+                      (prev) => !prev
                     )
                   }
                   aria-label="Toggle menu"
@@ -1431,10 +1429,8 @@ export default function Header() {
                     bg-[#8b1d72]
                     text-white
                     transition
-
                     hover:bg-[#D6B981]
                     hover:text-[#200020]
-
                     lg:hidden
                   "
                 >
@@ -1511,16 +1507,12 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* =================================================
-                  DESKTOP NAVIGATION
-              ================================================= */}
-
+              {/* DESKTOP NAVIGATION */}
               <div
                 className="
                   hidden
                   items-center
                   justify-center
-
                   lg:flex
                 "
               >
@@ -1530,7 +1522,6 @@ export default function Header() {
                     items-center
                     justify-center
                     gap-9
-
                     xl:gap-10
                   "
                 >
@@ -1545,10 +1536,6 @@ export default function Header() {
                         isMega &&
                         openMenu ===
                           link.menuKey;
-
-                      /* =========================================
-                         SERVICES
-                      ========================================= */
 
                       if (isMega) {
                         return (
@@ -1605,7 +1592,8 @@ export default function Header() {
                               after:duration-300
 
                               ${
-                                isOpen
+                                isOpen ||
+                                servicesRouteActive
                                   ? `
                                     font-semibold
                                     text-[#8b1d72]
@@ -1620,24 +1608,16 @@ export default function Header() {
                               }
                             `}
                           >
-                            {
-                              link.name
-                            }
+                            {link.name}
 
                             <ChevronIcon
-                              open={
-                                Boolean(
-                                  isOpen
-                                )
-                              }
+                              open={Boolean(
+                                isOpen
+                              )}
                             />
                           </button>
                         );
                       }
-
-                      /* =========================================
-                         NORMAL LINKS
-                      ========================================= */
 
                       return (
                         <Link
@@ -1657,9 +1637,7 @@ export default function Header() {
                             link.path
                           )}
                         >
-                          {
-                            link.name
-                          }
+                          {link.name}
                         </Link>
                       );
                     }
@@ -1667,15 +1645,11 @@ export default function Header() {
                 </div>
               </div>
 
-              {/* =================================================
-                  LOGIN
-              ================================================= */}
-
+              {/* LOGIN */}
               <div
                 className="
                   hidden
                   justify-end
-
                   lg:flex
                   lg:items-center
                   lg:gap-3
@@ -1684,13 +1658,10 @@ export default function Header() {
                 <UserDropdown
                   user={user}
                   logout={logout}
-                  openAuth={
-                    openAuth
-                  }
+                  openAuth={openAuth}
                 />
 
-                {/* BOOK NOW - HIDDEN */}
-
+                {/* BOOK NOW */}
                 <button
                   type="button"
                   onMouseEnter={
@@ -1730,10 +1701,7 @@ export default function Header() {
               </div>
             </div>
 
-            {/* =================================================
-                MOBILE NAV
-            ================================================= */}
-
+            {/* MOBILE NAV */}
             <div
               className={`
                 lg:hidden
@@ -1768,8 +1736,6 @@ export default function Header() {
                       "mega" &&
                     link.categories;
 
-                  /* SERVICES */
-
                   if (isMega) {
                     return (
                       <MobileAccordion
@@ -1782,20 +1748,20 @@ export default function Header() {
                         categories={
                           link.categories!
                         }
+                        currentPath={
+                          currentPath
+                        }
+                        closeMobileMenu={
+                          closeMobileMenu
+                        }
                       />
                     );
                   }
 
-                  /* NORMAL LINK */
-
                   return (
                     <Link
-                      key={
-                        link.name
-                      }
-                      href={
-                        link.path
-                      }
+                      key={link.name}
+                      href={link.path}
                       onClick={
                         closeMobileMenu
                       }
@@ -1837,18 +1803,13 @@ export default function Header() {
                         }
                       `}
                     >
-                      {
-                        link.name
-                      }
+                      {link.name}
                     </Link>
                   );
                 }
               )}
 
-              {/* =================================================
-                  MOBILE ACCOUNT
-              ================================================= */}
-
+              {/* MOBILE ACCOUNT */}
               {user ? (
                 <>
                   <Link
@@ -1891,7 +1852,6 @@ export default function Header() {
                     type="button"
                     onClick={() => {
                       closeMobileMenu();
-
                       logout();
                     }}
                     className="
@@ -1918,8 +1878,6 @@ export default function Header() {
                 </>
               ) : (
                 <>
-                  {/* PATIENT */}
-
                   <button
                     type="button"
                     onClick={() => {
@@ -1949,11 +1907,8 @@ export default function Header() {
                     "
                   >
                     <UserIcon className="h-5 w-5" />
-
                     Patient Login
                   </button>
-
-                  {/* STAFF */}
 
                   <button
                     type="button"
@@ -1984,19 +1939,15 @@ export default function Header() {
                     "
                   >
                     <UserIcon className="h-5 w-5" />
-
                     Staff Login
                   </button>
                 </>
               )}
 
-              {/* BOOK NOW HIDDEN */}
-
               <button
                 type="button"
                 onClick={() => {
                   closeMobileMenu();
-
                   openModal();
                 }}
                 className="
@@ -2017,16 +1968,12 @@ export default function Header() {
                 "
               >
                 <AssistSparkle />
-
                 Book Now
               </button>
             </div>
           </nav>
 
-          {/* =================================================
-              DESKTOP MEGA MENU
-          ================================================= */}
-
+          {/* DESKTOP MEGA MENU */}
           {openMenu ===
             "services" && (
             <DesktopMegaMenu
@@ -2042,19 +1989,17 @@ export default function Header() {
               closeDesktopMenuNow={
                 closeDesktopMenuNow
               }
+              currentPath={
+                currentPath
+              }
             />
           )}
         </div>
       </header>
 
-      {/* =================================================
-          AUTH MODAL
-      ================================================= */}
-
+      {/* AUTH MODAL */}
       <AuthModal
-        isOpen={
-          authModalOpen
-        }
+        isOpen={authModalOpen}
         onClose={() =>
           setAuthModalOpen(false)
         }

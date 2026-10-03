@@ -21,63 +21,71 @@ export default function MensLaserHairRemovalPage() {
       {/* =====================================================
           INTRO + PRICE GRID
       ====================================================== */}
-      <ServiceMain
-        title="Men’s Laser Hair Removal"
-        description="Achieve smoother-looking skin and long-term hair reduction with Men’s Laser Hair Removal. The treatment uses controlled laser energy to target pigment within unwanted hair. The laser delivers concentrated light to suitable hair follicles, gradually reducing future growth while protecting the surrounding skin. Treatment can be customized for areas such as the beard, underarms, chest, abdomen, back, arms, and legs."
-        priceListTitle="Men’s Laser Hair Removal Treatment Prices"
-        priceListItems={[
-          {
-            title: "Beard",
-            price: 100,
-            currency: "AED",
-          },
-          {
-            title: "Underarms",
-            price: 150,
-            currency: "AED",
-          },
-          {
-            title: "Half Legs",
-            price: 400,
-            currency: "AED",
-          },
-          {
-            title: "Full Legs",
-            price: 600,
-            currency: "AED",
-          },
-          {
-            title: "Back",
-            price: 400,
-            currency: "AED",
-          },
-          {
-            title: "Full Body — Excluding Belly And Back",
-            price: 750,
-            currency: "AED",
-            badge: "Full Body",
-          },
-          {
-            title: "Full Body — Including Belly And Back",
-            price: 950,
-            currency: "AED",
-            badge: "Full Body",
-          },
-          {
-            title: "Ear Piercing",
-            price: 150,
-            currency: "AED",
-            badge: "Other Service",
-          },
-        ]}
-        rating={4.9}
-        reviews={350}
-        price={100}
-        currency="AED"
-        priceLabel="Starting Price"
-        buttonText="Book Now"
-        buttonHref="/services/laser-treatments/men-s-laser-hair-removal"
-      />
+     <ServiceMain
+  title="Men’s Laser Hair Removal"
+  description="Achieve smoother-looking skin and long-term hair reduction with Men’s Laser Hair Removal. The treatment uses controlled laser energy to target pigment within unwanted hair. The laser delivers concentrated light to suitable hair follicles, gradually reducing future growth while protecting the surrounding skin. Treatment can be customized for areas such as the beard, underarms, chest, abdomen, back, arms, and legs."
+  priceListTitle="Men’s Laser Hair Removal Treatment Prices"
+  priceListItems={[
+    {
+      title: "Beard",
+      price: 100,
+      currency: "AED",
+      buttonHref:
+        "/services/aesthetic-skin-care/men-s-laser-hair-removal/beard",
+    },
+    {
+      title: "Underarms",
+      price: 150,
+      currency: "AED",
+      buttonHref:
+        "/services/aesthetic-skin-care/men-s-laser-hair-removal/underarms",
+    },
+    {
+      title: "Half Legs",
+      price: 400,
+      currency: "AED",
+      buttonHref:
+        "/services/aesthetic-skin-care/men-s-laser-hair-removal/half-legs",
+    },
+    {
+      title: "Full Legs",
+      price: 600,
+      currency: "AED",
+      buttonHref:
+        "/services/aesthetic-skin-care/men-s-laser-hair-removal/full-legs",
+    },
+    {
+      title: "Back",
+      price: 400,
+      currency: "AED",
+      buttonHref:
+        "/services/aesthetic-skin-care/men-s-laser-hair-removal/back",
+    },
+    {
+      title: "Full Body Without Belly and Back",
+      price: 750,
+      currency: "AED",
+      badge: "Full Body",
+      buttonHref:
+        "/services/aesthetic-skin-care/men-s-laser-hair-removal/full-body-without-belly-back",
+    },
+    {
+      title: "Full Body With Belly and Back",
+      price: 950,
+      currency: "AED",
+      badge: "Full Body",
+      buttonHref:
+        "/services/aesthetic-skin-care/men-s-laser-hair-removal/full-body-with-belly-back",
+    },
+  ]}
+  rating={4.9}
+  reviews={350}
+  price={100}
+  currency="AED"
+  priceLabel="Starting Price"
+  buttonText="Book Now"
+  buttonHref="/services/aesthetic-skin-care/men-s-laser-hair-removal"
+/>
 
       {/* =====================================================
           TREATMENT BENEFITS
@@ -188,8 +196,7 @@ export default function MensLaserHairRemovalPage() {
         description=""
         faqs={[
           {
-            question:
-              "Is Laser Hair Removal Suitable For All Skin Types?",
+            question: "Is Laser Hair Removal Suitable For All Skin Types?",
             answer:
               "Modern laser systems can treat a wide range of skin tones when the appropriate device and settings are used. Dark, coarse hair generally responds better than white, grey, red, or very light-blonde hair.",
           },
@@ -199,8 +206,7 @@ export default function MensLaserHairRemovalPage() {
               "A smaller area may take approximately 10 to 20 minutes, while larger or multiple areas can take 60 minutes or longer.",
           },
           {
-            question:
-              "Is Men’s Laser Hair Removal Painful?",
+            question: "Is Men’s Laser Hair Removal Painful?",
             answer:
               "Most people describe the sensation as brief warmth or a light snapping feeling. Cooling technology may be used to improve comfort.",
           },
@@ -210,8 +216,7 @@ export default function MensLaserHairRemovalPage() {
               "Most people require approximately six or more sessions because hair grows in different cycles. The exact number depends on the area, hair type, skin tone, and response.",
           },
           {
-            question:
-              "Is There Any Downtime Or Side Effects?",
+            question: "Is There Any Downtime Or Side Effects?",
             answer:
               "Downtime is usually minimal. Temporary redness, warmth, tenderness, or mild swelling may occur. Less-common risks include burns, blisters, scarring, and changes in skin colour.",
           },

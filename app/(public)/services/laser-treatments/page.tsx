@@ -6,13 +6,13 @@ const treatments = [
   title: "Men’s Laser Hair Removal",
   description:
     "Advanced laser hair removal treatment designed to support smoother-looking skin and long-term hair reduction for men.",
-  href: "/services/laser-treatments/men-s-laser-hair-removal",
+  href: "/services/aesthetic-skin-care/men-s-laser-hair-removal",
 },
 {
   title: "Women’s Laser Hair Removal",
   description:
     "Advanced laser hair removal treatment designed to support smoother-looking skin and long-term hair reduction for women.",
-  href: "/services/laser-treatments/women-s-laser-hair-removal",
+  href: "/services/aesthetic-skin-care/women-s-laser-hair-removal",
 },
 ];
 

@@ -30,64 +30,76 @@ export default function WomensLaserHairRemovalPage() {
             title: "Upper Lip",
             price: 50,
             currency: "AED",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/upper-lip",
           },
           {
             title: "Chin + Upper Lip",
             price: 75,
             currency: "AED",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/chin-upper-lip",
           },
           {
             title: "Underarms",
             price: 120,
             currency: "AED",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/underarms",
           },
           {
             title: "Half Bikini Line",
             price: 150,
             currency: "AED",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/half-bikini-line",
           },
           {
             title: "Full Bikini Line",
             price: 200,
             currency: "AED",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/full-bikini-line",
           },
           {
             title: "Full Arms + Hands",
             price: 200,
             currency: "AED",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/full-arms-hands",
           },
           {
             title: "Full Arms + Hands + Underarms",
             price: 250,
             currency: "AED",
             badge: "Combo",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/full-arms-hands-underarms",
           },
           {
             title: "Half Arms + Hands",
             price: 150,
             currency: "AED",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/half-arms-hands",
           },
           {
             title: "Half Legs + Feet",
             price: 200,
             currency: "AED",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/half-legs-feet",
           },
           {
             title: "Full Legs + Feet",
             price: 300,
             currency: "AED",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/full-legs-feet",
           },
           {
             title: "Full Body — Excluding Belly And Back",
             price: 450,
             currency: "AED",
             badge: "Full Body",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/full-body-excluding-belly-and-back",
           },
           {
             title: "Full Body — Including Belly And Back",
             price: 650,
             currency: "AED",
             badge: "Full Body",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/full-body-including-belly-and-back",
           },
         ]}
         rating={4.9}
@@ -96,7 +108,7 @@ export default function WomensLaserHairRemovalPage() {
         currency="AED"
         priceLabel="Starting Price"
         buttonText="Book Now"
-        buttonHref="/services/laser-treatments/women-s-laser-hair-removal"
+        buttonHref="/services/aesthetic-skin-care/women-s-laser-hair-removal"
       />
 
       {/* =====================================================

@@ -56,7 +56,7 @@ export default function FacialTreatmentsPage() {
                     },
                 ]}
                 rating={4.9}
-                reviews={350}
+                reviews={350} 
                 price={150}
                 currency="AED"
                 priceLabel="Starting Price"

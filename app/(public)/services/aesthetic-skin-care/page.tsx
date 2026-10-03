@@ -17,13 +17,13 @@ const facialTreatments = [
     title: "Laser Hair Removal – Women",
     description:
       "Personalized laser hair removal treatments for women designed to support long-term hair reduction and smoother-looking skin.",
-    href: "/services/aesthetic-skin-care/laser-hair-removal-women",
+    href: "/services/aesthetic-skin-care/women-s-laser-hair-removal",
   },
   {
     title: "Laser Hair Removal – Men",
     description:
       "Professional laser hair removal treatments for men designed to reduce unwanted hair and maintain smoother-looking skin.",
-    href: "/services/aesthetic-skin-care/laser-hair-removal-men",
+    href: "/services/aesthetic-skin-care/men-s-laser-hair-removal",
   },
   {
     title: "Other Services",

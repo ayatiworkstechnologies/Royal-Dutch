@@ -27,7 +27,7 @@ interface Service {
 
 
 export function BookingModal() {
-  const { isOpen, closeModal, initialCategoryId, initialServiceId } = useBookingModal();
+  const { isOpen, closeModal, initialCategoryId, initialServiceId, initialSubServiceId } = useBookingModal();
   const { user } = useAuth();
 
   const directBooking = initialCategoryId != null && Boolean(initialServiceId);
@@ -91,7 +91,7 @@ export function BookingModal() {
       
       fetchCategories();
     }
-  }, [isOpen, initialCategoryId, initialServiceId, directBooking, user]);
+  }, [isOpen, initialCategoryId, initialServiceId, initialSubServiceId, directBooking, user]);
 
   const fetchCategories = async () => {
     try {
@@ -224,12 +224,21 @@ export function BookingModal() {
     setUpgradesLoading(Boolean(isOpen && selectedServiceId));
     if (isOpen && selectedServiceId) {
       api.get(`/api/services/${selectedServiceId}/sub-services`)
-        .then(res => { if (!cancelled) setSubServices(res.data); })
+        .then(res => {
+          if (!cancelled) {
+            setSubServices(res.data);
+            setSelectedSubServiceIds(
+              initialSubServiceId != null && res.data.some((item: Service) => item.id === initialSubServiceId)
+                ? [initialSubServiceId]
+                : [],
+            );
+          }
+        })
         .catch(() => { if (!cancelled) setUpgradesError(true); })
         .finally(() => { if (!cancelled) setUpgradesLoading(false); });
     }
     return () => { cancelled = true; };
-  }, [isOpen, selectedServiceId, upgradesRetry]);
+  }, [isOpen, selectedServiceId, initialSubServiceId, upgradesRetry]);
   const showSummary = (step === 3 || step === 4) && Boolean(selectedService) && !loading;
 
   const renderProgress = () => {
