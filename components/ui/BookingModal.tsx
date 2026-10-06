@@ -209,6 +209,10 @@ export function BookingModal() {
 
   const selectedService = services.find(service => String(service.id) === selectedServiceId);
   const selectedUpgrades = subServices.filter(item => selectedSubServiceIds.includes(item.id));
+  const directSubServiceBooking = initialSubServiceId != null;
+  const visibleSubServices = directSubServiceBooking
+    ? subServices.filter(item => item.id === initialSubServiceId)
+    : subServices;
   const totalPrice = selectedService?.price == null || selectedUpgrades.some(item => item.price == null)
     ? null
     : (Math.round(Number(selectedService.price) * 100) + selectedUpgrades.reduce((sum, item) => sum + Math.round(Number(item.price) * 100), 0)) / 100;
@@ -619,17 +623,23 @@ export function BookingModal() {
 
           <div className="p-5">
             <fieldset className="space-y-2.5">
-              <legend className="px-0 text-sm font-semibold text-gray-900">Booking Upgrades</legend>
-              <p className="-mt-1 text-xs text-gray-500">Add optional subservices to your appointment.</p>
+              <legend className="px-0 text-sm font-semibold text-gray-900">
+                {directSubServiceBooking ? 'Selected Treatment' : 'Booking Upgrades'}
+              </legend>
+              <p className="-mt-1 text-xs text-gray-500">
+                {directSubServiceBooking
+                  ? 'The treatment selected from the service page.'
+                  : 'Add optional subservices to your appointment.'}
+              </p>
               {upgradesLoading && <p className="text-sm text-gray-500" role="status">Loading upgrades...</p>}
               {upgradesError && <p className="text-sm text-red-700" role="alert">Unable to load upgrades. <button type="button" className="underline" onClick={() => setUpgradesRetry(value => value + 1)}>Retry</button></p>}
               {!upgradesLoading && !upgradesError && subServices.length === 0 && <p className="text-xs text-gray-500">No upgrades available for this service.</p>}
-              {subServices.map(item => {
+              {visibleSubServices.map(item => {
                 const checked = selectedSubServiceIds.includes(item.id);
                 const unavailable = item.currency !== selectedService.currency;
                 return (
                   <label key={item.id} className={`flex items-start gap-3 rounded-xl border p-3 transition-all ${unavailable ? 'opacity-50' : 'cursor-pointer hover:shadow-sm'} ${checked ? 'border-(--primary-plum) bg-white shadow-sm ring-1 ring-(--primary-plum)/10' : 'border-[#eadfe8] bg-white/60'}`}>
-                    <input type="checkbox" checked={checked} disabled={unavailable} className="mt-1 h-4 w-4 shrink-0 accent-(--primary-plum)" onChange={event => setSelectedSubServiceIds(ids => event.target.checked ? [...ids, item.id] : ids.filter(id => id !== item.id))} />
+                    <input type="checkbox" checked={checked} disabled={unavailable || directSubServiceBooking} className="mt-1 h-4 w-4 shrink-0 accent-(--primary-plum)" onChange={event => setSelectedSubServiceIds(ids => event.target.checked ? [...ids, item.id] : ids.filter(id => id !== item.id))} />
                     <span className="min-w-0 text-sm"><span className="block font-medium text-gray-900">{item.name}</span><span className="mt-0.5 block text-xs font-semibold text-(--primary-plum-light)">{item.price != null ? '+ ' : ''}{formatPrice(item.price, item.currency)}</span>{unavailable && <span className="block text-xs">Unavailable in this booking currency</span>}</span>
                   </label>
                 );
