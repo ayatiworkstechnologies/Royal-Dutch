@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
 import { StatusToggle } from '@/components/ui/StatusToggle';
 import { TablePagination } from '@/components/ui/TablePagination';
+import { isValidPrice, normalizePrice } from '@/lib/priceRange';
 
 const PAGE_SIZE = 10;
 
@@ -29,7 +30,7 @@ interface SubService {
   slug: string;
   description: string | null;
   duration_minutes: number | null;
-  price: number | null;
+  price: string | number | null;
   currency: string;
   image: string | null;
   status: string;
@@ -109,12 +110,16 @@ export default function AdminSubServicesPage() {
 
   const save = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (!isValidPrice(form.price)) {
+      showError('Invalid price', 'Enter one amount (for example 200) or a range (for example 200-500).');
+      return;
+    }
     setSaving(true);
     const serviceId = Number(form.service_id);
     const payload = {
       name: form.name, slug: form.slug, description: form.description || null,
       duration_minutes: form.duration_minutes ? Number(form.duration_minutes) : null,
-      price: form.price ? Number(form.price) : null, currency: form.currency,
+      price: form.price ? normalizePrice(form.price) : null, currency: form.currency,
       image: form.image || null, status: form.status
     };
     try {
@@ -220,7 +225,7 @@ export default function AdminSubServicesPage() {
             {!editing && activeServices.length === 0 && <p className="mt-1 text-xs text-red-600">Create or activate a service before adding a sub-service.</p>}
           </div>
           <div className="grid gap-4 sm:grid-cols-2"><Input label="Sub Service Name *" required value={form.name} onChange={event => handleNameChange(event.target.value)} /><Input label="Slug *" required value={form.slug} onChange={event => setForm({ ...form, slug: event.target.value })} /></div>
-          <div className="grid gap-4 sm:grid-cols-2"><Input type="number" min="1" label="Duration (minutes)" value={form.duration_minutes} onChange={event => setForm({ ...form, duration_minutes: event.target.value })} /><Input type="number" min="0" step="0.01" label={`Price (${form.currency})`} value={form.price} onChange={event => setForm({ ...form, price: event.target.value })} /></div>
+          <div className="grid gap-4 sm:grid-cols-2"><Input type="number" min="1" label="Duration (minutes)" value={form.duration_minutes} onChange={event => setForm({ ...form, duration_minutes: event.target.value })} /><Input type="text" inputMode="decimal" placeholder="200 or 200-500" label={`Price (${form.currency})`} value={form.price} onChange={event => setForm({ ...form, price: event.target.value })} /></div>
           <Input label="Image URL" value={form.image} onChange={event => setForm({ ...form, image: event.target.value })} />
           <div><label className="mb-1 block text-sm font-medium text-gray-700">Description</label><textarea rows={3} className="w-full rounded-lg border border-gray-200 bg-white/50 px-4 py-2.5 text-sm" value={form.description} onChange={event => setForm({ ...form, description: event.target.value })} /></div>
           <div><label className="mb-1 block text-sm font-medium text-gray-700">Status</label><select className="w-full rounded-lg border border-gray-200 bg-white/50 px-4 py-2.5 text-sm" value={form.status} onChange={event => setForm({ ...form, status: event.target.value })}><option value="active">Active</option><option value="inactive">Inactive</option></select></div>

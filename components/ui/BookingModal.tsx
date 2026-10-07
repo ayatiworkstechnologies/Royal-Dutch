@@ -9,6 +9,7 @@ import api from '@/lib/api';
 import { format, addDays } from 'date-fns';
 import { CheckCircle, ChevronRight, ArrowLeft, RefreshCw, CalendarDays, Clock3, Sparkles } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { formatPriceValue, getPriceBounds } from '@/lib/priceRange';
 
 interface Category {
   id: number;
@@ -213,12 +214,24 @@ export function BookingModal() {
   const visibleSubServices = directSubServiceBooking
     ? subServices.filter(item => item.id === initialSubServiceId)
     : subServices;
-  const totalPrice = selectedService?.price == null || selectedUpgrades.some(item => item.price == null)
+  const selectedPrices = selectedService?.price == null || selectedUpgrades.some(item => item.price == null)
     ? null
-    : (Math.round(Number(selectedService.price) * 100) + selectedUpgrades.reduce((sum, item) => sum + Math.round(Number(item.price) * 100), 0)) / 100;
+    : [selectedService.price, ...selectedUpgrades.map(item => item.price as number | string)];
+  const totalPrice = (() => {
+    if (!selectedPrices) return null;
+    let minimum = 0;
+    let maximum = 0;
+    for (const price of selectedPrices) {
+      const bounds = getPriceBounds(price);
+      if (!bounds) return null;
+      minimum += bounds[0];
+      maximum += bounds[1];
+    }
+    return [minimum, maximum] as const;
+  })();
   const formatPrice = (price: number | string | null, currency: string) => price == null
     ? 'Price on request'
-    : `${currency} ${Number(price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    : `${currency} ${formatPriceValue(price)}`;
 
   useEffect(() => {
     let cancelled = false;
@@ -676,7 +689,7 @@ export function BookingModal() {
             <div aria-live="polite" aria-atomic="true" className="mt-5 rounded-xl bg-white border border-(--primary-gold)/30 px-4 py-3">
               <div className="flex justify-between items-center gap-3">
                 <span className="text-sm font-semibold text-gray-800">Total</span>
-                <span className="text-right text-lg font-bold text-(--primary-plum)">{formatPrice(totalPrice, selectedService.currency)}</span>
+                <span className="text-right text-lg font-bold text-(--primary-plum)">{formatPrice(totalPrice == null ? null : totalPrice[0] === totalPrice[1] ? totalPrice[0] : `${totalPrice[0]}-${totalPrice[1]}`, selectedService.currency)}</span>
               </div>
               {selectedUpgrades.length > 0 && <p className="mt-1.5 text-xs text-gray-500">Includes {selectedUpgrades.length} selected upgrade{selectedUpgrades.length === 1 ? '' : 's'}.</p>}
               {totalPrice == null && <p className="mt-1.5 text-xs text-gray-500">The clinic will confirm the final price.</p>}
