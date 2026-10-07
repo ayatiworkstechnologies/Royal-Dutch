@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
-import api from '@/lib/api';
+import api, { apiErrorMessage } from '@/lib/api';
 import { catalogNumbers, sortCatalog } from '@/lib/catalogNumbers';
 import { useAlert } from '@/context/AlertContext';
 import { Plus, Edit2, Trash2, Search, ListTree } from 'lucide-react';
@@ -251,7 +251,7 @@ export default function AdminServicesPage() {
       setSubServiceForm(emptySubServiceForm);
       await fetchSubServices(subServiceParent.id);
     } catch (error: any) {
-      toastError('Unable to save sub-service', error.response?.data?.detail || 'Please check the form and try again.');
+      toastError('Unable to save sub-service', apiErrorMessage(error, 'Please check the form and try again.'));
     } finally {
       setSavingSubService(false);
     }
@@ -510,7 +510,7 @@ export default function AdminServicesPage() {
               <Input id="sub-service-name" label="Name *" required value={subServiceForm.name} onChange={(e) => { const name = e.target.value; setSubServiceForm(current => ({ ...current, name, slug: editingSubService ? current.slug : name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') })); }} />
               <Input id="sub-service-slug" label="Slug *" required value={subServiceForm.slug} onChange={(e) => setSubServiceForm({ ...subServiceForm, slug: e.target.value })} />
               <Input id="sub-service-duration" type="number" min="1" label="Duration (minutes)" value={subServiceForm.duration_minutes} onChange={(e) => setSubServiceForm({ ...subServiceForm, duration_minutes: e.target.value })} />
-              <Input id="sub-service-price" type="text" inputMode="decimal" placeholder="200 or 200-500" label={`Price (${subServiceForm.currency})`} value={subServiceForm.price} onChange={(e) => setSubServiceForm({ ...subServiceForm, price: e.target.value })} />
+              <Input id="sub-service-price" type="text" inputMode="decimal" placeholder="Price" label={`Price (${subServiceForm.currency})`} value={subServiceForm.price} onChange={(e) => setSubServiceForm({ ...subServiceForm, price: e.target.value })} onBlur={() => setSubServiceForm(current => ({ ...current, price: normalizePrice(current.price) }))} />
               <Input id="sub-service-image" label="Image URL" value={subServiceForm.image} onChange={(e) => setSubServiceForm({ ...subServiceForm, image: e.target.value })} />
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">Status</label>

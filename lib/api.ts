@@ -1,6 +1,32 @@
 import axios from 'axios';
 import { getToken, removeToken } from './auth';
 
+type ValidationIssue = {
+  loc?: Array<string | number>;
+  msg?: string;
+};
+
+export function apiErrorMessage(error: unknown, fallback = 'An unexpected error occurred.'): string {
+  if (!axios.isAxiosError(error)) return error instanceof Error ? error.message : fallback;
+
+  const detail: unknown = error.response?.data?.detail;
+  if (typeof detail === 'string' && detail.trim()) return detail;
+  if (Array.isArray(detail)) {
+    const messages = detail
+      .map((issue: ValidationIssue) => {
+        if (!issue || typeof issue.msg !== 'string') return null;
+        const field = Array.isArray(issue.loc)
+          ? issue.loc.filter(part => part !== 'body').join(' → ')
+          : '';
+        return field ? `${field}: ${issue.msg}` : issue.msg;
+      })
+      .filter((message): message is string => Boolean(message));
+    if (messages.length) return messages.join('; ');
+  }
+
+  return fallback;
+}
+
 export const api = axios.create({
   // Keep browser traffic same-origin. Next.js proxies /api to API_BACKEND_URL.
   baseURL: '/api',

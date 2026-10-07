@@ -3,11 +3,16 @@ export type PriceValue = number | string | null;
 const PRICE_PATTERN = /^\d+(?:\.\d{1,2})?(?:-\d+(?:\.\d{1,2})?)?$/;
 
 export function normalizePrice(value: string): string {
-  return value.trim().replace(/[–—]/g, '-').replace(/\s*-\s*/g, '-');
+  return value
+    .trim()
+    .replace(/,/g, '')
+    // Accept hyphen, en/em dash, non-breaking hyphen, and the Unicode minus.
+    .replace(/[\u2010-\u2015\u2212]/g, '-')
+    .replace(/\s*-\s*/g, '-');
 }
 
 export function isValidPrice(value: string): boolean {
-  if (!value) return true;
+  if (!value.trim()) return true;
   const normalized = normalizePrice(value);
   if (!PRICE_PATTERN.test(normalized)) return false;
   const [minimum, maximum] = normalized.split('-').map(Number);
@@ -30,5 +35,5 @@ export function formatPriceValue(value: Exclude<PriceValue, null>): string {
   });
   return bounds[0] === bounds[1]
     ? format(bounds[0])
-    : `${format(bounds[0])}–${format(bounds[1])}`;
+    : `${format(bounds[0])}\u2013${format(bounds[1])}`;
 }

@@ -1,9 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import axios from 'axios';
 import { Edit2, ListTree, Plus, Search, Trash2 } from 'lucide-react';
-import api from '@/lib/api';
+import api, { apiErrorMessage } from '@/lib/api';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { useAlert } from '@/context/AlertContext';
 import { Button } from '@/components/ui/Button';
@@ -41,11 +40,6 @@ const emptyForm = {
   price: '', currency: 'AED', image: '', status: 'active'
 };
 
-function apiError(error: unknown, fallback: string) {
-  if (axios.isAxiosError(error)) return error.response?.data?.detail || fallback;
-  return fallback;
-}
-
 export default function AdminSubServicesPage() {
   const { user } = useAdminAuth(['super_admin', 'admin']);
   const { success, error: showError, confirm } = useAlert();
@@ -70,7 +64,7 @@ export default function AdminSubServicesPage() {
       setServices(servicesResponse.data);
       setItems(subServicesResponse.data);
     } catch (requestError) {
-      showError('Unable to load sub-services', apiError(requestError, 'Please try again.'));
+      showError('Unable to load sub-services', apiErrorMessage(requestError, 'Please try again.'));
     } finally {
       setLoading(false);
     }
@@ -132,7 +126,7 @@ export default function AdminSubServicesPage() {
       success('Sub-service saved', `${payload.name} was saved successfully.`);
       await fetchData();
     } catch (requestError) {
-      showError('Unable to save sub-service', apiError(requestError, 'Please check the form and try again.'));
+      showError('Unable to save sub-service', apiErrorMessage(requestError, 'Please check the form and try again.'));
     } finally {
       setSaving(false);
     }
@@ -145,7 +139,7 @@ export default function AdminSubServicesPage() {
       setItems(current => current.filter(row => row.id !== item.id));
       success('Sub-service deleted', `${item.name} was deleted.`);
     } catch (requestError) {
-      showError('Unable to delete sub-service', apiError(requestError, 'Please try again.'));
+      showError('Unable to delete sub-service', apiErrorMessage(requestError, 'Please try again.'));
     }
   };
 
@@ -157,7 +151,7 @@ export default function AdminSubServicesPage() {
       });
       setItems(current => current.map(row => row.id === item.id ? { ...response.data, service_name: item.service_name } : row));
     } catch (requestError) {
-      showError('Unable to update status', apiError(requestError, 'Please try again.'));
+      showError('Unable to update status', apiErrorMessage(requestError, 'Please try again.'));
     } finally {
       setTogglingId(null);
     }
@@ -225,7 +219,7 @@ export default function AdminSubServicesPage() {
             {!editing && activeServices.length === 0 && <p className="mt-1 text-xs text-red-600">Create or activate a service before adding a sub-service.</p>}
           </div>
           <div className="grid gap-4 sm:grid-cols-2"><Input label="Sub Service Name *" required value={form.name} onChange={event => handleNameChange(event.target.value)} /><Input label="Slug *" required value={form.slug} onChange={event => setForm({ ...form, slug: event.target.value })} /></div>
-          <div className="grid gap-4 sm:grid-cols-2"><Input type="number" min="1" label="Duration (minutes)" value={form.duration_minutes} onChange={event => setForm({ ...form, duration_minutes: event.target.value })} /><Input type="text" inputMode="decimal" placeholder="200 or 200-500" label={`Price (${form.currency})`} value={form.price} onChange={event => setForm({ ...form, price: event.target.value })} /></div>
+          <div className="grid gap-4 sm:grid-cols-2"><Input type="number" min="1" label="Duration (minutes)" value={form.duration_minutes} onChange={event => setForm({ ...form, duration_minutes: event.target.value })} /><Input type="text" inputMode="decimal" placeholder="Price" label={`Price (${form.currency})`} value={form.price} onChange={event => setForm({ ...form, price: event.target.value })} onBlur={() => setForm(current => ({ ...current, price: normalizePrice(current.price) }))} /></div>
           <Input label="Image URL" value={form.image} onChange={event => setForm({ ...form, image: event.target.value })} />
           <div><label className="mb-1 block text-sm font-medium text-gray-700">Description</label><textarea rows={3} className="w-full rounded-lg border border-gray-200 bg-white/50 px-4 py-2.5 text-sm" value={form.description} onChange={event => setForm({ ...form, description: event.target.value })} /></div>
           <div><label className="mb-1 block text-sm font-medium text-gray-700">Status</label><select className="w-full rounded-lg border border-gray-200 bg-white/50 px-4 py-2.5 text-sm" value={form.status} onChange={event => setForm({ ...form, status: event.target.value })}><option value="active">Active</option><option value="inactive">Inactive</option></select></div>

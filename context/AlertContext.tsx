@@ -27,11 +27,11 @@ interface ConfirmOptions {
 }
 
 interface AlertContextValue {
-  toast: (type: ToastType, title: string, message?: string) => void;
-  success: (title: string, message?: string) => void;
-  error: (title: string, message?: string) => void;
-  warning: (title: string, message?: string) => void;
-  info: (title: string, message?: string) => void;
+  toast: (type: ToastType, title: string, message?: unknown) => void;
+  success: (title: string, message?: unknown) => void;
+  error: (title: string, message?: unknown) => void;
+  warning: (title: string, message?: unknown) => void;
+  info: (title: string, message?: unknown) => void;
   confirm: (options: ConfirmOptions) => Promise<boolean>;
 }
 
@@ -39,6 +39,38 @@ interface AlertContextValue {
 
 const AlertContext = createContext<AlertContextValue | null>(null);
 const subscribeToClient = () => () => {};
+
+function formatAlertMessage(value: unknown): string | undefined {
+  if (value == null || value === "") return undefined;
+  if (typeof value === "string") return value;
+  if (typeof value === "number" || typeof value === "boolean") return String(value);
+  if (value instanceof Error) return value.message;
+
+  if (Array.isArray(value)) {
+    const messages = value.map(formatAlertMessage).filter((message): message is string => Boolean(message));
+    return messages.length ? messages.join("; ") : undefined;
+  }
+
+  if (typeof value === "object") {
+    const detail = value as Record<string, unknown>;
+    if ("detail" in detail) return formatAlertMessage(detail.detail);
+
+    if (typeof detail.msg === "string") {
+      const location = Array.isArray(detail.loc)
+        ? detail.loc.filter(part => part !== "body").map(String).join(" → ")
+        : "";
+      return location ? `${location}: ${detail.msg}` : detail.msg;
+    }
+
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return "An unexpected error occurred.";
+    }
+  }
+
+  return String(value);
+}
 
 export function useAlert() {
   const ctx = useContext(AlertContext);
@@ -67,16 +99,16 @@ export function AlertProvider({ children }: { children: React.ReactNode }) {
     setToasts(prev => prev.filter(t => t.id !== id));
   }, []);
 
-  const toast = useCallback((type: ToastType, title: string, message?: string) => {
+  const toast = useCallback((type: ToastType, title: string, message?: unknown) => {
     const id = ++counter.current;
-    setToasts(prev => [...prev, { id, type, title, message }]);
+    setToasts(prev => [...prev, { id, type, title, message: formatAlertMessage(message) }]);
     setTimeout(() => removeToast(id), 4500);
   }, [removeToast]);
 
-  const success = useCallback((t: string, m?: string) => toast("success", t, m), [toast]);
-  const error   = useCallback((t: string, m?: string) => toast("error",   t, m), [toast]);
-  const warning = useCallback((t: string, m?: string) => toast("warning", t, m), [toast]);
-  const info    = useCallback((t: string, m?: string) => toast("info",    t, m), [toast]);
+  const success = useCallback((t: string, m?: unknown) => toast("success", t, m), [toast]);
+  const error   = useCallback((t: string, m?: unknown) => toast("error",   t, m), [toast]);
+  const warning = useCallback((t: string, m?: unknown) => toast("warning", t, m), [toast]);
+  const info    = useCallback((t: string, m?: unknown) => toast("info",    t, m), [toast]);
 
   const confirm = useCallback((options: ConfirmOptions): Promise<boolean> => {
     return new Promise(resolve => {
