@@ -26,6 +26,15 @@ interface Service {
   duration_minutes: number | null;
 }
 
+interface ServicePackage {
+  id: number;
+  sub_service_id: number;
+  name: string;
+  sessions: number | null;
+  price: number | string | null;
+  currency: string;
+}
+
 
 export function BookingModal() {
   const { isOpen, closeModal, initialCategoryId, initialServiceId, initialSubServiceId } = useBookingModal();
@@ -51,9 +60,12 @@ export function BookingModal() {
   const [selectedServiceId, setSelectedServiceId] = useState('');
   const [subServices, setSubServices] = useState<Service[]>([]);
   const [selectedSubServiceIds, setSelectedSubServiceIds] = useState<number[]>([]);
+  const [selectedPackageIds, setSelectedPackageIds] = useState<number[]>([]);
   const [upgradesLoading, setUpgradesLoading] = useState(false);
   const [upgradesError, setUpgradesError] = useState(false);
   const [upgradesRetry, setUpgradesRetry] = useState(0);
+  const [packages, setPackages] = useState<ServicePackage[]>([]);
+  const [packagesLoading, setPackagesLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedSlot, setSelectedSlot] = useState('');
 
@@ -183,6 +195,7 @@ export function BookingModal() {
       const payload = {
         service_id: Number(selectedServiceId),
         sub_service_ids: selectedSubServiceIds,
+        package_ids: selectedPackageIds,
         booking_date: selectedDate,
         booking_time: selectedSlot,
         patient: { 
@@ -210,13 +223,14 @@ export function BookingModal() {
 
   const selectedService = services.find(service => String(service.id) === selectedServiceId);
   const selectedUpgrades = subServices.filter(item => selectedSubServiceIds.includes(item.id));
+  const selectedPackages = packages.filter(item => selectedPackageIds.includes(item.id));
   const directSubServiceBooking = initialSubServiceId != null;
   const visibleSubServices = directSubServiceBooking
     ? subServices.filter(item => item.id === initialSubServiceId)
     : subServices;
-  const selectedPrices = selectedService?.price == null || selectedUpgrades.some(item => item.price == null)
+  const selectedPrices = selectedService?.price == null || [...selectedUpgrades, ...selectedPackages].some(item => item.price == null)
     ? null
-    : [selectedService.price, ...selectedUpgrades.map(item => item.price as number | string)];
+    : [selectedService.price, ...selectedUpgrades.map(item => item.price as number | string), ...selectedPackages.map(item => item.price as number | string)];
   const totalPrice = (() => {
     if (!selectedPrices) return null;
     let minimum = 0;
@@ -237,6 +251,7 @@ export function BookingModal() {
     let cancelled = false;
     setSubServices([]);
     setSelectedSubServiceIds([]);
+    setSelectedPackageIds([]);
     setUpgradesError(false);
     setUpgradesLoading(Boolean(isOpen && selectedServiceId));
     if (isOpen && selectedServiceId) {
@@ -256,6 +271,38 @@ export function BookingModal() {
     }
     return () => { cancelled = true; };
   }, [isOpen, selectedServiceId, initialSubServiceId, upgradesRetry]);
+
+  // Retain a package after its parent treatment is unticked, allowing a
+  // customer to book the package on its own.
+  useEffect(() => {
+    let cancelled = false;
+    const packageParentIds = Array.from(new Set([
+      ...selectedSubServiceIds,
+      ...(initialSubServiceId != null ? [initialSubServiceId] : []),
+      ...packages.filter(item => selectedPackageIds.includes(item.id)).map(item => item.sub_service_id),
+    ]));
+    if (!isOpen || packageParentIds.length === 0) {
+      const resetTimer = window.setTimeout(() => {
+        if (!cancelled) {
+          setPackages([]);
+          setPackagesLoading(false);
+        }
+      }, 0);
+      return () => { cancelled = true; window.clearTimeout(resetTimer); };
+    }
+    Promise.resolve()
+      .then(() => {
+        if (!cancelled) setPackagesLoading(true);
+        return Promise.all(packageParentIds.map(subServiceId =>
+          api.get<ServicePackage[]>(`/api/sub-services/${subServiceId}/packages`).then(response => response.data),
+        ));
+      })
+      .then(results => { if (!cancelled) setPackages(results.flat()); })
+      .catch(() => { if (!cancelled) setPackages([]); })
+      .finally(() => { if (!cancelled) setPackagesLoading(false); });
+    return () => { cancelled = true; };
+  }, [isOpen, selectedSubServiceIds, selectedPackageIds, initialSubServiceId]);
+
   const showSummary = (step === 3 || step === 4) && Boolean(selectedService) && !loading;
 
   const renderProgress = () => {
@@ -641,7 +688,7 @@ export function BookingModal() {
               </legend>
               <p className="-mt-1 text-xs text-gray-500">
                 {directSubServiceBooking
-                  ? 'The treatment selected from the service page.'
+                  ? 'Choose the individual treatment, a package, or both.'
                   : 'Add optional subservices to your appointment.'}
               </p>
               {upgradesLoading && <p className="text-sm text-gray-500" role="status">Loading upgrades...</p>}
@@ -650,11 +697,33 @@ export function BookingModal() {
               {visibleSubServices.map(item => {
                 const checked = selectedSubServiceIds.includes(item.id);
                 const unavailable = item.currency !== selectedService.currency;
+                const childPackages = packages.filter(packageItem => packageItem.sub_service_id === item.id);
                 return (
-                  <label key={item.id} className={`flex items-start gap-3 rounded-xl border p-3 transition-all ${unavailable ? 'opacity-50' : 'cursor-pointer hover:shadow-sm'} ${checked ? 'border-(--primary-plum) bg-white shadow-sm ring-1 ring-(--primary-plum)/10' : 'border-[#eadfe8] bg-white/60'}`}>
-                    <input type="checkbox" checked={checked} disabled={unavailable || directSubServiceBooking} className="mt-1 h-4 w-4 shrink-0 accent-(--primary-plum)" onChange={event => setSelectedSubServiceIds(ids => event.target.checked ? [...ids, item.id] : ids.filter(id => id !== item.id))} />
-                    <span className="min-w-0 text-sm"><span className="block font-medium text-gray-900">{item.name}</span><span className="mt-0.5 block text-xs font-semibold text-(--primary-plum-light)">{item.price != null ? '+ ' : ''}{formatPrice(item.price, item.currency)}</span>{unavailable && <span className="block text-xs">Unavailable in this booking currency</span>}</span>
-                  </label>
+                  <div key={item.id} className={`rounded-xl border p-3 transition-all ${unavailable ? 'opacity-50' : 'hover:shadow-sm'} ${checked ? 'border-(--primary-plum) bg-white shadow-sm ring-1 ring-(--primary-plum)/10' : 'border-[#eadfe8] bg-white/60'}`}>
+                    <label className={`flex items-start gap-3 ${unavailable ? '' : 'cursor-pointer'}`}>
+                      <input type="checkbox" checked={checked} disabled={unavailable} className="mt-1 h-4 w-4 shrink-0 accent-(--primary-plum)" onChange={event => {
+                        setSelectedSubServiceIds(ids => event.target.checked ? [...ids, item.id] : ids.filter(id => id !== item.id));
+                      }} />
+                      <span className="min-w-0 text-sm"><span className="block font-medium text-gray-900">{item.name}</span><span className="mt-0.5 block text-xs font-semibold text-(--primary-plum-light)">{item.price != null ? '+ ' : ''}{formatPrice(item.price, item.currency)}</span>{unavailable && <span className="block text-xs">Unavailable in this booking currency</span>}</span>
+                    </label>
+                    {(checked || directSubServiceBooking || childPackages.some(packageItem => selectedPackageIds.includes(packageItem.id))) && (packagesLoading || childPackages.length > 0) && (
+                      <div className="mt-3 border-t border-dashed border-[#dcc9d5] pt-3">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Packages for {item.name}</p>
+                        {packagesLoading ? <p className="mt-1 text-xs text-gray-500">Loading packages...</p> : (
+                          <div className="mt-2 space-y-2">
+                            {childPackages.map(packageItem => {
+                              const packageChecked = selectedPackageIds.includes(packageItem.id);
+                              return <label key={packageItem.id} className={`flex cursor-pointer items-start gap-2.5 rounded-lg border px-3 py-2.5 transition-colors ${packageChecked ? 'border-(--primary-gold) bg-(--primary-gold)/10' : 'border-(--primary-gold)/30 bg-white'}`}>
+                                <input type="checkbox" checked={packageChecked} className="mt-0.5 h-4 w-4 shrink-0 accent-(--primary-plum)" onChange={event => setSelectedPackageIds(ids => event.target.checked ? [...ids, packageItem.id] : ids.filter(id => id !== packageItem.id))} />
+                                <span className="min-w-0 flex-1 text-sm"><span className="block font-medium text-gray-900">{packageItem.name}</span>{packageItem.sessions != null && <span className="mt-0.5 block text-xs text-gray-500">{packageItem.sessions} session{packageItem.sessions === 1 ? '' : 's'}</span>}</span>
+                                <span className="shrink-0 text-sm font-semibold text-(--primary-plum)">+ {formatPrice(packageItem.price, packageItem.currency)}</span>
+                              </label>;
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </fieldset>
@@ -691,7 +760,7 @@ export function BookingModal() {
                 <span className="text-sm font-semibold text-gray-800">Total</span>
                 <span className="text-right text-lg font-bold text-(--primary-plum)">{formatPrice(totalPrice == null ? null : totalPrice[0] === totalPrice[1] ? totalPrice[0] : `${totalPrice[0]}-${totalPrice[1]}`, selectedService.currency)}</span>
               </div>
-              {selectedUpgrades.length > 0 && <p className="mt-1.5 text-xs text-gray-500">Includes {selectedUpgrades.length} selected upgrade{selectedUpgrades.length === 1 ? '' : 's'}.</p>}
+              {(selectedUpgrades.length + selectedPackages.length) > 0 && <p className="mt-1.5 text-xs text-gray-500">Includes {selectedUpgrades.length} sub-service{selectedUpgrades.length === 1 ? '' : 's'} and {selectedPackages.length} package{selectedPackages.length === 1 ? '' : 's'}.</p>}
               {totalPrice == null && <p className="mt-1.5 text-xs text-gray-500">The clinic will confirm the final price.</p>}
             </div>
           </div>
