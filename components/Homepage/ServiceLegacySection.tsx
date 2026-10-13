@@ -77,7 +77,7 @@ export default function ServiceLegacySection() {
               "
             >
               <Image
-                src="/images/service-1-home.png"
+                src="/images/service1-home.png"
                 alt="Royal Dutch Dermatology and Aesthetics Service"
                 width={500}
                 height={680}
