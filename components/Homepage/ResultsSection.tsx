@@ -7,7 +7,7 @@ const resultSlides = [
   { title: "HYDRA FACIAL", before: "/images/result-before-hydrafacial.png", after: "/images/result-after-hydrafacial.png" },
   { title: "ACNE CONTROL FACIAL", before: "/images/result-before-acne-control-facial.png", after: "/images/result-after-acne-control-facial.png" },
   { title: "EXOSOME DERMAPEN", before: "/images/result-before-exosome-dermapen.png", after: "/images/result-after-exosome-dermapen.png" },
-  { title: "PEELING PEARL FACIAL ", before: "/images/result-before-peeling-pearl-facial.png", after: "/images/result-after-peeling-pearl-facial.png" },
+  { title: "Pediatric Dentistry ", before: "/images/pedb.png", after: "/images/peda.png" },
 ];
 
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];

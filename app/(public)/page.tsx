@@ -32,7 +32,7 @@ export default function Home() {
         >
           {/* Mobile Banner */}
           <Image
-            src="/images/mobile-banner-1.png"
+            src="/images/mobile-banner-01.png"
             alt="Royal Dutch Medical Centre Mobile Banner"
             width={768}
             height={900}
@@ -43,7 +43,7 @@ export default function Home() {
 
           {/* Tablet / Laptop / Desktop Banner */}
           <Image
-            src="/images/banner-desktop-1.png"
+            src="/images/banner-desktop-01.png"
             alt="Royal Dutch Medical Centre Banner"
             width={1920}
             height={800}
