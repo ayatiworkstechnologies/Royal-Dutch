@@ -20,7 +20,7 @@ interface AdminUser {
 }
 
 export default function AdminUsersPage() {
-  const { user } = useAdminAuth();
+  const { user } = useAdminAuth(['super_admin', 'admin']);
   const { success: toastSuccess, error: toastError, confirm: confirmDialog } = useAlert();
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [loading, setLoading] = useState(true);
@@ -276,7 +276,7 @@ export default function AdminUsersPage() {
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}
             >
-              <option value="super_admin">Admin (Full Access)</option>
+              {user?.role === 'super_admin' && <option value="super_admin">Admin (Full Access)</option>}
               <option value="admin">Manager (View + Update)</option>
               <option value="receptionist">Receptionist (Booking + Billing)</option>
               <option value="doctor">Doctor</option>

@@ -49,8 +49,8 @@ export default function DocumentationCertificatesPage() {
               "/services/general-practitioner/documentation-certificates/insurance-form-completion",
           },
         ]}
-        rating={4.9}
-        reviews={350}
+        rating={4.2}
+        reviews={150}
         price={50}
         currency="AED"
         priceLabel="Starting Price"
@@ -66,7 +66,7 @@ export default function DocumentationCertificatesPage() {
         title="Why Choose Documentation & Certificates"
         description="Unlike incomplete or unofficial notes, clinic-issued documentation provides clear, structured, and professionally prepared medical information."
         sectionTitle="It Offers:"
-        image="/images/why-choose-documentation-certificates.png"
+        image="/images/why-choose-documentation-certificate.png"
         imageAlt="Documentation and Certificates Service Benefits"
         offers={[
           {

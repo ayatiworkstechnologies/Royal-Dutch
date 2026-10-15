@@ -48,13 +48,13 @@ export default function WomensLaserHairRemovalPage() {
             title: "Half Bikini Line",
             price: 150,
             currency: "AED",
-            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/half-bikini-line",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/bikini-lines-half",
           },
           {
             title: "Full Bikini Line",
             price: 200,
             currency: "AED",
-            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/full-bikini-line",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/bikini-lines-full",
           },
           {
             title: "Full Arms + Hands",
@@ -92,14 +92,14 @@ export default function WomensLaserHairRemovalPage() {
             price: 450,
             currency: "AED",
             badge: "Full Body",
-            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/full-body-excluding-belly-and-back",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/full-body-without-belly-back",
           },
           {
             title: "Full Body — Including Belly And Back",
             price: 650,
             currency: "AED",
             badge: "Full Body",
-            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/full-body-including-belly-and-back",
+            buttonHref: "/services/aesthetic-skin-care/women-s-laser-hair-removal/full-body-with-belly-back",
           },
         ]}
         rating={4.9}

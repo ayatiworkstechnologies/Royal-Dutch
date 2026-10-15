@@ -21,6 +21,7 @@ interface Category {
 interface Service {
   id: number;
   name: string;
+  price: number | string | null;
   currency: string;
 }
 

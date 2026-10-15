@@ -104,10 +104,12 @@ export default function AdminCategoriesPage() {
   const handleDelete = async (id: number) => {
     if (!(await confirmDialog({ title: 'Delete Category', message: 'Are you sure you want to delete this category?', danger: true, confirmLabel: 'Delete' }))) return;
     try {
-      await api.delete(`/api/categories/${id}`);
+      const response = await api.delete(`/api/categories/${id}`);
       fetchCategories();
-    } catch (error) {
+      toastSuccess('Category updated', response.data.message);
+    } catch (error: any) {
       console.error('Failed to delete category', error);
+      toastError('Unable to delete category', error.response?.data?.detail || 'Please try again.');
     }
   };
 

@@ -43,13 +43,12 @@ interface SubService {
   duration_minutes: number | null;
   price: string | number | null;
   currency: string;
-  image: string | null;
   status: string;
 }
 
 const emptySubServiceForm = {
   name: '', slug: '', description: '', duration_minutes: '', price: '',
-  currency: 'AED', image: '', status: 'active'
+  currency: 'AED', status: 'active'
 };
 
 export default function AdminServicesPage() {
@@ -158,10 +157,12 @@ export default function AdminServicesPage() {
   const handleDelete = async (id: number) => {
     if (!(await confirmDialog({ title: 'Delete Service', message: 'Are you sure you want to delete this service?', danger: true, confirmLabel: 'Delete' }))) return;
     try {
-      await api.delete(`/api/services/${id}`);
+      const response = await api.delete(`/api/services/${id}`);
       fetchData();
-    } catch (error) {
+      toastSuccess('Service updated', response.data.message);
+    } catch (error: any) {
       console.error('Failed to delete service', error);
+      toastError('Unable to delete service', error.response?.data?.detail || 'Please try again.');
     }
   };
 
@@ -210,7 +211,6 @@ export default function AdminServicesPage() {
       duration_minutes: item.duration_minutes?.toString() || '',
       price: item.price?.toString() || '',
       currency: item.currency || 'AED',
-      image: item.image || '',
       status: item.status
     });
   };
@@ -226,7 +226,6 @@ export default function AdminServicesPage() {
     const payload = {
       ...subServiceForm,
       description: subServiceForm.description || null,
-      image: subServiceForm.image || null,
       duration_minutes: subServiceForm.duration_minutes ? Number(subServiceForm.duration_minutes) : null,
       price: subServiceForm.price ? normalizePrice(subServiceForm.price) : null
     };
@@ -478,7 +477,6 @@ export default function AdminServicesPage() {
               <Input id="sub-service-slug" label="Slug *" required value={subServiceForm.slug} onChange={(e) => setSubServiceForm({ ...subServiceForm, slug: e.target.value })} />
               <Input id="sub-service-duration" type="number" min="1" label="Duration (minutes)" value={subServiceForm.duration_minutes} onChange={(e) => setSubServiceForm({ ...subServiceForm, duration_minutes: e.target.value })} />
               <Input id="sub-service-price" type="text" inputMode="decimal" placeholder="Price" label={`Price (${subServiceForm.currency})`} value={subServiceForm.price} onChange={(e) => setSubServiceForm({ ...subServiceForm, price: e.target.value })} onBlur={() => setSubServiceForm(current => ({ ...current, price: normalizePrice(current.price) }))} />
-              <Input id="sub-service-image" label="Image URL" value={subServiceForm.image} onChange={(e) => setSubServiceForm({ ...subServiceForm, image: e.target.value })} />
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">Status</label>
                 <select className="w-full rounded-md border-slate-200/50 bg-white/40 shadow-sm sm:text-sm" value={subServiceForm.status} onChange={(e) => setSubServiceForm({ ...subServiceForm, status: e.target.value })}>

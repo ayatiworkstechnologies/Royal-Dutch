@@ -191,11 +191,11 @@ export default function ServiceLegacySection() {
             }}
           >
             <span className="block whitespace-nowrap">
-              A Legacy Of Excellence In
+              COMPLETE HEALTHCARE.
             </span>
 
             <span className="block whitespace-nowrap">
-              Dermatology &amp; Aesthetics
+              ONE MEDICAL CENTER.
             </span>
           </motion.h2>
 

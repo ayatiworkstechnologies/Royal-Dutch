@@ -5,9 +5,8 @@ import { useAdminAuth } from '@/hooks/useAdminAuth';
 import api from '@/lib/api';
 import { useAlert } from '@/context/AlertContext';
 import { format } from 'date-fns';
-import { Eye, Check, X, Calendar as CalendarIcon, MessageSquare, CalendarCheck, Clock, CheckSquare, List, User, Phone, FileText, Activity, UserCheck, Pill, Plus, RefreshCw } from 'lucide-react';
+import { Eye, Check, X, Calendar as CalendarIcon, CalendarCheck, Clock, CheckSquare, List, User, Phone, FileText, Activity, UserCheck, Pill, Plus, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { WhatsAppModal } from './WhatsAppModal';
 import { StatusReasonModal } from '@/components/ui/StatusReasonModal';
 
 interface Booking {
@@ -47,7 +46,6 @@ export default function AdminBookingsPage() {
   const [dateFilter, setDateFilter] = useState('');
   
   // Modal state
-  const [whatsappModalBooking, setWhatsappModalBooking] = useState<Booking | null>(null);
   const [viewModalBooking, setViewModalBooking] = useState<Booking | null>(null);
   const [assignModalBooking, setAssignModalBooking] = useState<Booking | null>(null);
   const [bookingPrescriptions, setBookingPrescriptions] = useState<Prescription[]>([]);
@@ -302,14 +300,6 @@ export default function AdminBookingsPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right">
                         <div className="flex items-center justify-end gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
-                          <button
-                            onClick={() => setWhatsappModalBooking(booking as any)}
-                            className="text-emerald-600 hover:text-white hover:bg-emerald-500 bg-emerald-50 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm"
-                            title="Send WhatsApp"
-                          >
-                            <MessageSquare className="h-4 w-4" />
-                          </button>
-
                           {booking.status === 'pending' && (
                             <>
                               <button
@@ -402,12 +392,6 @@ export default function AdminBookingsPage() {
           )}
         </div>
       </div>
-
-      <WhatsAppModal 
-        isOpen={!!whatsappModalBooking}
-        onClose={() => setWhatsappModalBooking(null)}
-        booking={whatsappModalBooking as any}
-      />
 
       {/* View Booking Modal */}
       {viewModalBooking && (

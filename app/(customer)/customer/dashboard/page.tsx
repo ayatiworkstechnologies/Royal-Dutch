@@ -57,7 +57,7 @@ export default function CustomerDashboardPage() {
     if (!user) return;
     Promise.all([
       api.get('/api/bookings/me').then(r => r.data).catch(() => []),
-      api.get('/api/billing/me').then(r => r.data).catch(() => []),
+      api.get('/api/account/invoices').then(r => r.data).catch(() => []),
     ]).then(([b, inv]) => {
       setBookings(b);
       setInvoices(inv);

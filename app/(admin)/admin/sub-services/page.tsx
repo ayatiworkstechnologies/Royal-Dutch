@@ -31,13 +31,12 @@ interface SubService {
   duration_minutes: number | null;
   price: string | number | null;
   currency: string;
-  image: string | null;
   status: string;
 }
 
 const emptyForm = {
   service_id: '', name: '', slug: '', description: '', duration_minutes: '',
-  price: '', currency: 'AED', image: '', status: 'active'
+  price: '', currency: 'AED', status: 'active'
 };
 
 export default function AdminSubServicesPage() {
@@ -85,7 +84,7 @@ export default function AdminSubServicesPage() {
         service_id: String(item.service_id), name: item.name, slug: item.slug,
         description: item.description || '', duration_minutes: item.duration_minutes?.toString() || '',
         price: item.price?.toString() || '', currency: item.currency || 'AED',
-        image: item.image || '', status: item.status
+        status: item.status
       });
     } else {
       setEditing(null);
@@ -114,7 +113,7 @@ export default function AdminSubServicesPage() {
       name: form.name, slug: form.slug, description: form.description || null,
       duration_minutes: form.duration_minutes ? Number(form.duration_minutes) : null,
       price: form.price ? normalizePrice(form.price) : null, currency: form.currency,
-      image: form.image || null, status: form.status
+      status: form.status
     };
     try {
       if (editing) {
@@ -220,7 +219,6 @@ export default function AdminSubServicesPage() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2"><Input label="Sub Service Name *" required value={form.name} onChange={event => handleNameChange(event.target.value)} /><Input label="Slug *" required value={form.slug} onChange={event => setForm({ ...form, slug: event.target.value })} /></div>
           <div className="grid gap-4 sm:grid-cols-2"><Input type="number" min="1" label="Duration (minutes)" value={form.duration_minutes} onChange={event => setForm({ ...form, duration_minutes: event.target.value })} /><Input type="text" inputMode="decimal" placeholder="Price" label={`Price (${form.currency})`} value={form.price} onChange={event => setForm({ ...form, price: event.target.value })} onBlur={() => setForm(current => ({ ...current, price: normalizePrice(current.price) }))} /></div>
-          <Input label="Image URL" value={form.image} onChange={event => setForm({ ...form, image: event.target.value })} />
           <div><label className="mb-1 block text-sm font-medium text-gray-700">Description</label><textarea rows={3} className="w-full rounded-lg border border-gray-200 bg-white/50 px-4 py-2.5 text-sm" value={form.description} onChange={event => setForm({ ...form, description: event.target.value })} /></div>
           <div><label className="mb-1 block text-sm font-medium text-gray-700">Status</label><select className="w-full rounded-lg border border-gray-200 bg-white/50 px-4 py-2.5 text-sm" value={form.status} onChange={event => setForm({ ...form, status: event.target.value })}><option value="active">Active</option><option value="inactive">Inactive</option></select></div>
           <div className="flex justify-end gap-3 pt-4"><Button type="button" variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button><Button type="submit" disabled={saving}>{saving ? 'Saving...' : editing ? 'Save Changes' : 'Create Sub Service'}</Button></div>

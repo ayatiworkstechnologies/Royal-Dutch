@@ -24,7 +24,7 @@ interface AuditLog {
 }
 
 export default function AdminAuditLogsPage() {
-  const { user } = useAdminAuth();
+  const { user } = useAdminAuth(['super_admin']);
   const [logs, setLogs] = useState<AuditLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
