@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import api from '@/lib/api';
 import { format, addDays } from 'date-fns';
-import { CheckCircle, ChevronRight, ArrowLeft, RefreshCw, CalendarDays, Clock3, Sparkles } from 'lucide-react';
+import { CheckCircle, ChevronLeft, ChevronRight, ArrowLeft, RefreshCw, CalendarDays, Clock3, Sparkles } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { formatPriceValue, getPriceBounds } from '@/lib/priceRange';
 
@@ -21,9 +21,7 @@ interface Category {
 interface Service {
   id: number;
   name: string;
-  price: number | string | null;
   currency: string;
-  duration_minutes: number | null;
 }
 
 interface ServicePackage {
@@ -35,6 +33,8 @@ interface ServicePackage {
   currency: string;
 }
 
+const APPOINTMENT_WINDOW_DAYS = 31;
+const DATE_PAGE_SIZE = 4;
 
 export function BookingModal() {
   const { isOpen, closeModal, initialCategoryId, initialServiceId, initialSubServiceId } = useBookingModal();
@@ -68,6 +68,7 @@ export function BookingModal() {
   const [packagesLoading, setPackagesLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedSlot, setSelectedSlot] = useState('');
+  const [datePageStart, setDatePageStart] = useState(0);
 
   const [patientDetails, setPatientDetails] = useState({
     first_name: '',
@@ -89,6 +90,7 @@ export function BookingModal() {
       setSelectedServiceId('');
       setSelectedDate('');
       setSelectedSlot('');
+      setDatePageStart(0);
       setWeekSlots(null);
       setSlotsError(false);
       
@@ -165,7 +167,7 @@ export function BookingModal() {
     setWeekSlots(null);
     try {
       const startIso = format(new Date(), 'yyyy-MM-dd');
-      const res = await api.get(`/api/bookings/slots/week?service_id=${serviceId}&start_date=${startIso}&days=31`);
+      const res = await api.get(`/api/bookings/slots/week?service_id=${serviceId}&start_date=${startIso}&days=${APPOINTMENT_WINDOW_DAYS}`);
       setWeekSlots(res.data && typeof res.data === 'object' ? res.data : {});
     } catch (err) {
       console.error('Failed to load slots', err);
@@ -224,13 +226,14 @@ export function BookingModal() {
   const selectedService = services.find(service => String(service.id) === selectedServiceId);
   const selectedUpgrades = subServices.filter(item => selectedSubServiceIds.includes(item.id));
   const selectedPackages = packages.filter(item => selectedPackageIds.includes(item.id));
+  const selectedExtras = [...selectedUpgrades, ...selectedPackages];
   const directSubServiceBooking = initialSubServiceId != null;
   const visibleSubServices = directSubServiceBooking
     ? subServices.filter(item => item.id === initialSubServiceId)
     : subServices;
-  const selectedPrices = selectedService?.price == null || [...selectedUpgrades, ...selectedPackages].some(item => item.price == null)
+  const selectedPrices = [...selectedUpgrades, ...selectedPackages].length === 0 || [...selectedUpgrades, ...selectedPackages].some(item => item.price == null)
     ? null
-    : [selectedService.price, ...selectedUpgrades.map(item => item.price as number | string), ...selectedPackages.map(item => item.price as number | string)];
+    : [...selectedUpgrades.map(item => item.price as number | string), ...selectedPackages.map(item => item.price as number | string)];
   const totalPrice = (() => {
     if (!selectedPrices) return null;
     let minimum = 0;
@@ -309,7 +312,7 @@ export function BookingModal() {
     if (step === 5) return null;
     return (
       <div className="flex justify-center items-center space-x-1.5 sm:space-x-2.5 mb-7 pt-4">
-        {bookingSteps.map((s) => (
+        {bookingSteps.map((s, index) => (
           <React.Fragment key={s}>
             <div
               className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold transition-all duration-300 ${
@@ -320,7 +323,7 @@ export function BookingModal() {
                     : 'bg-gray-100 text-gray-400'
               }`}
             >
-              {step > s ? <CheckCircle className="w-4 h-4" /> : s}
+              {step > s ? <CheckCircle className="w-4 h-4" /> : directBooking ? index + 1 : s}
             </div>
             {s < 4 && (
               <div className="relative w-8 sm:w-14 h-[3px] rounded-full bg-gray-100 overflow-hidden">
@@ -340,8 +343,17 @@ export function BookingModal() {
     <Modal isOpen={isOpen} onClose={closeModal} title={step === 5 ? "" : "Book an Appointment"} maxWidth={showSummary ? "5xl" : "2xl"}>
       {renderProgress()}
 
-      <div className={showSummary ? "grid grid-cols-1 gap-6 lg:grid-cols-[3fr_2fr] lg:gap-8" : ""}>
-      <div className="min-w-0">
+      {step === 4 && (
+        <div className="mb-4 lg:hidden">
+          <button type="button" onClick={() => setStep(3)} className="inline-flex items-center gap-2 text-sm font-semibold text-(--primary-plum) transition hover:text-(--primary-plum-dark)">
+            <ArrowLeft className="h-4 w-4" />
+            Back to date and time
+          </button>
+        </div>
+      )}
+
+      <div className={showSummary ? `grid grid-cols-1 gap-6 lg:gap-8 ${step === 4 ? 'lg:grid-cols-2' : 'lg:grid-cols-[minmax(280px,3fr)_minmax(0,7fr)]'}` : ""}>
+      <div className={step === 4 ? "order-2 min-w-0 lg:order-1" : "min-w-0"}>
       {error && (
         <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-700">
           {error}
@@ -404,12 +416,6 @@ export function BookingModal() {
                 >
                   <div className="min-w-0">
                     <span className="block font-semibold text-gray-800 group-hover:text-(--primary-plum) transition-colors">{s.name}</span>
-                    <div className="mt-1 flex items-center gap-2 text-xs">
-                      <span className="font-bold text-(--primary-plum)">{formatPrice(s.price, s.currency)}</span>
-                      {s.duration_minutes != null && (
-                        <span className="text-gray-400">· {s.duration_minutes} mins</span>
-                      )}
-                    </div>
                   </div>
                   <ChevronRight className="w-4 h-4 shrink-0 text-gray-300 group-hover:text-(--primary-plum) group-hover:translate-x-0.5 transition-all" />
                 </button>
@@ -420,7 +426,7 @@ export function BookingModal() {
       )}
 
       {!loading && step === 3 && selectedServiceId && (
-        <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-500">
+        <div className="space-y-4 sm:space-y-6 animate-in fade-in slide-in-from-right-8 duration-500">
           {/* Header */}
           <div className="flex items-center">
             {!directBooking && (
@@ -435,30 +441,64 @@ export function BookingModal() {
             {slotsLoading && <RefreshCw className="w-4 h-4 animate-spin text-(--primary-plum)/50" />}
           </div>
 
-          {/* Scrollable 30-day date strip */}
+          {/* Four-date availability navigator */}
           <div>
-            <div className="flex items-center gap-1.5 mb-3">
-              <CalendarDays className="w-3.5 h-3.5 text-(--primary-plum)/60" />
-              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                {format(new Date(), 'MMMM yyyy')} <span className="text-gray-300 mx-1">·</span> Next 30 days
-              </p>
-            </div>
+            {(() => {
+              const availabilityDates = Array.from(
+                { length: APPOINTMENT_WINDOW_DAYS },
+                (_, index) => addDays(new Date(), index),
+              );
+              const monthOptions = availabilityDates.filter((date, index, dates) =>
+                index === 0 || format(date, 'yyyy-MM') !== format(dates[index - 1], 'yyyy-MM'),
+              );
+              const visibleDates = availabilityDates.slice(datePageStart, datePageStart + DATE_PAGE_SIZE);
+              const canGoBack = datePageStart > 0;
+              const canGoForward = datePageStart + DATE_PAGE_SIZE < availabilityDates.length;
+
+              return <>
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-2 sm:gap-3">
+                  <div className="flex items-center gap-2">
+                    <CalendarDays className="h-4 w-4 text-(--primary-plum)/70" />
+                    <label className="sr-only" htmlFor="booking-month">Choose an appointment month</label>
+                    <select
+                      id="booking-month"
+                      value={format(availabilityDates[datePageStart], 'yyyy-MM')}
+                      onChange={(event) => {
+                        const firstDateIndex = availabilityDates.findIndex(
+                          (date) => format(date, 'yyyy-MM') === event.target.value,
+                        );
+                        if (firstDateIndex >= 0) setDatePageStart(Math.floor(firstDateIndex / DATE_PAGE_SIZE) * DATE_PAGE_SIZE);
+                      }}
+                      className="cursor-pointer rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-700 outline-none transition focus:border-(--primary-plum) focus:ring-2 focus:ring-(--primary-plum)/15"
+                    >
+                      {monthOptions.map((date) => <option key={format(date, 'yyyy-MM')} value={format(date, 'yyyy-MM')}>{format(date, 'MMMM yyyy')}</option>)}
+                    </select>
+                    <span className="text-xs font-medium text-gray-400">Next 30 days</span>
+                  </div>
+                  <div className="flex items-center gap-1" aria-label="Browse appointment dates">
+                    <button type="button" aria-label="Show previous dates" disabled={!canGoBack} onClick={() => setDatePageStart((current) => Math.max(0, current - DATE_PAGE_SIZE))} className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-600 transition hover:border-(--primary-plum)/50 hover:text-(--primary-plum) disabled:cursor-not-allowed disabled:opacity-35">
+                      <ChevronLeft className="h-4 w-4" />
+                    </button>
+                    <button type="button" aria-label="Show next dates" disabled={!canGoForward} onClick={() => setDatePageStart((current) => Math.min(availabilityDates.length - DATE_PAGE_SIZE, current + DATE_PAGE_SIZE))} className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-600 transition hover:border-(--primary-plum)/50 hover:text-(--primary-plum) disabled:cursor-not-allowed disabled:opacity-35">
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
             {slotsError && (
               <div className="mb-3 text-xs text-red-600 bg-red-50 border border-red-100 px-3 py-2 rounded-lg">
                 Could not load availability — you can still select a date to check.
               </div>
             )}
-            <div className="relative">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-h-72 overflow-y-auto pr-1 pb-1 pt-3 [scrollbar-width:thin]">
-                {Array.from({ length: 31 }).map((_, i) => {
-                  const d = addDays(new Date(), i);
+            <div>
+              <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-2 sm:gap-4">
+                {visibleDates.map((d) => {
                   const iso = format(d, 'yyyy-MM-dd');
                   const loaded = weekSlots !== null && !slotsLoading;
                   const dayData = weekSlots?.[iso];
                   const freeCount = loaded ? (dayData?.free || []).length : null;
                   const hasSlots = freeCount !== null && freeCount > 0;
                   const isSelected = selectedDate === iso;
-                  const isToday = i === 0;
+                  const isToday = iso === format(new Date(), 'yyyy-MM-dd');
 
                   return (
                     <button
@@ -466,7 +506,7 @@ export function BookingModal() {
                       type="button"
                       onClick={() => { setSelectedDate(iso); setSelectedSlot(''); }}
                       className={[
-                        'relative flex flex-col items-center py-4 px-3 rounded-2xl border text-xs font-medium transition-all duration-200',
+                        'relative flex flex-col items-center rounded-xl border px-1 py-2.5 text-xs font-medium transition-all duration-200 sm:rounded-2xl sm:px-3 sm:py-4',
                         isSelected
                           ? 'bg-gradient-to-b from-(--primary-plum-light) to-(--primary-plum) text-white border-(--primary-plum) shadow-lg shadow-(--primary-plum)/25 scale-[1.03]'
                           : slotsLoading || weekSlots === null
@@ -484,14 +524,14 @@ export function BookingModal() {
                           Today
                         </span>
                       )}
-                      <span className={`text-[10px] uppercase font-semibold tracking-wide ${isSelected ? 'text-white/75' : 'text-gray-400'}`}>
+                      <span className={`text-[9px] uppercase font-semibold tracking-wide sm:text-[10px] ${isSelected ? 'text-white/75' : 'text-gray-400'}`}>
                         {format(d, 'EEEE')}
                       </span>
-                      <span className="text-2xl font-bold leading-tight mt-1">{format(d, 'd')}</span>
-                      <span className={`text-[10px] font-medium ${isSelected ? 'text-white/60' : 'text-gray-400'}`}>
+                      <span className="mt-1 text-lg font-bold leading-tight sm:text-2xl">{format(d, 'd')}</span>
+                      <span className={`text-[9px] font-medium sm:text-[10px] ${isSelected ? 'text-white/60' : 'text-gray-400'}`}>
                         {format(d, 'MMM')}
                       </span>
-                      <span className={`mt-1.5 rounded-full px-2 py-0.5 text-[9px] font-bold ${
+                      <span className={`mt-1 rounded-full px-1.5 py-0.5 text-[8px] font-bold sm:mt-1.5 sm:px-2 sm:text-[9px] ${
                         isSelected
                           ? 'bg-white/15 text-(--primary-gold)'
                           : hasSlots
@@ -504,14 +544,14 @@ export function BookingModal() {
                   );
                 })}
               </div>
-              {/* bottom fade hint */}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-white to-transparent" />
             </div>
+              </>;
+            })()}
           </div>
 
           {/* Time slots for selected day */}
           {selectedDate ? (
-            <div className="rounded-2xl border border-(--primary-plum)/10 bg-(--primary-plum)/[0.03] p-4">
+            <div className="rounded-2xl border border-(--primary-plum)/10 bg-(--primary-plum)/[0.03] p-3 sm:p-4">
               <div className="flex items-center gap-1.5 mb-3">
                 <Clock3 className="w-3.5 h-3.5 text-(--primary-plum)/60" />
                 <p className="text-sm font-semibold text-gray-800">
@@ -524,7 +564,7 @@ export function BookingModal() {
                 )}
               </div>
               {slotsLoading || weekSlots === null ? (
-                <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
+                <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
                   {Array.from({ length: 10 }).map((_, i) => (
                     <div key={i} className="h-10 rounded-xl bg-gray-100 animate-pulse" />
                   ))}
@@ -538,7 +578,7 @@ export function BookingModal() {
                     <p className="text-gray-400 text-sm">No slots available for this date — please pick another day</p>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-4 sm:grid-cols-5 gap-2 max-h-50 overflow-y-auto pr-1">
+                  <div className="grid max-h-44 grid-cols-3 gap-2 overflow-y-auto pr-1 sm:max-h-50 sm:grid-cols-5">
                     {all.map((time) => {
                       const isTaken    = taken.includes(time);
                       const isSelected = selectedSlot === time;
@@ -566,29 +606,19 @@ export function BookingModal() {
               })()}
             </div>
           ) : (
-            <div className="flex flex-col items-center gap-2 py-8 text-gray-400 text-sm rounded-2xl border border-dashed border-gray-200">
+            <div className="flex flex-col items-center gap-2 rounded-2xl border border-dashed border-gray-200 py-6 text-sm text-gray-400 sm:py-8">
               <CalendarDays className="w-6 h-6 text-gray-300" />
               Pick a date above to see available times
             </div>
           )}
 
-          {/* Desktop only: keep Continue button under the date/time section */}
-          <div className="hidden pt-1 lg:flex lg:justify-end">
-            <Button
-              type="button"
-              onClick={() => setStep(4)}
-              disabled={!selectedDate || !selectedSlot}
-            >
-              Continue to Details
-            </Button>
-          </div>
         </div>
       )}
 
       {!loading && step === 4 && (
-        <form onSubmit={handleSubmit} className="space-y-5 animate-in fade-in slide-in-from-right-8 duration-500">
+        <form id="booking-patient-details" onSubmit={handleSubmit} className="space-y-5 animate-in fade-in slide-in-from-right-8 duration-500">
           <div className="flex items-center mb-4">
-            <button type="button" onClick={() => setStep(3)} className="mr-3 p-1 rounded-full hover:bg-gray-100 text-gray-500">
+            <button type="button" onClick={() => setStep(3)} className="mr-3 hidden rounded-full p-1 text-gray-500 hover:bg-gray-100 lg:block">
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div>
@@ -639,11 +669,12 @@ export function BookingModal() {
             </div>
           </div>
 
-          <div className="pt-1 flex justify-between">
-            <Button type="submit" disabled={loading} className="w-full sm:w-auto ml-auto">
+          <div className="flex justify-end pt-1 lg:hidden">
+            <Button type="submit" disabled={loading} className="w-full sm:w-auto">
               Confirm Booking
             </Button>
           </div>
+
         </form>
       )}
 
@@ -671,29 +702,23 @@ export function BookingModal() {
       )}
       </div>
       {showSummary && selectedService && (
-        <aside aria-label="Booking summary" className="self-start overflow-hidden rounded-2xl border border-[#eadfe8] bg-[#faf6fa] shadow-sm lg:sticky lg:top-0">
-          <div className="bg-gradient-to-br from-(--primary-plum) to-(--primary-plum-dark) px-5 py-4">
-            <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-white/60">
-              <Sparkles className="w-3 h-3 text-(--primary-gold)" />
+        <aside aria-label="Booking summary" className={`${step === 4 ? 'order-1 lg:order-2' : ''} self-start overflow-hidden rounded-2xl border border-[#eadfe8] bg-[#fcf9fc] shadow-[0_12px_32px_rgba(94,29,80,0.08)] lg:sticky lg:top-0`}>
+          <div className={step === 4 ? "border-b border-[#eadfe8] bg-white px-5 py-4" : "bg-gradient-to-r from-(--primary-plum) to-(--primary-plum-dark) px-6 py-5"}>
+            <div className={`flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest ${step === 4 ? 'text-(--primary-plum)' : 'text-white/60'}`}>
+              <Sparkles className={`w-3 h-3 ${step === 4 ? 'text-(--primary-gold-dark)' : 'text-(--primary-gold)'}`} />
               Booking Summary
             </div>
-            <p className="mt-3 text-[11px] font-medium uppercase tracking-wider text-white/50">{selectedCategory?.name}</p>
-            <p className="mt-1 text-lg font-semibold text-white font-cinzel">{selectedService.name}</p>
+            {step !== 4 && <p className="mt-4 text-[11px] font-medium uppercase tracking-wider text-white/55">{selectedCategory?.name}</p>}
+            <p className={`mt-1 text-xl font-semibold leading-tight font-cinzel ${step === 4 ? 'text-gray-900' : 'text-white'}`}>{selectedService.name}</p>
           </div>
 
-          <div className="p-5">
-            <fieldset className="space-y-2.5">
-              <legend className="px-0 text-sm font-semibold text-gray-900">
-                {directSubServiceBooking ? 'Selected Treatment' : 'Booking Upgrades'}
-              </legend>
-              <p className="-mt-1 text-xs text-gray-500">
-                {directSubServiceBooking
-                  ? 'Choose the individual treatment, a package, or both.'
-                  : 'Add optional subservices to your appointment.'}
-              </p>
+          <div className="space-y-5 p-6">
+            {step === 3 ? <fieldset>
+              <legend className="sr-only">{directSubServiceBooking ? 'Selected Treatment' : 'Booking upgrades'}</legend>
               {upgradesLoading && <p className="text-sm text-gray-500" role="status">Loading upgrades...</p>}
               {upgradesError && <p className="text-sm text-red-700" role="alert">Unable to load upgrades. <button type="button" className="underline" onClick={() => setUpgradesRetry(value => value + 1)}>Retry</button></p>}
               {!upgradesLoading && !upgradesError && subServices.length === 0 && <p className="text-xs text-gray-500">No upgrades available for this service.</p>}
+              <div className="grid gap-3 sm:grid-cols-2">
               {visibleSubServices.map(item => {
                 const checked = selectedSubServiceIds.includes(item.id);
                 const unavailable = item.currency !== selectedService.currency;
@@ -726,43 +751,81 @@ export function BookingModal() {
                   </div>
                 );
               })}
-            </fieldset>
+              </div>
+            </fieldset> : (
+              <div>
+                {selectedExtras.length > 0 ? (
+                  <div className="overflow-hidden rounded-xl border border-[#eadfe8] bg-white">
+                    {selectedExtras.map(item => (
+                      <div key={`${item.id}-${item.name}`} className="flex items-start justify-between gap-3 border-b border-[#f0e6ee] px-3.5 py-3 last:border-b-0">
+                        <p className="text-sm font-medium text-gray-900">{item.name}</p>
+                        <p className="shrink-0 text-sm font-semibold text-(--primary-plum)">+ {formatPrice(item.price, item.currency)}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="rounded-xl border border-dashed border-[#eadfe8] bg-white/70 px-3.5 py-3 text-sm text-gray-500">No upgrades selected.</p>
+                )}
+              </div>
+            )}
 
-            <dl className="mt-5 space-y-3 text-sm border-t border-dashed border-[#dcc9d5] pt-4">
-              <div className="flex justify-between gap-4">
-                <dt className="text-gray-500">Service price</dt>
-                <dd className="text-right font-semibold text-gray-900">
-                  {selectedService.price != null
-                    ? `${selectedService.currency} ${Number(selectedService.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-                    : 'Price on request'}
-                </dd>
+            <dl className="grid gap-3 sm:grid-cols-2">
+              <div className="border-l-2 border-(--primary-gold) bg-(--primary-gold)/[0.07] py-2 pl-3 pr-2">
+                <dt className="flex items-center gap-1.5 text-xs font-medium text-gray-500"><CalendarDays className="h-3.5 w-3.5 text-(--primary-plum)" />Appointment date</dt>
+                <dd className="mt-1 text-base font-semibold text-gray-900">{selectedDate ? format(new Date(`${selectedDate}T00:00:00`), 'dd MMM yyyy') : 'Not selected'}</dd>
               </div>
-              {/* Duration hidden for now
-              {selectedService.duration_minutes != null && (
-                <div className="flex justify-between gap-4">
-                  <dt className="text-gray-500">Duration</dt>
-                  <dd className="font-medium text-gray-900">{selectedService.duration_minutes} minutes</dd>
-                </div>
-              )}
-              */}
-              <div className="flex justify-between gap-4">
-                <dt className="text-gray-500">Date</dt>
-                <dd className="text-right font-medium text-gray-900">{selectedDate ? format(new Date(`${selectedDate}T00:00:00`), 'dd MMM yyyy') : 'Not selected'}</dd>
-              </div>
-              <div className="flex justify-between gap-4">
-                <dt className="text-gray-500">Time</dt>
-                <dd className="font-medium text-gray-900">{selectedSlot || 'Not selected'}</dd>
+              <div className="border-l-2 border-(--primary-plum) bg-(--primary-plum)/[0.05] py-2 pl-3 pr-2">
+                <dt className="flex items-center gap-1.5 text-xs font-medium text-gray-500"><Clock3 className="h-3.5 w-3.5 text-(--primary-plum)" />Appointment time</dt>
+                <dd className="mt-1 text-base font-semibold text-gray-900">{selectedSlot || 'Not selected'}</dd>
               </div>
             </dl>
 
-            <div aria-live="polite" aria-atomic="true" className="mt-5 rounded-xl bg-white border border-(--primary-gold)/30 px-4 py-3">
+            {step === 3 && <div aria-live="polite" className="rounded-xl border border-[#eadfe8] bg-white px-4 py-3.5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Selected treatments</p>
+              {selectedExtras.length > 0 ? (
+                <div className="mt-2 space-y-1.5">
+                  {selectedExtras.map(item => (
+                    <div key={`summary-${item.id}-${item.name}`} className="flex items-start justify-between gap-4 text-sm">
+                      <span className="font-medium text-gray-800">{item.name}</span>
+                      <span className="shrink-0 font-semibold text-(--primary-plum)">+ {formatPrice(item.price, item.currency)}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="mt-2 text-sm text-gray-500">No upgrades selected.</p>
+              )}
+            </div>}
+
+            <div aria-live="polite" aria-atomic="true" className="rounded-xl border border-(--primary-gold)/35 bg-(--primary-gold)/[0.08] px-5 py-4">
               <div className="flex justify-between items-center gap-3">
-                <span className="text-sm font-semibold text-gray-800">Total</span>
-                <span className="text-right text-lg font-bold text-(--primary-plum)">{formatPrice(totalPrice == null ? null : totalPrice[0] === totalPrice[1] ? totalPrice[0] : `${totalPrice[0]}-${totalPrice[1]}`, selectedService.currency)}</span>
+                <span className="text-base font-semibold text-gray-900">Total</span>
+                <span className="text-right text-xl font-bold text-(--primary-plum)">{formatPrice(totalPrice == null ? null : totalPrice[0] === totalPrice[1] ? totalPrice[0] : `${totalPrice[0]}-${totalPrice[1]}`, selectedService.currency)}</span>
               </div>
               {(selectedUpgrades.length + selectedPackages.length) > 0 && <p className="mt-1.5 text-xs text-gray-500">Includes {selectedUpgrades.length} sub-service{selectedUpgrades.length === 1 ? '' : 's'} and {selectedPackages.length} package{selectedPackages.length === 1 ? '' : 's'}.</p>}
               {totalPrice == null && <p className="mt-1.5 text-xs text-gray-500">The clinic will confirm the final price.</p>}
             </div>
+
+            {step === 4 && (
+              <div className="hidden lg:block">
+                <Button type="submit" form="booking-patient-details" disabled={loading} className="w-full">
+                  Confirm Booking
+                </Button>
+              </div>
+            )}
+
+            {step === 3 && <div className="hidden lg:block">
+              <Button
+                type="button"
+                onClick={() => setStep(4)}
+                disabled={!selectedDate || !selectedSlot}
+                className="w-full"
+              >
+                Continue to Details
+              </Button>
+              {!selectedDate || !selectedSlot ? (
+                <p className="mt-2 text-center text-xs text-gray-500">Choose a date and time to continue.</p>
+              ) : null}
+            </div>}
           </div>
         </aside>
       )}

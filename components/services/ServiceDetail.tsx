@@ -10,8 +10,6 @@ interface Service {
   category_id: number;
   name: string;
   description: string | null;
-  duration_minutes: number | null;
-  price: string | number | null;
   currency: string;
 }
 
@@ -73,10 +71,6 @@ export default function ServiceDetail({ categorySlug, slug }: { categorySlug: st
             <p className="mt-8 text-xs font-semibold uppercase tracking-widest text-[#8b1d72]">{categoryName}</p>
             <h1 className="mt-4 font-primary text-4xl text-slate-900">{service.name}</h1>
             {service.description && <p className="mt-6 whitespace-pre-line leading-8 text-slate-600">{service.description}</p>}
-            <div className="mt-6 flex flex-wrap gap-6 text-slate-700">
-              {service.duration_minutes != null && <span>{service.duration_minutes} minutes</span>}
-              {service.price != null && <span>{service.currency} {service.price}</span>}
-            </div>
             {subServices.length > 0 && (
               <div className="mt-10">
                 <h2 className="font-primary text-2xl text-slate-900">Available options</h2>

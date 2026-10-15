@@ -212,7 +212,7 @@ export default function AiHelpButton() {
     setFlowState("booking_staff");
     addMsg({
       sender: "bot",
-      text: `You chose **${service.name}** (${money(service.price, service.currency)} · ${dur(service.duration_minutes)}). Now select a specialist:`,
+      text: `You chose **${service.name}**. Now select a specialist:`,
       component: (
         <div className="grid gap-2 mt-2 max-h-48 overflow-y-auto no-scrollbar">
           <button type="button" onClick={() => pickStaff(null, "Any Available Specialist")}

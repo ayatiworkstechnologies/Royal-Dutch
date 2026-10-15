@@ -23,8 +23,6 @@ interface Service {
   name: string;
   slug: string;
   description: string | null;
-  duration_minutes: number | null;
-  price: number | null;
   currency: string;
   status: string;
 }
@@ -78,8 +76,6 @@ export default function AdminServicesPage() {
     name: '',
     slug: '',
     description: '',
-    duration_minutes: '',
-    price: '',
     currency: 'AED',
     status: 'active'
   });
@@ -112,8 +108,6 @@ export default function AdminServicesPage() {
         name: service.name,
         slug: service.slug,
         description: service.description || '',
-        duration_minutes: service.duration_minutes?.toString() || '',
-        price: service.price?.toString() || '',
         currency: service.currency || 'AED',
         status: service.status
       });
@@ -124,8 +118,6 @@ export default function AdminServicesPage() {
         name: '', 
         slug: '', 
         description: '', 
-        duration_minutes: '', 
-        price: '', 
         currency: 'AED', 
         status: 'active' 
       });
@@ -148,8 +140,6 @@ export default function AdminServicesPage() {
       const payload = {
         ...formData,
         category_id: parseInt(formData.category_id, 10),
-        duration_minutes: formData.duration_minutes ? parseInt(formData.duration_minutes, 10) : null,
-        price: formData.price ? parseFloat(formData.price) : null,
       };
 
       if (editingService) {
@@ -313,19 +303,18 @@ export default function AdminServicesPage() {
               <tr>
                 <th className="w-[31%] px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Service</th>
                 <th className="w-[25%] px-5 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Category</th>
-                <th className="w-[17%] px-5 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Details</th>
-                <th className="w-[14%] px-5 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Status</th>
-                <th className="w-[13%] px-6 py-4 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider">Actions</th>
+                <th className="w-[20%] px-5 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Status</th>
+                <th className="w-[24%] px-6 py-4 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="bg-white/20 divide-y divide-slate-100/60">
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">Loading services...</td>
+                  <td colSpan={4} className="px-6 py-12 text-center text-slate-500">Loading services...</td>
                 </tr>
               ) : filteredServices.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">No services found</td>
+                  <td colSpan={4} className="px-6 py-12 text-center text-slate-500">No services found</td>
                 </tr>
               ) : (
                 paginatedServices.map((service) => (
@@ -346,10 +335,6 @@ export default function AdminServicesPage() {
                         <span className="rounded-md bg-slate-100 px-2 py-1 text-xs font-mono text-slate-500">#{categoryNumbers.get(service.category_id) ?? '-'}</span>
                         <span className="line-clamp-2 text-sm text-slate-600">{service.category_name || categories.find(category => category.id === service.category_id)?.name || '-'}</span>
                       </div>
-                    </td>
-                    <td className="px-5 py-5">
-                      <div className="text-sm font-medium text-slate-700">{service.duration_minutes ? `${service.duration_minutes} mins` : 'No duration'}</div>
-                      <div className="mt-1 text-xs text-slate-500">{service.price != null ? `${service.currency} ${Number(service.price).toFixed(2)}` : 'No price'}</div>
                     </td>
                     <td className="px-5 py-5 whitespace-nowrap">
                       <StatusToggle
@@ -419,24 +404,6 @@ export default function AdminServicesPage() {
               ))}
             </select>
             {activeCategories.length === 0 && <p className="mt-1 text-xs text-red-600">Create or activate a category before adding a service.</p>}
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <Input
-              id="duration"
-              type="number"
-              label="Duration (minutes)"
-              value={formData.duration_minutes}
-              onChange={(e) => setFormData({ ...formData, duration_minutes: e.target.value })}
-            />
-            <Input
-              id="price"
-              type="number"
-              step="0.01"
-              label={`Price (${formData.currency})`}
-              value={formData.price}
-              onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-            />
           </div>
 
           <div>

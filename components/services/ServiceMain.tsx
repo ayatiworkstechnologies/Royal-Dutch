@@ -756,69 +756,6 @@ export default function ServiceMain({
                             )}
                           </div>
 
-                          {/* PRICE */}
-
-                          <div className="mt-[18px]">
-                            <div className="flex items-baseline gap-[6px]">
-                              <span
-                                className="
-                                  shrink-0
-                                  font-secondary
-                                  text-[14px]
-                                  font-semibold
-                                  leading-none
-                                  text-[#333333]
-                                "
-                              >
-                                {service.currency || currency}
-                              </span>
-
-                              <span
-                                className="
-                                  font-primary
-                                  text-[34px]
-                                  font-semibold
-                                  leading-none
-                                  tracking-[-0.04em]
-                                  text-[#111111]
-                                "
-                              >
-                                {service.price}
-                              </span>
-                            </div>
-
-                            <p
-                              className="
-                                mt-[5px]
-                                font-secondary
-                                text-[8px]
-                                font-normal
-                                tracking-[0.02em]
-                                text-[#A0A0A0]
-                              "
-                            >
-                              {service.priceLabel ||
-                                "Treatment price"}
-                            </p>
-                          </div>
-
-                          {/* DURATION */}
-
-                          {service.durationMinutes != null && (
-                            <div className="mt-[11px]">
-                              <p
-                                className="
-                                  font-secondary
-                                  text-[9px]
-                                  font-medium
-                                  text-[#666666]
-                                "
-                              >
-                                {service.durationMinutes} mins
-                              </p>
-                            </div>
-                          )}
-
                           {/* SUB SERVICE BOOK NOW */}
 
                           <ServiceBookingButton
