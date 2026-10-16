@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useBookingModal } from '@/context/BookingModalContext';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
@@ -176,33 +176,53 @@ export function BookingModal() {
     }
   };
 
-  const fetchMonthSlots = useCallback(async (serviceId: string) => {
-    if (!serviceId) return;
-    setSlotsLoading(true);
-    setSlotsError(false);
-    setWeekSlots(null);
-    try {
-      const startIso = format(new Date(), 'yyyy-MM-dd');
-      const res = await api.get(`/api/bookings/slots/week?service_id=${serviceId}&start_date=${startIso}&days=${APPOINTMENT_WINDOW_DAYS}`);
-      setWeekSlots(res.data && typeof res.data === 'object' ? res.data : {});
-    } catch (err) {
-      console.error('Failed to load slots', err);
-      setSlotsError(true);
-      setWeekSlots({});
-    } finally {
-      setSlotsLoading(false);
-    }
-  }, []);
-
   // Start fetching as soon as a service is selected (step 2 → 3 will be instant)
   useEffect(() => {
-    if (selectedServiceId) {
-      fetchMonthSlots(selectedServiceId);
-    } else {
-      setWeekSlots(null);
-      setSlotsError(false);
+    if (!selectedServiceId) {
+      const resetTimer = window.setTimeout(() => {
+        setWeekSlots(null);
+        setSlotsError(false);
+        setSlotsLoading(false);
+      }, 0);
+      return () => window.clearTimeout(resetTimer);
     }
-  }, [selectedServiceId, fetchMonthSlots]);
+
+    const controller = new AbortController();
+    const fetchMonthSlots = async () => {
+      try {
+        const startIso = format(new Date(), 'yyyy-MM-dd');
+        const res = await api.get(
+          `/api/bookings/slots/week?service_id=${selectedServiceId}&start_date=${startIso}&days=${APPOINTMENT_WINDOW_DAYS}`,
+          { signal: controller.signal },
+        );
+        if (!controller.signal.aborted) {
+          setWeekSlots(res.data && typeof res.data === 'object' ? res.data : {});
+        }
+      } catch (err) {
+        if (!controller.signal.aborted) {
+          console.error('Failed to load slots', err);
+          setSlotsError(true);
+          setWeekSlots({});
+        }
+      } finally {
+        if (!controller.signal.aborted) setSlotsLoading(false);
+      }
+    };
+
+    const startTimer = window.setTimeout(() => {
+      if (!controller.signal.aborted) {
+        setSlotsLoading(true);
+        setSlotsError(false);
+        setWeekSlots(null);
+        void fetchMonthSlots();
+      }
+    }, 0);
+
+    return () => {
+      controller.abort();
+      window.clearTimeout(startTimer);
+    };
+  }, [selectedServiceId]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
