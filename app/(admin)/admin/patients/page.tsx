@@ -101,10 +101,12 @@ export default function AdminPatientsPage() {
   const handleDelete = async (id: number) => {
     if (!(await confirmDialog({ title: 'Delete Patient', message: 'This will permanently remove the patient record.', danger: true, confirmLabel: 'Delete' }))) return;
     try {
-      await api.delete(`/api/patients/${id}`);
-      fetchPatients();
-    } catch (error) {
+      const response = await api.delete(`/api/patients/${id}`);
+      setPatients(current => current.filter(patient => patient.id !== id));
+      toastSuccess('Patient archived', response.data.message);
+    } catch (error: any) {
       console.error('Failed to delete patient', error);
+      toastError('Unable to delete patient', error.response?.data?.detail || 'Please try again.');
     }
   };
 

@@ -45,8 +45,7 @@ export default function AdminCategoriesPage() {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      // Admins need both statuses so an inactive category can be reactivated.
-      const response = await api.get('/api/categories?include_inactive=true');
+      const response = await api.get('/api/categories');
       setCategories(sortCatalog<Category>(response.data));
     } catch (error) {
       console.error('Failed to fetch categories', error);

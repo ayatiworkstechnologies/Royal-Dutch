@@ -1,6 +1,7 @@
 "use client";
 
 import BlogSection from "@/components/Homepage/BlogSection";
+import PackageOffersCarousel from "@/components/Homepage/PackageOffersCarousel";
 import ResultsSection from "@/components/Homepage/ResultsSection";
 import ServiceLegacySection from "@/components/Homepage/ServiceLegacySection";
 import TestimonialSection from "@/components/Homepage/TestimonialSection";
@@ -62,6 +63,9 @@ export default function Home() {
 
       {/* Service Section */}
       <ServiceLegacySection />
+
+      {/* Pacakge offer section */}
+      <PackageOffersCarousel />
 
       {/* Result Section */}
       <ResultsSection />

@@ -83,8 +83,8 @@ export default function AdminServicesPage() {
     setLoading(true);
     try {
       const [servicesRes, categoriesRes] = await Promise.all([
-        api.get('/api/services?include_inactive=true'),
-        api.get('/api/categories?include_inactive=true')
+        api.get('/api/services'),
+        api.get('/api/categories')
       ]);
       setServices(sortCatalog<Service>(servicesRes.data));
       setCategories(sortCatalog<Category>(categoriesRes.data));
