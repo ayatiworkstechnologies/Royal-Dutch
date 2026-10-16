@@ -34,11 +34,19 @@ interface ServicePackage {
   currency: string;
 }
 
+interface OfferPackage {
+  id: number;
+  title: string;
+  original_price: number;
+  offer_price: number;
+  currency: string;
+}
+
 const APPOINTMENT_WINDOW_DAYS = 31;
 const DATE_PAGE_SIZE = 4;
 
 export function BookingModal() {
-  const { isOpen, closeModal, initialCategoryId, initialServiceId, initialSubServiceId } = useBookingModal();
+  const { isOpen, closeModal, initialCategoryId, initialServiceId, initialSubServiceId, initialOfferPackageId } = useBookingModal();
   const { user } = useAuth();
 
   const directBooking = initialCategoryId != null && Boolean(initialServiceId);
@@ -67,6 +75,7 @@ export function BookingModal() {
   const [upgradesRetry, setUpgradesRetry] = useState(0);
   const [packages, setPackages] = useState<ServicePackage[]>([]);
   const [packagesLoading, setPackagesLoading] = useState(false);
+  const [offerPackage, setOfferPackage] = useState<OfferPackage | null>(null);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedSlot, setSelectedSlot] = useState('');
   const [datePageStart, setDatePageStart] = useState(0);
@@ -91,6 +100,7 @@ export function BookingModal() {
       setSelectedServiceId('');
       setSelectedDate('');
       setSelectedSlot('');
+      setOfferPackage(null);
       setDatePageStart(0);
       setWeekSlots(null);
       setSlotsError(false);
@@ -106,8 +116,13 @@ export function BookingModal() {
       }
       
       fetchCategories();
+      if (initialOfferPackageId != null) {
+        api.get<OfferPackage>(`/api/offer-packages/${initialOfferPackageId}`)
+          .then(response => setOfferPackage(response.data))
+          .catch(() => setError('This offer package is no longer available.'));
+      }
     }
-  }, [isOpen, initialCategoryId, initialServiceId, initialSubServiceId, directBooking, user]);
+  }, [isOpen, initialCategoryId, initialServiceId, initialSubServiceId, initialOfferPackageId, directBooking, user]);
 
   const fetchCategories = async () => {
     try {
@@ -197,6 +212,7 @@ export function BookingModal() {
     try {
       const payload = {
         service_id: Number(selectedServiceId),
+        offer_package_id: initialOfferPackageId ?? null,
         sub_service_ids: selectedSubServiceIds,
         package_ids: selectedPackageIds,
         booking_date: selectedDate,
@@ -236,6 +252,7 @@ export function BookingModal() {
     ? null
     : [...selectedUpgrades.map(item => item.price as number | string), ...selectedPackages.map(item => item.price as number | string)];
   const totalPrice = (() => {
+    if (offerPackage) return [offerPackage.offer_price, offerPackage.offer_price] as const;
     if (!selectedPrices) return null;
     let minimum = 0;
     let maximum = 0;
@@ -714,7 +731,13 @@ export function BookingModal() {
           </div>
 
           <div className="space-y-5 p-6">
-            {step === 3 ? <fieldset>
+            {offerPackage ? (
+              <div className="rounded-xl border border-(--primary-gold)/40 bg-(--primary-gold)/[0.08] px-4 py-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Offer package</p>
+                <p className="mt-1 font-semibold text-gray-900">{offerPackage.title}</p>
+                <p className="mt-1 text-sm"><span className="text-gray-400 line-through">{formatPrice(offerPackage.original_price, offerPackage.currency)}</span><span className="ml-2 font-bold text-(--primary-plum)">{formatPrice(offerPackage.offer_price, offerPackage.currency)}</span></p>
+              </div>
+            ) : step === 3 ? <fieldset>
               <legend className="sr-only">{directSubServiceBooking ? 'Selected Treatment' : 'Booking upgrades'}</legend>
               {upgradesLoading && <p className="text-sm text-gray-500" role="status">Loading upgrades...</p>}
               {upgradesError && <p className="text-sm text-red-700" role="alert">Unable to load upgrades. <button type="button" className="underline" onClick={() => setUpgradesRetry(value => value + 1)}>Retry</button></p>}
@@ -781,7 +804,7 @@ export function BookingModal() {
               </div>
             </dl>
 
-            {step === 3 && <div aria-live="polite" className="rounded-xl border border-[#eadfe8] bg-white px-4 py-3.5">
+            {step === 3 && !offerPackage && <div aria-live="polite" className="rounded-xl border border-[#eadfe8] bg-white px-4 py-3.5">
               <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Selected treatments</p>
               {selectedExtras.length > 0 ? (
                 <div className="mt-2 space-y-1.5">
@@ -802,7 +825,7 @@ export function BookingModal() {
                 <span className="text-base font-semibold text-gray-900">Total</span>
                 <span className="text-right text-xl font-bold text-(--primary-plum)">{formatPrice(totalPrice == null ? null : totalPrice[0] === totalPrice[1] ? totalPrice[0] : `${totalPrice[0]}-${totalPrice[1]}`, selectedService.currency)}</span>
               </div>
-              {(selectedUpgrades.length + selectedPackages.length) > 0 && <p className="mt-1.5 text-xs text-gray-500">Includes {selectedUpgrades.length} sub-service{selectedUpgrades.length === 1 ? '' : 's'} and {selectedPackages.length} package{selectedPackages.length === 1 ? '' : 's'}.</p>}
+              {!offerPackage && (selectedUpgrades.length + selectedPackages.length) > 0 && <p className="mt-1.5 text-xs text-gray-500">Includes {selectedUpgrades.length} sub-service{selectedUpgrades.length === 1 ? '' : 's'} and {selectedPackages.length} package{selectedPackages.length === 1 ? '' : 's'}.</p>}
               {totalPrice == null && <p className="mt-1.5 text-xs text-gray-500">The clinic will confirm the final price.</p>}
             </div>
 

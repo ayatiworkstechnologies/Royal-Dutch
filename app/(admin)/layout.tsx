@@ -31,6 +31,7 @@ import {
   ClipboardList,
   CalendarDays,
   BookUser,
+  BadgePercent,
 } from 'lucide-react';
 
 // ─── Nav definitions ─────────────────────────────────────────────────────────
@@ -45,6 +46,7 @@ const ALL_NAV: NavItem[] = [
   { name: 'Services',        href: '/admin/services',        icon: Stethoscope },
   { name: 'Sub Services',    href: '/admin/sub-services',    icon: ListTree },
   { name: 'Packages',        href: '/admin/packages',        icon: Package },
+  { name: 'Offer Packages',  href: '/admin/offer-packages',  icon: BadgePercent },
   { name: 'Staff',           href: '/admin/staff',           icon: UserSquare2 },
   { name: 'Billing',         href: '/admin/billing',         icon: Receipt },
   { name: 'Payments',        href: '/admin/payments',        icon: CreditCard },

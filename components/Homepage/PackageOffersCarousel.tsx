@@ -2,6 +2,8 @@
 "use client";
 
 import Link from "next/link";
+import api from "@/lib/api";
+import { useBookingModal } from "@/context/BookingModalContext";
 import {
   useCallback,
   useEffect,
@@ -18,14 +20,28 @@ type PackageOffer = {
   image: string;
   originalPrice: number;
   offerPrice: number;
-  bookingHref: string;
+  bookingHref?: string;
+  categoryId?: number;
+  serviceId?: number;
+  offerPackageId?: number;
+};
+
+type ApiOfferPackage = {
+  id: number;
+  title: string;
+  description: string | null;
+  image_url: string;
+  original_price: number | string;
+  offer_price: number | string;
+  category_id: number;
+  service_id: number;
 };
 
 // ============================================
 // PACKAGE DATA
 // ============================================
 
-const packages: PackageOffer[] = [
+const fallbackPackages: PackageOffer[] = [
   {
     id: 1,
     title: "Executive Health Checkup",
@@ -71,13 +87,6 @@ const packages: PackageOffer[] = [
 const SLIDE_INTERVAL = 3000;
 const SLIDE_DURATION = 850;
 
-// Cloned slides make the carousel loop smoothly.
-const carouselSlides = [
-  packages[packages.length - 1],
-  ...packages,
-  packages[0],
-];
-
 function formatPrice(value: number) {
   return value.toLocaleString("en-AE");
 }
@@ -115,6 +124,8 @@ function ArrowIcon({
 // ============================================
 
 export default function PackageOffersCarousel() {
+  const { openModal } = useBookingModal();
+  const [packages, setPackages] = useState<PackageOffer[]>(fallbackPackages);
   // Position 1 is the first real slide.
   const [slidePosition, setSlidePosition] = useState(1);
 
@@ -132,6 +143,33 @@ export default function PackageOffersCarousel() {
 
   const touchStartX = useRef<number | null>(null);
   const isSlidingRef = useRef(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    api.get<ApiOfferPackage[]>('/api/offer-packages')
+      .then(response => {
+        if (cancelled || !Array.isArray(response.data) || response.data.length === 0) return;
+        setPackages(response.data.map((item: ApiOfferPackage) => ({
+          id: item.id,
+          title: item.title,
+          description: item.description || '',
+          image: item.image_url,
+          originalPrice: Number(item.original_price),
+          offerPrice: Number(item.offer_price),
+          categoryId: item.category_id,
+          serviceId: item.service_id,
+          offerPackageId: item.id,
+        })));
+        setSlidePosition(1);
+      })
+      .catch(() => {
+        // Keep the existing built-in offers if the API is temporarily unavailable.
+      });
+    return () => { cancelled = true; };
+  }, []);
+
+  // Cloned slides make the carousel loop smoothly.
+  const carouselSlides = [packages[packages.length - 1], ...packages, packages[0]];
 
   // ============================================
   // ACCESSIBILITY: REDUCED MOTION
@@ -585,13 +623,10 @@ export default function PackageOffersCarousel() {
 
                           {/* BOOK NOW BUTTON */}
 
-                          <Link
-                            href={item.bookingHref}
-                            tabIndex={
-                              index === slidePosition
-                                ? 0
-                                : -1
-                            }
+                          {item.offerPackageId && item.categoryId && item.serviceId ? <button
+                            type="button"
+                            onClick={() => openModal(item.categoryId, String(item.serviceId), undefined, item.offerPackageId)}
+                            tabIndex={index === slidePosition ? 0 : -1}
                             className="
                               mt-5 flex min-h-[48px]
                               w-full items-center
@@ -611,7 +646,11 @@ export default function PackageOffersCarousel() {
                             "
                           >
                             Book Now
-                          </Link>
+                          </button> : <Link
+                            href={item.bookingHref || '/contact'}
+                            tabIndex={index === slidePosition ? 0 : -1}
+                            className="mt-5 flex min-h-[48px] w-full items-center justify-center rounded-full bg-[#872572] px-5 py-3 font-secondary text-[12px] font-semibold text-white transition-all duration-300 hover:bg-[#6c1c5b] hover:shadow-[0_8px_20px_rgba(135,37,114,0.2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#872572]"
+                          >Book Now</Link>}
                         </div>
                       </div>
                     </div>

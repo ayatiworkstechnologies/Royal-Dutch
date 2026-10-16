@@ -18,6 +18,7 @@ interface Booking {
     email: string;
   };
   service_name: string;
+  offer_package_title?: string | null;
   staff_name?: string;
   staff_id?: number;
   booking_date: string;
@@ -277,7 +278,7 @@ export default function AdminBookingsPage() {
                         {(currentPage - 1) * itemsPerPage + index + 1}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-slate-800">{booking.patient?.full_name || 'Unknown'}</td>
-                      <td className="px-6 py-4 max-w-[220px] whitespace-normal break-words text-sm font-medium text-(--primary-plum) bg-(--primary-plum)/5 rounded-md">{booking.service_name}</td>
+                      <td className="px-6 py-4 max-w-[220px] whitespace-normal break-words text-sm font-medium text-(--primary-plum) bg-(--primary-plum)/5 rounded-md">{booking.offer_package_title && <span className="mb-1 block text-xs font-bold text-(--primary-gold-dark)">{booking.offer_package_title}</span>}{booking.service_name}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-secondary">
                         {booking.booking_date} <span className="mx-1 text-slate-300">•</span> <span className="font-medium text-slate-700">{booking.booking_time}</span>
                       </td>
@@ -425,6 +426,7 @@ export default function AdminBookingsPage() {
                     </div>
                     <div>
                       <p className="text-xs font-bold text-slate-400 uppercase tracking-widest font-secondary">Service</p>
+                      {viewModalBooking.offer_package_title && <p className="text-sm font-bold text-(--primary-gold-dark)">{viewModalBooking.offer_package_title}</p>}
                       <p className="text-sm font-semibold text-slate-900">{viewModalBooking.service_name}</p>
                     </div>
                   </div>

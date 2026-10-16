@@ -113,7 +113,7 @@ export default function ContactFormMapSection() {
 
                 <div>
                   <label className="mb-2 block font-primary text-[14px] font-semibold uppercase tracking-[1px] text-[#222] sm:text-[15px]">
-                    Email
+                    Email <span className="text-[#9a1b79]">*</span>
                   </label>
                   <input
                     type="email"
@@ -161,7 +161,7 @@ export default function ContactFormMapSection() {
                   whileHover={{ scale: submitting ? 1 : 1.04 }}
                   whileTap={{ scale: submitting ? 1 : 0.97 }}
                 >
-                  {submitting ? "Sending..." : "Know More"}
+                  {submitting ? "Sending..." : "Submit"}
                 </motion.button>
               </motion.form>
             )}
