@@ -12,6 +12,7 @@ export default function ContactFormMapSection() {
   const [form, setForm] = useState(EMPTY);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [emailStatus, setEmailStatus] = useState("");
   const [error, setError] = useState("");
 
   const f = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -19,21 +20,27 @@ export default function ContactFormMapSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.full_name.trim() || !form.phone.trim()) {
-      setError("Name and phone number are required.");
+    if (!form.full_name.trim() || !form.email.trim() || !form.phone.trim()) {
+      setError("Name, email, and phone number are required.");
       return;
     }
     setSubmitting(true);
     setError("");
     try {
-      await api.post("/api/contacts", {
+      const response = await api.post("/api/contacts", {
         full_name: form.full_name.trim(),
         phone:     form.phone.trim(),
-        email:     form.email.trim() || null,
+        email:     form.email.trim(),
         message:   form.message.trim() || null,
         source:    "website",
         status:    "new",
       });
+      const deliveryStatus = response.data?.customer_email_status;
+      setEmailStatus(
+        deliveryStatus === "sent"
+          ? "A confirmation email has been sent to your email address."
+          : "Your enquiry was saved, but the confirmation email could not be sent."
+      );
       setSuccess(true);
       setForm(EMPTY);
     } catch {
@@ -81,6 +88,11 @@ export default function ContactFormMapSection() {
                 <p className="mt-1 font-secondary text-[13px] tracking-[0.8px] text-[#4a7a44]">
                   We have received your message and will be in touch shortly.
                 </p>
+                {emailStatus && (
+                  <p className="mt-2 font-secondary text-[12px] tracking-[0.6px] text-[#4a7a44]">
+                    {emailStatus}
+                  </p>
+                )}
                 <button
                   type="button"
                   onClick={() => setSuccess(false)}
@@ -104,6 +116,7 @@ export default function ContactFormMapSection() {
                   </label>
                   <input
                     type="text"
+                    required
                     value={form.full_name}
                     onChange={f("full_name")}
                     placeholder="Enter Your Name"
@@ -117,6 +130,7 @@ export default function ContactFormMapSection() {
                   </label>
                   <input
                     type="email"
+                    required
                     value={form.email}
                     onChange={f("email")}
                     placeholder="Enter Your Email"
@@ -130,6 +144,7 @@ export default function ContactFormMapSection() {
                   </label>
                   <input
                     type="tel"
+                    required
                     value={form.phone}
                     onChange={f("phone")}
                     placeholder="Enter Your Phone Number"
