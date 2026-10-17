@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { User as UserIcon } from "lucide-react";
+import { ArrowRight, LayoutDashboard, LogOut, User as UserIcon } from "lucide-react";
 
 import { useBookingModal } from "@/context/BookingModalContext";
 import { useAuth } from "@/hooks/useAuth";
@@ -903,8 +903,9 @@ function UserDropdown({
             right-0
             top-[calc(100%+8px)]
             z-[99999]
-            min-w-[200px]
-            rounded-[12px]
+            min-w-[300px]
+            overflow-hidden
+            rounded-[20px]
             border
             border-gray-100
             bg-white
@@ -914,23 +915,19 @@ function UserDropdown({
         >
           {user ? (
             <>
-              <div
-                className="
-                  mb-1
-                  border-b
-                  border-gray-100
-                  px-3
-                  py-2
-                  pb-3
-                  font-secondary
-                  text-[14px]
-                  font-bold
-                  text-gray-800
-                "
-              >
-                {user.full_name ||
-                  user.first_name ||
-                  "User"}
+              <div className="m-2 flex items-center gap-3 rounded-2xl bg-slate-50 px-4 py-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-(--primary-plum) text-lg font-bold text-white">
+                  {(user.full_name || user.first_name || "U")[0].toUpperCase()}
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate font-secondary text-[16px] font-bold text-slate-900">
+                    {user.full_name || user.first_name || "User"}
+                  </p>
+                  <p className="truncate font-secondary text-[13px] text-slate-500">{user.email}</p>
+                  <span className="mt-2 inline-flex rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-bold capitalize text-emerald-700 ring-1 ring-emerald-200">
+                    {user.role.replace("_", " ")}
+                  </span>
+                </div>
               </div>
 
               <Link
@@ -943,20 +940,19 @@ function UserDropdown({
                   setOpen(false)
                 }
                 className="
-                  block
-                  rounded-[8px]
-                  px-3
-                  py-2
+                  mx-2 my-1 flex items-center gap-3 rounded-xl px-3 py-3
                   font-secondary
                   text-[14px]
                   font-medium
-                  text-gray-600
+                  text-slate-700
                   transition-colors
                   hover:bg-gray-50
                   hover:text-[#8b1d72]
                 "
               >
-                Dashboard
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-50 text-indigo-500"><LayoutDashboard className="h-5 w-5" /></span>
+                <span className="flex-1">{user.role === "customer" ? "Patient Dashboard" : "Admin Dashboard"}</span>
+                <ArrowRight className="h-4 w-4 text-slate-300" />
               </Link>
 
               <button
@@ -966,11 +962,8 @@ function UserDropdown({
                   logout();
                 }}
                 className="
-                  mt-1
-                  w-full
-                  rounded-[8px]
-                  px-3
-                  py-2
+                  mx-2 mb-2 mt-1 flex w-[calc(100%-1rem)] items-center gap-3
+                  rounded-xl px-3 py-3
                   text-left
                   font-secondary
                   text-[14px]
@@ -980,7 +973,8 @@ function UserDropdown({
                   hover:bg-red-50
                 "
               >
-                Logout
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-rose-50 text-rose-500"><LogOut className="h-5 w-5" /></span>
+                Sign Out
               </button>
             </>
           ) : (

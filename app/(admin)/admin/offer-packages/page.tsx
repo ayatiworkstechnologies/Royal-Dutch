@@ -135,9 +135,9 @@ export default function AdminOfferPackagesPage() {
   const remove = async (item: OfferPackage) => {
     if (!(await confirm({ title: 'Delete Offer Package', message: `Remove ${item.title} from the website? Existing bookings will be preserved.`, danger: true, confirmLabel: 'Delete' }))) return;
     try {
-      await api.delete(`/api/admin/offer-packages/${item.id}`);
+      const response = await api.delete<{ message?: string }>(`/api/admin/offer-packages/${item.id}`);
       setOffers(current => current.filter(row => row.id !== item.id));
-      success('Offer package deleted', `${item.title} was removed from the carousel.`);
+      success(response.data.message === 'Offer package deleted' ? 'Offer package deleted' : 'Offer package archived', `${item.title} was removed from the website.`);
     } catch (err) { showError('Unable to delete offer package', apiErrorMessage(err, 'Please try again.')); }
   };
 

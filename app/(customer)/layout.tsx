@@ -11,6 +11,7 @@ import {
   UserCircle,
   LogOut,
   Menu,
+  House,
 } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -136,6 +137,14 @@ export default function CustomerLayout({ children }: { children: React.ReactNode
           </button>
 
           <div className="flex items-center gap-3 ml-auto">
+            <Link
+              href="/"
+              className="hidden sm:flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-1.5 text-sm font-semibold text-slate-600 transition-colors hover:border-(--primary-plum)/30 hover:bg-(--primary-plum)/5 hover:text-(--primary-plum)"
+              title="Return to website home"
+            >
+              <House className="h-4 w-4" />
+              Website Home
+            </Link>
             <div className="hidden sm:block text-right">
               <p className="text-sm font-semibold text-slate-900 leading-tight">
                 {user?.full_name || user?.first_name || 'Patient'}

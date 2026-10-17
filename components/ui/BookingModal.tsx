@@ -37,9 +37,12 @@ interface ServicePackage {
 interface OfferPackage {
   id: number;
   title: string;
+  description?: string | null;
   original_price: number;
   offer_price: number;
   currency: string;
+  service_id: number;
+  service_name?: string | null;
 }
 
 const APPOINTMENT_WINDOW_DAYS = 31;
@@ -76,6 +79,9 @@ export function BookingModal() {
   const [packages, setPackages] = useState<ServicePackage[]>([]);
   const [packagesLoading, setPackagesLoading] = useState(false);
   const [offerPackage, setOfferPackage] = useState<OfferPackage | null>(null);
+  const [availableOfferPackages, setAvailableOfferPackages] = useState<OfferPackage[]>([]);
+  const [offerPackagesLoading, setOfferPackagesLoading] = useState(false);
+  const [offerPackagesError, setOfferPackagesError] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedSlot, setSelectedSlot] = useState('');
   const [datePageStart, setDatePageStart] = useState(0);
@@ -101,6 +107,8 @@ export function BookingModal() {
       setSelectedDate('');
       setSelectedSlot('');
       setOfferPackage(null);
+      setAvailableOfferPackages([]);
+      setOfferPackagesError(false);
       setDatePageStart(0);
       setWeekSlots(null);
       setSlotsError(false);
@@ -224,6 +232,32 @@ export function BookingModal() {
     };
   }, [selectedServiceId]);
 
+  // Offer packages are standalone booking products (rather than sub-service
+  // upgrades).  Load the offers belonging to the selected service so a normal
+  // "Book Now" journey can choose one too.
+  useEffect(() => {
+    let cancelled = false;
+    setAvailableOfferPackages([]);
+    setOfferPackagesError(false);
+
+    if (!isOpen || !selectedServiceId) {
+      setOfferPackagesLoading(false);
+      return () => { cancelled = true; };
+    }
+
+    setOfferPackagesLoading(true);
+    api.get<OfferPackage[]>('/api/offer-packages')
+      .then(response => {
+        if (!cancelled) {
+          setAvailableOfferPackages(response.data.filter(item => item.service_id === Number(selectedServiceId)));
+        }
+      })
+      .catch(() => { if (!cancelled) setOfferPackagesError(true); })
+      .finally(() => { if (!cancelled) setOfferPackagesLoading(false); });
+
+    return () => { cancelled = true; };
+  }, [isOpen, selectedServiceId]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -232,7 +266,7 @@ export function BookingModal() {
     try {
       const payload = {
         service_id: Number(selectedServiceId),
-        offer_package_id: initialOfferPackageId ?? null,
+        offer_package_id: offerPackage?.id ?? null,
         sub_service_ids: selectedSubServiceIds,
         package_ids: selectedPackageIds,
         booking_date: selectedDate,
@@ -449,7 +483,7 @@ export function BookingModal() {
               {services.map(s => (
                 <button
                   key={s.id}
-                  onClick={() => { setSelectedServiceId(String(s.id)); setStep(3); }}
+                  onClick={() => { setOfferPackage(null); setSelectedServiceId(String(s.id)); setStep(3); }}
                   className="group flex items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-white p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-(--primary-plum)/40 hover:shadow-md hover:shadow-(--primary-plum)/10"
                 >
                   <div className="min-w-0">
@@ -473,11 +507,47 @@ export function BookingModal() {
               </button>
             )}
             <div className="flex-1">
-              <p className="text-xs font-semibold uppercase tracking-wider text-(--primary-gold-dark)">{services.find(s => String(s.id) === selectedServiceId)?.name}</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-(--primary-gold-dark)">{offerPackage ? 'Package Offer' : services.find(s => String(s.id) === selectedServiceId)?.name}</p>
               <h3 className="text-xl font-semibold text-gray-900 font-cinzel">Select Date & Time</h3>
             </div>
             {slotsLoading && <RefreshCw className="w-4 h-4 animate-spin text-(--primary-plum)/50" />}
           </div>
+
+          {!offerPackage && (offerPackagesLoading || offerPackagesError || availableOfferPackages.length > 0) && (
+            <section aria-labelledby="offer-package-heading" className="rounded-2xl border border-[#eadfe8] bg-[#fcf9fc] p-4 sm:p-5">
+              <div className="mb-3">
+                <p className="text-xs font-semibold uppercase tracking-wider text-(--primary-gold-dark)">Package offers</p>
+                <h4 id="offer-package-heading" className="mt-1 font-semibold text-gray-900">Choose your package</h4>
+              </div>
+              {offerPackagesLoading && <p className="text-sm text-gray-500">Loading package offers...</p>}
+              {offerPackagesError && <p className="text-sm text-red-700">Unable to load package offers. Please try again.</p>}
+              {!offerPackagesLoading && !offerPackagesError && availableOfferPackages.length > 0 && (
+                <div className="space-y-3">
+                  {availableOfferPackages.map(item => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setOfferPackage(item)}
+                      className="group relative w-full overflow-hidden rounded-xl border border-[#eadfe8] bg-white p-4 text-left transition-all hover:-translate-y-0.5 hover:border-(--primary-plum) hover:shadow-md hover:shadow-(--primary-plum)/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary-plum)"
+                    >
+                      <span className="absolute inset-y-0 left-0 w-1 bg-(--primary-gold) opacity-0 transition-opacity group-hover:opacity-100" />
+                      <span className="flex items-start justify-between gap-3">
+                        <span className="min-w-0">
+                          <span className="block font-semibold leading-snug text-gray-900 group-hover:text-(--primary-plum)">{item.title}</span>
+                          {item.description && <span className="mt-1.5 block text-xs leading-relaxed text-gray-500">{item.description}</span>}
+                        </span>
+                        <span className="shrink-0 text-right">
+                          <span className="block text-xs text-gray-400 line-through">{formatPrice(item.original_price, item.currency)}</span>
+                          <span className="mt-1 block text-base font-bold text-(--primary-plum)">{formatPrice(item.offer_price, item.currency)}</span>
+                          <span className="mt-1 inline-flex rounded-full bg-(--primary-gold)/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-(--primary-gold-dark)">Select</span>
+                        </span>
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
 
           {/* Four-date availability navigator */}
           <div>
@@ -747,7 +817,7 @@ export function BookingModal() {
               Booking Summary
             </div>
             {step !== 4 && <p className="mt-4 text-[11px] font-medium uppercase tracking-wider text-white/55">{selectedCategory?.name}</p>}
-            <p className={`mt-1 text-xl font-semibold leading-tight font-cinzel ${step === 4 ? 'text-gray-900' : 'text-white'}`}>{selectedService.name}</p>
+            <p className={`mt-1 text-xl font-semibold leading-tight font-cinzel ${step === 4 ? 'text-gray-900' : 'text-white'}`}>{offerPackage?.title || selectedService.name}</p>
           </div>
 
           <div className="space-y-5 p-6">
@@ -756,6 +826,11 @@ export function BookingModal() {
                 <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Offer package</p>
                 <p className="mt-1 font-semibold text-gray-900">{offerPackage.title}</p>
                 <p className="mt-1 text-sm"><span className="text-gray-400 line-through">{formatPrice(offerPackage.original_price, offerPackage.currency)}</span><span className="ml-2 font-bold text-(--primary-plum)">{formatPrice(offerPackage.offer_price, offerPackage.currency)}</span></p>
+              </div>
+            ) : step === 3 && availableOfferPackages.length > 0 ? (
+              <div className="rounded-xl border border-(--primary-gold)/35 bg-(--primary-gold)/[0.08] px-4 py-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Package offer</p>
+                <p className="mt-1 text-sm text-gray-700">Choose an offer from the list to see its booking total.</p>
               </div>
             ) : step === 3 ? <fieldset>
               <legend className="sr-only">{directSubServiceBooking ? 'Selected Treatment' : 'Booking upgrades'}</legend>
@@ -824,7 +899,7 @@ export function BookingModal() {
               </div>
             </dl>
 
-            {step === 3 && !offerPackage && <div aria-live="polite" className="rounded-xl border border-[#eadfe8] bg-white px-4 py-3.5">
+            {step === 3 && !offerPackage && availableOfferPackages.length === 0 && <div aria-live="polite" className="rounded-xl border border-[#eadfe8] bg-white px-4 py-3.5">
               <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Selected treatments</p>
               {selectedExtras.length > 0 ? (
                 <div className="mt-2 space-y-1.5">
@@ -861,13 +936,13 @@ export function BookingModal() {
               <Button
                 type="button"
                 onClick={() => setStep(4)}
-                disabled={!selectedDate || !selectedSlot}
+                disabled={!selectedDate || !selectedSlot || (availableOfferPackages.length > 0 && !offerPackage)}
                 className="w-full"
               >
                 Continue to Details
               </Button>
-              {!selectedDate || !selectedSlot ? (
-                <p className="mt-2 text-center text-xs text-gray-500">Choose a date and time to continue.</p>
+              {!selectedDate || !selectedSlot || (availableOfferPackages.length > 0 && !offerPackage) ? (
+                <p className="mt-2 text-center text-xs text-gray-500">{availableOfferPackages.length > 0 && !offerPackage ? 'Choose a package offer, date, and time to continue.' : 'Choose a date and time to continue.'}</p>
               ) : null}
             </div>}
           </div>
@@ -880,7 +955,7 @@ export function BookingModal() {
           <Button
             type="button"
             onClick={() => setStep(4)}
-            disabled={!selectedDate || !selectedSlot}
+            disabled={!selectedDate || !selectedSlot || (availableOfferPackages.length > 0 && !offerPackage)}
             className="w-full sm:w-auto"
           >
             Continue to Details
