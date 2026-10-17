@@ -23,8 +23,20 @@ const api = {
       .then(r => r.data.reply as string),
 };
 
-const money  = (n: number, c = "AED") => new Intl.NumberFormat("en-AE", { style: "currency", currency: c }).format(n);
-const dur    = (m: number) => `${m} min`;
+const money = (value: unknown, currency = "AED") => {
+  const amount = typeof value === "number" ? value : Number(value);
+  if (!Number.isFinite(amount)) return null;
+
+  return new Intl.NumberFormat("en-AE", {
+    style: "currency",
+    currency: currency || "AED",
+  }).format(amount);
+};
+
+const dur = (value: unknown) => {
+  const minutes = typeof value === "number" ? value : Number(value);
+  return Number.isFinite(minutes) && minutes > 0 ? `${minutes} min` : null;
+};
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 type Msg = {
@@ -195,9 +207,9 @@ export default function AiHelpButton() {
               <div>
                 <p className="text-xs font-bold text-slate-800">{s.name}</p>
                 {s.description && <p className="text-[10px] text-slate-400 mt-0.5 line-clamp-2">{s.description}</p>}
-                <p className="text-[10px] text-slate-400 mt-0.5">{dur(s.duration_minutes)}</p>
+                {dur(s.duration_minutes) && <p className="text-[10px] text-slate-400 mt-0.5">{dur(s.duration_minutes)}</p>}
               </div>
-              <span className="text-xs font-bold text-fuchsia-950 ml-3 shrink-0">{money(s.price, s.currency)}</span>
+              {money(s.price, s.currency) && <span className="text-xs font-bold text-fuchsia-950 ml-3 shrink-0">{money(s.price, s.currency)}</span>}
             </button>
           ))}
         </div>
@@ -368,7 +380,7 @@ export default function AiHelpButton() {
             {finalData.patient.notes && <p>📝 <strong>Notes:</strong> {finalData.patient.notes}</p>}
           </div>
           <div className="flex items-center justify-between border-t pt-2 mt-1">
-            <span className="font-bold text-slate-800">{money(finalData.service?.price, finalData.service?.currency)}</span>
+            {money(finalData.service?.price, finalData.service?.currency) && <span className="font-bold text-slate-800">{money(finalData.service?.price, finalData.service?.currency)}</span>}
             <button type="button" onClick={submitBooking}
               className="bg-[#5b0f4d] hover:bg-[#38072e] text-white text-[10px] uppercase tracking-wider py-2 px-4 rounded-lg cursor-pointer transition-colors">
               Confirm Booking
@@ -499,9 +511,9 @@ export default function AiHelpButton() {
                   className="flex items-center justify-between p-3 rounded-xl border border-slate-100 bg-white hover:border-fuchsia-300 hover:bg-fuchsia-50/20 text-left transition-all cursor-pointer">
                   <div>
                     <p className="text-xs font-bold text-slate-800">{s.name}</p>
-                    <p className="text-[10px] text-slate-400 mt-0.5">{dur(s.duration_minutes)}</p>
+                    {dur(s.duration_minutes) && <p className="text-[10px] text-slate-400 mt-0.5">{dur(s.duration_minutes)}</p>}
                   </div>
-                  <span className="text-xs font-bold text-fuchsia-950">{money(s.price, s.currency)}</span>
+                  {money(s.price, s.currency) && <span className="text-xs font-bold text-fuchsia-950">{money(s.price, s.currency)}</span>}
                 </button>
               ))}
             </div>
