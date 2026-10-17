@@ -281,7 +281,6 @@ export default function AdminUsersPage() {
               <option value="receptionist">Receptionist (Booking + Billing)</option>
               <option value="doctor">Doctor</option>
               <option value="accountant">Accountant</option>
-              <option value="marketing">Marketing</option>
             </select>
           </div>
 
