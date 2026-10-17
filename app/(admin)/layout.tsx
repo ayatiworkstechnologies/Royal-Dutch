@@ -312,8 +312,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
 
           <div className="flex items-center space-x-4">
-            <NotificationBell />
-
             <Link
               href="/"
               className="hidden sm:flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:border-(--primary-plum)/30 hover:bg-(--primary-plum)/5 hover:text-(--primary-plum)"
